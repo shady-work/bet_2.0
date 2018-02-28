@@ -1,6 +1,7 @@
 'use strict'
 const path = require('path')
 const utils = require('./utils')
+var webpack = require("webpack") //这是我们添加的
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
@@ -10,7 +11,8 @@ function resolve (dir) {
 
 
 
-module.exports = {
+module.exports = 
+{
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -78,5 +80,12 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
-  }
+  },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('common.js'),
+    new webpack.ProvidePlugin({
+    jQuery: "jquery",
+    $: "jquery"
+    })  
+  ],
 }

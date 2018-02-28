@@ -104,3 +104,48 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+/* 常用的类名 */
+.clear
+{
+  clear:both;
+}
+.color-red
+{
+  color: #ff4c7a;
+}
+.color-white
+{
+  color:#f3f3f3;
+}
+.mt5
+{
+  margin-top: 5px;
+}
+.text-center
+{
+  text-align:center;
+}
+.text-left
+{
+  text-align:left;
+}
+.text-right
+{
+  text-align:right;
+}
+.pull-left
+{
+  float: left!important;
+}
+.pull-right
+{
+  float: right!important;
+}
+.mt0
+{
+  margin-left:0px!important;
+}
+a:hover{
+  text-decoration: none;
+}

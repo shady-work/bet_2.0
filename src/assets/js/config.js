@@ -1,7 +1,7 @@
 
 let data = 
 {
-    uri:"111111"
+    API:"http://lty-main.com/",
 };
 
 
