@@ -24,5 +24,13 @@ new Vue(
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  template: '<App/>',
+  data:function()
+  {
+    var data = 
+    {
+      g_a : 123,
+    };
+    return data;
+  }
 });

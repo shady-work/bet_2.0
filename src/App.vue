@@ -7,6 +7,17 @@
     </div>
     
     <div class="clear"></div>
+
+
+    <div id="notice">
+      <div class="left">
+        <img src="./assets/img/alert-1.png" alt="">
+        <span>近期公告</span>
+      </div>
+      <marquee behavior="" direction="">
+        本网站2010年成立于菲律宾，专业经营各项博彩业务，主营北京赛车pk10，幸运飞艇，重庆时时彩，广东快乐十分，幸运农场，六合彩等项目，自主开户，现金开户，安全稳定，下注简单，服务优质。
+      </marquee>
+    </div>
   </div>
 </template>
 
@@ -87,7 +98,37 @@ export default
       left: 230px;
       float: left;
       min-width: 1077px;
-     
-      
+    }
+    #notice
+    {
+      position: fixed;
+      left: 0;
+      bottom: 0px;
+      color:#f3f3f3;
+      overflow: hidden;
+    }
+    #notice>.left
+    {
+      float: left;
+      width:100px;
+      height: 50px;
+      font-size:14px;
+      line-height: 50px;
+    }
+    #notice>.left>img
+    {
+      width: 14px;
+      height: 16px;
+      float: left;
+      margin-top: 16px;
+      margin-left: 16px;
+    }
+    #notice>marquee
+    {
+      float: left;
+      width:1000px; 
+      height: 50px;
+      font-size:14px;
+      line-height: 50px;
     }
 </style>

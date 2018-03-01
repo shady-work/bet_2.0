@@ -1,46 +1,60 @@
 <!-- header.vue -->
 <template>
   <div id="header">
-     <img src="" alt="" id="logo">
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_17.png" alt="">
-        <p>信用资料</p>
-     </a>
+    <!-- 上面的选择 -->
+    <div class="a-waps">
+      <img src="" alt="" id="logo">
+      <a @click="showOne(0)" class="nav-top">
+          <img src="../assets/img/index_17.png" alt="">
+          <p>信用资料</p>
+      </a>
 
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_19.png" alt="">
-        <p>修改密码</p>
-     </a>
+      <a @click="showOne(1)" class="nav-top">
+          <img src="../assets/img/index_19.png" alt="">
+          <p>修改密码</p>
+      </a>
 
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_21.png" alt="">
-        <p>未结明细</p>
-     </a>
+      <a href="" class="nav-top">
+          <img src="../assets/img/index_21.png" alt="">
+          <p>未结明细</p>
+      </a>
 
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_23.png" alt="">
-        <p>已结算报表</p>
-     </a>
+      <a href="" class="nav-top">
+          <img src="../assets/img/index_23.png" alt="">
+          <p>已结算报表</p>
+      </a>
 
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_25.png" alt="">
-        <p>历史开奖</p>
-     </a>
+      <a @click="showOne(2)" class="nav-top">
+          <img src="../assets/img/index_25.png" alt="">
+          <p>历史开奖</p>
+      </a>
 
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_27.png" alt="">
-        <p>玩法规则</p>
-     </a>
+      <a @click="showOne(3)" class="nav-top">
+          <img src="../assets/img/index_27.png" alt="">
+          <p>玩法规则</p>
+      </a>
 
-     <a href="" class="nav-top">
-        <img src="../assets/img/index_29.png" alt="">
-        <p>安全退出</p>
-     </a>
-     
+      <a href="" class="nav-top">
+          <img src="../assets/img/index_29.png" alt="">
+          <p>安全退出</p>
+      </a>
+    </div>
+
+    <xinyongziliao v-show="showArray[0]"></xinyongziliao>
+    <edi-pwd v-show="showArray[1]"></edi-pwd>
+    <open-history v-show="showArray[2]"></open-history>
+    <rules v-show="showArray[3]"></rules>
   </div>
+
+
+  
 </template>
 
 <script>
+import xinyongziliao from './xinyongziliao';
+import editPwd from './edit_pwd';
+import openHistory from './open_history';
+import rules from './rules';
 export default 
 {
   name:"Header",
@@ -48,22 +62,33 @@ export default
   {
       var my_data = 
       {
-          msg:"header"
+          showArray:[0,0,0,0,0,0,0,0,0],
       };
       return my_data;
   },
   methods:
   {
-    //当页面加载时触发的函数
-    show:()=>
+    /**@augments
+     * 
+     */
+    showOne:function(idx)
     {
-        alert(1);
+        this.showArray = [0,0,0,0,0,0,0,0,0];
+        this.showArray[idx] = 1;
     },
+    
   },
   created:()=>
   {
     //当页面加载时触发的函数
    
+  },
+  components: 
+  {
+    'xinyongziliao':xinyongziliao,
+    'edi-pwd':editPwd,
+    'open-history':openHistory,
+    'rules':rules,
   }
 }
 </script>
@@ -76,6 +101,11 @@ export default
      background:url('../assets/img/title.jpg');
      background-size: cover;
      min-width:1200px;
+   }
+   #header>.a-waps
+   {
+     width: 100%;
+     height: 100%;
    }
    #logo
    {
