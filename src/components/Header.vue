@@ -118,10 +118,11 @@ export default
    {
      display: block;
      float: left;
-     width: 105px;
+     width: 121.5px;
      height: 100%;
      box-sizing: border-box;
      /* border: 1px solid #000; */
+     cursor: pointer;
    }
    .nav-top>img
    {

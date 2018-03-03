@@ -1,10 +1,11 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
-import Vue from 'vue'
-import App from './App'
-import router from './router'
+import Vue from 'vue';
+import App from './App';
+import router from './router';
  import $ from 'jquery';
+ import vuex from 'vuex'
 /*引入资源请求插件*/
 import VueResource from 'vue-resource'
 /*使用VueResource插件*/
@@ -18,18 +19,36 @@ next()
 Vue.http.options.emulateJSON = true;//vue-resource的处理方案
 
 
+Vue.use(vuex);
+var store = new vuex.Store({//store对象
+    state:
+    {
+        isLogin:false,
+    },
+     mutations:
+     {
+        switch_dialog(isLogin)
+        {//这里的state对应着上面这个state
+            state.isLogin = true;
+            //你还可以在这里执行其他的操作改变state
+        }
+    }
+})
+
+
 /* eslint-disable no-new */
 new Vue(
 {
   el: '#app',
-  router,
+  router:router,
+  store:store,
   components: { App },
   template: '<App/>',
   data:function()
   {
     var data = 
     {
-      g_a : 123,
+     
     };
     return data;
   }

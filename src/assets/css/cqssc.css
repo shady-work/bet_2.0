@@ -107,6 +107,7 @@
         overflow: hidden;
         margin-left:20px;
         float: left;
+        background: #4294d0;
     }
     #bet-content .bet-content-table,.bet-content-input
     {
@@ -128,6 +129,7 @@
         text-align:center;
         font-size: 14px;
         position: relative;
+        cursor:pointer;
     }
      #bet-content .bet-content-table span
      {
@@ -313,6 +315,7 @@
         border-left: 1px solid rgba(200,200,200,0.5);
         box-sizing: border-box;
         overflow: hidden;
+        background: #4294d0;
       }
       .history-list>p
       {
@@ -351,3 +354,77 @@
           font-size: 14px;
           border-radius: 3px;
       }
+
+      .hao0,.hao1,.hao2,.hao3,.hao4,.hao5,.hao6,.hao7,.hao8,.hao9
+      {
+          display: block;
+          width: 22px!important;
+          height: 22px!important;
+          background: url('../img/ball.png');
+          background-size: cover;
+          float: left;
+          border-radius: 50%;
+          font-size: 16px;
+          font-weight: 700;
+          text-align:center!important;
+          line-height:22px!important;
+          color:#000;
+          text-indent: 0px;
+      }
+      .he22
+      {
+            
+          height: 22px!important;
+           text-align:center!important;
+           line-height:22px!important;
+      }
+      .innnn
+      {
+          float:left;margin-left:6px;
+          margin-top: 2px;
+      }
+      .text-0
+      {
+          text-indent:0!important;
+      }
+      .padding3
+      {
+          padding: 3px;
+      }
+      /* .hao1
+      {
+          background: url('../img/ball_2_02.png');
+      }
+      .hao2
+      {
+          background: url('../img/ball_2_03.png');
+      }
+      .hao3
+      {
+          background: url('../img/ball_2_04.png');
+      }
+      .hao4
+      {
+          background: url('../img/ball_2_05.png');
+      }
+      .hao5
+      {
+          background: url('../img/ball_2_06.png');
+      }
+      .hao6
+      {
+          background: url('../img/ball_2_07.png');
+      }
+      .hao7
+      {
+          background: url('../img/ball_2_08.png');
+      }
+      .hao8
+      {
+          background: url('../img/ball_2_09.png');
+      }
+      .hao9
+      {
+          background: url('../img/ball_2_10.png');
+      }
+       */

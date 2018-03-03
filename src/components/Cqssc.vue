@@ -1,5 +1,7 @@
 <template>
   <div id="cqssc">
+
+        <!-- 期数 时间 开奖号码 -->
         <div class="head">
             <img src="../assets/img/navicons_11.png" alt="">
 
@@ -55,40 +57,41 @@
             <div class="clear"></div>
         </div>
 
+        <!-- 下注内容区 -->
         <div id="bet-content">
             <form action="">
                 <div class="bet-content-table">
-                    <a href="" class="color-white active">
+                    <a  :class="showArray_cqssc[0]?'color-white active':'color-white'" @click="showType(0)">
                         两面盘
                         <span></span>
                     </a>
-                    <a href="" class="color-white">
+                    <a  :class="showArray_cqssc[1]?'color-white active':'color-white'" @click="showType(1)">
                         单球1-5
                         <span></span>
                     </a>
-                    <a href="" class="color-white">
+                    <a  :class="showArray_cqssc[2]?'color-white active':'color-white'" @click="showType(2)">
                         第一球
                         <span></span>
                     </a>
-                    <a href="" class="color-white">
+                    <a  :class="showArray_cqssc[3]?'color-white active':'color-white'" @click="showType(3)">
                         第二球
                         <span></span>
                     </a>
-                    <a href="" class="color-white">
+                    <a  :class="showArray_cqssc[4]?'color-white active':'color-white'" @click="showType(4)">
                         第三球
                         <span></span>
                     </a>
-                    <a href="" class="color-white">
+                    <a  :class="showArray_cqssc[5]?'color-white active':'color-white'" @click="showType(5)">
                         第四球
                         <span></span>
                     </a>
-                    <a href="" class="color-white">
+                    <a :class="showArray_cqssc[6]?'color-white active':'color-white'" @click="showType(6)">
                         第五球
                         <span></span>
                     </a>
                 </div>
 
-                 <div class="bet-content-input">
+                <div class="bet-content-input">
                      <div class="fast-bet">
                          快速下注金额
                          <input type="text" class="fast-bet-input">
@@ -106,239 +109,244 @@
                      <div class="clear"></div>
                 </div>
 
-
-                <div class="bet-chooses">
+                <!-- 两面 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[0]">
                     <div class="bet-chooses-top">
                         <div class="first-ball mt0">
-                            <div class="first-ball-details">
-                                <span>
+                            <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
                                       单  
                                 </span>
-                                <span>
+                                <span class="he22 padding3">
                                     1.943
                                 </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      双 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      大  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      小 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
+                                <input type="text" class="innnn padding3">
                                 <div class="clear"></div>
                             </div>
 
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                     双  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      大  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      小  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
                             <div class="first-ball-top">
                                 第一球
                             </div>
                         </div>
-                        <div class="first-ball ">
-                            <div class="first-ball-details">
-                                <span>
+
+                        <div class="first-ball">
+                            <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
                                       单  
                                 </span>
-                                <span>
+                                <span class="he22 padding3">
                                     1.943
                                 </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      双 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      大  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      小 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
+                                <input type="text" class="innnn padding3">
                                 <div class="clear"></div>
                             </div>
 
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                     双  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      大  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      小  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
                             <div class="first-ball-top">
                                 第二球
                             </div>
                         </div>
-                        <div class="first-ball">
-                            <div class="first-ball-details">
-                                <span>
+                        <div class="first-ball ">
+                            <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
                                       单  
                                 </span>
-                                <span>
+                                <span class="he22 padding3">
                                     1.943
                                 </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      双 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      大  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      小 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
+                                <input type="text" class="innnn padding3">
                                 <div class="clear"></div>
                             </div>
 
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                     双  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      大  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      小  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
                             <div class="first-ball-top">
                                 第三球
                             </div>
                         </div>
-                        <div class="first-ball">
-                            <div class="first-ball-details">
-                                <span>
+
+                        <div class="first-ball ">
+                            <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
                                       单  
                                 </span>
-                                <span>
+                                <span class="he22 padding3">
                                     1.943
                                 </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      双 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      大  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      小 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
+                                <input type="text" class="innnn padding3">
                                 <div class="clear"></div>
                             </div>
 
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                     双  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      大  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      小  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
                             <div class="first-ball-top">
                                 第四球
                             </div>
                         </div>
-                        <div class="first-ball">
-                            <div class="first-ball-details">
-                                <span>
+
+
+                        <div class="first-ball ">
+                            <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
                                       单  
                                 </span>
-                                <span>
+                                <span class="he22 padding3">
                                     1.943
                                 </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      双 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      大  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      小 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
+                                <input type="text" class="innnn padding3">
                                 <div class="clear"></div>
                             </div>
 
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                     双  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      大  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details text-0" >
+                                <span class="he22 padding3">
+                                      小  
+                                </span>
+                                <span class="he22 padding3">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn padding3">
+                                <div class="clear"></div>
+                            </div>
                             <div class="first-ball-top">
                                 第五球
                             </div>
                         </div>
+                        
                         <div class="clear"></div>
 
                         <div class="long-bet">
@@ -391,6 +399,2090 @@
                     </div>
                 </div>
 
+                <!-- 单球1-5 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[1]">
+                    <div class="bet-chooses-top">
+                        <div class="first-ball mt0">
+                            <div class="first-ball-details">
+                                <span class="hao0">0</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">1</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">2</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">3</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">4</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">5</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">6</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">7</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">8</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">9</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                第一球
+                            </div>
+                        </div>
+                        <div class="first-ball">
+                            <div class="first-ball-details">
+                                <span class="hao0">0</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">1</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">2</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">3</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">4</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">5</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">6</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">7</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">8</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">9</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                第二球
+                            </div>
+                        </div>
+                        <div class="first-ball ">
+                            <div class="first-ball-details">
+                                <span class="hao0">0</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">1</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">2</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">3</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">4</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">5</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">6</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">7</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">8</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">9</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                第三球
+                            </div>
+                        </div>
+                        <div class="first-ball">
+                            <div class="first-ball-details">
+                                <span class="hao0">0</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">1</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">2</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">3</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">4</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">5</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">6</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">7</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">8</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">9</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                第四球
+                            </div>
+                        </div>
+                        <div class="first-ball">
+                            <div class="first-ball-details">
+                                <span class="hao0">0</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">1</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">2</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">3</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">4</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">5</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">6</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">7</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">8</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+                              <div class="first-ball-details">
+                                <span class="hao0">9</span>
+                                <span class="he22">
+                                    1.943
+                                </span>
+                                <input type="text" class="innnn">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                第五球
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                
+
+                <!-- 第一球 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[2]">
+                    <div class="bet-chooses-top">
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第一球
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao0 ml10 mt5">0</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao1 ml10 mt5">1</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao2 ml10 mt5">2</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao3 ml10 mt5">3</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao4 ml10 mt5">4</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao5 ml10 mt5">5</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao6 ml10 mt5">6</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao7 ml10 mt5">7</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao8 ml10 mt5">8</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao9 ml10 mt5">9</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第一球
+                            </div>
+                            <div class="long-bet-content">
+                                <span>单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                         <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               总和、龙虎
+                            </div>
+                            <div class="long-bet-content">
+                                <span>总和单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >总和小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >龙</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >虎</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >和</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+
+                        <div class="first-ball mt0" style="width:30%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+
+                <!-- 第二球 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[3]">
+                    <div class="bet-chooses-top">
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第二球
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao0 ml10 mt5">0</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao1 ml10 mt5">1</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao2 ml10 mt5">2</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao3 ml10 mt5">3</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao4 ml10 mt5">4</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao5 ml10 mt5">5</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao6 ml10 mt5">6</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao7 ml10 mt5">7</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao8 ml10 mt5">8</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao9 ml10 mt5">9</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第二球
+                            </div>
+                            <div class="long-bet-content">
+                                <span>单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                         <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               总和、龙虎
+                            </div>
+                            <div class="long-bet-content">
+                                <span>总和单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >总和小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >龙</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >虎</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >和</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+
+                        <div class="first-ball mt0" style="width:30%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <!-- 第三球 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[4]">
+                    <div class="bet-chooses-top">
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第三球
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao0 ml10 mt5">0</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao1 ml10 mt5">1</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao2 ml10 mt5">2</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao3 ml10 mt5">3</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao4 ml10 mt5">4</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao5 ml10 mt5">5</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao6 ml10 mt5">6</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao7 ml10 mt5">7</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao8 ml10 mt5">8</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao9 ml10 mt5">9</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第三球
+                            </div>
+                            <div class="long-bet-content">
+                                <span>单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                         <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               总和、龙虎
+                            </div>
+                            <div class="long-bet-content">
+                                <span>总和单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >总和小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >龙</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >虎</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >和</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+
+                        <div class="first-ball mt0" style="width:30%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                
+                 <!-- 第四球 -->
+                 <div class="bet-chooses" v-show="showArray_cqssc[5]">
+                    <div class="bet-chooses-top">
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第四球
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao0 ml10 mt5">0</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao1 ml10 mt5">1</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao2 ml10 mt5">2</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao3 ml10 mt5">3</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao4 ml10 mt5">4</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao5 ml10 mt5">5</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao6 ml10 mt5">6</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao7 ml10 mt5">7</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao8 ml10 mt5">8</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao9 ml10 mt5">9</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第四球
+                            </div>
+                            <div class="long-bet-content">
+                                <span>单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                         <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               总和、龙虎
+                            </div>
+                            <div class="long-bet-content">
+                                <span>总和单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >总和小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >龙</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >虎</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >和</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+
+                        <div class="first-ball mt0" style="width:30%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                
+                 <!-- 第五球 -->
+                 <div class="bet-chooses" v-show="showArray_cqssc[6]">
+                    <div class="bet-chooses-top">
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第五球
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao0 ml10 mt5">0</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao1 ml10 mt5">1</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span class="hao2 ml10 mt5">2</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span class="hao3 ml10 mt5">3</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao4 ml10 mt5">4</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao5 ml10 mt5">5</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao6 ml10 mt5">6</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao7 ml10 mt5">7</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao8 ml10 mt5">8</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="long-bet-content">
+                                <span class="hao9 ml10 mt5">9</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               第五球
+                            </div>
+                            <div class="long-bet-content">
+                                <span>单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                         <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                               总和、龙虎
+                            </div>
+                            <div class="long-bet-content">
+                                <span>总和单</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和双</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                               <span>总和大</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >总和小</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >龙</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >虎</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="long-bet-content">
+                                <span >和</span>
+                                <span>1.943</span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+
+                        <div class="first-ball mt0" style="width:30%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺 
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六  
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
                  <div class="bet-content-input mt5">
                      <div class="fast-bet">
                          快速下注金额
@@ -415,6 +2507,7 @@
 
         </div>
 
+        <!-- 右边的历史记录 -->
         <div id="history">
             <div class="history-header">
                 长龙排行
@@ -490,6 +2583,7 @@
 
 
 <script>
+import config from '../assets/js/config';
 export default 
 {
     name:"Cqssc",
@@ -497,9 +2591,40 @@ export default
     {
         var my_data = 
         {
-            msg:"Hello World",
+            showArray_cqssc:[1,0,0,0,0,0,0]
         };
         return my_data;
+    },
+    created:function()
+    {
+        //检测是否登录
+        if(this.$store.state.isLogin || (window.localStorage.isLogin == "ok"))
+        {
+            //获取用户的信息
+            this.$http.get(config.API + "user/" + (this.$store.state.user_id?this.$store.state.user_id:window.localStorage.user_id) ).then(function (response) 
+            {
+               //将用户的信息保存到本地会话
+               window.localStorage.admin = response.data.data.user.admin;
+               window.localStorage.agent = response.data.data.user.agent;
+               window.localStorage.manager = response.data.data.user.manager;
+               window.localStorage.nickname = response.data.data.user.nickname;
+               window.localStorage.type = response.data.data.user.type;
+               window.localStorage.username = response.data.data.user.username;
+            })
+        }
+        else
+        {
+            //没有登录跳转到登录页面
+           window.location.href = '#/login';
+        }
+    },
+    methods: 
+    {
+        showType:function(idx)
+        {
+               this.showArray_cqssc = [0,0,0,0,0,0,0];
+               this.showArray_cqssc[idx] = 1;
+        }, 
     }
 }
 </script>
@@ -507,4 +2632,13 @@ export default
 
 <style scoped>
    @import '../assets/css/cqssc.css';
+   .first-ball-details
+   {
+       text-align:left;
+       text-indent: 15px;
+   }
+   .first-ball-details>span
+   {
+       float: left;
+   }
 </style>

@@ -149,3 +149,7 @@ table {
 a:hover{
   text-decoration: none;
 }
+.ml10
+{
+  margin-left:10px;
+}

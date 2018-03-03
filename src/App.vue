@@ -1,14 +1,22 @@
 <template>
   <div id="app">
+
+    
+
+    <!-- 头部 -->
     <my-header></my-header>
+
+    <!-- 左边的信息 -->
     <left-nav></left-nav> 
+
+    <!-- 中间下注区 -->
     <div id="center">
       <router-view/>
     </div>
     
     <div class="clear"></div>
 
-
+    <!-- 底部的滚动条 -->
     <div id="notice">
       <div class="left">
         <img src="./assets/img/alert-1.png" alt="">
@@ -24,6 +32,7 @@
 <script>
 import Header from './components/Header.vue';
 import Left from './components/left_nav.vue';
+import Login from './components/login.vue';
 import config from './assets/js/config';
 export default 
 {
@@ -32,16 +41,19 @@ export default
   {
     'my-header':Header,
     'left-nav':Left,
+    'login':Login
   },
   data:()=>
   {
-    return {}
+    return {
+      //isLogin:false,
+    }
   },
   created:function()
   {
-    // this.login()
-    // this.xiugai();
-    // this.test();
+   
+    
+  
    
   },
   methods: 

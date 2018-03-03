@@ -2,7 +2,7 @@
     <div id="user">
         <div class="left">
             <img src="../assets/img/person.png" alt="">
-            <p>shady_chen</p>
+            <p>{{nickname}}</p>
         </div>
         <div class="right">
             <p class="kuaicai">
@@ -22,7 +22,21 @@
 <script>
 export default 
 {
-  
+   data:function()
+   {
+       let data = 
+       {
+           nickname:"用户2728293031"
+       };
+       return data;
+   },
+   created:function()
+   {
+       //获取用户的昵称
+       this.nickname = window.localStorage.nickname?window.localStorage.nickname:this.nickname;
+       
+   },
+   
 }
 </script>
 
