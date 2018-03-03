@@ -10,7 +10,7 @@
 
                 <div class="xy-left">
                     <div class="xy-user">
-                        账号:shady_slim
+                        账号:{{nickname}}
                     </div>
                     <div class="xy-list">
                         <a href="" class="active">
@@ -182,6 +182,10 @@ export default
           
        };
        return data;
+   },
+   created:function()
+   {
+       this.nickname = window.localStorage.nickname?window.localStorage.nickname:this.nickname;
    },
    methods:
    {

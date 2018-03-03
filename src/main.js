@@ -4,8 +4,8 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
- import $ from 'jquery';
- import vuex from 'vuex'
+import $ from 'jquery';
+import vuex from 'vuex'
 /*引入资源请求插件*/
 import VueResource from 'vue-resource'
 /*使用VueResource插件*/

@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import Header from './components/Header.vue';
+import Header from './components/header.vue';
 import Left from './components/left_nav.vue';
 import Login from './components/login.vue';
 import config from './assets/js/config';
