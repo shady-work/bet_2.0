@@ -3,7 +3,7 @@
 
         <!-- 期数 时间 开奖号码 -->
         <div class="head">
-            <img src="../assets/img/navicons_11.png" alt="">
+            <img src="../assets/img/navicons_13.png" alt="">
 
             <div class="details">
                 <div class="left">
@@ -2509,15 +2509,16 @@
 
         <!-- 右边的历史记录 -->
         <div id="history">
-            <div class="history-header">
-                长龙排行
+            <div class="history-header" @click="showHistory">
+                长龙排行     <span class="pull-right">{{history_str}}</span>
             </div>
             <div class="history-table">
-                <a href="" class="active">长龙-不出</a>
-                <a href="">长龙-出</a>
-                <a href="">历史开奖</a>
+                <a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
+                <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙-出</a>
+                <a @click="showTables(2)" :class="history_tables[2]?'active':''">历史开奖</a>
             </div>
-            <div class="history-list">
+
+            <div class="history-list" v-show="history_tables[0]">
                 <p>
                     <span class="pull-left">龙虎[和]</span>  
                     <span class="pull-right">14期</span>
@@ -2568,16 +2569,81 @@
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
+            </div>
+
+            <div class="history-list" v-show="history_tables[1]">
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                 <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+                 <p>
+                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-right">14期</span>
+                    <span class="clear"></span>
+                </p>
+            </div>
+
+             <div class="history-list" v-show="history_tables[2]">
+                <div class="history-balls">
+                    <span>874933</span>
+                    <span class="code-ball">1</span>  
+                    <span class="code-ball">2</span>  
+                    <span class="code-ball">3</span>  
+                    <span class="code-ball">4</span>  
+                    <span class="code-ball">5</span>  
+                </div>
+                
             </div>
             <div class="history-close ">
-                <a href="">
+                <a @click="close_history()">
                     关闭
                 </a>
             </div>
         </div>
 
 
-  </div>
+    </div>
 </template>
 
 
@@ -2591,7 +2657,10 @@ export default
     {
         var my_data = 
         {
-            showArray_cqssc:[1,0,0,0,0,0,0]
+            showArray_cqssc:[1,0,0,0,0,0,0],
+            history_tables:[1,0,0],
+            history_flag:0,
+            history_str:"收起",
         };
         return my_data;
     },
@@ -2600,17 +2669,7 @@ export default
         //检测是否登录
         if(this.$store.state.isLogin || (window.localStorage.isLogin == "ok"))
         {
-            //获取用户的信息
-            this.$http.get(config.API + "user/" + (this.$store.state.user_id?this.$store.state.user_id:window.localStorage.user_id) ).then(function (response) 
-            {
-               //将用户的信息保存到本地会话
-               window.localStorage.admin = response.data.data.user.admin;
-               window.localStorage.agent = response.data.data.user.agent;
-               window.localStorage.manager = response.data.data.user.manager;
-               window.localStorage.nickname = response.data.data.user.nickname;
-               window.localStorage.type = response.data.data.user.type;
-               window.localStorage.username = response.data.data.user.username;
-            })
+           this.global.log('欢迎回来~');
         }
         else
         {
@@ -2624,7 +2683,42 @@ export default
         {
                this.showArray_cqssc = [0,0,0,0,0,0,0];
                this.showArray_cqssc[idx] = 1;
+        },
+        showTables:function(idx)
+        {
+               this.history_tables = [0,0,0,0,0,0,0];
+               this.history_tables[idx] = 1;
         }, 
+         close_history:function()
+        {
+           
+            for(let i = 0;i<this.history_tables.length;i++)
+            {
+                if(this.history_tables[i]){this.history_flag=i}
+            }
+           
+            $(".history-close").slideUp();
+            $(".history-list").slideUp();
+            $(".history-table").slideUp();
+            this.history_str = "展开";
+        },
+        showHistory:function()
+        {   
+            if(this.history_str == "展开")
+            {
+                $(".history-close").slideDown();
+                $(".history-list").eq(this.history_flag).slideDown();
+                $(".history-table").slideDown();
+                this.history_tables = [0,0,0,0,0,0,0];
+                this.history_tables[this.history_flag] = 1;
+                this.history_str = "收起";
+            }
+            else
+            {
+                this.close_history();
+            }
+            
+        },
     }
 }
 </script>

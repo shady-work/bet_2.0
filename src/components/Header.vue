@@ -5,37 +5,39 @@
     <div class="a-waps">
       <img src="" alt="" id="logo">
       <a @click="showOne(0)" class="nav-top">
-          <img src="../assets/img/index_17.png" alt="">
+          
+          <i class="fa fa-credit-card"></i>
           <p>信用资料</p>
       </a>
 
       <a @click="showOne(1)" class="nav-top">
-          <img src="../assets/img/index_19.png" alt="">
+         <i class="fa fa-unlock-alt font36"></i>
           <p>修改密码</p>
       </a>
 
       <a href="" class="nav-top">
-          <img src="../assets/img/index_21.png" alt="">
+          <i class="fa fa-line-chart"></i>
           <p>未结明细</p>
       </a>
 
       <a href="" class="nav-top">
-          <img src="../assets/img/index_23.png" alt="">
+          <i class="fa fa-bar-chart"></i>
           <p>已结算报表</p>
+          
       </a>
 
       <a @click="showOne(2)" class="nav-top">
-          <img src="../assets/img/index_25.png" alt="">
+            <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
       </a>
 
       <a @click="showOne(3)" class="nav-top">
-          <img src="../assets/img/index_27.png" alt="">
+          <i class="fa fa-list-ol"></i>
           <p>玩法规则</p>
       </a>
 
-      <a href="" class="nav-top">
-          <img src="../assets/img/index_29.png" alt="">
+      <a @click="log_out()" class="nav-top">
+        <i class="fa fa-sign-out"></i>
           <p>安全退出</p>
       </a>
     </div>
@@ -75,6 +77,20 @@ export default
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
+    },
+    log_out:function()
+    {
+      this.$store.state.isLogin    = false; //设置登录flag 
+      this.$store.state.user_id    = null;//设置登录user_id
+      window.localStorage.isLogin  = null;  //本地会话保存登录状态
+      window.localStorage.user_id  = null;//本地会话保存user_id
+      window.localStorage.admin    = null;
+      window.localStorage.agent    = null;
+      window.localStorage.manager  = null;
+      window.localStorage.nickname = null;
+      window.localStorage.type     = null;
+      window.localStorage.username = null;
+      window.location.href = '/';
     },
     
   },
@@ -133,6 +149,21 @@ export default
      margin-top: 10px;
      opacity: 0.5;
    }
+    .nav-top>i
+   {
+     display: block;
+     width: 35px;
+     height:35px;
+     margin:0 auto;
+     margin-top: 10px;
+     color: #3284bf;
+     font-size: 32px;
+     padding-top: 3px;
+   }
+    .nav-top>.font36
+    {
+      font-size: 36px;
+    }
    .nav-top>p
    {
      font-size: 14px;

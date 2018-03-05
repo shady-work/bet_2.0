@@ -89,6 +89,7 @@ export default
 <style>
     /* init css */
     @import url('./assets/css/init.css');
+    @import url('./assets/css/font-awesome.css');
     body
     {
       background: #328bcd;

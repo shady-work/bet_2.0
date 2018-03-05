@@ -5,12 +5,14 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import $ from 'jquery';
-import vuex from 'vuex'
+import vuex from 'vuex';
+import common from './assets/js/common';//加载commonjs
+Vue.prototype.global = common;//挂载在vue的原型上
 /*引入资源请求插件*/
-import VueResource from 'vue-resource'
+import VueResource from 'vue-resource';
 /*使用VueResource插件*/
-Vue.use(VueResource)
-Vue.config.productionTip = false
+Vue.use(VueResource);
+Vue.config.productionTip = false;
 Vue.http.interceptors.push(function(request, next) {//拦截器
 // 跨域携带cookie
  request.credentials = true;
@@ -53,3 +55,7 @@ new Vue(
     return data;
   }
 });
+
+
+
+

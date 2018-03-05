@@ -88,11 +88,26 @@ export default
                 //登录成功
                 if(response.data.status == 200)
                 {
+                   
                     this.$store.state.isLogin = true; //设置登录flag 
                     this.$store.state.user_id = response.data.data.user_id;//设置登录user_id
                     window.localStorage.isLogin = 'ok';  //本地会话保存登录状态
                     window.localStorage.user_id = response.data.data.user_id;//本地会话保存user_id
-                    this.$router.push('/');//跳转到主页 不刷新   window.location.href会刷新
+                    //获取用户信息
+                    this.$http.get(config.API + "user/" + response.data.data.user_id ).then(function (response) 
+                    {
+                        //将用户的信息保存到本地会话
+                        window.localStorage.admin = response.data.data.user.admin;
+                        window.localStorage.agent = response.data.data.user.agent;
+                        window.localStorage.manager = response.data.data.user.manager;
+                        window.localStorage.nickname = response.data.data.user.nickname;
+                        window.localStorage.type = response.data.data.user.type;
+                        window.localStorage.username = response.data.data.user.username;
+                        window.location.href = '/';
+                        // this.$router.push('/');//跳转到主页 不刷新   window.location.href会刷新
+                    })        
+                   
+                    
                 }
                 else
                 {
@@ -104,7 +119,7 @@ export default
     created:function()
     {
         //用户登录了，提示不能已登录  并跳转到主页
-        if(this.$store.state.isLogin || window.localStorage.isLogin)
+        if(window.localStorage.isLogin == "ok")
         {
             alert('你已登录！')
             window.location.href = '/';

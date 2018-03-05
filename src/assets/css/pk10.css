@@ -300,6 +300,12 @@
          color: #f3f3f3;
          font-size: 14px;
      }
+     .history-header>span
+     {
+         height: 40px;
+         line-height: 40px;
+         margin-right: 10px;
+     }
      .history-table
      {
          background: #2c7cb7;
@@ -317,6 +323,7 @@
           margin-top: 5px;
           border-radius: 3px;
           color: #f3f3f3;
+          cursor: pointer;
 
       }
       .history-table>.active
@@ -459,4 +466,71 @@
       {
           margin-bottom:55px;
       }
-      
+      .hao123
+      {
+          padding-top: 10px;
+      }
+      .hao123>.long-bet-content>span:first-of-type
+      {
+          width:25px;
+          height: 25px;
+          line-height: 25px;
+          margin-left: 5px;
+          font-size: 20px;
+          font-weight: 700;
+          text-align:center;
+          border-radius: 3px;
+      }
+
+      .font16px
+      {
+          font-size: 14px!important;
+          height: 30px!important;
+          line-height: 30px!important;
+      }
+
+        .history-balls
+    {
+        width: 100%;
+        padding:7px 12px;
+        padding-top: 3px;
+        overflow:hidden;
+        color:#f3f3f3;
+        box-sizing: border-box;
+        border-bottom:1px dashed rgba(200,200,200,0.8);
+    }
+    .history-balls>span
+    {
+        float: left;
+        height: 25px;
+        width: auto;
+        line-height: 25px;
+
+    }
+    .history-balls>span:nth-of-type(1)
+    {
+        margin-left: 0px;
+    }
+    .history-balls>.code-ball
+    {
+        height: 20px;
+        width: 20px;
+        border-radius: 3px;
+        background-size: cover;
+        font-size: 18px;
+        color:#f3f3f3;
+        font-weight: 700;
+        margin-left:3px;
+        line-height: 20px;
+        
+    }
+    .history-balls>.code-fh
+    {
+        margin-left:3px;
+        margin-right:3px;
+    }
+    .history-balls>p
+    {
+        height: 20px;
+        line-height: 20px;
+    }

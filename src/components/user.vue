@@ -34,7 +34,6 @@ export default
    {
        //获取用户的昵称
        this.nickname = window.localStorage.nickname?window.localStorage.nickname:this.nickname;
-       
    },
    
 }

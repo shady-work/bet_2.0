@@ -50,7 +50,7 @@
         background-size: cover;
         text-align: center;
         line-height:40px;
-        margin-right:15px;
+        margin-right:8px;
         font-size: 26px;
         font-weight: 700;
     }
@@ -246,6 +246,11 @@
          font-size: 14px;
          float: left;
      }
+     .special-code .long-bet-content>span:first-child
+     {
+         color: #545454;
+         font-size: 18px;
+     }
      .long-bet-content>span{
          float: left;
          width: 60px;
@@ -269,8 +274,6 @@
      #history
      {
          width: 257px;
-         height: 500px;
-        /* border: 1px solid #fff; */
          float: left;
          box-sizing: border-box;
      }
@@ -309,7 +312,8 @@
           margin-top: 5px;
           border-radius: 3px;
           color: #f3f3f3;
-            cursor: pointer;
+          cursor: pointer;  
+
       }
       .history-table>.active
       {
@@ -364,8 +368,8 @@
       .hao0,.hao1,.hao2,.hao3,.hao4,.hao5,.hao6,.hao7,.hao8,.hao9
       {
           display: block;
-          width: 22px!important;
-          height: 22px!important;
+          width: 24px!important;
+          height: 24px!important;
           background: url('../img/ball.png');
           background-size: cover;
           float: left;
@@ -373,7 +377,7 @@
           font-size: 16px;
           font-weight: 700;
           text-align:center!important;
-          line-height:22px!important;
+          line-height:24px!important;
           color:#000;
           text-indent: 0px;
       }
@@ -397,8 +401,15 @@
       {
           padding: 3px;
       }
-      
-       .history-balls
+    .bg-none
+    {
+        background: none!important;
+        color:#f3f3f3;
+        width: 8px!important;
+        margin-right: 12px!important;
+    }
+
+    .history-balls
     {
         width: 100%;
         padding:7px 12px;
@@ -428,8 +439,8 @@
         font-size: 18px;
         color:#545454;
         font-weight: 700;
-        margin-left:5px;
-        margin-right:5px;
+        margin-left:3px;
+        margin-right:3px;
     }
     .history-balls>.code-fh
     {
