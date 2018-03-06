@@ -8,12 +8,14 @@ import Cakeno28 from '@/components/cakeno28';
 
 Vue.use(Router);
 
-export default new Router({
+export default new Router(
+{
   routes: [
     {
       path: '/',
       name: 'Cqssc',
       component: Cqssc,
+      
     },
     {
       path: '/login',
@@ -34,6 +36,7 @@ export default new Router({
       path:"/cakeno28",
       name:"Cakeno28",
       component:Cakeno28,
-    }
+    },
+   
   ]
-})
+});

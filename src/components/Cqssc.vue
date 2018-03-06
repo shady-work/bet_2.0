@@ -2666,10 +2666,11 @@ export default
     },
     created:function()
     {
+       
         //检测是否登录
-        if(this.$store.state.isLogin || (window.localStorage.isLogin == "ok"))
+        if(this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok"))
         {
-           this.global.log('欢迎回来~');
+            this.global.log('欢迎回来~');
         }
         else
         {

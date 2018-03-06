@@ -1,6 +1,6 @@
 <template>
   <div class="task" @click="close()">
-        <div class="xinyongziliao">
+        <div class="xinyongziliao" @click="cancel()">
                 <div class="xy-header">
                     <img src="../assets/img/index_19_1.png" alt="">
                     <span>信用资料</span>
@@ -185,7 +185,7 @@ export default
    },
    created:function()
    {
-       this.nickname = window.localStorage.nickname?window.localStorage.nickname:this.nickname;
+       this.nickname = window.sessionStorage.nickname?window.sessionStorage.nickname:this.nickname;
    },
    methods:
    {
@@ -194,14 +194,13 @@ export default
        {
            
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
-       }
-     /*  test2:function(event)
+       },
+        cancel:function(event)
        {
            
            var e = event || window.event;
            e.cancelBubble = true;
-           
-       }*/
+       },
    }
 }
 </script>

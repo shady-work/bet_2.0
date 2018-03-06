@@ -64,7 +64,7 @@ export default
     {
         let data = 
         {
-            recent:~
+            recent:
             {
                 str:"+",
                 flag:false,
@@ -125,7 +125,7 @@ $(function()
     let browserHeight = $(window).height();
     let headerHeight  = 78;
     $("#left-nav").height(browserHeight - headerHeight);
-    $("#center").height(browserHeight - headerHeight);
+    $("#center").height(browserHeight - headerHeight + 80);
    
 });
 

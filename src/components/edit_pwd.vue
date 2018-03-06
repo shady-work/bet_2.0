@@ -1,6 +1,6 @@
 <template>
   <div class="task" @click="close()">
-        <div class="xinyongziliao">
+        <div class="xinyongziliao" @click="cancel()">
                 <div class="xy-header">
                     <img src="../assets/img/index_17_1.png" alt="">
                     <span>修改密码</span>
@@ -12,23 +12,23 @@
                     <label for="">
                         原密码:
                     </label>
-                    <input type="password" name="old_pwd">
+                    <input type="password"  v-model="old_pwd">
 
                     <div class="clear"></div>
 
                     <label for="">
                         新密码:
                     </label>
-                    <input type="password" name="old_pwd">
+                    <input type="password" v-model="new_pwd">
                     <div class="clear"></div>
                     <label for="">
                         确认新密码:
                     </label>
-                    <input type="password" name="old_pwd">
+                    <input type="password" v-model="new_pwd_comfire">
                     <div class="clear"></div>
 
 
-                    <button class="change">
+                    <button class="change" @click="doPassWord">
                         密码修改
                     </button>
                 </div>
@@ -46,7 +46,9 @@ export default
    {
        var data = 
        {
-          
+          old_pwd:'',
+          new_pwd:'',
+          new_pwd_comfire:'',
        };
        return data;
    },
@@ -55,9 +57,68 @@ export default
        
        close:function()
        {
-           
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
-       }
+       },
+        cancel:function(event)
+       {
+           var e = event || window.event;
+           e.cancelBubble = true;
+       },
+       /**@augments
+        * 修改密码
+        */
+       doPassWord:function()
+       {
+           //验证密码
+           let pwdPattern = /^[0-9a-zA-Z]{6,16}$/;
+           
+           if(this.old_pwd == "" || this.new_pwd == "")
+           {
+                alert("密码不能为空");
+                return false;
+           }
+           if(!pwdPattern.test(this.old_pwd))
+           {
+              alert("老密码格式不对~");
+              return false;
+           }
+            if(!pwdPattern.test(this.new_pwd))
+           {
+              alert("新密码格式不对~");
+              return false;
+           }
+           if(this.new_pwd != this.new_pwd_comfire)
+           {
+               alert("两次密码不一致");
+              return false;
+           }
+            //通过验证，发送请求
+           this.$http.put(this.global.config.API + 'password',{old_pwd: this.old_pwd, pwd_1: this.new_pwd}).then(function(response)
+           {
+             //请求成功
+             alert(response.data.msg);
+             if(response.data.status == 201)
+             {
+                 //密码修改成功，退出登录
+                this.$store.state.isLogin    = false; //设置登录flag 
+                this.$store.state.user_id    = null;//设置登录user_id
+                window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
+                window.sessionStorage.user_id  = null;//本地会话保存user_id
+                window.sessionStorage.admin    = null;
+                window.sessionStorage.agent    = null;
+                window.sessionStorage.manager  = null;
+                window.sessionStorage.nickname = null;
+                window.sessionStorage.type     = null;
+                window.sessionStorage.username = null;
+                window.location.href = '/';
+             }
+           },function(err)
+           {
+               //请求失败
+               alert(`抱歉，服务器繁忙，请稍后再试。`);
+               this.global.log(err);
+           });
+       },
    
    }
 }

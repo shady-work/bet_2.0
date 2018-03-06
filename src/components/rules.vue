@@ -1,6 +1,6 @@
 <template>
   <div class="task" @click="close()">
-        <div class="xinyongziliao">
+        <div class="xinyongziliao" @click="cancel()">
                 <div class="xy-header">
                     <img src="../assets/img/index_19_1.png" alt="">
                     <span>历史开奖</span>
@@ -71,14 +71,13 @@ export default
        {
            
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
-       }
-     /*  test2:function(event)
+       },
+       cancel:function(event)
        {
-           
            var e = event || window.event;
            e.cancelBubble = true;
-           
-       }*/
+       },
+     
    }
 }
 </script>

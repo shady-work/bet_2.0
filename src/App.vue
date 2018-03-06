@@ -12,6 +12,7 @@
     <!-- 中间下注区 -->
     <div id="center">
       <router-view/>
+          <div class="clear"></div>
     </div>
     
     <div class="clear"></div>
@@ -93,6 +94,7 @@ export default
     body
     {
       background: #328bcd;
+      
     }
     #app 
     {
@@ -111,6 +113,7 @@ export default
       left: 230px;
       float: left;
       min-width: 1077px;
+      margin-bottom: 20px;
     }
     #notice
     {

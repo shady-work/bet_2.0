@@ -598,16 +598,7 @@ export default
     },
     created:function()
     {
-        //检测是否登录
-        if(this.$store.state.isLogin || (window.localStorage.isLogin == "ok"))
-        {
-           this.global.log('欢迎回来~');
-        }
-        else
-        {
-            //没有登录跳转到登录页面
-           window.location.href = '#/login';
-        }
+       
     },
     methods: 
     {

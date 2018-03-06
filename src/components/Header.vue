@@ -86,14 +86,14 @@ export default
     {
       this.$store.state.isLogin    = false; //设置登录flag 
       this.$store.state.user_id    = null;//设置登录user_id
-      window.localStorage.isLogin  = null;  //本地会话保存登录状态
-      window.localStorage.user_id  = null;//本地会话保存user_id
-      window.localStorage.admin    = null;
-      window.localStorage.agent    = null;
-      window.localStorage.manager  = null;
-      window.localStorage.nickname = null;
-      window.localStorage.type     = null;
-      window.localStorage.username = null;
+      window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
+      window.sessionStorage.user_id  = null;//本地会话保存user_id
+      window.sessionStorage.admin    = null;
+      window.sessionStorage.agent    = null;
+      window.sessionStorage.manager  = null;
+      window.sessionStorage.nickname = null;
+      window.sessionStorage.type     = null;
+      window.sessionStorage.username = null;
       window.location.href = '/';
     },
     

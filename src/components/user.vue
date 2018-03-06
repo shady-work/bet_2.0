@@ -33,7 +33,7 @@ export default
    created:function()
    {
        //获取用户的昵称
-       this.nickname = window.localStorage.nickname?window.localStorage.nickname:this.nickname;
+       this.nickname = window.sessionStorage.nickname?window.sessionStorage.nickname:this.nickname;
    },
    
 }
