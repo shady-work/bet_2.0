@@ -64,7 +64,7 @@ export default
     {
         let data = 
         {
-            recent:
+            recent:~
             {
                 str:"+",
                 flag:false,
@@ -154,6 +154,7 @@ $(function()
         width: 100%;
         height: 42px;
         overflow: hidden;
+        cursor:pointer;
     }
     .lottery>img
     {

@@ -15,12 +15,12 @@
           <p>修改密码</p>
       </a>
 
-      <a href="" class="nav-top">
+      <a @click="showOne(5)"  class="nav-top">
           <i class="fa fa-line-chart"></i>
           <p>未结明细</p>
       </a>
 
-      <a href="" class="nav-top">
+      <a @click="showOne(4)" class="nav-top">
           <i class="fa fa-bar-chart"></i>
           <p>已结算报表</p>
           
@@ -46,6 +46,8 @@
     <edi-pwd v-show="showArray[1]"></edi-pwd>
     <open-history v-show="showArray[2]"></open-history>
     <rules v-show="showArray[3]"></rules>
+    <clear v-show="showArray[4]"></clear>
+    <unclear v-show="showArray[5]"></unclear>
   </div>
 
 
@@ -57,6 +59,8 @@ import xinyongziliao from './xinyongziliao';
 import editPwd from './edit_pwd';
 import openHistory from './open_history';
 import rules from './rules';
+import clear from './clear_diagam';
+import unclear from './unclear_diagam';
 export default 
 {
   name:"Header",
@@ -105,6 +109,8 @@ export default
     'edi-pwd':editPwd,
     'open-history':openHistory,
     'rules':rules,
+    'clear':clear,
+    'unclear':unclear,
   }
 }
 </script>
