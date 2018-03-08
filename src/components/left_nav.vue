@@ -58,11 +58,11 @@
 
 <script>
 import User from './user.vue';
-export default 
+export default
 {
     data:function()
     {
-        let data = 
+        let data =
         {
             recent:
             {
@@ -126,7 +126,7 @@ $(function()
     let headerHeight  = 78;
     $("#left-nav").height(browserHeight - headerHeight);
     $("#center").height(browserHeight - headerHeight + 80);
-   
+
 });
 
 </script>
@@ -140,7 +140,7 @@ $(function()
         width: 230px;
         /* height: 500px; */
         background: #22618d;
-        float: left; 
+        float: left;
     }
     .lottery-list
     {
@@ -171,7 +171,7 @@ $(function()
         height: 42px;
         line-height: 42px;
         margin-left: 15px;
-        
+
     }
     .active
     {

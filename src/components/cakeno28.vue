@@ -80,16 +80,16 @@
                           <a href="">500</a>
                           <a href="">1000</a>
                           <a href="">设置快速金额</a>
-                          <a href="" class="pull-right">重填</a>
-                           <a href="" class="pull-right">提交</a>
+                          <a href="" class="pull-right chongtian">重填</a>
+                           <a href="" class="pull-right tijiao">提交</a>
                      </div>
                      <div class="clear"></div>
                 </div>
 
-               
 
-              
-                
+
+
+
 
                 <!-- 第一球 -->
                 <div class="bet-chooses" >
@@ -368,14 +368,14 @@
                             <div class="clear"></div>
                         </div>
 
-                      
+
 
                         <div class="clear"></div>
                     </div>
                 </div>
 
 
-              
+
 
                  <div class="bet-content-input mt5">
                      <div class="fast-bet">
@@ -389,14 +389,14 @@
                           <a href="">500</a>
                           <a href="">1000</a>
                           <a href="">设置快速金额</a>
-                          <a href="" class="pull-right">重填</a>
-                           <a href="" class="pull-right">提交</a>
+                          <a href="" class="pull-right chongtian">重填</a>
+                           <a href="" class="pull-right tijiao">提交</a>
                      </div>
                      <div class="clear"></div>
                 </div>
 
             </form>
-           
+
 
 
         </div>
@@ -414,52 +414,52 @@
 
             <div class="history-list" v-show="history_tables[0]">
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
@@ -467,52 +467,52 @@
 
             <div class="history-list" v-show="history_tables[1]">
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
@@ -521,53 +521,53 @@
              <div class="history-list" v-show="history_tables[2]">
                 <div class="history-balls">
                     <span>874933</span>
-                    <span class="code-ball">1</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">2</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">3</span>  
-                    <span class="code-fh">=</span>  
-                    <span class="code-ball">6</span>  
+                    <span class="code-ball">1</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">2</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">3</span>
+                    <span class="code-fh">=</span>
+                    <span class="code-ball">6</span>
                 </div>
                  <div class="history-balls">
                     <span>874933</span>
-                    <span class="code-ball">1</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">2</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">3</span>  
-                    <span class="code-fh">=</span>  
-                    <span class="code-ball">6</span>  
+                    <span class="code-ball">1</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">2</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">3</span>
+                    <span class="code-fh">=</span>
+                    <span class="code-ball">6</span>
                 </div>
                  <div class="history-balls">
                     <span>874933</span>
-                    <span class="code-ball">1</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">2</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">3</span>  
-                    <span class="code-fh">=</span>  
-                    <span class="code-ball">6</span>  
+                    <span class="code-ball">1</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">2</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">3</span>
+                    <span class="code-fh">=</span>
+                    <span class="code-ball">6</span>
                 </div>
                  <div class="history-balls">
                     <span>874933</span>
-                    <span class="code-ball">1</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">2</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">3</span>  
-                    <span class="code-fh">=</span>  
-                    <span class="code-ball">6</span>  
+                    <span class="code-ball">1</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">2</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">3</span>
+                    <span class="code-fh">=</span>
+                    <span class="code-ball">6</span>
                 </div>
                  <div class="history-balls">
                     <span>874933</span>
-                    <span class="code-ball">1</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">2</span>  
-                    <span class="code-fh">+</span>  
-                    <span class="code-ball">3</span>  
-                    <span class="code-fh">=</span>  
-                    <span class="code-ball">6</span>  
+                    <span class="code-ball">1</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">2</span>
+                    <span class="code-fh">+</span>
+                    <span class="code-ball">3</span>
+                    <span class="code-fh">=</span>
+                    <span class="code-ball">6</span>
                 </div>
             </div>
             <div class="history-close ">
@@ -581,12 +581,12 @@
 
 
 <script>
-export default 
+export default
 {
    name:"Pcegg",
     data()
     {
-        var my_data = 
+        var my_data =
         {
             showArray_cqssc:[1],
             history_tables:[1,0,0],
@@ -609,28 +609,28 @@ export default
            window.location.href = '#/login';
         }
     },
-    methods: 
+    methods:
     {
         showType:function(idx)
         {
                this.history_tables = [0,0,0,0,0,0,0];
                this.history_tables[idx] = 1;
-        }, 
+        },
          close_history:function()
         {
-           
+
             for(let i = 0;i<this.history_tables.length;i++)
             {
                 if(this.history_tables[i]){this.history_flag=i}
             }
-           
+
             $(".history-close").slideUp();
             $(".history-list").slideUp();
             $(".history-table").slideUp();
             this.history_str = "展开";
         },
         showHistory:function()
-        {   
+        {
             if(this.history_str == "展开")
             {
                 $(".history-close").slideDown();
@@ -644,7 +644,7 @@ export default
             {
                 this.close_history();
             }
-            
+
         },
     }
 }

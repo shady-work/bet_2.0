@@ -86,7 +86,7 @@
                         七、八、九、十名
                         <span></span>
                     </a>
-                  
+
                 </div>
 
                 <div class="bet-content-input">
@@ -101,8 +101,8 @@
                           <a href="">500</a>
                           <a href="">1000</a>
                           <a href="">设置快速金额</a>
-                          <a href="" class="pull-right">重填</a>
-                           <a href="" class="pull-right">提交</a>
+                          <a href="" class="pull-right chongtian">重填</a>
+                           <a href="" class="pull-right tijiao">提交</a>
                      </div>
                      <div class="clear"></div>
                 </div>
@@ -113,7 +113,7 @@
                         <div class="first-ball mt0">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -124,7 +124,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -134,7 +134,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -144,7 +144,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -154,7 +154,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      龙  
+                                      龙
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -164,7 +164,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -180,7 +180,7 @@
                         <div class="first-ball">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -191,7 +191,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -201,7 +201,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -211,7 +211,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -221,7 +221,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -231,7 +231,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -246,7 +246,7 @@
                         <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -257,7 +257,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -267,7 +267,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -277,7 +277,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -287,7 +287,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -297,7 +297,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -313,7 +313,7 @@
                         <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -324,7 +324,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -334,7 +334,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -344,7 +344,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -354,7 +354,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -364,7 +364,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -381,7 +381,7 @@
                         <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -392,7 +392,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -402,7 +402,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -412,7 +412,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -422,7 +422,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -432,7 +432,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -444,12 +444,12 @@
                                 第五名
                             </div>
                         </div>
-                        
+
 
                          <div class="first-ball mt0">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -460,7 +460,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -470,7 +470,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -480,7 +480,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -490,7 +490,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -500,7 +500,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -517,7 +517,7 @@
                          <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -528,7 +528,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -538,7 +538,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -548,7 +548,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -558,7 +558,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -568,7 +568,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -584,7 +584,7 @@
                          <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -595,7 +595,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -605,7 +605,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -615,7 +615,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -625,7 +625,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -635,7 +635,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -651,7 +651,7 @@
                          <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -662,7 +662,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -672,7 +672,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -682,7 +682,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -692,7 +692,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -702,7 +702,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -718,7 +718,7 @@
                          <div class="first-ball ">
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      单  
+                                      单
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -729,7 +729,7 @@
 
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                     双  
+                                     双
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -739,7 +739,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      大  
+                                      大
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -749,7 +749,7 @@
                             </div>
                              <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      小  
+                                      小
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -759,7 +759,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -769,7 +769,7 @@
                             </div>
                             <div class="first-ball-details text-0" >
                                 <span class="he22 ">
-                                      虎 
+                                      虎
                                 </span>
                                 <span class="he22 ">
                                     1.943
@@ -782,7 +782,7 @@
                             </div>
                         </div>
 
-                        
+
                         <div class="clear"></div>
 
                         <div class="long-bet height-auto">
@@ -1708,13 +1708,13 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-                
+
 
                 <!-- 冠、亚军和 -->
                 <div class="bet-chooses" v-show="showArray_cqssc[2]">
                     <div class="bet-chooses-top">
 
-                        
+
                          <div class="long-bet height-auto">
                             <div class="first-ball-top">
                                 冠、亚军和
@@ -2111,7 +2111,7 @@
                 <!-- 第二名 -->
                 <div class="bet-chooses" v-show="showArray_cqssc[3]">
                     <div class="bet-chooses-top">
-                            
+
                         <div class="long-bet height-auto hao123">
                             <div class="first-ball-top">
                                 第三甸
@@ -2237,7 +2237,7 @@
                         </div>
 
 
-                        
+
                         <div class="long-bet height-auto hao123">
                             <div class="first-ball-top">
                                第四名
@@ -3116,7 +3116,7 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-                
+
                  <!-- 第四名 -->
                  <div class="bet-chooses" v-show="showArray_cqssc[5]">
                     <div class="bet-chooses-top">
@@ -3266,12 +3266,12 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        
+
 
                         <div class="first-ball mt0" style="width:30%;">
                             <div class="first-ball-details">
                                 <span>
-                                     豹子  
+                                     豹子
                                 </span>
                                 <span>
                                     1.943
@@ -3281,7 +3281,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      顺子 
+                                      顺子
                                 </span>
                                 <span>
                                     1.943
@@ -3291,7 +3291,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      对子  
+                                      对子
                                 </span>
                                 <span>
                                     1.943
@@ -3301,7 +3301,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      半顺 
+                                      半顺
                                 </span>
                                 <span>
                                     1.943
@@ -3312,65 +3312,7 @@
 
                              <div class="first-ball-details">
                                 <span>
-                                      杂六  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="first-ball-top">
-                                前三
-                            </div>
-                        </div>
-
-                        <div class="first-ball " style="width:30%;margin-left:2%;">
-                            <div class="first-ball-details">
-                                <span>
-                                     豹子  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      顺子 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      对子  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      半顺 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-
-                             <div class="first-ball-details">
-                                <span>
-                                      杂六  
+                                      杂六
                                 </span>
                                 <span>
                                     1.943
@@ -3387,7 +3329,7 @@
                         <div class="first-ball " style="width:30%;margin-left:2%;">
                             <div class="first-ball-details">
                                 <span>
-                                     豹子  
+                                     豹子
                                 </span>
                                 <span>
                                     1.943
@@ -3397,7 +3339,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      顺子 
+                                      顺子
                                 </span>
                                 <span>
                                     1.943
@@ -3407,7 +3349,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      对子  
+                                      对子
                                 </span>
                                 <span>
                                     1.943
@@ -3417,7 +3359,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      半顺 
+                                      半顺
                                 </span>
                                 <span>
                                     1.943
@@ -3428,7 +3370,65 @@
 
                              <div class="first-ball-details">
                                 <span>
-                                      杂六  
+                                      杂六
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六
                                 </span>
                                 <span>
                                     1.943
@@ -3445,7 +3445,7 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-                
+
                  <!-- 第五名 -->
                  <div class="bet-chooses" v-show="showArray_cqssc[6]">
                     <div class="bet-chooses-top">
@@ -3595,12 +3595,12 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        
+
 
                         <div class="first-ball mt0" style="width:30%;">
                             <div class="first-ball-details">
                                 <span>
-                                     豹子  
+                                     豹子
                                 </span>
                                 <span>
                                     1.943
@@ -3610,7 +3610,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      顺子 
+                                      顺子
                                 </span>
                                 <span>
                                     1.943
@@ -3620,7 +3620,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      对子  
+                                      对子
                                 </span>
                                 <span>
                                     1.943
@@ -3630,7 +3630,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      半顺 
+                                      半顺
                                 </span>
                                 <span>
                                     1.943
@@ -3641,65 +3641,7 @@
 
                              <div class="first-ball-details">
                                 <span>
-                                      杂六  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="first-ball-top">
-                                前三
-                            </div>
-                        </div>
-
-                        <div class="first-ball " style="width:30%;margin-left:2%;">
-                            <div class="first-ball-details">
-                                <span>
-                                     豹子  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      顺子 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      对子  
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="first-ball-details">
-                                <span>
-                                      半顺 
-                                </span>
-                                <span>
-                                    1.943
-                                </span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-
-                             <div class="first-ball-details">
-                                <span>
-                                      杂六  
+                                      杂六
                                 </span>
                                 <span>
                                     1.943
@@ -3716,7 +3658,7 @@
                         <div class="first-ball " style="width:30%;margin-left:2%;">
                             <div class="first-ball-details">
                                 <span>
-                                     豹子  
+                                     豹子
                                 </span>
                                 <span>
                                     1.943
@@ -3726,7 +3668,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      顺子 
+                                      顺子
                                 </span>
                                 <span>
                                     1.943
@@ -3736,7 +3678,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      对子  
+                                      对子
                                 </span>
                                 <span>
                                     1.943
@@ -3746,7 +3688,7 @@
                             </div>
                              <div class="first-ball-details">
                                 <span>
-                                      半顺 
+                                      半顺
                                 </span>
                                 <span>
                                     1.943
@@ -3757,7 +3699,65 @@
 
                              <div class="first-ball-details">
                                 <span>
-                                      杂六  
+                                      杂六
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="first-ball-top">
+                                前三
+                            </div>
+                        </div>
+
+                        <div class="first-ball " style="width:30%;margin-left:2%;">
+                            <div class="first-ball-details">
+                                <span>
+                                     豹子
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      顺子
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      对子
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+                             <div class="first-ball-details">
+                                <span>
+                                      半顺
+                                </span>
+                                <span>
+                                    1.943
+                                </span>
+                                <input type="text">
+                                <div class="clear"></div>
+                            </div>
+
+                             <div class="first-ball-details">
+                                <span>
+                                      杂六
                                 </span>
                                 <span>
                                     1.943
@@ -3787,14 +3787,14 @@
                           <a href="">500</a>
                           <a href="">1000</a>
                           <a href="">设置快速金额</a>
-                          <a href="" class="pull-right">重填</a>
-                          <a href="" class="pull-right">提交</a>
+                          <a href="" class="pull-right chongtian">重填</a>
+                          <a href="" class="pull-right tijiao">提交</a>
                      </div>
                      <div class="clear"></div>
                 </div>
 
             </form>
-           
+
 
 
         </div>
@@ -3812,52 +3812,52 @@
 
             <div class="history-list" v-show="history_tables[0]">
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
@@ -3865,52 +3865,52 @@
 
             <div class="history-list" v-show="history_tables[1]">
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                 <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
                  <p>
-                    <span class="pull-left">龙虎[和]</span>  
+                    <span class="pull-left">龙虎[和]</span>
                     <span class="pull-right">14期</span>
                     <span class="clear"></span>
                 </p>
@@ -3919,43 +3919,43 @@
              <div class="history-list" v-show="history_tables[2]">
                 <div class="history-balls">
                      <p class="text-left">858585</p>
-                    <span class="code-ball hao1">1</span>  
-                    <span class="code-ball hao2">2</span>  
-                    <span class="code-ball hao3">3</span>  
-                    <span class="code-ball hao4">4</span>  
-                    <span class="code-ball hao5">5</span>  
-                    <span class="code-ball hao6">6</span>  
-                    <span class="code-ball hao7">7</span>  
-                    <span class="code-ball hao8">8</span>  
-                    <span class="code-ball hao9">9</span>  
-                    <span class="code-ball hao10">10</span>  
+                    <span class="code-ball hao1">1</span>
+                    <span class="code-ball hao2">2</span>
+                    <span class="code-ball hao3">3</span>
+                    <span class="code-ball hao4">4</span>
+                    <span class="code-ball hao5">5</span>
+                    <span class="code-ball hao6">6</span>
+                    <span class="code-ball hao7">7</span>
+                    <span class="code-ball hao8">8</span>
+                    <span class="code-ball hao9">9</span>
+                    <span class="code-ball hao10">10</span>
                 </div>
-                
+
                 <div class="history-balls">
                      <p class="text-left">858585</p>
-                    <span class="code-ball hao1">1</span>  
-                    <span class="code-ball hao2">2</span>  
-                    <span class="code-ball hao3">3</span>  
-                    <span class="code-ball hao4">4</span>  
-                    <span class="code-ball hao5">5</span>  
-                    <span class="code-ball hao6">6</span>  
-                    <span class="code-ball hao7">7</span>  
-                    <span class="code-ball hao8">8</span>  
-                    <span class="code-ball hao9">9</span>  
-                    <span class="code-ball hao10">10</span>  
+                    <span class="code-ball hao1">1</span>
+                    <span class="code-ball hao2">2</span>
+                    <span class="code-ball hao3">3</span>
+                    <span class="code-ball hao4">4</span>
+                    <span class="code-ball hao5">5</span>
+                    <span class="code-ball hao6">6</span>
+                    <span class="code-ball hao7">7</span>
+                    <span class="code-ball hao8">8</span>
+                    <span class="code-ball hao9">9</span>
+                    <span class="code-ball hao10">10</span>
                 </div>
                 <div class="history-balls">
                      <p class="text-left">858585</p>
-                    <span class="code-ball hao1">1</span>  
-                    <span class="code-ball hao2">2</span>  
-                    <span class="code-ball hao3">3</span>  
-                    <span class="code-ball hao4">4</span>  
-                    <span class="code-ball hao5">5</span>  
-                    <span class="code-ball hao6">6</span>  
-                    <span class="code-ball hao7">7</span>  
-                    <span class="code-ball hao8">8</span>  
-                    <span class="code-ball hao9">9</span>  
-                    <span class="code-ball hao10">10</span>  
+                    <span class="code-ball hao1">1</span>
+                    <span class="code-ball hao2">2</span>
+                    <span class="code-ball hao3">3</span>
+                    <span class="code-ball hao4">4</span>
+                    <span class="code-ball hao5">5</span>
+                    <span class="code-ball hao6">6</span>
+                    <span class="code-ball hao7">7</span>
+                    <span class="code-ball hao8">8</span>
+                    <span class="code-ball hao9">9</span>
+                    <span class="code-ball hao10">10</span>
                 </div>
             </div>
 
@@ -3974,12 +3974,12 @@
 
 <script>
 import config from '../assets/js/config';
-export default 
+export default
 {
     name:"Cqssc",
     data()
     {
-        var my_data = 
+        var my_data =
         {
             showArray_cqssc:[1,0,0,0,0,0,0],
             history_tables:[1,0,0],
@@ -3993,7 +3993,7 @@ export default
         //检测是否登录
         if(this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok"))
         {
-           
+
         }
         else
         {
@@ -4001,33 +4001,33 @@ export default
            window.location.href = '#/login';
         }
     },
-    methods: 
+    methods:
     {
         showType:function(idx)
         {
                this.showArray_cqssc = [0,0,0,0,0,0,0];
                this.showArray_cqssc[idx] = 1;
-        }, 
+        },
         showTables:function(idx)
         {
                this.history_tables = [0,0,0,0,0,0,0];
                this.history_tables[idx] = 1;
-        }, 
+        },
         close_history:function()
         {
-           
+
             for(let i = 0;i<this.history_tables.length;i++)
             {
                 if(this.history_tables[i]){this.history_flag=i}
             }
-           
+
             $(".history-close").slideUp();
             $(".history-list").slideUp();
             $(".history-table").slideUp();
             this.history_str = "展开";
         },
         showHistory:function()
-        {   
+        {
             if(this.history_str == "展开")
             {
                 $(".history-close").slideDown();
@@ -4041,7 +4041,7 @@ export default
             {
                 this.close_history();
             }
-            
+
         },
     }
 }

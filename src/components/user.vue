@@ -1,7 +1,7 @@
 <template>
     <div id="user">
         <div class="left">
-            <img src="../assets/img/person.png" alt="">
+            <span class="fa fa-user-circle-o"></span>
             <p>{{nickname}}</p>
         </div>
         <div class="right">
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-export default 
+export default
 {
    data:function()
    {
-       let data = 
+       let data =
        {
            nickname:"用户2728293031"
        };
@@ -35,7 +35,7 @@ export default
        //获取用户的昵称
        this.nickname = window.sessionStorage.nickname?window.sessionStorage.nickname:this.nickname;
    },
-   
+
 }
 </script>
 
@@ -54,13 +54,16 @@ export default
         height: 100px;
 
     }
-    .left>img
+    .left>span
     {
         display:block;
         width: 50px;
         height:50px;
         margin:0 auto;
         margin-top: 10px;
+        font-size: 45px;
+        color:#e5e5e5;
+
     }
     .left>p
     {
@@ -77,7 +80,7 @@ export default
         color:#f3f3f3;
         font-size: 14px;
         box-sizing: border-box;
-        padding-top: 10px; 
+        padding-top: 10px;
     }
     .kuaicai
     {

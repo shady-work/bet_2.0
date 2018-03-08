@@ -32,9 +32,13 @@ button,
 input,
 select,
 textarea {
-  font: 12px/1.5tahoma, arial, \5b8b\4f53;
+  font-size: 14px;
 }
-
+input{
+  color: #f3f3f3;
+  text-indent:4px;
+  cursor: pointer;
+}
 h1,
 h2,
 h3,
@@ -153,3 +157,25 @@ a:hover{
 {
   margin-left:10px;
 }
+
+.tijiao,.chongtian
+{
+  font-weight: 700;
+  color: #fff;
+  padding: 5px 10px !important;
+  box-sizing: content-box!important;
+  margin-top: 5px!important;
+}
+
+.text-9
+{
+  text-indent:9px!important;
+}
+
+.w68
+{
+  width: 68px!important;
+  text-indent: 0!important;
+  text-align: center!important;
+}
+
