@@ -2,14 +2,14 @@
     <div id="user">
         <div class="left">
             <span class="fa fa-user-circle-o"></span>
-            <p>{{nickname}}</p>
+            <p>{{$store.state.nickname}}</p>
         </div>
         <div class="right">
             <p class="kuaicai">
                 快彩额度:<span class="color-red">10000</span>
             </p>
             <p class="kuaicai">
-                可用:<span class="color-red">10000</span>
+                可用:<span class="color-red">{{$store.state.cash_money}}</span>
             </p>
             <p class="kuaicai">
                 今日盈亏:<span class="color-red">10000</span>
@@ -26,14 +26,13 @@ export default
    {
        let data =
        {
-           nickname:"用户2728293031"
+
        };
        return data;
    },
    created:function()
    {
        //获取用户的昵称
-       this.nickname = window.sessionStorage.nickname?window.sessionStorage.nickname:this.nickname;
    },
 
 }

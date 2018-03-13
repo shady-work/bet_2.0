@@ -16,7 +16,7 @@ import VueResource from 'vue-resource';/*引入资源请求插件*/
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
-Vue.http.interceptors.push(function(request, next) 
+Vue.http.interceptors.push(function(request, next)
 {
     //拦截器
     // 跨域携带cookie
@@ -33,7 +33,10 @@ var store = new vuex.Store(
 {//store对象
     state:
     {
-        isLogin:false,
+        isLogin:window.sessionStorage.isLogin=='ok'?true:false,
+        nickname:'加载中',
+        cash_money:0,
+        test:[1,23,32,32],
     },
     mutations:
     {
@@ -63,7 +66,7 @@ new Vue(
  * from是你从哪来(obj)
  * next是下一步，不执行的话，路由会一直停滞在这，不会跳转
  */
-router.beforeEach(function(to, from, next) 
+router.beforeEach(function(to, from, next)
 {
    if(to.name == null)
    {
@@ -80,11 +83,11 @@ router.beforeEach(function(to, from, next)
            return false;
         }
    }
-  
+
    next();
 });
 
-    
+
 
 
 

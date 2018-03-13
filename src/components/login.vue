@@ -7,7 +7,7 @@
 
 
                 <p class="user-name">用户名</p>
-        
+
                 <div class="user">
                         <input type="text" placeholder="请输入账户名称" v-model="username">
                         <i></i>
@@ -15,7 +15,7 @@
 
 
                 <p class="user-name">密码</p>
-        
+
                 <div class="user">
                         <input type="password" placeholder="请输入密码" v-model="password">
                         <i></i>
@@ -26,12 +26,12 @@
                         <input type="text" placeholder="请输入验证码" class="code">
                         <img src="" alt="">
                 </div>
-                
+
 
                 <button class="btn-login" @click="login">
                     登录
                 </button>
-                
+
 
 
                 <div class="register-forget">
@@ -50,11 +50,11 @@
 
 <script>
 import config from '../assets/js/config';
-export default 
+export default
 {
     data:function()
     {
-        var data = 
+        var data =
         {
             username:"",
             password:"",
@@ -63,9 +63,9 @@ export default
     },
     methods:
     {
-        login: function() 
+        login: function()
         {
-            
+
             //用户名验证
             let uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
             if(!uPattern.test(this.username))
@@ -82,32 +82,21 @@ export default
             }
 
             //发送登录请求
-            this.$http.post(config.API + 'token', {username: this.username, pwd_1: this.password}).then(function (response) 
+            this.$http.post(config.API + 'token', {username: this.username, pwd_1: this.password}).then(function (response)
             {
-               
+
                 //登录成功
                 if(response.data.status == 200)
                 {
-                   
-                    this.$store.state.isLogin = true; //设置登录flag 
+
+                    this.$store.state.isLogin = true; //设置登录flag
                     this.$store.state.user_id = response.data.data.user_id;//设置登录user_id
                     window.sessionStorage.isLogin = 'ok';  //本地会话保存登录状态
                     window.sessionStorage.user_id = response.data.data.user_id;//本地会话保存user_id
-                    //获取用户信息
-                    this.$http.get(config.API + "user/" + response.data.data.user_id ).then(function (response) 
-                    {
-                        //将用户的信息保存到本地会话
-                        window.sessionStorage.admin = response.data.data.user.admin;
-                        window.sessionStorage.agent = response.data.data.user.agent;
-                        window.sessionStorage.manager = response.data.data.user.manager;
-                        window.sessionStorage.nickname = response.data.data.user.nickname;
-                        window.sessionStorage.type = response.data.data.user.type;
-                        window.sessionStorage.username = response.data.data.user.username;
-                        window.location.href = '/';
-                        // this.$router.push('/');//跳转到主页 不刷新   window.location.href会刷新
-                    })        
-                   
-                    
+                    this.$router.push('/');//跳转到主页 不刷新   window.location.href会刷新
+
+
+
                 }
                 else
                 {
@@ -131,7 +120,7 @@ export default
        {
         //    console.log(`new value is ${n}`);
         //    console.log(`old value is ${o}`);
-       } 
+       }
     }
 }
 </script>

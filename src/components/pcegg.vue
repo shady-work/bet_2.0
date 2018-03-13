@@ -598,7 +598,9 @@ export default
     },
     created:function()
     {
-
+      if(window.sessionStorage.isLogin != "ok"){
+        this.$router.push('login');
+      }
     },
     methods:
     {

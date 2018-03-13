@@ -165,6 +165,7 @@ a:hover{
   padding: 5px 10px !important;
   box-sizing: content-box!important;
   margin-top: 5px!important;
+  cursor: pointer;
 }
 
 .text-9
