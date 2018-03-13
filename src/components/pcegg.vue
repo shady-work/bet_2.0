@@ -71,7 +71,7 @@
                 <div class="bet-content-input">
                      <div class="fast-bet">
                          快速下注金额
-                         <input type="text" class="fast-bet-input">
+                         <input type="text" class="fast-bet-input" v-model="fast_money">
                      </div>
                      <div class="bet-btns">
                           <a href="">50</a>
@@ -99,72 +99,14 @@
                             <div class="first-ball-top">
                                混合
                             </div>
-                            <div class="long-bet-content">
-                                <span>大</span>
-                                <span>1.943</span>
-                                <input type="text">
+                            <div v-for="(v,k) in odds.mixture" class="long-bet-content">
+                                <span>{{odds.mixture_str[k]}}</span>
+                                <span>{{v}}</span>
+                                <input type="text" v-if="odds.mixture_str[k] != '豹子'" v-model="bet_content.mixture[k]" @click="choose_one(k,'mixture','ball_2')">
+                                <input type="text" v-if="odds.mixture_str[k] == '豹子'" v-model="bet_content.mixture[k]" @click="choose_one(1,'mixture','ball_4')">
                                 <div class="clear"></div>
                             </div>
-                            <div class="long-bet-content">
-                               <span>小</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                               <span>单</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                                <span >双</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                                <span >大单</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                                <span >大双</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                                <span >小单</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span >小双</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span >极大</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span >极小</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span >豹子</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
+
                             <div class="clear"></div>
                         </div>
 
@@ -172,24 +114,13 @@
                             <div class="first-ball-top">
                                波色
                             </div>
-                            <div class="long-bet-content">
-                                <span>红波</span>
-                                <span>1.943</span>
-                                <input type="text">
+                            <div v-for="(v,k) in odds.color" class="long-bet-content">
+                                <span>{{odds.color_str[k]}}</span>
+                                <span>{{v}}</span>
+                                <input type="text" v-model="bet_content.color[k]" @click="choose_one(k,'color','ball_3')">
                                 <div class="clear"></div>
                             </div>
-                            <div class="long-bet-content">
-                               <span>绿波</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                               <span>蓝波</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
+
                             <div class="clear"></div>
                         </div>
 
@@ -197,174 +128,14 @@
                             <div class="first-ball-top">
                               特码
                             </div>
-                            <div class="long-bet-content">
-                                <span class="hao0 ml10 mt5">0</span>
-                                <span>1.943</span>
-                                <input type="text">
+                            <div v-for="(v,k) in odds.special" class="long-bet-content">
+                                <span class="hao0 ml10 mt5">{{k}}</span>
+                                <span>{{v}}</span>
+                                <input type="text" v-model="bet_content.special[k]" @click="choose_one(k,'special','ball_1')">
                                 <div class="clear"></div>
                             </div>
-                            <div class="long-bet-content">
-                               <span class="hao1 ml10 mt5">1</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                               <span class="hao2 ml10 mt5">2</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                            <div class="long-bet-content">
-                                <span class="hao3 ml10 mt5">3</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao4 ml10 mt5">4</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao5 ml10 mt5">5</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao6 ml10 mt5">6</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao7 ml10 mt5">7</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao8 ml10 mt5">8</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">9</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">10</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">11</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">12</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">13</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">14</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">15</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">16</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">17</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">18</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">19</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">20</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">21</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">22</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">23</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">24</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">25</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">26</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
-                             <div class="long-bet-content">
-                                <span class="hao9 ml10 mt5">27</span>
-                                <span>1.943</span>
-                                <input type="text">
-                                <div class="clear"></div>
-                            </div>
+
+
                             <div class="clear"></div>
                         </div>
 
@@ -380,7 +151,7 @@
                  <div class="bet-content-input mt5">
                      <div class="fast-bet">
                          快速下注金额
-                         <input type="text" class="fast-bet-input">
+                         <input type="text" class="fast-bet-input" v-model="fast_money">
                      </div>
                      <div class="bet-btns">
                           <a href="">50</a>
@@ -390,7 +161,7 @@
                           <a href="">1000</a>
                           <a href="">设置快速金额</a>
                           <a href="" class="pull-right chongtian">重填</a>
-                           <a href="" class="pull-right tijiao">提交</a>
+                          <a href="" class="pull-right tijiao">提交</a>
                      </div>
                      <div class="clear"></div>
                 </div>
@@ -592,6 +363,22 @@ export default
             history_tables:[1,0,0],
             history_flag:0,
             history_str:"收起",
+            fast_money:10,//快速下注金额
+            odds: //赔率
+            {
+               mixture : [],
+               mixture_str : ['大','小','单','双','大单','大双','小单','小双','极大','极小','豹子'],
+               color   : [],
+               color_str   : ['红波','绿波','蓝波'],
+               special : [],
+            },
+            bet_content:
+            {
+              mixture:['','','','','','','','','','',''],
+              color:['','',''],
+              special : ['','','','','','','','','','','','','','','','','','','','','','','','','','','',''],
+            },
+            bets:[],
 
         };
         return my_data;
@@ -639,7 +426,60 @@ export default
             }
 
         },
-    }
+        get_odds:function(){
+          //获取两面盘的赔率
+          this.$http.get(`${this.global.config.API}egg/odds`).then(function(response){
+            let data = response.data.data;
+            let odds = data.odds;
+            console.log(odds);
+            for(let i=0;i<30;i++){
+               if(data.odds.ball_2['e'+i])
+               {
+                 this.odds.mixture.push(data.odds.ball_2['e'+i]);//混合的赔率
+               }
+              if(data.odds.ball_1['e'+i])
+              {
+                this.odds.special.push(data.odds.ball_1['e'+i]);//特码的赔率
+              }
+              if(data.odds.ball_3['e'+i])
+              {
+                this.odds.color.push(data.odds.ball_3['e'+i]);//波色的赔率
+              }
+            }
+            this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
+            console.log(this.odds);
+
+          });
+
+
+
+        },
+        choose_one:function(k,str,str2){
+
+          if(str2 == 'ball_4')
+          {
+            var content = `ball_4__e1`;
+            this.bet_content[str][k] = this.fast_money;//改变下注金额
+            this.bet_content[str].reverse().reverse();//触发视图层改变
+          }
+          else
+          {
+            var content = str2 + "__e" + (k+1);
+            this.bet_content[str][k] = this.fast_money;//改变下注金额
+            this.bet_content[str].reverse().reverse();//触发视图层改变
+          }
+
+          this.bets.push({content:content,money:this.fast_money});//添加到下注内容区
+          console.table(this.bets);
+        },
+    },
+    created:function(){
+        this.get_odds();
+    },
+    mounted:function(){
+      console.log(this.bet_content.special.length);
+
+    },
 }
 </script>
 
