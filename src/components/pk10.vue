@@ -254,7 +254,7 @@
               <div v-for="(val,key) in double_aspect_a" class="long-bet-content">
                 <span class="font16px">{{double_aspect_c[key]}}</span>
                 <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
-                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,k)">
+                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')">
                 <div class="clear"></div>
               </div>
 
@@ -286,7 +286,7 @@
               <div v-for="(val,key) in double_aspect_a" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val]" class="long-bet-content">
                 <span class="font16px">{{double_aspect_c[key]}}</span>
                 <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
-                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,k)">
+                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')">
                 <div class="clear"></div>
               </div>
 
@@ -572,16 +572,16 @@
               'ball_10_digit':['','','','','','','','','','',],
             },
             double_aspect:{
-              'ball_1_half':['1','','','','',''],
-              'ball_2_half':['2','','','','',''],
-              'ball_3_half':['3','','','','',''],
-              'ball_4_half':['4','','','','',''],
-              'ball_5_half':['5','','','','',''],
-              'ball_6_half':['6','','','','','','','','','',],
-              'ball_7_half':['7','','',''],
-              'ball_8_half':['8','','',''],
-              'ball_9_half':['9','','',''],
-              'ball_10_half':['10','','',''],
+              'ball_1_half':['','','','','',''],
+              'ball_2_half':['','','','','',''],
+              'ball_3_half':['','','','','',''],
+              'ball_4_half':['','','','','',''],
+              'ball_5_half':['','','','','',''],
+              'ball_6_half': ['','','',''],
+              'ball_7_half': ['','','',''],
+              'ball_8_half': ['','','',''],
+              'ball_9_half': ['','','',''],
+              'ball_10_half':['','','',''],
             },
             sum_digit:['','','','','','','','','','','','','','','','',''],
             sum_half:['','','',''],
@@ -843,7 +843,7 @@
         this.bets.double_aspect[str].reverse().reverse();//触发视图层改变
         let content = str + "__" + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-        console.log(this.bet_content)
+
       },
       comfire_content:function()
       {
