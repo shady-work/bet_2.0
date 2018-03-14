@@ -9,18 +9,18 @@
                     </div>
 
                     <div class="xy-left">
-                    
+
                         <div class="xy-list">
-                            <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0)">
+                            <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
                                 重庆时时彩
                             </a>
-                            <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1)">
+                            <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
                                 北京赛车pk10
                             </a>
-                            <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2)">
+                            <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
                             加拿大28
                             </a>
-                            <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3)">
+                            <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
                                 pc蛋蛋
                             </a>
                         </div>
@@ -29,36 +29,23 @@
 
                     <div class="xy-right">
                         <div class="xy-right-top">
-                            <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结明细</a>
-                            <a :class="tableArray[1]?'active':''" @click="showOne(1)">未结分类明细</a>
+
+                            <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结分类明细</a>
                         </div>
-                        
-                        <table v-show="tableArray[0]">
+
+
+                         <table v-show="tableArray[0]">
                             <tr>
-                                <td>注单号/时间</td>
-                                <td>下注类型</td>
-                                <td>注单类型</td>
+                                <td>注单号</td>
+                                <td>时间</td>
+                                <td>下注内容</td>
                                 <td>下注金额</td>
+                                <td>当时赔率</td>
+                                <td>预赢金额</td>
                             </tr>
-                             <tr>
-                                <td>123</td>
-                                <td>123</td>
-                                <td>123</td>
-                                <td>123</td>
-                            </tr>
-                        </table>
-                         <table v-show="tableArray[1]">
-                            <tr>
-                                <td>注单号/时间</td>
-                                <td>下注类型</td>
-                                <td>注单类型</td>
-                                <td>下注金额</td>
-                            </tr>
-                             <tr>
-                                <td>9999</td>
-                                <td>888</td>
-                                <td>77</td>
-                                <td>6</td>
+                            <tr v-for="v in unclear">
+                                <td v-for="val in v">{{val}}</td>
+
                             </tr>
                         </table>
                         <div class="page-xy">
@@ -66,7 +53,6 @@
                                 <input type="text" value="1">
                                 <span>/2008</span>
                                 <span>▶</span>
-
                                 <span class="pull-right" style="width:auto;">
                                     每页10条，共20080条
                                 </span>
@@ -80,42 +66,49 @@
 
 
 <script>
-export default 
+export default
 {
    data:function()
    {
-       var data = 
+       var data =
        {
           tableArray:[1,0,0],
-          table_lotterys:[1,0,0,0]
+          table_lotterys:[1,0,0,0],
+          unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
+          type:'ssc',//默认要的彩种数据
+          page:1,//默认的页数
        };
        return data;
    },
    methods:
    {
-       
+
        close:function()
        {
-           
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
        cancel:function(event)
        {
-           
+
            var e = event || window.event;
            e.cancelBubble = true;
        },
-       showOne:function(idx)
+       showOne:function(idx,str)
        {
             this.tableArray = [0,0,0];
             this.tableArray[idx] = 1;
+            this.$set(this,'unclear' , this.getOrder_2()[str]);
        },
        tab_lottery:function(idx)
        {
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
        }
-   }
+
+   },
+   created:function(){
+     this.unclear = this.getOrder_2();
+   },
 }
 </script>
 
@@ -156,7 +149,7 @@ export default
     }
     .xy-header>span
     {
-            float: left;    
+            float: left;
             height:30px;
             line-height: 30px;
             font-size: 14px;
@@ -278,7 +271,7 @@ export default
         width: 100%;
         color: #f3f3f3;
         font-size: 14px;
-       
+
     }
     table>tr
     {

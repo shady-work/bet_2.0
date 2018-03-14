@@ -869,7 +869,10 @@
                if(that.open_time <= 0 )
                {
                  clearInterval(timeId);
+                 //重新获取时间
                  that.get_time();
+                 //获取全局的未结算清单
+                 this.$set(this.$store.state,'unclear',this.getOrder());
                  return;
                }
              }

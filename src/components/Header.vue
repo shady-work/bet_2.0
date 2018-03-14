@@ -5,7 +5,7 @@
     <div class="a-waps">
       <img src="" alt="" id="logo">
       <a @click="showOne(0)" class="nav-top">
-          
+
           <i class="fa fa-credit-card"></i>
           <p>信用资料</p>
       </a>
@@ -23,7 +23,7 @@
       <a @click="showOne(4)" class="nav-top">
           <i class="fa fa-bar-chart"></i>
           <p>已结算报表</p>
-          
+
       </a>
 
       <a @click="showOne(2)" class="nav-top">
@@ -51,7 +51,7 @@
   </div>
 
 
-  
+
 </template>
 
 <script>
@@ -61,12 +61,12 @@ import openHistory from './open_history';
 import rules from './rules';
 import clear from './clear_diagam';
 import unclear from './unclear_diagam';
-export default 
+export default
 {
   name:"Header",
   data:()=>
   {
-      var my_data = 
+      var my_data =
       {
           showArray:[0,0,0,0,0,0,0,0,0],
       };
@@ -75,16 +75,17 @@ export default
   methods:
   {
     /**@augments
-     * 
+     *
      */
     showOne:function(idx)
     {
+        console.log(this.$children[2]._data);
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
     },
     log_out:function()
     {
-      this.$store.state.isLogin    = false; //设置登录flag 
+      this.$store.state.isLogin    = false; //设置登录flag
       this.$store.state.user_id    = null;//设置登录user_id
       window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
       window.sessionStorage.user_id  = null;//本地会话保存user_id
@@ -96,14 +97,14 @@ export default
       window.sessionStorage.username = null;
       window.location.href = '/';
     },
-    
+
   },
   created:()=>
   {
     //当页面加载时触发的函数
-   
+
   },
-  components: 
+  components:
   {
     'xinyongziliao':xinyongziliao,
     'edi-pwd':editPwd,
