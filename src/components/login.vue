@@ -1,39 +1,26 @@
 <template>
         <div id="login">
-
             <div class="login">
                 <p class="logo">LOGO</p>
                 <p class="vip-login">会员登录</p>
-
-
                 <p class="user-name">用户名</p>
-
                 <div class="user">
                         <input type="text" placeholder="请输入账户名称" v-model="username">
                         <i></i>
                 </div>
-
-
                 <p class="user-name">密码</p>
 
                 <div class="user">
                         <input type="password" placeholder="请输入密码" v-model="password">
                         <i></i>
                 </div>
-
-
                 <div class="user mt15">
                         <input type="text" placeholder="请输入验证码" class="code">
                         <img src="" alt="">
                 </div>
-
-
                 <button class="btn-login" @click="login">
                     登录
                 </button>
-
-
-
                 <div class="register-forget">
                     <a href="" class="pull-left">
                         注册
@@ -49,7 +36,6 @@
 
 
 <script>
-import config from '../assets/js/config';
 export default
 {
     data:function()
@@ -82,21 +68,16 @@ export default
             }
 
             //发送登录请求
-            this.$http.post(config.API + 'token', {username: this.username, pwd_1: this.password}).then(function (response)
+            this.$http.post(this.global.config.API + 'token', {username: this.username, pwd_1: this.password}).then(function (response)
             {
-
                 //登录成功
                 if(response.data.status == 200)
                 {
-
                     this.$store.state.isLogin = true; //设置登录flag
                     this.$store.state.user_id = response.data.data.user_id;//设置登录user_id
                     window.sessionStorage.isLogin = 'ok';  //本地会话保存登录状态
                     window.sessionStorage.user_id = response.data.data.user_id;//本地会话保存user_id
                     this.$router.push('/');//跳转到主页 不刷新   window.location.href会刷新
-
-
-
                 }
                 else
                 {
@@ -108,10 +89,10 @@ export default
     created:function()
     {
         //用户登录了，提示不能已登录  并跳转到主页
-        if(window.sessionStorage.isLogin == "ok")
+        if(this.$store.state.isLogin ||window.sessionStorage.isLogin == "ok")
         {
-            alert('你已登录！')
-            window.location.href = '/';
+            alert('你已登录！');
+            this.$router.push('/');
         }
     },
     watch:

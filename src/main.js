@@ -4,10 +4,38 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-import $ from 'jquery';
 import vuex from 'vuex';
+
+
 import common from './assets/js/common';//加载commonjs
 Vue.prototype.global = common;//挂载在vue的原型上
+
+/**
+ * 封装的全局方法
+ */
+Vue.prototype.getOrder = function(){
+  let urls = ['ssc','pk10','egg','cake'];
+  this.orderData = [];
+  for(let j = 0;j<urls.length;j++)
+  {
+    //获取cqssc,pk10,egg,cake未结算的数据
+    this.$http.get(`${this.global.config.API}${urls[j]}/history/lucky/0`).then(function(res)
+    {
+      let data = res.data.data;
+      let list  = data.list;
+      for(let i = 0; i<list.length;i++)
+      {
+        if(list[i].status == 0 && list[i].open_code == "")
+        {
+          let html = `${list[i].lty_name} <p>${list[i].expect} ${list[i].mark_a}  ${list[i].mark_b} ${list[i].money}</p>`;
+          this.orderData.push(html);
+        }
+      }
+    });
+  }
+  return this.orderData;
+};
+
 
 
 
@@ -37,6 +65,7 @@ var store = new vuex.Store(
         nickname:'加载中',
         cash_money:0,
         test:[1,23,32,32],
+        unclear:[],//未结算清单
     },
     mutations:
     {
@@ -46,7 +75,7 @@ var store = new vuex.Store(
             //你还可以在这里执行其他的操作改变state
         }
     }
-})
+});
 
 
 /* eslint-disable no-new */
@@ -86,6 +115,10 @@ router.beforeEach(function(to, from, next)
 
    next();
 });
+
+
+
+
 
 
 

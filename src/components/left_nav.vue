@@ -26,7 +26,7 @@
             <a @click="turn(3)" :class="navArray[3]?'lottery active':'lottery'">
                 <img src="../assets/img/PCdandan.png" alt="">
                 <p class="color-white">
-                    加拿大卑斯快乐8
+                    PC蛋蛋
                 </p>
                 <div class="clear"></div>
             </a>
@@ -38,9 +38,13 @@
             <p class="color-white">近期下注</p>
             <p class="color-white">{{recent.str}}</p>
         </div>
+
+        <!--近期下注内容-->
         <div class="recent-content text-left" v-show="recent.flag">
-            123
+            <div class="list-recent" v-for="v in $store.state.unclear" v-html="v"></div>
         </div>
+
+       <!--开奖网站参考-->
         <div class="recent-bet" @click="toggleDiv(website)">
             <img src="../assets/img/network.png" alt="">
             <p class="color-white">开奖网站参考</p>
@@ -75,6 +79,7 @@ export default
                 flag:false,
             },
             navArray:[1,0,0,0],
+            unclear:[],//未结算的清单
         };
         return data;
     },
@@ -110,8 +115,14 @@ export default
                 default:
                 break;
             }
-        }
+        },
+
     },
+    created:function ()
+    {
+       //获取全局的未结算清单
+       this.$set(this.$store.state,'unclear',this.getOrder());
+    }
 }
 
 
@@ -138,7 +149,6 @@ $(function()
     #left-nav
     {
         width: 230px;
-        /* height: 500px; */
         background: #22618d;
         float: left;
     }
@@ -223,5 +233,19 @@ $(function()
         padding-right: 15px;
         padding-bottom:15px;
     }
+    .recent-content>div:first-of-type
+    {
+      margin-top: 10px;
+    }
+    .list-recent
+    {
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 14px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid rgba(200,200,200,0.5);
+    }
+
+
 </style>
 

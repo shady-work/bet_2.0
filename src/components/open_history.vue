@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="xy-left">
-                   
+
                     <div class="xy-list">
                         <a href="" class="active">
                             重庆时时彩
@@ -401,30 +401,30 @@
 </template>
 
 <script>
-export default 
+export default
 {
    data:function()
    {
-       var data = 
+       var data =
        {
-          
+
        };
        return data;
    },
    methods:
    {
-       
+
        close:function()
        {
-           
+
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        }
      /*  test2:function(event)
        {
-           
+
            var e = event || window.event;
            e.cancelBubble = true;
-           
+
        }*/
    }
 }
@@ -467,7 +467,7 @@ export default
     }
     .xy-header>span
     {
-            float: left;    
+            float: left;
             height:30px;
             line-height: 30px;
             font-size: 14px;
@@ -606,7 +606,7 @@ export default
 
     .xy-right-top>input
     {
-        width: 120px;
+        width: 138px;
         float: left;
         background: none;
         outline: none;

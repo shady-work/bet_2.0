@@ -31,7 +31,8 @@
 
         <div class="left">
           <p class="color-white text-right">第{{thisExpect}}期</p>
-          <p class="color-white mt5 text-right">距离封盘</p>
+          <p class="color-white mt5 text-right" v-show="end_time > 0">距离封盘</p>
+          <p class="color-white mt5 text-right" v-show="end_time <= 0">距离开盘</p>
         </div>
 
         <div class="count-down color-white">
@@ -717,6 +718,8 @@
         var timeId = setInterval(function(){
           if(that.end_time <= 0)
           {
+            that.mins = '00';
+            that.seconds = that.open_time;
             if(that.open_time <= 0 )
             {
               clearInterval(timeId);
@@ -896,11 +899,13 @@
             //清除下注内容
             this.clear_bet();
             //从服务器上获取余额
-            this.$http.get(config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
             {
               let  data = response.data.data.user;
               this.$set(this.$store.state,'cash_money',data.money.cash_money)
             });
+            //获取全局的未结算清单
+            this.$set(this.$store.state,'unclear',this.getOrder());
             alert(res.data.msg);
           }
           else
@@ -917,7 +922,7 @@
       if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok")) {
         this.global.log('欢迎回来~');
         //获取用户信息
-        this.$http.get(config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
         {
           let  data = response.data.data.user;
           this.$store.state.username = data.username;//用户名
@@ -942,6 +947,13 @@
 
     },
     mounted:function(){
+      var that = this;
+      //获取赔率、最新开奖结果的倒计时 5s一次
+      setInterval(function(){
+        that.get_odds();
+        that.get_last();
+      },5000);
+
     },
   }
 </script>

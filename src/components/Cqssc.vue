@@ -31,7 +31,8 @@
 
         <div class="left">
           <p class="color-white text-right">第{{thisExpect}}期</p>
-          <p class="color-white mt5 text-right">距离封盘</p>
+          <p class="color-white mt5 text-right" v-show="end_time > 0">距离封盘</p>
+          <p class="color-white mt5 text-right" v-show="end_time <= 0">距离开盘</p>
         </div>
 
         <div class="count-down color-white">
@@ -374,15 +375,10 @@
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
-        <div class="history-balls">
-          <span>874933</span>
-          <span class="code-ball">1</span>
-          <span class="code-ball">2</span>
-          <span class="code-ball">3</span>
-          <span class="code-ball">4</span>
-          <span class="code-ball">5</span>
+        <div v-for="(v,k) in history_expects" class="history-balls">
+          <span>{{v}}</span>
+          <span v-for="(val,key) in history_codes[k]" class="code-ball">{{val}}</span>
         </div>
-
       </div>
       <div class="history-close ">
         <a @click="close_history()">
@@ -509,6 +505,15 @@
             '中三-豹子','中三-顺子','中三-对子','中三-半顺','中三-杂六',
             '后三-豹子','后三-顺子','后三-对子','后三-半顺','后三-杂六',
           ],
+
+          curPage:1,//当前页面
+          hasNext:true,//是否有下一页
+          hasPrev:false,//是否有上一页
+          history_list:[],//开奖列表
+          nextPageUrl:'',//下页的url
+          prevPageUrl:'',//上页的url
+          history_codes:[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],],//开奖号码的集合
+          history_expects:[],//开奖期数的集合
       };
       return my_data;
     },
@@ -820,11 +825,13 @@
                  //清除下注内容
                  this.clear_bet();
                  //从服务器上获取余额
-                this.$http.get(config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+                this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
                 {
                   let  data = response.data.data.user;
                   this.$set(this.$store.state,'cash_money',data.money.cash_money)
                 });
+                //获取全局的未结算清单
+                this.$set(this.$store.state,'unclear',this.getOrder());
                  alert(res.data.msg);
               }
               else
@@ -857,6 +864,8 @@
            var timeId = setInterval(function(){
              if(that.end_time <= 0)
              {
+               that.mins = '00';
+               that.seconds = that.open_time;
                if(that.open_time <= 0 )
                {
                  clearInterval(timeId);
@@ -884,30 +893,32 @@
         },
 
 
+        get_history:function(){
+          let url = `${this.global.config.API}ssc/history/lottery`;
+          this.history_codes = [];
+          this.$http.get(url).then(function(res){
+            let data = res.data.data;
+            this.curPage = data.curPage;
+            this.hasNext = data.hasNext;
+            this.hasPrev = data.hasPrev;
+            this.history_list = data.list;
+            for(let i = 0; i<this.history_list.length;i++){
+                 let expect = this.history_list[i].expect;
+                 this.history_expects.push(expect);
+                 let codes = this.history_list[i].opencode.split(',');
+                 this.history_codes.push(codes);
+            }
+            this.history_codes.reverse().reverse();
+          });
+        },
+
 
     },
 
 
 
     created: function () {
-      //检测是否登录
-      if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok")) {
-        this.global.log('欢迎回来~');
-        //获取用户信息
-        this.$http.get(config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
-        {
-          let  data = response.data.data.user;
-          this.$store.state.username = data.username;//用户名
-          this.$store.state.nickname = data.nickname;//昵称
-          this.$store.state.cash_money = data.money.cash_money;//现金额度
-          this.$store.state.credit_money = data.money.credit_money;//信用额度
-        });
 
-      }
-      else {
-        window.location.href = '#/login';
-        return;
-      }///没有登录跳转到登录页面
 
       //获取最新的开奖号码
       this.get_last_code();
@@ -916,6 +927,8 @@
 
       //获取重庆时时彩的时间和期数
       this.get_time();
+
+      this.get_history();
 
     },
 
