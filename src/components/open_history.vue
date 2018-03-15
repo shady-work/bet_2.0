@@ -11,16 +11,16 @@
       <div class="xy-left">
 
         <div class="xy-list">
-          <a class="active">
+          <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
             重庆时时彩
           </a>
-          <a>
+          <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
             北京赛车pk10
           </a>
-          <a>
+          <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
             加拿大28
           </a>
-          <a>
+          <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
             pc蛋蛋
           </a>
         </div>
@@ -38,7 +38,7 @@
           </button>
         </div>-->
         <table border="1">
-          <tr>
+          <tr v-if="type == 'ssc'">
             <td>日期</td>
             <td>期数</td>
             <td style="width:200px;">
@@ -51,36 +51,94 @@
             <td>前三</td>
             <td>中三</td>
             <td>后三</td>
-          </tr>
-          <tr>
-            <td><p>2018-02-28 10:58:28</p></td>
-            <td>20180220830</td>
+          </tr >
+          <tr v-for="v in list" v-if="type == 'ssc'">
+            <td><p>{{v.opentime}}</p></td>
+            <td>{{v.expect}}</td>
             <td>
-              <span class="open-code">1</span>
-              <span class="open-code">2</span>
-              <span class="open-code">3</span>
-              <span class="open-code">4</span>
-              <span class="open-code">5</span>
+              <span v-for="val in v.open_codes" class="open-code">{{val}}</span>
             </td>
-            <td>15</td>
-            <td>单</td>
-            <td>小</td>
-            <td>龙</td>
-            <td>对子</td>
-            <td>对子</td>
-            <td>对子</td>
+            <td>{{get_sum(v.open_codes)}}</td>
+            <td>{{v.details.dragon_and_tiger[1]}}</td>
+            <td>{{v.details.dragon_and_tiger[0]}}</td>
+            <td>{{v.details.dragon_and_tiger[2]}}</td>
+            <td>{{v.details.front_3[0]}}</td>
+            <td>{{v.details.medium_3[0]}}</td>
+            <td>{{v.details.end_3[0]}}</td>
+          </tr>
+
+
+          <tr v-if="type == 'pk10'">
+            <td>日期</td>
+            <td>期数</td>
+            <td style="width:200px;">
+              <p>开奖号码</p>
+            </td>
+            <td>总和</td>
+          </tr>
+          <tr v-for="v in list" v-if="type == 'pk10'">
+            <td><p>{{v.opentime}}</p></td>
+            <td>{{v.expect}}</td>
+            <td width="400">
+              <span v-for="val in v.open_codes" class="open-code">{{val}}</span>
+            </td>
+            <td width="60">{{get_sum(v.open_codes)}}</td>
+
+          </tr>
+
+
+          <tr v-if="type == 'cake'">
+            <td>日期</td>
+            <td width="80">期数</td>
+            <td style="width:115px;">
+              <p>开奖号码</p>
+            </td>
+            <td width="80">总和</td>
+            <td>总和大小-总和单双-总和小单小双-总和极值</td>
+            <td width="80">波色</td>
+
+          </tr>
+          <tr v-for="v in list" v-if="type == 'cake'">
+            <td><p>{{v.opentime}}</p></td>
+            <td>{{v.expect}}</td>
+            <td >
+              <span v-for="val in v.details.ball_0" class="open-code">{{val}}</span>
+            </td>
+            <td>{{v.details.ball_1[0]}}</td>
+            <td>{{v.details.ball_2[0]}}-{{v.details.ball_2[1]}}-{{v.details.ball_2[2]}}-{{v.details.ball_2[3]}}</td>
+            <td>{{v.details.ball_3[0]}}</td>
+          </tr>
+
+
+
+          <tr v-if="type == 'egg'">
+            <td>日期</td>
+            <td width="80">期数</td>
+            <td style="width:115px;">
+              <p>开奖号码</p>
+            </td>
+            <td width="80">总和</td>
+            <td>总和大小-总和单双-总和小单小双-总和极值</td>
+            <td width="80">波色</td>
+
+          </tr>
+          <tr v-for="v in list" v-if="type == 'egg'">
+            <td><p>{{v.opentime}}</p></td>
+            <td>{{v.expect}}</td>
+            <td >
+              <span v-for="val in v.details.ball_0" class="open-code">{{val}}</span>
+            </td>
+            <td>{{v.details.ball_1[0]}}</td>
+            <td>{{v.details.ball_2[0]}}-{{v.details.ball_2[1]}}-{{v.details.ball_2[2]}}-{{v.details.ball_2[3]}}</td>
+            <td>{{v.details.ball_3[0]}}</td>
           </tr>
 
         </table>
         <div class="page-xy">
-          <span>◀</span>
-          <input type="text" value="1">
-          <span>/2008</span>
-          <span>▶</span>
-
-          <span class="pull-right" style="width:auto;">
-                                每页10条，共20080条
-                            </span>
+          <span @click="prev_page">◀</span>
+          <input type="text" v-model="page">
+          <span @click="next_page">▶</span>
+          <span class="pull-right" style="width:auto;">每页10条</span>
         </div>
       </div>
 
@@ -94,7 +152,14 @@ export default
 {
   data: function () {
     var data =
-      {};
+    {
+        table_lotterys:[1,0,0,0],
+        type:'ssc',//默认要的彩种数据
+        next_url:'',
+        prev_url:'',
+        list:[],
+        page :1,
+    };
     return data;
   },
   methods:
@@ -108,10 +173,47 @@ export default
       var e = event || window.event;
       e.cancelBubble = true;
     },
+    tab_lottery:function(idx,str)
+    {
+      this.table_lotterys = [0,0,0,0];
+      this.table_lotterys[idx] = 1;
+      this.type = str;
+      this.list = this.get_codes(`${this.global.config.API}${this.type}/history/lottery/per_page/10`);
+    },
+    //下一页
+    next_page:function(){
+      if(this.next_url) this.list = this.get_codes(`${this.global.config.API}${this.next_url}`);
+      else alert('没有下一页');
+
+    },
+    //上一页
+    prev_page:function(){
+      if(this.prev_url) this.list = this.get_codes(`${this.global.config.API}${this.prev_url}`);
+      else alert('没有上一页');
+    },
+    get_codes:function(url = `${this.global.config.API}ssc/history/lottery/per_page/10`){
+      this.$http.get(url).then(function(res){
+        let data = res.data.data;
+        console.table(data);
+        this.list = data.list;
+        this.page = data.curPage;
+        this.next_url = data.nextPageUrl;
+        this.prev_url = data.prevPageUrl;
+      });
+    },
+    get_sum:function(arr)
+    {
+      var sum = 0;
+      for(let i = 0;i <arr.length;i++)
+      {
+          sum += Number(arr[i]);
+      }
+      return sum;
+    },
 
   },
   created:function(){
-    this.getHistoryAll();
+    this.get_codes();
   },
 
 }
@@ -171,7 +273,7 @@ export default
   }
 
   .xy-left {
-    width: 185px;
+    width: 155px;
     height: 515px;
     float: left;
     box-sizing: border-box;
@@ -213,7 +315,7 @@ export default
 
   .xy-right {
     height: 515px;
-    width: 715px;
+    width: 745px;
     background: #4294d0;
     float: left;
   }
@@ -257,7 +359,7 @@ export default
     border: 1px solid #e5e5e5;
     color: #f3f3f3;
     font-size: 14px;
-    height: 441px;
+    height: 485px;
   }
 
   td > span {
@@ -316,7 +418,6 @@ export default
     border-radius: 3px;
     margin-left: 15px;
     width: 70px;
-    /* height: 20px; */
   }
 
   .page-xy {
@@ -333,6 +434,7 @@ export default
     margin-left: 5px;
     margin-right: 3px;
     color: #f3f3f3;
+    cursor: pointer;
 
   }
 

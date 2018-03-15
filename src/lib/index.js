@@ -60,24 +60,8 @@ Vue.prototype.getOrderClear = function(type='ssc',page=1,per_page=15,lucky=1)
     }
   });
   return this.orderData_3;
-}
+};
 
-
-
-//获取开奖历史
-Vue.prototype.getHistoryAll = function(type='ssc',page=1)
-{
-  let url = `${this.global.config.API}${type}/history/lottery`;
-  this.$http.get(url).then(function(res){
-    let data = res.data.data;
-
-  });
-
-
-
-
-
-}
 
 
 
