@@ -1,22 +1,15 @@
 <template>
    <div id="index">
-
-
-
      <!-- 头部 -->
      <my-header></my-header>
-
      <!-- 左边的信息 -->
      <left-nav></left-nav>
-
      <!-- 中间下注区 -->
      <div id="center">
         <router-view/>
         <div class="clear"></div>
      </div>
-
      <div class="clear"></div>
-
     <!-- 底部的滚动条 -->
     <div id="notice">
       <div class="left">
@@ -27,9 +20,6 @@
         本网站2010年成立于菲律宾，专业经营各项博彩业务，主营北京赛车pk10，幸运飞艇，重庆时时彩，广东快乐十分，幸运农场，六合彩等项目，自主开户，现金开户，安全稳定，下注简单，服务优质。
       </marquee>
     </div>
-
-
-
    </div>
 </template>
 
@@ -50,26 +40,36 @@
         'left-nav':Left,
         'login':Login
       },
+      beforeCreate:function(){
+        //检测是否登录
+        this.$http.get(this.global.config.API + 'ifLogin').then(function(res)
+        {
+          var data = res.data;
+          if(data.status == 200)
+          {
+            this.global.log('欢迎回来~');
+            //获取用户信息
+            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+            {
+              let  data = response.data.data.user;
+              this.$store.state.username = data.username;//用户名
+              this.$store.state.nickname = data.nickname;//昵称
+              this.$store.state.cash_money = data.money.cash_money;//现金额度
+              this.$store.state.credit_money = data.money.credit_money;//信用额度
+            });
+          }
+          else if (data.status == 403)
+          {
+            // window.location.href = '/#/login';
+            this.$router.push('login');
+            return false;
+          }
+        });
+      },
       created:function()
       {
-        //检测是否登录
-        if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok")) {
-          this.global.log('欢迎回来~');
-          //获取用户信息
-          this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
-          {
-            let  data = response.data.data.user;
-            this.$store.state.username = data.username;//用户名
-            this.$store.state.nickname = data.nickname;//昵称
-            this.$store.state.cash_money = data.money.cash_money;//现金额度
-            this.$store.state.credit_money = data.money.credit_money;//信用额度
-          });
 
-        }
-        else {
-          window.location.href = '#/login';
-          return;
-        }///没有登录跳转到登录页面
+
       }
   }
 </script>

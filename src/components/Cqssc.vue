@@ -514,6 +514,9 @@
           prevPageUrl:'',//上页的url
           history_codes:[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],],//开奖号码的集合
           history_expects:[],//开奖期数的集合
+
+          //更新odds和开奖数据的定时器
+          timeId:0,
       };
       return my_data;
     },
@@ -613,8 +616,10 @@
         get_odds:function(){
           //获取两面盘的赔率
           this.$http.get(`${this.global.config.API}ssc/odds/6`).then(function(response){
-             let data = response.data.data;
-             let odds = data.odds;
+
+            if(response.data.status == 403) return false;
+            let data = response.data.data;
+            let odds = data.odds;
              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
              let Alphabet = ['K','L','M','N'];
              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
@@ -634,6 +639,7 @@
 
           //获取单球1-5的赔率
           this.$http.get(`${this.global.config.API}ssc/odds/7`).then(function(response) {
+            if(response.data.status == 403) return false;
             let data = response.data.data.odds;
             let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
             for(let i=0;i<Alphabet.length;i++) {
@@ -648,6 +654,7 @@
 
           //获取第一球的赔率
           this.$http.get(`${this.global.config.API}ssc/odds/1`).then(function(response){
+            if(response.data.status == 403) return false;
               let Alphabet = ['A','B','C','D','E'];
               for(let i=0;i<this.odds.ball_3.front3.length;i++){
                 this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
@@ -872,7 +879,7 @@
                  //重新获取时间
                  that.get_time();
                  //获取全局的未结算清单
-                 this.$set(this.$store.state,'unclear',this.getOrder());
+                 //this.$set(this.$store.state,'unclear',this.getOrder());
                  return;
                }
              }
@@ -890,9 +897,6 @@
 
            },1000);
            //开盘倒计时
-
-
-
         },
 
 
@@ -922,6 +926,24 @@
 
     created: function () {
 
+      //检测是否登录
+      if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok")) {
+        this.global.log('欢迎回来~');
+        //获取用户信息
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        {
+          let  data = response.data.data.user;
+          this.$store.state.username = data.username;//用户名
+          this.$store.state.nickname = data.nickname;//昵称
+          this.$store.state.cash_money = data.money.cash_money;//现金额度
+          this.$store.state.credit_money = data.money.credit_money;//信用额度
+        });
+
+      }
+      else {
+        window.location.href = '/#/login';
+        return;
+      }///没有登录跳转到登录页面
 
       //获取最新的开奖号码
       this.get_last_code();
@@ -939,10 +961,10 @@
       //在created之后创建的构子
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
-      setInterval(function(){
+      this.timeId = setInterval(function(){
         that.get_odds();
         that.get_last_code();
-      },5000)
+      },5000);
 
     }
   }

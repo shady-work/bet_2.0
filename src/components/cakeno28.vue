@@ -583,7 +583,6 @@
           let url2 = `${this.global.config.API}cake/time`;
           this.$http.get(url2).then(function(response){
             let data = response.data;
-            console.log(data);
             this.end_time = data.endtime;
             this.open_time = data.opentime;
             this.this_expect = data.expect;

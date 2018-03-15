@@ -79,23 +79,33 @@ export default
      */
     showOne:function(idx)
     {
-        console.log(this.$children[2]._data);
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
+
+        //点开未结算报表的时候触发的函数
+        if(idx == 5)
+        {
+          //加载ssc的数据
+          this.$set(this.$store.state,'unlist',this.getOrder_2())
+        }
     },
     log_out:function()
     {
-      this.$store.state.isLogin    = false; //设置登录flag
-      this.$store.state.user_id    = null;//设置登录user_id
-      window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
-      window.sessionStorage.user_id  = null;//本地会话保存user_id
-      window.sessionStorage.admin    = null;
-      window.sessionStorage.agent    = null;
-      window.sessionStorage.manager  = null;
-      window.sessionStorage.nickname = null;
-      window.sessionStorage.type     = null;
-      window.sessionStorage.username = null;
-      window.location.href = '/';
+      this.$http.delete(`${this.global.config.API}token`).then(function(res){
+        console.log(res);
+        this.$store.state.isLogin    = false; //设置登录flag
+        this.$store.state.user_id    = null;//设置登录user_id
+        window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
+        window.sessionStorage.user_id  = null;//本地会话保存user_id
+        window.sessionStorage.admin    = null;
+        window.sessionStorage.agent    = null;
+        window.sessionStorage.manager  = null;
+        window.sessionStorage.nickname = null;
+        window.sessionStorage.type     = null;
+        window.sessionStorage.username = null;
+        window.location.href = '/';
+      });
+
     },
 
   },

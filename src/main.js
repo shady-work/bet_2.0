@@ -42,13 +42,8 @@ var store = new vuex.Store(
         cash_money:0,
         test:[1,23,32,32],
         unclear:[],//未结算清单  用于侧边栏
-        unlist:    //未结算清单  用于头部
-        {
-          'ssc':[],
-          'pk10':[],
-          'egg':[],
-          'cake':[],
-        },
+        unlist:[], //未结算清单  用于头部
+
 
     },
     mutations:
@@ -63,13 +58,16 @@ var store = new vuex.Store(
 
 
 /* eslint-disable no-new */
-new Vue(
+const Vm = new Vue(
 {
   el: '#app',
   router:router,
   store:store,
   components: { App },
   template: '<App/>',
+  created:function(){
+
+  }
 });
 
 
@@ -79,27 +77,13 @@ new Vue(
  * from是你从哪来(obj)
  * next是下一步，不执行的话，路由会一直停滞在这，不会跳转
  */
-router.beforeEach(function(to, from, next)
-{
-   if(to.name == null)
-   {
-        //用户登录了，跳转到主页
-        if(window.sessionStorage.isLogin == "ok")
-        {
-            router.push('/');
-            return false;
-        }
-        else
-        {
-            //用户没有登录，跳转到登录页面
-           router.push('login');
-           return false;
-        }
-   }
-
-   next();
-});
-
+// router.beforeEach(function(to, from, next)
+// {
+//
+//
+//    next();
+// });
+//
 
 
 

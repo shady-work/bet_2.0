@@ -1,5 +1,5 @@
 
-let data = 
+let data =
 {
     API:"http://lty-main.com/",
 };

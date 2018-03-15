@@ -43,19 +43,18 @@
                                 <td>当时赔率</td>
                                 <td>预赢金额</td>
                             </tr>
-                            <tr v-for="v in unclear">
+                            <tr v-for="v in $store.state.unlist">
                                 <td v-for="val in v">{{val}}</td>
-
                             </tr>
                         </table>
                         <div class="page-xy">
-                                <span>◀</span>
-                                <input type="text" value="1">
-                                <span>/2008</span>
-                                <span>▶</span>
-                                <span class="pull-right" style="width:auto;">
-                                    每页10条，共20080条
-                                </span>
+                                <span @click="prev_page">◀</span>
+                                <input type="text" v-model="page" disabled>
+                                <!--<span>/2008</span>-->
+                                <span @click="next_page">▶</span>
+                                <!--<span class="pull-right" style="width:auto;">-->
+                                    <!--每页10条，共20080条-->
+                                <!--</span>-->
                         </div>
                     </div>
 
@@ -85,6 +84,9 @@ export default
 
        close:function()
        {
+           this.tableArray = [1,0,0];
+           this.page = 1;
+           this.type = 'ssc';
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
        cancel:function(event)
@@ -99,11 +101,42 @@ export default
             this.tableArray[idx] = 1;
             this.$set(this,'unclear' , this.getOrder_2()[str]);
        },
-       tab_lottery:function(idx)
+       tab_lottery:function(idx,str)
        {
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
-       }
+            this.type = str;
+            this.page = 1;
+            this.$set(this.$store.state,'unlist',this.getOrder_2(str));
+            console.log(1);
+       },
+       //下一页
+       next_page:function(){
+          this.page += 1;
+          let data = this.getOrder_2(this.type,this.page);
+          if(data.length < 1)
+          {
+            this.page -= 1;
+            alert('没有更多数据了');
+            return;
+          }
+          else
+          {
+            this.$set(this.$store.state,'unlist',data);
+          }
+       },
+       //上一页
+       prev_page:function(){
+           if(this.page == 1){
+              alert('没有上一页');
+           }
+           else
+           {
+              this.page -= 1;
+              let data = this.getOrder_2(this.type,this.page);
+              this.$set(this.$store.state,'unlist',data);
+           }
+       },
 
    },
    created:function(){
@@ -357,6 +390,7 @@ export default
         margin-left:5px;
         margin-right:3px;
         color:#f3f3f3;
+        cursor:pointer;
 
     }
     .page-xy>input
