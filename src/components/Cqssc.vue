@@ -961,10 +961,10 @@
       //在created之后创建的构子
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
-      this.timeId = setInterval(function(){
-        that.get_odds();
-        that.get_last_code();
-      },5000);
+      // this.timeId = setInterval(function(){
+      //   that.get_odds();
+      //   that.get_last_code();
+      // },5000);
 
     }
   }

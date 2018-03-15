@@ -81,13 +81,6 @@ export default
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
-
-        //点开未结算报表的时候触发的函数
-        if(idx == 5)
-        {
-          //加载ssc的数据
-          this.$set(this.$store.state,'unlist',this.getOrder_2())
-        }
     },
     log_out:function()
     {

@@ -42,9 +42,6 @@ var store = new vuex.Store(
         cash_money:0,
         test:[1,23,32,32],
         unclear:[],//未结算清单  用于侧边栏
-        unlist:[], //未结算清单  用于头部
-
-
     },
     mutations:
     {

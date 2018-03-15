@@ -43,13 +43,13 @@
                                 <td>当时赔率</td>
                                 <td>预赢金额</td>
                             </tr>
-                            <tr v-for="v in $store.state.unlist">
+                            <tr v-for="v in list">
                                 <td v-for="val in v">{{val}}</td>
                             </tr>
                         </table>
                         <div class="page-xy">
                                 <span @click="prev_page">◀</span>
-                                <input type="text" v-model="page" disabled>
+                                <input type="text" v-model="page"  disabled>
                                 <!--<span>/2008</span>-->
                                 <span @click="next_page">▶</span>
                                 <!--<span class="pull-right" style="width:auto;">-->
@@ -75,7 +75,10 @@ export default
           table_lotterys:[1,0,0,0],
           unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
           type:'ssc',//默认要的彩种数据
-          page:1,//默认的页数
+          next_url:'',
+          prev_url:'',
+          list:[],
+          page :1,
        };
        return data;
    },
@@ -85,7 +88,6 @@ export default
        close:function()
        {
            this.tableArray = [1,0,0];
-           this.page = 1;
            this.type = 'ssc';
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
@@ -95,52 +97,63 @@ export default
            var e = event || window.event;
            e.cancelBubble = true;
        },
-       showOne:function(idx,str)
+       showOne:function(idx)
        {
             this.tableArray = [0,0,0];
             this.tableArray[idx] = 1;
-            this.$set(this,'unclear' , this.getOrder_2()[str]);
+
        },
        tab_lottery:function(idx,str)
        {
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
             this.type = str;
-            this.page = 1;
-            this.$set(this.$store.state,'unlist',this.getOrder_2(str));
-            console.log(1);
+            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0/per_page/10`);
        },
        //下一页
        next_page:function(){
-          this.page += 1;
-          let data = this.getOrder_2(this.type,this.page);
-          if(data.length < 1)
-          {
-            this.page -= 1;
-            alert('没有更多数据了');
-            return;
-          }
-          else
-          {
-            this.$set(this.$store.state,'unlist',data);
-          }
+          if(this.next_url) this.list = this.getOrder_2(`${this.global.config.API}${this.next_url}`);
+          else alert('没有下一页');
+
        },
        //上一页
        prev_page:function(){
-           if(this.page == 1){
-              alert('没有上一页');
-           }
-           else
-           {
-              this.page -= 1;
-              let data = this.getOrder_2(this.type,this.page);
-              this.$set(this.$store.state,'unlist',data);
-           }
+         if(this.prev_url) this.list = this.getOrder_2(`${this.global.config.API}${this.prev_url}`);
+         else alert('没有上一页');
        },
+      //获取cqssc,pk10,egg,cake未结算的数据
+      getOrder_2 : function(url = `${this.global.config.API}ssc/history/clear/0/per_page/10`)
+      {
+        var orderData_2 = [];
+        this.$http.get(url).then(function(res)
+        {
+           if(res.data.status == 403) return false;
+           let data = res.data.data;
+           this.page = data.curPage;
+           this.next_url = data.nextPageUrl;
+           this.prev_url = data.prevPageUrl;
+           let list  = data.list;
+           for(let i = 0; i<list.length;i++)
+           {
+             let data =
+               {
+                 'order' : `${list[i].order_no}`,
+                 'time' : `${list[i].create_time}`,
+                 'content' : list[i].mark_a + list[i].mark_b,
+                 'money' : list[i].money,
+                 'rate' : list[i].rate,
+                 'win' : list[i].win,
+               };
+             orderData_2.push(data);
+            }
+        });
+       return orderData_2;
+     },
 
    },
    created:function(){
-     this.unclear = this.getOrder_2();
+     //加载数据下来
+     this.list = this.getOrder_2();
    },
 }
 </script>
