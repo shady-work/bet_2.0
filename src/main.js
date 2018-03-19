@@ -11,10 +11,6 @@ import common from './assets/js/common';//加载commonjs
 Vue.prototype.global = common;//挂载在vue的原型上
 
 
-
-
-
-
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -24,7 +20,8 @@ Vue.http.interceptors.push(function(request, next)
 {
     //拦截器
     // 跨域携带cookie
-    request.credentials = true;
+    //request.credentials = true;
+    request.headers.set('Authorization', 'bearer ' + window.localStorage.token);
     next();
 });
 

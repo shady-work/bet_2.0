@@ -71,8 +71,9 @@ export default
             this.$http.post(this.global.config.API + 'token', {username: this.username, pwd_1: this.password}).then(function (response)
             {
                 //登录成功
-                if(response.data.status == 200)
+              if(response.data.status == 200)
                 {
+                    window.localStorage.token = response.data.data.token;
                     this.$store.state.isLogin = true; //设置登录flag
                     this.$store.state.user_id = response.data.data.user_id;//设置登录user_id
                     window.sessionStorage.isLogin = 'ok';  //本地会话保存登录状态
