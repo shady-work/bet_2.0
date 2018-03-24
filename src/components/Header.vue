@@ -4,16 +4,11 @@
     <!-- 上面的选择 -->
     <div class="a-waps">
       <img src="" alt="" id="logo">
-      <a @click="showOne(0)" class="nav-top">
+      <!--<a @click="showOne(0)" class="nav-top">-->
+          <!--<i class="fa fa-credit-card"></i>-->
+          <!--<p>信用资料</p>-->
+      <!--</a>-->
 
-          <i class="fa fa-credit-card"></i>
-          <p>信用资料</p>
-      </a>
-
-      <a @click="showOne(1)" class="nav-top">
-         <i class="fa fa-unlock-alt font36"></i>
-          <p>修改密码</p>
-      </a>
 
       <a @click="showOne(5)"  class="nav-top">
           <i class="fa fa-line-chart"></i>
@@ -21,10 +16,17 @@
       </a>
 
       <a @click="showOne(4)" class="nav-top">
-          <i class="fa fa-bar-chart"></i>
-          <p>已结算报表</p>
+        <i class="fa fa-bar-chart"></i>
+        <p>已结算报表</p>
 
       </a>
+
+
+      <a @click="showOne(1)" class="nav-top">
+        <i class="fa fa-unlock-alt font36"></i>
+        <p>修改密码</p>
+      </a>
+
 
       <a @click="showOne(2)" class="nav-top">
             <i class="fa fa-clock-o"></i>

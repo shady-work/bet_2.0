@@ -1,6 +1,6 @@
 <template>
   <div class="task" @click="close()">
-        <div class="xinyongziliao" @click="cancel()">
+        <div class="xinyongziliao" id="weijiesuan1">
                 <div class="xy-header">
                     <img src="../assets/img/index_17_1.png" alt="">
                     <span>修改密码</span>
@@ -9,19 +9,19 @@
                 </div>
 
                 <div class="form-pwd">
-                    <label for="">
+                    <label >
                         原密码:
                     </label>
                     <input type="password"  v-model="old_pwd">
 
                     <div class="clear"></div>
 
-                    <label for="">
+                    <label >
                         新密码:
                     </label>
                     <input type="password" v-model="new_pwd">
                     <div class="clear"></div>
-                    <label for="">
+                    <label >
                         确认新密码:
                     </label>
                     <input type="password" v-model="new_pwd_comfire">
@@ -40,11 +40,11 @@
 </template>
 
 <script>
-export default 
+export default
 {
    data:function()
    {
-       var data = 
+       var data =
        {
           old_pwd:'',
           new_pwd:'',
@@ -54,7 +54,7 @@ export default
    },
    methods:
    {
-       
+
        close:function()
        {
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
@@ -71,7 +71,7 @@ export default
        {
            //验证密码
            let pwdPattern = /^[0-9a-zA-Z]{6,16}$/;
-           
+
            if(this.old_pwd == "" || this.new_pwd == "")
            {
                 alert("密码不能为空");
@@ -100,7 +100,7 @@ export default
              if(response.data.status == 201)
              {
                  //密码修改成功，退出登录
-                this.$store.state.isLogin    = false; //设置登录flag 
+                this.$store.state.isLogin    = false; //设置登录flag
                 this.$store.state.user_id    = null;//设置登录user_id
                 window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
                 window.sessionStorage.user_id  = null;//本地会话保存user_id
@@ -119,9 +119,10 @@ export default
                this.global.log(err);
            });
        },
-   
+
    }
 }
+
 </script>
 
 
@@ -161,7 +162,7 @@ export default
    }
    .xy-header>span
    {
-        float: left;    
+        float: left;
         height:30px;
         line-height: 30px;
         font-size: 14px;
@@ -181,7 +182,7 @@ export default
    {
        width: 100%;
        height: 220px;
-       background: #4294d0; 
+       background: #4294d0;
        margin:0 auto;
        box-sizing: border-box;
        padding:15px;

@@ -2,9 +2,8 @@
   <div id="pcegg">
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
-      <img src="../assets/img/PCdandan.png" alt="">
-
       <div class="details">
+        <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
         <div class="left">
           <p class="color-white">第{{last_expect}}期</p>
           <p class="color-white mt5">开奖号码</p>
@@ -69,12 +68,11 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a href="">50</a>
-            <a href="">100</a>
-            <a href="">200</a>
-            <a href="">500</a>
-            <a href="">1000</a>
-            <a href="">设置快速金额</a>
+           <a @click="setBetMoney(50)">50</a>
+            <a @click="setBetMoney(100)">100</a>
+            <a @click="setBetMoney(200)">200</a>
+            <a @click="setBetMoney(500)">500</a>
+            <a @click="setBetMoney(1000)">1000</a>
             <a @click="clear_bet()" class="pull-right chongtian">重填</a>
             <a @click="comfire_bet" class="pull-right tijiao">提交</a>
           </div>
@@ -90,7 +88,7 @@
               <div class="first-ball-top">
                 混合
               </div>
-              <div v-for="(v,k) in odds.mixture" class="long-bet-content">
+              <div v-for="(v,k) in odds.mixture" class="long-bet-content" v-if="v !=  0.0000">
                 <span>{{odds.mixture_str[k]}}</span>
                 <span>{{v}}</span>
                 <input type="text" v-if="odds.mixture_str[k] != '豹子'" v-model="bet_content.mixture[k]"
@@ -107,7 +105,7 @@
               <div class="first-ball-top">
                 波色
               </div>
-              <div v-for="(v,k) in odds.color" class="long-bet-content">
+              <div v-for="(v,k) in odds.color" class="long-bet-content" v-if="v !=  0.0000">
                 <span>{{odds.color_str[k]}}</span>
                 <span>{{v}}</span>
                 <input type="text" v-model="bet_content.color[k]" @click="choose_one(k,'color','ball_3')">
@@ -144,12 +142,11 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a href="">50</a>
-            <a href="">100</a>
-            <a href="">200</a>
-            <a href="">500</a>
-            <a href="">1000</a>
-            <a href="">设置快速金额</a>
+           <a @click="setBetMoney(50)">50</a>
+            <a @click="setBetMoney(100)">100</a>
+            <a @click="setBetMoney(200)">200</a>
+            <a @click="setBetMoney(500)">500</a>
+            <a @click="setBetMoney(1000)">1000</a>
             <a @click="clear_bet()" class="pull-right chongtian">重填</a>
             <a @click="comfire_bet" class="pull-right tijiao">提交</a>
           </div>
@@ -543,7 +540,7 @@
         },
         //post bet data
         do_bet:function () {
-          this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets}).then(function(res){
+          this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets,odds_table:'a'}).then(function(res){
             if(res.data.status == 200)
             {
               //清除下注内容
@@ -584,7 +581,6 @@
           let url2 = `${this.global.config.API}egg/time`;
           this.$http.get(url2).then(function(response){
             let data = response.data;
-            console.log(data);
             this.end_time = data.endtime;
             this.open_time = data.opentime;
             this.this_expect = data.expect;
@@ -625,6 +621,10 @@
           },1000);
           //开盘倒计时
         },
+        setBetMoney:function(money)
+        {
+          this.fast_money = money;
+        }
 
 
       },

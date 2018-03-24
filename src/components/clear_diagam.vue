@@ -1,6 +1,6 @@
 <template>
     <div class="task" @click="close()">
-            <div class="xinyongziliao" @click="cancel()">
+            <div class="xinyongziliao" id="weijiesuan">
                     <div class="xy-header">
                         <i class="fa fa-bar-chart"></i>
                         <span>已结算报表</span>
@@ -9,7 +9,7 @@
                     </div>
 
                     <div class="xy-left">
-                    
+
                         <div class="xy-list">
                             <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0)">
                                 重庆时时彩
@@ -269,11 +269,11 @@
 
 
 <script>
-export default 
+export default
 {
    data:function()
    {
-       var data = 
+       var data =
        {
           tableArray:[1,0,0],
           table_lotterys:[1,0,0,0]
@@ -282,17 +282,11 @@ export default
    },
    methods:
    {
-       
+
        close:function()
        {
-           
+
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
-       },
-       cancel:function(event)
-       {
-           
-           var e = event || window.event;
-           e.cancelBubble = true;
        },
        showOne:function(idx)
        {
@@ -306,6 +300,32 @@ export default
        }
    }
 }
+/**
+ * 处理firefox的兼容问题
+ */
+window.onload = function ()
+{
+  weijiesuan.onclick = function (evt)
+  {
+    var e = window.event || evt
+    e.cancelBubble = true;
+  };
+  weijiesuan1.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+  /**
+   * 处理firefox的兼容问题
+   */
+
+    weijiesuan2.onclick = function (evt)
+    {
+      var e = window.event || evt
+      e.cancelBubble = true;
+    };
+
+};
 </script>
 
 
@@ -345,7 +365,7 @@ export default
     }
     .xy-header>span
     {
-            float: left;    
+            float: left;
             height:30px;
             line-height: 30px;
             font-size: 14px;
@@ -467,7 +487,7 @@ export default
         width: 100%;
         color: #f3f3f3;
         font-size: 14px;
-       
+
     }
     table>tr
     {

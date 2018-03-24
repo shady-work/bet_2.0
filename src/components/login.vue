@@ -78,7 +78,7 @@ export default
                     this.$store.state.user_id = response.data.data.user_id;//设置登录user_id
                     window.sessionStorage.isLogin = 'ok';  //本地会话保存登录状态
                     window.sessionStorage.user_id = response.data.data.user_id;//本地会话保存user_id
-                    this.$router.push('/');//跳转到主页 不刷新   window.location.href会刷新
+                    this.$router.push('/index');//跳转到主页 不刷新   window.location.href会刷新
                 }
                 else
                 {
@@ -93,7 +93,7 @@ export default
         if(this.$store.state.isLogin ||window.sessionStorage.isLogin == "ok")
         {
             alert('你已登录！');
-            this.$router.push('/');
+            this.$router.push('/index');
         }
     },
     watch:

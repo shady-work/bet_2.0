@@ -10,22 +10,22 @@
         box-sizing: border-box;
         padding-left: 15px;
     }
-    .head>img
-    {
-        float: left;
-        width: 60px;
-        height: 60px;
-        margin-top: 15px;
-    }
 
+ .head .details > .logo-tubiao {
+   float: left;
+   width: 45px;
+   height: 45px;
+   margin-top: -3px;
+   margin-left: 15px;
+ }
     .details
     {
-        width: 987px;
+        width: 1050px;
         float: left;
         height: 60px;
         margin-top:15px;
         background: rgba(0,0,0,0.5);
-        border-radius:15px;
+
         margin-left: 15px;
         box-sizing: border-box;
         padding-top: 10px;
@@ -183,6 +183,7 @@
          background: rgba(200,200,200,0.5);
          border-radius: 3px;
          font-size: 14px;
+         cursor: pointer;
      }
 
      .bet-chooses
@@ -226,8 +227,8 @@
          top:-10px;
          left:5px;
          border: 1px solid rgba(255,255,255,0.5);
-         font-size: 14px;     
-         background: #328bcd;    
+         font-size: 14px;
+         background: #328bcd;
      }
      .long-bet
      {
@@ -313,7 +314,7 @@
           margin-top: 5px;
           border-radius: 3px;
           color: #f3f3f3;
-          cursor: pointer;  
+          cursor: pointer;
 
       }
       .history-table>.active
@@ -338,7 +339,7 @@
           font-size: 14px;
           padding:2px 15px;
           margin-top: 10px;
-          
+
       }
       .history-close
       {
@@ -354,7 +355,7 @@
       {
           display:block;
           height: 30px;
-          
+
           background:rgba(200,200,200,0.5);
           width: 50px;
           margin:0 auto;
@@ -384,7 +385,7 @@
       }
       .he22
       {
-            
+
           height: 22px!important;
            text-align:center!important;
            line-height:22px!important;

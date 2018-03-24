@@ -3,9 +3,8 @@
 
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
-      <img src="../assets/img/navicons_09.png" alt="">
-
       <div class="details">
+        <img src="../assets/img/navicons_09.png" class="logo-tubiao" alt="">
         <div class="left">
           <p class="color-white">第{{lastExpect}}期</p>
           <p class="color-white mt5">开奖号码</p>
@@ -87,11 +86,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a href="">50</a>
-            <a href="">100</a>
-            <a href="">200</a>
-            <a href="">500</a>
-            <a href="">1000</a>
+           <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a href="">设置快速金额</a>
             <a class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao">提交</a>
@@ -304,11 +299,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a href="">50</a>
-            <a href="">100</a>
-            <a href="">200</a>
-            <a href="">500</a>
-            <a href="">1000</a>
+           <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a href="">设置快速金额</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao">提交</a>
@@ -895,7 +886,7 @@
         }
       },
       do_bet:function () {
-        this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content}).then(function(res){
+        this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content,odds_table:'a'}).then(function(res){
           if(res.data.status == 200)
           {
             //清除下注内容
@@ -916,7 +907,12 @@
           }
 
         });
+
       },
+      setBetMoney:function(money)
+      {
+        this.fast_money = money;
+      }
 
     },
     created: function () {
@@ -946,6 +942,7 @@
 
       //获取用户赔率
       this.get_odds();
+
 
     },
     mounted:function(){

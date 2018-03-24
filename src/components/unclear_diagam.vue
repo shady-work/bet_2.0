@@ -1,6 +1,6 @@
 <template>
     <div class="task" @click="close()">
-            <div class="xinyongziliao" @click="cancel()">
+            <div class="xinyongziliao" id="weijiesuan2">
                     <div class="xy-header">
                          <i class="fa fa-line-chart"></i>
                         <span>未结算报表</span>
@@ -91,12 +91,6 @@ export default
            this.type = 'ssc';
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
-       cancel:function(event)
-       {
-
-           var e = event || window.event;
-           e.cancelBubble = true;
-       },
        showOne:function(idx)
        {
             this.tableArray = [0,0,0];
@@ -156,6 +150,8 @@ export default
      this.list = this.getOrder_2();
    },
 }
+
+
 </script>
 
 

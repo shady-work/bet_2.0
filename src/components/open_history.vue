@@ -194,7 +194,6 @@ export default
     get_codes:function(url = `${this.global.config.API}ssc/history/lottery/per_page/10`){
       this.$http.get(url).then(function(res){
         let data = res.data.data;
-        console.table(data);
         this.list = data.list;
         this.page = data.curPage;
         this.next_url = data.nextPageUrl;

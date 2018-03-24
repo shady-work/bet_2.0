@@ -58,7 +58,7 @@
               this.$store.state.credit_money = data.money.credit_money;//信用额度
             });
           }
-          else if (data.status == 403)
+          else
           {
             // window.location.href = '/#/login';
             this.$router.push('login');

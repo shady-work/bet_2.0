@@ -3,9 +3,10 @@
 
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
-      <img src="../assets/img/navicons_13.png" alt="">
+
 
       <div class="details">
+        <img src="../assets/img/navicons_13.png" class="logo-tubiao" alt="">
         <div class="left">
           <p class="color-white">第{{lastExpect}}期</p>
           <p class="color-white mt5">开奖号码</p>
@@ -95,12 +96,11 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a href="">50</a>
-            <a href="">100</a>
-            <a href="">200</a>
-            <a href="">500</a>
-            <a href="">1000</a>
-            <a href="">设置快速金额</a>
+            <a @click="setBetMoney(50)">50</a>
+            <a @click="setBetMoney(100)">100</a>
+            <a @click="setBetMoney(200)">200</a>
+            <a @click="setBetMoney(500)">500</a>
+            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao" >提交</a>
           </div>
@@ -240,12 +240,11 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a href="">50</a>
-            <a href="">100</a>
-            <a href="">200</a>
-            <a href="">500</a>
-            <a href="">1000</a>
-            <a href="">设置快速金额</a>
+            <a @click="setBetMoney(50)">50</a>
+            <a @click="setBetMoney(100)">100</a>
+            <a @click="setBetMoney(200)">200</a>
+            <a @click="setBetMoney(500)">500</a>
+            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet" >重填</a>
             <a  class="pull-right tijiao" @click="comfire_content" >提交</a>
           </div>
@@ -393,7 +392,7 @@
 
 
 <script>
-  import config from '../assets/js/config';
+
   export default {
     name: "Cqssc",
     data() {
@@ -826,7 +825,7 @@
          *提交下注！！！
          */
         do_bet:function () {
-           this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets}).then(function(res){
+           this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:'a'}).then(function(res){
               if(res.data.status == 200)
               {
                  //清除下注内容
@@ -899,8 +898,10 @@
            //开盘倒计时
         },
 
-
-        get_history:function(){
+      /**
+       * 获取历史开奖
+       */
+      get_history:function(){
           let url = `${this.global.config.API}ssc/history/lottery`;
           this.history_codes = [];
           this.$http.get(url).then(function(res){
@@ -919,41 +920,30 @@
           });
         },
 
-
+      setBetMoney:function(money)
+      {
+         this.fast_money = money;
+      }
     },
 
 
 
     created: function () {
 
-      //检测是否登录
-      if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok")) {
-        this.global.log('欢迎回来~');
-        //获取用户信息
-        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
-        {
-          let  data = response.data.data.user;
-          this.$store.state.username = data.username;//用户名
-          this.$store.state.nickname = data.nickname;//昵称
-          this.$store.state.cash_money = data.money.cash_money;//现金额度
-          this.$store.state.credit_money = data.money.credit_money;//信用额度
-        });
+      if(this.$store.state.username)
+      {
+        //获取最新的开奖号码
+        this.get_last_code();
+        //获取用户的赔率
+        this.get_odds();
 
+        //获取重庆时时彩的时间和期数
+        this.get_time();
+
+        this.get_history();
       }
-      else {
-        window.location.href = '/#/login';
-        return;
-      }///没有登录跳转到登录页面
 
-      //获取最新的开奖号码
-      this.get_last_code();
-      //获取用户的赔率
-      this.get_odds();
 
-      //获取重庆时时彩的时间和期数
-      this.get_time();
-
-      this.get_history();
 
     },
 

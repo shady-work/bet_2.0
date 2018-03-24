@@ -6,6 +6,9 @@ import Pk10 from '@/components/pk10';
 import Pcegg from '@/components/pcegg';
 import Cakeno28 from '@/components/cakeno28';
 import Index from '../index.vue';
+import VueResource from 'vue-resource';/*引入资源请求插件*/
+/*使用VueResource插件*/
+Vue.use(VueResource);
 
 Vue.use(Router);
 
@@ -13,9 +16,29 @@ export default new Router(
 {
   routes: [
     {
-      path: '/',
+      path: '/index',
       name: 'Index',
       component: Index,
+      beforeEnter:function(to,from,next)
+      {
+          console.log(1111);
+        //检测是否登录
+        Vue.http.get('http://lty-main.com/ifLogin').then(function(res)
+        {
+          var data = res.data;
+          if(data.status == 200)
+          {
+            next();
+          }
+          else
+          {
+            window.location.href = '/#login';
+            next();
+            return false;
+          }
+        });
+
+      },
       children:
       [
         {
@@ -44,7 +67,7 @@ export default new Router(
       ],
     },
     {
-      path: '/login',
+      path: '/',
       name: 'login',
       component: Login,
     },

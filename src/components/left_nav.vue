@@ -121,7 +121,11 @@ export default
     created:function ()
     {
        //获取全局的未结算清单
-       this.$set(this.$store.state,'unclear',this.getOrder());
+      if(this.$store.state.username)
+      {
+        this.$set(this.$store.state,'unclear',this.getOrder());
+      }
+
     }
 }
 
@@ -232,6 +236,8 @@ $(function()
         color:#f3f3f3;
         padding-right: 15px;
         padding-bottom:15px;
+      height: 300px;
+      overflow: auto;
     }
     .recent-content>div:first-of-type
     {
