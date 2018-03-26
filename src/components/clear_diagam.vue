@@ -315,15 +315,11 @@ window.onload = function ()
     var e = window.event || evt;
     e.cancelBubble = true;
   };
-  /**
-   * 处理firefox的兼容问题
-   */
-
-    weijiesuan2.onclick = function (evt)
-    {
-      var e = window.event || evt
-      e.cancelBubble = true;
-    };
+  weijiesuan2.onclick = function (evt)
+  {
+    var e = window.event || evt
+    e.cancelBubble = true;
+  };
 
 };
 </script>

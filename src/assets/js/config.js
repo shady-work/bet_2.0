@@ -1,8 +1,8 @@
 
 let data =
 {
-    //API:"http://lty-main.com/",
-    API:"/",
+    API:"http://lty-main.com/",
+    //API:"/",
 };
 
 

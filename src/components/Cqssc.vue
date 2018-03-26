@@ -878,7 +878,7 @@
                  //重新获取时间
                  that.get_time();
                  //获取全局的未结算清单
-                 //this.$set(this.$store.state,'unclear',this.getOrder());
+                 that.$set(that.$store.state,'unclear',that.getOrder());
                  return;
                }
              }

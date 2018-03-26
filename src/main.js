@@ -9,7 +9,22 @@ import './lib/index.js'//加载一些挂在vue原型上的函数
 
 import common from './assets/js/common';//加载commonjs
 Vue.prototype.global = common;//挂载在vue的原型上
-
+/**
+ * console.log(msg);
+ * @param msg
+ */
+Vue.prototype.log = function (msg)
+{
+    console.log(msg);
+};
+/**
+ * console.table(obj);
+ * @param obj
+ */
+Vue.prototype.table = function (obj)
+{
+  console.table(obj);
+};
 
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/

@@ -14,10 +14,10 @@
                         <input type="password" placeholder="请输入密码" v-model="password">
                         <i></i>
                 </div>
-                <div class="user mt15">
-                        <input type="text" placeholder="请输入验证码" class="code">
-                        <img src="" alt="">
-                </div>
+                <!--<div class="user mt15">-->
+                        <!--<input type="text" placeholder="请输入验证码" class="code">-->
+                        <!--<img src="" alt="">-->
+                <!--</div>-->
                 <button class="btn-login" @click="login">
                     登录
                 </button>
@@ -79,6 +79,7 @@ export default
                     window.sessionStorage.isLogin = 'ok';  //本地会话保存登录状态
                     window.sessionStorage.user_id = response.data.data.user_id;//本地会话保存user_id
                     this.$router.push('/index');//跳转到主页 不刷新   window.location.href会刷新
+                    //window.location.href = '/#/index';
                 }
                 else
                 {
@@ -92,7 +93,7 @@ export default
         //用户登录了，提示不能已登录  并跳转到主页
         if(this.$store.state.isLogin ||window.sessionStorage.isLogin == "ok")
         {
-            alert('你已登录！');
+            //alert('你已登录！');
             this.$router.push('/index');
         }
     },

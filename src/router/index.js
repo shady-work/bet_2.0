@@ -19,26 +19,7 @@ export default new Router(
       path: '/index',
       name: 'Index',
       component: Index,
-      beforeEnter:function(to,from,next)
-      {
-          console.log(1111);
-        //检测是否登录
-        Vue.http.get('http://lty-main.com/ifLogin').then(function(res)
-        {
-          var data = res.data;
-          if(data.status == 200)
-          {
-            next();
-          }
-          else
-          {
-            window.location.href = '/#login';
-            next();
-            return false;
-          }
-        });
 
-      },
       children:
       [
         {

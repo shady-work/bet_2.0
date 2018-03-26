@@ -119,6 +119,47 @@ export default
     'unclear':unclear,
   }
 }
+
+
+/**
+ * 处理firefox的兼容问题
+ */
+$(function(){
+  weijiesuan.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+  weijiesuan1.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+  weijiesuan2.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+});
+window.onload = function ()
+{
+  weijiesuan.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+  weijiesuan1.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+  weijiesuan2.onclick = function (evt)
+  {
+    var e = window.event || evt;
+    e.cancelBubble = true;
+  };
+
+};
 </script>
 
 <style scoped>
