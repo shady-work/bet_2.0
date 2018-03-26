@@ -1,6 +1,6 @@
 <template>
     <div class="task" @click="close()">
-            <div class="xinyongziliao" id="weijiesuan">
+            <div class="xinyongziliao" @click="stop($event)">
                     <div class="xy-header">
                         <i class="fa fa-bar-chart"></i>
                         <span>已结算报表</span>
@@ -10,257 +10,47 @@
 
                     <div class="xy-left">
 
-                        <div class="xy-list">
-                            <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0)">
-                                重庆时时彩
-                            </a>
-                            <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1)">
-                                北京赛车pk10
-                            </a>
-                            <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2)">
-                            加拿大28
-                            </a>
-                            <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3)">
-                                pc蛋蛋
-                            </a>
-                        </div>
+                      <div class="xy-list">
+                        <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
+                          重庆时时彩
+                        </a>
+                        <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
+                          北京赛车pk10
+                        </a>
+                        <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
+                          加拿大28
+                        </a>
+                        <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
+                          pc蛋蛋
+                        </a>
+                      </div>
                     </div>
 
 
                     <div class="xy-right">
-                        <div class="xy-right-top">
-                            <a :class="tableArray[0]?'active':''" @click="showOne(0)">日报表查询</a>
-                            <a :class="tableArray[1]?'active':''" @click="showOne(1)">两周表查询</a>
-                            <a :class="tableArray[2]?'active':''" @click="showOne(2)">取消场次单表查询</a>
-                        </div>
-                        <table v-show="tableArray[0]">
-                            <tr>
-                                <td>游戏</td>
-                                <td>期数</td>
-                                <td>场次</td>
-                                <td>下注笔数</td>
-                                <td>有效金额</td>
-                                <td>结果</td>
-                                <td>明细查看</td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                        </table>
-                        <table v-show="tableArray[1]">
-                            <tr>
-                                <td>游戏</td>
-                                <td>下注笔数</td>
-                                <td>有效金额</td>
-                                <td>退水</td>
-                                <td>中奖</td>
-                                <td>结果</td>
-                                <td>明细查看</td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                            <tr>
-                                <td>2018-03-01</td>
-                                <td>3</td>
-                                <td>380</td>
-                                <td>5.4</td>
-                                <td>971</td>
-                                <td>+971</td>
-                                <td><i class="fa fa-search"></i></td>
-                            </tr>
-                        </table>
-
-                        <table v-show="tableArray[2]">
-                            <tr>
-                                <td>注单号/时间</td>
-                                <td>下注类型</td>
-                                <td>注单类型</td>
-                                <td>下注金额</td>
-                            </tr>
-                             <tr>
-                                <td>123</td>
-                                <td>123</td>
-                                <td>123</td>
-                                <td>123</td>
-                            </tr>
-                        </table>
-                        <div class="page-xy">
-                                <span>◀</span>
-                                <input type="text" value="1">
-                                <span>/2008</span>
-                                <span>▶</span>
-
-                                <span class="pull-right" style="width:auto;">
-                                    每页10条，共20080条
-                                </span>
-                        </div>
-                    </div>
+                <div class="xy-right-top">
+                  <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结分类明细</a>
+                </div>
+                <table v-show="tableArray[0]">
+                  <tr>
+                    <td>注单号</td>
+                    <td>时间</td>
+                    <td>下注内容</td>
+                    <td>下注金额</td>
+                    <td>当时赔率</td>
+                    <td>是否中奖</td>
+                  </tr>
+                  <tr v-for="v in list">
+                    <td v-for="(val,k) in v" v-if="k != 'win'">{{val}}</td>
+                    <td v-for="(val,k) in v" v-if="k == 'win'">{{val?'中奖':'未中'}}</td>
+                  </tr>
+                </table>
+                <div class="page-xy">
+                  <span @click="prev_page">◀</span>
+                  <input type="text" v-model="page"  disabled>
+                  <span @click="next_page">▶</span>
+                </div>
+              </div>
 
                     <div class="clear"></div>
             </div>
@@ -276,7 +66,13 @@ export default
        var data =
        {
           tableArray:[1,0,0],
-          table_lotterys:[1,0,0,0]
+          table_lotterys:[1,0,0,0],
+           unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
+           type:'ssc',//默认要的彩种数据
+           next_url:'',
+           prev_url:'',
+           list:[],
+           page :1,
        };
        return data;
    },
@@ -288,40 +84,72 @@ export default
 
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
+       stop:function(event)
+       {
+          event.cancelBubble = true;
+       },
        showOne:function(idx)
        {
             this.tableArray = [0,0,0];
             this.tableArray[idx] = 1;
        },
-       tab_lottery:function(idx)
+       tab_lottery:function(idx,str)
        {
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
-       }
-   }
-}
-/**
- * 处理firefox的兼容问题
- */
-window.onload = function ()
-{
-  weijiesuan.onclick = function (evt)
-  {
-    var e = window.event || evt
-    e.cancelBubble = true;
-  };
-  weijiesuan1.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-  weijiesuan2.onclick = function (evt)
-  {
-    var e = window.event || evt
-    e.cancelBubble = true;
-  };
+            this.type = str;
+            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/1/per_page/10`);
+       },
+       //下一页
+       next_page:function(){
+         if(this.next_url) this.list = this.getOrder_2(`${this.global.config.API}${this.next_url}`);
+         else alert('没有下一页');
 
-};
+       },
+       //上一页
+       prev_page:function(){
+         if(this.prev_url) this.list = this.getOrder_2(`${this.global.config.API}${this.prev_url}`);
+         else alert('没有上一页');
+       },
+       //获取cqssc,pk10,egg,cake未结算的数据
+       getOrder_2 : function(url = `${this.global.config.API}ssc/history/clear/1/per_page/10`)
+       {
+         var orderData_2 = [];
+         this.$http.get(url).then(function(res)
+         {
+           if(res.data.status == 403) return false;
+           let data = res.data.data;
+           this.page = data.curPage;
+           this.next_url = data.nextPageUrl;
+           this.prev_url = data.prevPageUrl;
+           let list  = data.list;
+           for(let i = 0; i<list.length;i++)
+           {
+             let data =
+               {
+                 'order' : `${list[i].order_no}`,
+                 'time' : `${list[i].create_time}`,
+                 'content' : list[i].mark_a + list[i].mark_b,
+                 'money' : list[i].money,
+                 'rate' : list[i].rate,
+                 'win' : list[i].open_ret,
+               };
+             orderData_2.push(data);
+           }
+         });
+         return orderData_2;
+       },
+   },//methods end
+   created:function()
+   {
+     if(window.sessionStorage.isLogin == 'ok')
+     {
+       this.list = this.getOrder_2();
+     }
+
+   },
+}
+
 </script>
 
 

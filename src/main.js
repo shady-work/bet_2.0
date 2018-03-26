@@ -36,7 +36,7 @@ Vue.http.interceptors.push(function(request, next)
     //拦截器
     // 跨域携带cookie
     //request.credentials = true;
-    request.headers.set('Authorization', 'bearer ' + window.localStorage.token);
+    request.headers.set('Authorization', 'bearer ' + window.sessionStorage.token);
     next();
 });
 

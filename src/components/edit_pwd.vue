@@ -1,6 +1,6 @@
 <template>
   <div class="task" @click="close()">
-        <div class="xinyongziliao" id="weijiesuan1">
+        <div class="xinyongziliao" @click="stop($event)">
                 <div class="xy-header">
                     <img src="../assets/img/index_17_1.png" alt="">
                     <span>修改密码</span>
@@ -59,10 +59,14 @@ export default
        {
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
-        cancel:function(event)
+       cancel:function(event)
        {
            var e = event || window.event;
            e.cancelBubble = true;
+       },
+       stop:function(event)
+       {
+         event.cancelBubble = true;
        },
        /**@augments
         * 修改密码

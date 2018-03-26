@@ -9,7 +9,7 @@
                 快彩额度:<span class="color-red">10000</span>
             </p>
             <p class="kuaicai">
-                可用:<span class="color-red">{{$store.state.cash_money}}</span>
+                可用额度:<span class="color-red">{{parseIn($store.state.cash_money)}}</span>
             </p>
             <p class="kuaicai">
                 今日盈亏:<span class="color-red">10000</span>
@@ -30,6 +30,13 @@ export default
        };
        return data;
    },
+   methods:
+   {
+      parseIn:function(money)
+      {
+         return parseInt(money)
+      }
+   },
    created:function()
    {
        //获取用户的昵称
@@ -49,7 +56,7 @@ export default
     .left
     {
         float: left;
-        width: 100px;
+        width: 94px;
         height: 100px;
 
     }

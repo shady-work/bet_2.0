@@ -5,9 +5,14 @@
     <div class="a-waps">
       <img src="" alt="" id="logo">
       <!--<a @click="showOne(0)" class="nav-top">-->
-          <!--<i class="fa fa-credit-card"></i>-->
-          <!--<p>信用资料</p>-->
+      <!--<i class="fa fa-credit-card"></i>-->
+      <!--<p>信用资料</p>-->
       <!--</a>-->
+
+      <a @click="showOne(6)" class="nav-top">
+        <i class="fa fa-credit-card"></i>
+        <p>资金明细</p>
+      </a>
 
 
       <a @click="showOne(5)"  class="nav-top">
@@ -50,6 +55,7 @@
     <rules v-show="showArray[3]"></rules>
     <clear v-show="showArray[4]"></clear>
     <unclear v-show="showArray[5]"></unclear>
+    <money-change v-show="showArray[6]"></money-change>
   </div>
 
 
@@ -63,6 +69,7 @@ import openHistory from './open_history';
 import rules from './rules';
 import clear from './clear_diagam';
 import unclear from './unclear_diagam';
+import money_change from './money_change';
 export default
 {
   name:"Header",
@@ -86,7 +93,7 @@ export default
     },
     log_out:function()
     {
-      this.$http.delete(`${this.global.config.API}token`).then(function(res){
+       this.$http.delete(`${this.global.config.API}token`).then(function(res){
         console.log(res);
         this.$store.state.isLogin    = false; //设置登录flag
         this.$store.state.user_id    = null;//设置登录user_id
@@ -117,49 +124,10 @@ export default
     'rules':rules,
     'clear':clear,
     'unclear':unclear,
+    'moneyChange':money_change,
   }
 }
 
-
-/**
- * 处理firefox的兼容问题
- */
-$(function(){
-  weijiesuan.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-  weijiesuan1.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-  weijiesuan2.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-});
-window.onload = function ()
-{
-  weijiesuan.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-  weijiesuan1.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-  weijiesuan2.onclick = function (evt)
-  {
-    var e = window.event || evt;
-    e.cancelBubble = true;
-  };
-
-};
 </script>
 
 <style scoped>

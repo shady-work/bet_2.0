@@ -70,11 +70,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
+            <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a @click="clear_bet()" class="pull-right chongtian">重填</a>
             <a @click="comfire_bet" class="pull-right tijiao">提交</a>
           </div>
@@ -144,11 +140,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
+            <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a @click="clear_bet()" class="pull-right chongtian">重填</a>
             <a @click="comfire_bet" class="pull-right tijiao">提交</a>
           </div>

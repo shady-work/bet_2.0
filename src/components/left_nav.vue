@@ -121,7 +121,7 @@ export default
     created:function ()
     {
        //获取全局的未结算清单
-      if(this.$store.state.username)
+      if(this.$store.state.isLogin)
       {
         this.$set(this.$store.state,'unclear',this.getOrder());
       }

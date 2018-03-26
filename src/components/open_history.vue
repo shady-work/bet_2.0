@@ -212,7 +212,10 @@ export default
 
   },
   created:function(){
-    this.get_codes();
+    if(window.sessionStorage.isLogin == 'ok')
+    {
+      this.get_codes();
+    }
   },
 
 }

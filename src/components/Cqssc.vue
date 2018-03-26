@@ -37,14 +37,7 @@
         </div>
 
         <div class="count-down color-white">
-                    <span>
-                        {{mins}}
-                    </span>
-          <b>分</b>
-          <span>
-                        {{seconds}}
-                    </span>
-          <b>秒</b>
+          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
         </div>
 
 
@@ -96,11 +89,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
+            <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao" >提交</a>
           </div>
@@ -240,11 +229,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
+            <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet" >重填</a>
             <a  class="pull-right tijiao" @click="comfire_content" >提交</a>
           </div>
@@ -886,7 +871,7 @@
                let mins = Math.floor(that.end_time/60);
                mins = '0' + mins;
                that.mins = mins;
-               let seconds = Math.floor(that.end_time%60);
+               let seconds = Math.abs(Math.floor(that.end_time%60));
                seconds  = seconds>9?seconds:('0'+seconds);
                that.seconds = seconds;
              }
@@ -930,7 +915,7 @@
 
     created: function () {
 
-      if(this.$store.state.username)
+      if(this.$store.state.isLogin)
       {
         //获取最新的开奖号码
         this.get_last_code();

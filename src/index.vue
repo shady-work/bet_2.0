@@ -42,34 +42,39 @@
       },
       beforeCreate:function(){
         //检测是否登录
-        this.$http.get(this.global.config.API + 'ifLogin').then(function(res)
+        if(window.sessionStorage.isLogin == 'ok')
         {
-          var data = res.data;
-          if(data.status == 200)
+          this.$http.get(this.global.config.API + 'ifLogin').then(function(res)
           {
-            this.global.log('欢迎回来~');
-            //获取用户信息
-            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+            var data = res.data;
+            if(data.status == 200)
             {
-              let  data = response.data.data.user;
-              this.$store.state.username = data.username;//用户名
-              this.$store.state.nickname = data.nickname;//昵称
-              this.$store.state.cash_money = data.money.cash_money;//现金额度
-              this.$store.state.credit_money = data.money.credit_money;//信用额度
-            });
-          }
-          else
-          {
-            // window.location.href = '/#/login';
-            this.$router.push('login');
-            return false;
-          }
-        });
+              this.global.log('欢迎回来~');
+              //获取用户信息
+              this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+              {
+                let  data = response.data.data.user;
+                this.$store.state.username = data.username;//用户名
+                this.$store.state.nickname = data.nickname;//昵称
+                this.$store.state.cash_money = data.money.cash_money;//现金额度
+                this.$store.state.credit_money = data.money.credit_money;//信用额度
+              });
+            }
+            else
+            {
+              this.$router.push('login');
+              return false;
+            }
+          });
+        }
+        else
+        {
+          this.$router.push('/');
+        }
+
       },
       created:function()
       {
-
-
       }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="task" @click="close()">
-            <div class="xinyongziliao" id="weijiesuan2">
+            <div class="xinyongziliao" @click="stop($event)">
                     <div class="xy-header">
                          <i class="fa fa-line-chart"></i>
                         <span>未结算报表</span>
@@ -29,11 +29,8 @@
 
                     <div class="xy-right">
                         <div class="xy-right-top">
-
                             <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结分类明细</a>
                         </div>
-
-
                          <table v-show="tableArray[0]">
                             <tr>
                                 <td>注单号</td>
@@ -50,11 +47,7 @@
                         <div class="page-xy">
                                 <span @click="prev_page">◀</span>
                                 <input type="text" v-model="page"  disabled>
-                                <!--<span>/2008</span>-->
                                 <span @click="next_page">▶</span>
-                                <!--<span class="pull-right" style="width:auto;">-->
-                                    <!--每页10条，共20080条-->
-                                <!--</span>-->
                         </div>
                     </div>
 
@@ -90,6 +83,10 @@ export default
            this.tableArray = [1,0,0];
            this.type = 'ssc';
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
+       },
+       stop:function(event)
+       {
+         event.cancelBubble = true;
        },
        showOne:function(idx)
        {
@@ -146,8 +143,11 @@ export default
 
    },
    created:function(){
-     //加载数据下来
-     this.list = this.getOrder_2();
+
+     if(window.sessionStorage.isLogin == 'ok')
+     {
+       this.list = this.getOrder_2();
+     }
    },
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="task" @click="close()">
-        <div class="xinyongziliao" @click="cancel()">
+        <div class="xinyongziliao" @click="cancel($event)">
                 <div class="xy-header">
                     <img src="../assets/img/index_19_1.png" alt="">
                     <span>历史开奖</span>
@@ -9,18 +9,18 @@
                 </div>
 
                 <div class="xy-left">
-                   
+
                     <div class="xy-list">
-                        <a href="" class="active">
+                        <a  class="active">
                             重庆时时彩
                         </a>
-                        <a href="">
+                        <a >
                             北京赛车pk10
                         </a>
-                        <a href="">
+                        <a >
                            加拿大28
                         </a>
-                        <a href="">
+                        <a >
                             pc蛋蛋
                         </a>
                     </div>
@@ -42,7 +42,7 @@
                             <p class="text-int-5">客户一经在本公司开户或投注，即被视为已接受这些规则。</p>
                             <p class="text-int-5">客户一经在本公司开户或投注，即被视为已接受这些规则。客户一经在本公司开户或投注，即被视为已接受这些规则。客户一经在本公司开户或投注，即被视为已接受这些规则。</p>
                     </div>
-                   
+
                       <div class="page-xy">
                           注意：本公司不接受任何电脑程式投注的注单，对电脑程式的注单公司有最终解释权谢谢配合！
                       </div>
@@ -54,22 +54,22 @@
 </template>
 
 <script>
-export default 
+export default
 {
    data:function()
    {
-       var data = 
+       var data =
        {
-          
+
        };
        return data;
    },
    methods:
    {
-       
+
        close:function()
        {
-           
+
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
        cancel:function(event)
@@ -77,7 +77,7 @@ export default
            var e = event || window.event;
            e.cancelBubble = true;
        },
-     
+
    }
 }
 </script>
@@ -119,7 +119,7 @@ export default
    }
    .xy-header>span
    {
-        float: left;    
+        float: left;
         height:30px;
         line-height: 30px;
         font-size: 14px;

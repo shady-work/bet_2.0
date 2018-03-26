@@ -19,7 +19,6 @@ export default new Router(
       path: '/index',
       name: 'Index',
       component: Index,
-
       children:
       [
         {
@@ -31,9 +30,6 @@ export default new Router(
           path: '/',
           name: 'Cqssc',
           component: Cqssc,
-          beforeRouteLeave:function(){
-            console.log('i\'m leaving');
-          }
         },
         {
           path: '/pcegg',
