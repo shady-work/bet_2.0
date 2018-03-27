@@ -84,13 +84,13 @@ export default
            {
              if(res.data.status == 200)
              {
-               this.data = res.data.data.topups.list;
-               this.hasPrev = res.data.data.topups.hasPrev;
-               this.hasNext = res.data.data.topups.hasNext;
-               this.sum = res.data.data.topups.sum;
-               this.pageNum = res.data.data.topups.pageNum;
-               this.prevPageUrl = this.hasPrev?res.data.data.topups.prevPageUrl:'';
-               this.nextPageUrl = this.hasNext?res.data.data.topups.nextPageUrl:'';
+               this.data = res.data.data.chgs.list;
+               this.hasPrev = res.data.data.chgs.hasPrev;
+               this.hasNext = res.data.data.chgs.hasNext;
+               this.sum = res.data.data.chgs.sum;
+               this.pageNum = res.data.data.chgs.pageNum;
+               this.prevPageUrl = this.hasPrev?res.data.data.chgs.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?res.data.data.chgs.nextPageUrl:'';
              }
              else
              {
@@ -113,11 +113,11 @@ export default
            .then(function(res){
              if(res.data.status == 200)
              {
-               this.data = res.data.data.topups.list;
-               this.hasPrev = res.data.data.topups.hasPrev;
-               this.hasNext = res.data.data.topups.hasNext;
-               this.prevPageUrl = this.hasPrev?res.data.data.topups.prevPageUrl:'';
-               this.nextPageUrl = this.hasNext?res.data.data.topups.nextPageUrl:'';
+               this.data = res.data.data.chgs.list;
+               this.hasPrev = res.data.data.chgs.hasPrev;
+               this.hasNext = res.data.data.chgs.hasNext;
+               this.prevPageUrl = this.hasPrev?res.data.data.chgs.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?res.data.data.chgs.nextPageUrl:'';
              }
              else
              {
@@ -140,11 +140,11 @@ export default
            .then(function(res){
              if(res.data.status == 200)
              {
-               this.data = res.data.data.topups.list;
-               this.hasPrev = res.data.data.topups.hasPrev;
-               this.hasNext = res.data.data.topups.hasNext;
-               this.prevPageUrl = this.hasPrev?res.data.data.topups.prevPageUrl:'';
-               this.nextPageUrl = this.hasNext?res.data.data.topups.nextPageUrl:'';
+               this.data = res.data.data.chgs.list;
+               this.hasPrev = res.data.data.chgs.hasPrev;
+               this.hasNext = res.data.data.chgs.hasNext;
+               this.prevPageUrl = this.hasPrev?res.data.data.chgs.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?res.data.data.chgs.nextPageUrl:'';
              }
              else
              {

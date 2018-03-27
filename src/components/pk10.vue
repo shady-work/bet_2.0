@@ -405,7 +405,8 @@
 
 <script>
 
-  export default {
+  export default
+  {
     name: "Pk10",
     data() {
       var my_data =
@@ -468,7 +469,8 @@
             sum_half:{},
           },
           //下注金额
-          bets:{
+          bets:
+          {
             single_ball:{
               'ball_1_digit':['','','','','','','','','','',],
               'ball_2_digit':['','','','','','','','','','',],
@@ -575,7 +577,8 @@
     },
     methods:
     {
-      showType: function (idx) {
+      showType: function (idx)
+      {
         this.showArray_cqssc = [0, 0, 0, 0, 0, 0, 0];
         this.showArray_cqssc[idx] = 1;
         this.clear_bet();
@@ -584,7 +587,8 @@
         this.history_tables = [0, 0, 0, 0, 0, 0, 0];
         this.history_tables[idx] = 1;
       },
-      close_history: function () {
+      close_history: function ()
+      {
 
         for (let i = 0; i < this.history_tables.length; i++) {
           if (this.history_tables[i]) {
@@ -597,7 +601,8 @@
         $(".history-table").slideUp();
         this.history_str = "展开";
       },
-      showHistory: function () {
+      showHistory: function ()
+      {
         if (this.history_str == "展开") {
           $(".history-close").slideDown();
           $(".history-list").eq(this.history_flag).slideDown();
@@ -606,13 +611,15 @@
           this.history_tables[this.history_flag] = 1;
           this.history_str = "收起";
         }
-        else {
+        else
+        {
           this.close_history();
         }
 
       },
       //获取开奖时间和下注封盘时间
-      get_time:function () {
+      get_time:function ()
+      {
         this.$http.get(`${this.global.config.API}pk10/time`).then(function(res){
           let data = res.data;
           this.sales_ = data.saleNum;//已卖期数
@@ -660,7 +667,8 @@
 
       },
       //上期开奖结果
-      get_last:function(){
+      get_last:function()
+      {
         this.$http.get(`${this.global.config.API}pk10/lastLty`).then(function(res){
             var data = res.data;
             this.open_codes = data.opencode;
@@ -668,7 +676,8 @@
         });
       },
       //获取用户赔率
-      get_odds:function(){
+      get_odds:function()
+      {
         this.$http.get(`${this.global.config.API}pk10/odds/1`).then(function(res){
             var data = res.data.data.odds;
             this.odds.single_ball = data;
@@ -686,7 +695,8 @@
         });
       },
 
-      bet_db:function(k,k2){
+      bet_db:function(k,k2)
+      {
         this.bets.double_aspect[this.double_aspect[k]][k2] = this.fast_money;//改变下注金额
         this.bets.double_aspect[this.double_aspect[k]].reverse().reverse();//触发视图层改变
         let content = this.double_aspect[k] + '__' + this.double_aspect_a[k2];
@@ -698,7 +708,8 @@
         let content = 'sum_half__' + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
       },
-      clear_bet:function () {
+      clear_bet:function ()
+      {
         //清空数据
         this.bet_content = [];
         //重置ui
@@ -734,7 +745,8 @@
         //更新视图层
         this.bets.single_ball.ball_1_digit.reverse().reverse();
       },
-      single_ball_1_10:function(k,k2){
+      single_ball_1_10:function(k,k2)
+      {
         let keys = ['A','B','C','D','E','F','G','H','I','J'];
         this.bets.single_ball[k][k2] = this.fast_money;//改变下注金额
         this.bets.single_ball[k].reverse().reverse();//触发视图层改变
@@ -742,26 +754,32 @@
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
         console.log(this.bet_content);
       },
-      sumbo:function(v,k){
+      sumbo:function(v,k)
+      {
         this.bets.sum_digit[k] = this.fast_money;//改变下注金额
         this.bets.sum_digit.reverse().reverse();//触发视图层改变
         let content = 'sum_digit__' + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
         console.table(this.bet_content)
       },
-      single_ball_1:function (v,k,str) {
+      single_ball_1:function (v,k,str)
+      {
         this.bets.single_ball[str][k] = this.fast_money;//改变下注金额
         this.bets.single_ball[str].reverse().reverse();//触发视图层改变
         let content = str + "__" + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
       },
-      single_ball_2:function (v,k,str) {
+      single_ball_2:function (v,k,str)
+      {
         this.bets.double_aspect[str][k] = this.fast_money;//改变下注金额
         this.bets.double_aspect[str].reverse().reverse();//触发视图层改变
         let content = str + "__" + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
 
       },
+      /**
+       * 用户确认下注
+       */
       comfire_content:function()
       {
         //当用户没有选择下注内容的时候要提示用户选择
@@ -769,23 +787,34 @@
           alert('请选择下注内容后再提交');
           return 0;
         }
+
         //过滤掉相同的对象
         this.filter_same();
+
+        //拼接字符串
         let html = '';
-        for(let i = 0; i<this.bet_content.length;i++){
+        for(let i = 0; i<this.bet_content.length;i++)
+        {
           var index = this.dicrationaries.indexOf(this.bet_content[i].content);
           html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money  +   '\n';
         }
-        if(confirm(html)){
+        console.log(html);
+        return;
+        if(confirm(html))
+        {
           this.do_bet();
-
         }
-        else {
+        else
+        {
           console.log('取消');
         }
 
       },
-      filter_same:function () {
+      /**
+       * 过滤掉相同的下注内容
+       */
+      filter_same:function ()
+      {
         for(let i = 0; i < this.bet_content.length;i++)
         {
           let key =  this.bet_content[i].content;
@@ -806,30 +835,38 @@
           }
         }
       },
-      do_bet:function () {
-        this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content,odds_table:'a'}).then(function(res){
-          if(res.data.status == 200)
+      /**
+       * 提交下注 注单
+       */
+      do_bet:function ()
+      {
+        this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content,odds_table:'a'})
+          .then(function(res)
           {
-            //清除下注内容
-            this.clear_bet();
-            //从服务器上获取余额
-            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+            if(res.data.status == 200)
             {
-              let  data = response.data.data.user;
-              this.$set(this.$store.state,'cash_money',data.money.cash_money)
-            });
-            //获取全局的未结算清单
-            this.$set(this.$store.state,'unclear',this.getOrder());
-            alert(res.data.msg);
-          }
-          else
-          {
-            alert(res.data.msg);
-          }
-
+              //清除下注内容
+              this.clear_bet();
+              //从服务器上获取余额
+              this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+              {
+                let  data = response.data.data.user;
+                this.$set(this.$store.state,'cash_money',data.money.cash_money)
+              });
+              //获取全局的未结算清单
+              this.$set(this.$store.state,'unclear',this.getOrder());
+              alert(res.data.msg);
+            }
+            else
+            {
+              alert(res.data.msg);
+            }
         });
-
       },
+
+      /**
+       * 设置快速下注的金额
+       */
       setBetMoney:function(money)
       {
         this.fast_money = money;
@@ -838,7 +875,8 @@
     },
     created: function () {
       //检测是否登录
-      if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok")) {
+      if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok"))
+      {
         this.global.log('欢迎回来~');
         //获取用户信息
         this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
@@ -851,7 +889,8 @@
         });
 
       }
-      else {
+      else
+      {
         window.location.href = '#/login';
         return;
       }///没有登录跳转到登录页面
@@ -864,9 +903,12 @@
       //获取用户赔率
       this.get_odds();
 
-
     },
-    mounted:function(){
+    /**
+     * 在created创建后的钩子
+     */
+    mounted:function()
+    {
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
       this.timeId = setInterval(function(){
@@ -876,23 +918,29 @@
 
     },
     //离开这个路由时触发的钩子
-    destroyed(){
+    destroyed()
+    {
+      /**
+       * 清除请求赔率和最新开奖的定时器
+       */
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
     },
-  }
+  }//end export default
 </script>
 
 
 <style scoped>
   @import '../assets/css/pk10.css';
 
-  .first-ball-details {
+  .first-ball-details
+  {
     text-align: left;
     text-indent: 15px;
   }
 
-  .first-ball-details > span {
+  .first-ball-details > span
+  {
     float: left;
   }
 </style>
