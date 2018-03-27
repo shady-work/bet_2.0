@@ -253,13 +253,11 @@
       </div>
 
       <div class="history-list" v-show="history_tables[0]">
-      1
-      1
 
       </div>
 
       <div class="history-list" v-show="history_tables[1]">
-      1
+
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
@@ -791,8 +789,9 @@
       /**
        * 获取历史开奖
        */
-      get_history:function(){
-          let url = `${this.global.config.API}ssc/history/lottery`;
+      get_history:function()
+      {
+          let url = `${this.global.config.API}ssc/history/lottery?per_page=10`;
           this.history_codes = [];
           this.$http.get(url).then(function(res){
             let data = res.data.data;

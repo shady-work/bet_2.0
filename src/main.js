@@ -51,8 +51,7 @@ var store = new vuex.Store(
     {
         isLogin:window.sessionStorage.isLogin=='ok'?true:false,
         nickname:'加载中',
-        cash_money:0,
-        test:[1,23,32,32],
+        cash_money:0,         //余额
         unclear:[],//未结算清单  用于侧边栏
         win_lost_today:0,//今日盈亏
     },

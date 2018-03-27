@@ -162,81 +162,24 @@
       </div>
 
       <div class="history-list" v-show="history_tables[0]">
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
+
       </div>
 
       <div class="history-list" v-show="history_tables[1]">
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
+
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
-        <div class="history-balls">
-          <span>874933</span>
-          <span class="code-ball">1</span>
+        <div class="history-balls" v-for="v in history_codes">
+          <span>{{v.expect}}</span>
+
+          <span class="code-ball">{{v.details.ball_0[0]}}</span>
           <span class="code-fh">+</span>
-          <span class="code-ball">2</span>
+          <span class="code-ball">{{v.details.ball_0[1]}}</span>
           <span class="code-fh">+</span>
-          <span class="code-ball">3</span>
+          <span class="code-ball">{{v.details.ball_0[2]}}</span>
           <span class="code-fh">=</span>
-          <span class="code-ball">6</span>
-        </div>
-        <div class="history-balls">
-          <span>874933</span>
-          <span class="code-ball">1</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">2</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">3</span>
-          <span class="code-fh">=</span>
-          <span class="code-ball">6</span>
-        </div>
-        <div class="history-balls">
-          <span>874933</span>
-          <span class="code-ball">1</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">2</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">3</span>
-          <span class="code-fh">=</span>
-          <span class="code-ball">6</span>
-        </div>
-        <div class="history-balls">
-          <span>874933</span>
-          <span class="code-ball">1</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">2</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">3</span>
-          <span class="code-fh">=</span>
-          <span class="code-ball">6</span>
-        </div>
-        <div class="history-balls">
-          <span>874933</span>
-          <span class="code-ball">1</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">2</span>
-          <span class="code-fh">+</span>
-          <span class="code-ball">3</span>
-          <span class="code-fh">=</span>
-          <span class="code-ball">6</span>
+          <span class="code-ball">{{v.details.ball_0[0]}}</span>
         </div>
       </div>
       <div class="history-close ">
@@ -252,7 +195,8 @@
 <script>
   export default {
     name: "Pcegg",
-    data() {
+    data()
+    {
       var my_data =
         {
           showArray_cqssc: [1],
@@ -308,22 +252,20 @@
           ],
           timeId:0,
           timeId2:1,
+          history_codes:[],
 
         };
       return my_data;
     },
-    created: function () {
-      if (window.sessionStorage.isLogin != "ok") {
-        this.$router.push('login');
-      }
-    },
     methods:
-      {
-        showType: function (idx) {
+    {
+        showType: function (idx)
+        {
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
           this.history_tables[idx] = 1;
         },
-        close_history: function () {
+        close_history: function ()
+        {
 
           for (let i = 0; i < this.history_tables.length; i++) {
             if (this.history_tables[i]) {
@@ -336,7 +278,8 @@
           $(".history-table").slideUp();
           this.history_str = "展开";
         },
-        showHistory: function () {
+        showHistory: function ()
+        {
           if (this.history_str == "展开") {
             $(".history-close").slideDown();
             $(".history-list").eq(this.history_flag).slideDown();
@@ -348,9 +291,9 @@
           else {
             this.close_history();
           }
-
         },
-        get_odds: function () {
+        get_odds: function ()
+        {
           //获取两面盘的赔率
           this.$http.get(`${this.global.config.API}egg/odds`).then(function (response) {
             let data = response.data.data;
@@ -374,36 +317,36 @@
               }
             }
             this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
-
-
           });
-
-
         },
-        choose_one: function (k, str, str2) {
+        choose_one: function (k, str, str2)
+        {
 
-          if (str2 == 'ball_4') {
+          if (str2 == 'ball_4')
+          {
             var content = `ball_4__e1`;
             this.bet_content.mixture[10] = this.fast_money;//改变下注金额
             this.bet_content.mixture.reverse().reverse();//触发视图层改变
           }
-          else {
+          else
+          {
             var content = str2 + "__e" + (k + 1);
             this.bet_content[str][k] = this.fast_money;//改变下注金额
             this.bet_content[str].reverse().reverse();//触发视图层改变
           }
           this.bets.push({content: content, money: this.fast_money});//添加到下注内容区
         },
-        clear_bet: function () {
+        clear_bet: function ()
+        {
           //clear all bet action
 
           //recover bet money
           this.bet_content =
-            {
+          {
               mixture: ['', '', '', '', '', '', '', '', '', '', ''],
               color: ['', '', ''],
               special: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-            };
+          };
           //clear UI
           this.bet_content.mixture.reverse().reverse();
 
@@ -411,31 +354,37 @@
           this.bets = [];
         },
 
-        comfire_bet: function () {
+        comfire_bet: function ()
+        {
           //当用户没有选择下注内容的时候要提示用户选择
-          if (this.bets.length < 1) {
+          if (this.bets.length < 1)
+          {
             alert('请选择下注内容后再提交');
             return 0;
           }
           //过滤掉相同的对象
           this.filter_same();
           let html = '';
-          for (let i = 0; i < this.bets.length; i++) {
+          for (let i = 0; i < this.bets.length; i++)
+          {
             var index = this.dicrationaries.indexOf(this.bets[i].content);
             html += this.dicrationaries_2[index] + '  @ ￥' + this.bets[i].money + '\n';
           }
-          if (confirm(html)) {
+          if (confirm(html))
+          {
             this.do_bet();
 
           }
-          else {
+          else
+          {
             console.log('取消');
           }
         },
         /**
          * 过滤掉相同的数组
          */
-        filter_same: function () {
+        filter_same: function ()
+        {
           for (let i = 0; i < this.bets.length; i++) {
             let key = this.bets[i].content;
             var flag = false;
@@ -453,7 +402,8 @@
           }
         },
         //post bet data
-        do_bet:function () {
+        do_bet:function ()
+        {
           this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets,odds_table:'a'}).then(function(res){
             if(res.data.status == 200)
             {
@@ -479,19 +429,17 @@
         },
 
         //get_open_code
-        get_last_code:function(){
+        get_last_code:function()
+        {
           let url = `${this.global.config.API}egg/lastLty`;
           this.$http.get(url).then(function(response){
              let data = response.data;
              this.open_codes = data.details.ball_0;
              this.last_expect = data.expect;
-
           });
-
-
-
         },
-        get_time : function(){
+        get_time : function()
+        {
           let url2 = `${this.global.config.API}egg/time`;
           this.$http.get(url2).then(function(response){
             let data = response.data;
@@ -505,7 +453,8 @@
             this.count_down()
           });
         },
-        count_down:function () {
+        count_down:function ()
+        {
           var that  = this;
           //封盘倒计时
           this.timeId2 = setInterval(function(){
@@ -538,18 +487,42 @@
         setBetMoney:function(money)
         {
           this.fast_money = money;
+        },
+
+        get_codes_history:function()
+        {
+          this.$http.get(`${this.global.config.API}egg/history/lottery?per_page=10&page=1`)
+            .then(function(res)
+            {
+              if(res.data.status == 200)
+              {
+
+                this.history_codes = res.data.data.list;
+              }
+            });
         }
 
-
       },
-    created: function () {
-      this.get_odds();
+    created: function ()
+    {
+      if (window.sessionStorage.isLogin != "ok")
+      {
+        this.$router.push('login');
+      }
+      else
+      {
+        this.get_odds();
 
-      this.get_last_code();
+        this.get_last_code();
 
-      this.get_time();
+        this.get_time();
+
+        this.get_codes_history();
+      }
+
     },
-    mounted: function () {
+    mounted: function ()
+    {
       //在created之后创建的构子
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
@@ -559,7 +532,8 @@
       },5000)
     },
     //离开这个路由时触发的钩子
-    destroyed(){
+    destroyed()
+    {
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
     },

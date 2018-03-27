@@ -323,71 +323,17 @@
       </div>
 
       <div class="history-list" v-show="history_tables[0]">
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
+          <!--长龙不出-->
       </div>
 
       <div class="history-list" v-show="history_tables[1]">
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
-      1
+          <!--长龙不出-->
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
-        <div class="history-balls">
-          <p class="text-left">858585</p>
-          <span class="code-ball hao1">1</span>
-          <span class="code-ball hao2">2</span>
-          <span class="code-ball hao3">3</span>
-          <span class="code-ball hao4">4</span>
-          <span class="code-ball hao5">5</span>
-          <span class="code-ball hao6">6</span>
-          <span class="code-ball hao7">7</span>
-          <span class="code-ball hao8">8</span>
-          <span class="code-ball hao9">9</span>
-          <span class="code-ball hao10">10</span>
-        </div>
-
-        <div class="history-balls">
-          <p class="text-left">858585</p>
-          <span class="code-ball hao1">1</span>
-          <span class="code-ball hao2">2</span>
-          <span class="code-ball hao3">3</span>
-          <span class="code-ball hao4">4</span>
-          <span class="code-ball hao5">5</span>
-          <span class="code-ball hao6">6</span>
-          <span class="code-ball hao7">7</span>
-          <span class="code-ball hao8">8</span>
-          <span class="code-ball hao9">9</span>
-          <span class="code-ball hao10">10</span>
-        </div>
-        <div class="history-balls">
-          <p class="text-left">858585</p>
-          <span class="code-ball hao1">1</span>
-          <span class="code-ball hao2">2</span>
-          <span class="code-ball hao3">3</span>
-          <span class="code-ball hao4">4</span>
-          <span class="code-ball hao5">5</span>
-          <span class="code-ball hao6">6</span>
-          <span class="code-ball hao7">7</span>
-          <span class="code-ball hao8">8</span>
-          <span class="code-ball hao9">9</span>
-          <span class="code-ball hao10">10</span>
+        <div class="history-balls" v-for="v in history_codes">
+          <p class="text-left">{{v.expect}}</p>
+          <span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>
         </div>
       </div>
 
@@ -569,8 +515,11 @@
 
           ],
 
-          timeId:0,
-          timeId2:1,
+          timeId:0, //定时器1
+          timeId2:1, //定时器2
+
+          history_codes:[],//历史开奖的数据
+
 
         };
       return my_data;
@@ -583,7 +532,8 @@
         this.showArray_cqssc[idx] = 1;
         this.clear_bet();
       },
-      showTables: function (idx) {
+      showTables: function (idx)
+      {
         this.history_tables = [0, 0, 0, 0, 0, 0, 0];
         this.history_tables[idx] = 1;
       },
@@ -631,7 +581,8 @@
         });
       },
       //倒计时
-      count_down:function () {
+      count_down:function ()
+      {
         var that  = this;
         //封盘倒计时
         this.timeId2 = setInterval(function(){
@@ -702,7 +653,8 @@
         let content = this.double_aspect[k] + '__' + this.double_aspect_a[k2];
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
       },
-      bet_db2:function(v,k){
+      bet_db2:function(v,k)
+      {
         this.bets.sum_half[k] = this.fast_money;//改变下注金额
         this.bets.sum_half.reverse().reverse();//触发视图层改变
         let content = 'sum_half__' + v;
@@ -870,10 +822,27 @@
       setBetMoney:function(money)
       {
         this.fast_money = money;
+      },
+
+      /**
+       * 获取北京pk拾的历史开奖
+       */
+      get_open_history:function()
+      {
+         this.$http.get(`${this.global.config.API}pk10/history/lottery?per_page=10&page=1`)
+           .then(function(res)
+           {
+              if(res.data.status == 200)
+              {
+                  //console.log(res.data);
+                  this.history_codes = res.data.data.list;
+              }
+           });
       }
 
     },
-    created: function () {
+    created: function ()
+    {
       //检测是否登录
       if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok"))
       {
@@ -887,7 +856,6 @@
           this.$store.state.cash_money = data.money.cash_money;//现金额度
           this.$store.state.credit_money = data.money.credit_money;//信用额度
         });
-
       }
       else
       {
@@ -902,6 +870,9 @@
 
       //获取用户赔率
       this.get_odds();
+
+      //获取pk10的开奖数据
+      this.get_open_history();
 
     },
     /**
