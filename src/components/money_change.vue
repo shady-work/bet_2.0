@@ -11,13 +11,27 @@
                       <table border="1">
                          <thead>
                             <tr>
-                              <td>123</td>
-                              <td>123</td>
-                              <td>123</td>
-                              <td>123</td>
+                              <td>类型</td>
+                              <td>金额</td>
+                              <td>时间</td>
+                              <!--<td>备注</td>-->
                             </tr>
                          </thead>
+                         <tbody>
+                            <tr v-for="(v,k) in data">
+                              <td  width="200">{{v.con}}</td>
+                              <td  width="200">{{v.chg}}</td>
+                              <td  width="200">{{v.opr_time}}</td>
+                              <!--<td  class="beizhu"><p>{{v.opr_mark}}</p></td>-->
+                            </tr>
+                         </tbody>
                       </table>
+                      <div class="page-xy">
+                        <span @click="prevPage">◀</span>
+                        <b>第{{page}}页</b>
+                        <span @click="nextPage">▶</span>
+                        <b>共{{pageNum}}页,{{sum}}条</b>
+                      </div>
                     </div>
                     <div class="clear"></div>
             </div>
@@ -34,15 +48,29 @@ export default
        {
           tableArray:[1,0,0],
           data : [],
+          page:1,
+          per_page:15,
+          hasNext:false,
+          hasPrev:false,
+          nextPageUrl:'',
+          prevPageUrl:'',
+          type:null,
+          agent:null,
+          manager:null,
+          username:null,
+          nickname_s:null,
+          status:null,
+          sum:0,
+          pageNum:0,
        };
        return data;
    },
+
    methods:
    {
 
        close:function()
        {
-
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
        },
        stop:function(event)
@@ -54,16 +82,88 @@ export default
          this.$http.get(`${this.global.config.API}chgs`)
            .then(function(res)
            {
-             //this.data = res.data.data.chgs();
+             if(res.data.status == 200)
+             {
+               this.data = res.data.data.topups.list;
+               this.hasPrev = res.data.data.topups.hasPrev;
+               this.hasNext = res.data.data.topups.hasNext;
+               this.sum = res.data.data.topups.sum;
+               this.pageNum = res.data.data.topups.pageNum;
+               this.prevPageUrl = this.hasPrev?res.data.data.topups.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?res.data.data.topups.nextPageUrl:'';
+             }
+             else
+             {
+               console.log('用户数据加载失败.....');
+             }
+
            })
+       },
+      prevPage:function()
+      {
+       if(this.prevPageUrl == '')
+       {
+         alert('没有上一页了');
+         return;
        }
+       else
+       {
+         this.page--;
+         this.$http.get(`${this.global.config.API}${this.prevPageUrl}`)
+           .then(function(res){
+             if(res.data.status == 200)
+             {
+               this.data = res.data.data.topups.list;
+               this.hasPrev = res.data.data.topups.hasPrev;
+               this.hasNext = res.data.data.topups.hasNext;
+               this.prevPageUrl = this.hasPrev?res.data.data.topups.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?res.data.data.topups.nextPageUrl:'';
+             }
+             else
+             {
+               console.log('the codes of money_change\'s history was load failed');
+             }
+           });
+       }
+      },
+      nextPage:function()
+      {
+       if(this.nextPageUrl == '')
+       {
+         alert('没有下一页了');
+         return;
+       }
+       else
+       {
+         this.page++;
+         this.$http.get(`${this.global.config.API}${this.nextPageUrl}`)
+           .then(function(res){
+             if(res.data.status == 200)
+             {
+               this.data = res.data.data.topups.list;
+               this.hasPrev = res.data.data.topups.hasPrev;
+               this.hasNext = res.data.data.topups.hasNext;
+               this.prevPageUrl = this.hasPrev?res.data.data.topups.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?res.data.data.topups.nextPageUrl:'';
+             }
+             else
+             {
+               console.log('the codes of pk10c\'s history was load failed');
+             }
+           });
+       }
+      },
+      my_trim:function(str)
+      {
+        return str.replace(/^\s+|\s+$/gm,'');
+      }
 
    },//methods end
    created:function()
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
-        //this.get_money_details();
+        this.get_money_details();
      }
 
    },
@@ -73,6 +173,20 @@ export default
 
 
 <style scoped>
+  .beizhu
+  {
+    width: 200px;
+    height: 30px;
+  }
+  .page-xy
+  {
+    font-size: 22px;
+    color: #fff;
+  }
+  .page-xy>span
+  {
+    cursor: pointer;
+  }
     .task
     {
         position:fixed;
@@ -89,7 +203,7 @@ export default
         height: 545px;
         position: absolute;
         left: 360px;
-        top: 178px;
+        top: 78px;
         /* border: 1px solid #000; */
     }
     .xy-header
@@ -128,26 +242,6 @@ export default
         line-height: 30px;
         font-size: 24px!important;
         cursor: pointer;
-    }
-    .xy-left
-    {
-        width: 185px;
-        height: 515px;
-        float: left;
-        box-sizing: border-box;
-        background: #22618d;
-    }
-    .xy-user
-    {
-        height: 80px;
-        width: 100%;
-        line-height:80px;
-        font-size: 16px;
-        color: #f3f3f3;
-    }
-    .xy-user
-    {
-        width: 100%;
     }
     .xy-list>a
     {
@@ -205,7 +299,7 @@ export default
         font-size: 14px;
 
     }
-    table>tr
+    table tr
     {
         height: 40px;
         border-bottom:1px solid #2c7db6;

@@ -39,7 +39,7 @@
                         {{mins}}
                     </span>
           <b>分</b>
-          <span>
+          <span :class="end_time <= 0?'color-red':''">
                         {{seconds}}
                     </span>
           <b>秒</b>
@@ -86,8 +86,8 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-           <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
-            <a href="">设置快速金额</a>
+            <a @click="setBetMoney(10)">10</a> <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
+
             <a class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao">提交</a>
           </div>
@@ -299,8 +299,7 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-           <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
-            <a href="">设置快速金额</a>
+            <a @click="setBetMoney(10)">10</a> <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao">提交</a>
           </div>
@@ -324,109 +323,29 @@
       </div>
 
       <div class="history-list" v-show="history_tables[0]">
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
       </div>
 
       <div class="history-list" v-show="history_tables[1]">
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
@@ -485,7 +404,6 @@
 
 
 <script>
-  import config from '../assets/js/config';
 
   export default {
     name: "Pk10",
@@ -649,6 +567,9 @@
 
           ],
 
+          timeId:0,
+          timeId2:1,
+
         };
       return my_data;
     },
@@ -706,14 +627,14 @@
       count_down:function () {
         var that  = this;
         //封盘倒计时
-        var timeId = setInterval(function(){
+        this.timeId2 = setInterval(function(){
           if(that.end_time <= 0)
           {
             that.mins = '00';
             that.seconds = that.open_time;
             if(that.open_time <= 0 )
             {
-              clearInterval(timeId);
+              clearInterval(that.timeId2);
               that.get_time();
               //获取全局的未结算清单
               that.$set(that.$store.state,'unclear',that.getOrder());
@@ -948,11 +869,16 @@
     mounted:function(){
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
-      setInterval(function(){
+      this.timeId = setInterval(function(){
         that.get_odds();
         that.get_last();
       },5000);
 
+    },
+    //离开这个路由时触发的钩子
+    destroyed(){
+      clearInterval(this.timeId);
+      clearInterval(this.timeId2);
     },
   }
 </script>

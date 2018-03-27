@@ -44,7 +44,7 @@
         <div class="count-down color-white">
           <span>{{mins}}</span>
           <b>分</b>
-          <span>{{seconds}}</span>
+          <span :class="end_time <= 0?'color-red':''">{{seconds}}</span>
           <b>秒</b>
         </div>
         <img src="../assets/img/alert-1.png" alt="" class="audio">
@@ -164,109 +164,13 @@
       </div>
 
       <div class="history-list" v-show="history_tables[0]">
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
+      1
+
       </div>
 
       <div class="history-list" v-show="history_tables[1]">
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
+      1
+
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
@@ -388,6 +292,8 @@
 
               '波色-红波','波色-绿波','波色-蓝波',
             ],
+            timeId:0,
+            timeId2:1,
 
         };
       return my_data;
@@ -587,14 +493,14 @@
         count_down:function () {
           var that  = this;
           //封盘倒计时
-          var timeId = setInterval(function(){
+          this.timeId2 = setInterval(function(){
             if(that.end_time <= 0)
             {
               that.mins = '00';
               that.seconds = that.open_time;
               if(that.open_time <= 0 )
               {
-                clearInterval(timeId);
+                clearInterval(that.timeId2);
                 that.get_time();
                 //获取全局的未结算清单
                 that.$set(that.$store.state,'unclear',that.getOrder());
@@ -628,7 +534,16 @@
       this.get_time();
     },
     mounted: function () {
-
+      var that = this;
+      this.timeId = setInterval(function(){
+        that.get_odds();
+        that.get_last_code();
+      },5000);
+    },
+    //离开这个路由时触发的钩子
+    destroyed(){
+      clearInterval(this.timeId);
+      clearInterval(this.timeId2);
     },
   }
 </script>

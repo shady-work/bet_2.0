@@ -54,6 +54,7 @@ var store = new vuex.Store(
         cash_money:0,
         test:[1,23,32,32],
         unclear:[],//未结算清单  用于侧边栏
+        win_lost_today:0,//今日盈亏
     },
     mutations:
     {

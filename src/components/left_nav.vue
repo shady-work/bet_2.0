@@ -1,6 +1,6 @@
 <template>
     <div id="left-nav">
-        <user></user>'
+        <user></user>
         <div class="lottery-list">
             <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'">
                 <img src="../assets/img/navicons_11.png" alt="">
@@ -102,15 +102,19 @@ export default
             {
                 case 0:
                 this.$router.push('/');
+                window.sessionStorage.index = 0;
                 break;
                 case 1:
                 this.$router.push('pk10');
+                window.sessionStorage.index = 1;
                 break;
                 case 2:
                 this.$router.push('cakeno28');
+                  window.sessionStorage.index = 2;
                 break;
                 case 3:
                 this.$router.push('pcegg');
+                window.sessionStorage.index = 3;
                 break;
                 default:
                 break;
@@ -124,6 +128,14 @@ export default
       if(this.$store.state.isLogin)
       {
         this.$set(this.$store.state,'unclear',this.getOrder());
+        if(window.sessionStorage.index)
+        {
+          this.navArray = [0,0,0,0];
+          let index = parseInt(window.sessionStorage.index);
+          this.navArray[index] = 1;
+        }
+
+         //window.sessionStorage.index
       }
 
     }

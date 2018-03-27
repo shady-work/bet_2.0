@@ -37,7 +37,7 @@
         </div>
 
         <div class="count-down color-white">
-          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
+          <span>{{mins}}</span><b>分</b><span :class="end_time <= 0?'color-red':''">{{seconds}}</span><b>秒</b>
         </div>
 
 
@@ -253,109 +253,13 @@
       </div>
 
       <div class="history-list" v-show="history_tables[0]">
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
+      1
+      1
+
       </div>
 
       <div class="history-list" v-show="history_tables[1]">
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
-        <p>
-          <span class="pull-left">龙虎[和]</span>
-          <span class="pull-right">14期</span>
-          <span class="clear"></span>
-        </p>
+      1
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
@@ -501,6 +405,7 @@
 
           //更新odds和开奖数据的定时器
           timeId:0,
+          timeId2:5,
       };
       return my_data;
     },
@@ -852,14 +757,14 @@
         count_down:function () {
            var that  = this;
            //封盘倒计时
-           var timeId = setInterval(function(){
+           this.timeId2 = setInterval(function(){
              if(that.end_time <= 0)
              {
                that.mins = '00';
                that.seconds = that.open_time;
                if(that.open_time <= 0 )
                {
-                 clearInterval(timeId);
+                 clearInterval(that.timeId2);
                  //重新获取时间
                  that.get_time();
                  //获取全局的未结算清单
@@ -911,8 +816,6 @@
       }
     },
 
-
-
     created: function () {
 
       if(this.$store.state.isLogin)
@@ -936,12 +839,17 @@
       //在created之后创建的构子
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
-      // this.timeId = setInterval(function(){
-      //   that.get_odds();
-      //   that.get_last_code();
-      // },5000);
+      this.timeId = setInterval(function(){
+        that.get_odds();
+        that.get_last_code();
+      },5000);
 
-    }
+    },
+
+    destroyed(){
+       clearInterval(this.timeId);
+       clearInterval(this.timeId2);
+    },
   }
 </script>
 

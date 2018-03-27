@@ -116,7 +116,7 @@ table {
 }
 .color-red
 {
-  color: #ff4c7a;
+  color: #ff4c7a!important;
 }
 .color-white
 {

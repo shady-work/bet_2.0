@@ -12,7 +12,7 @@
                 可用额度:<span class="color-red">{{parseIn($store.state.cash_money)}}</span>
             </p>
             <p class="kuaicai">
-                今日盈亏:<span class="color-red">10000</span>
+                今日盈亏:<span class="color-red">{{$store.state.win_lost_today}}</span>
             </p>
         </div>
         <div class="clear"></div>
