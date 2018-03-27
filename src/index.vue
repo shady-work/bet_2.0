@@ -32,6 +32,7 @@
       data:function(){
           return {
             timeId:0,
+            timeId3:1,
           }
       },
       components:
@@ -43,18 +44,37 @@
       methods:
       {
         /**
-         * 获取用户的个人信息
+         *  每10秒获取用户的个人信息,如果没有成功的话，前去登录页面，清除绶存
          */
         get_users_info:function()
          {
            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
            {
-             let  data = response.data.data.user;
-             this.$store.state.username = data.username;//用户名
-             this.$store.state.nickname = data.nickname;//昵称
-             this.$store.state.cash_money = data.money.cash_money;//现金额度
-             this.$store.state.credit_money = data.money.credit_money;//信用额度
-             this.$store.state.win_lost_today = data.yk;//信用额度
+             if(response.data.status == 200)
+             {
+               let  data = response.data.data.user;
+               this.$store.state.username = data.username;//用户名
+               this.$store.state.nickname = data.nickname;//昵称
+               this.$store.state.cash_money = data.money.cash_money;//现金额度
+               this.$store.state.credit_money = data.money.credit_money;//信用额度
+               this.$store.state.win_lost_today = data.yk;//信用额度
+             }
+             else
+             {
+               this.$store.state.isLogin    = false; //设置登录flag
+               this.$store.state.user_id    = null;//设置登录user_id
+               window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
+               window.sessionStorage.user_id  = null;//本地会话保存user_id
+               window.sessionStorage.admin    = null;
+               window.sessionStorage.agent    = null;
+               window.sessionStorage.manager  = null;
+               window.sessionStorage.nickname = null;
+               window.sessionStorage.type     = null;
+               window.sessionStorage.username = null;
+               clearInterval(this.timeId);
+               this.$router.push('/');
+             }
+
            });
          }
       },
@@ -82,7 +102,8 @@
             }
             else
             {
-              this.$router.push('login');
+
+              this.$router.push('/');
               return false;
             }
           });
@@ -100,6 +121,12 @@
            clearInterval(this.timeId);
            let that = this ;
            this.timeId = setInterval(that.get_users_info,10000);
+
+           //每25秒刷新未结算的订单，在每次下注后，也会对应刷新；
+           this.timeId3 = setInterval(function()
+           {
+             that.$set(that.$store.state,'unclear',that.getOrder());
+           },40000);
         }
       }
   }

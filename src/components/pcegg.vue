@@ -179,7 +179,7 @@
           <span class="code-fh">+</span>
           <span class="code-ball">{{v.details.ball_0[2]}}</span>
           <span class="code-fh">=</span>
-          <span class="code-ball">{{v.details.ball_0[0]}}</span>
+          <span class="code-ball">{{v.details.ball_1[0]}}</span>
         </div>
       </div>
       <div class="history-close ">
@@ -529,7 +529,7 @@
       this.timeId = setInterval(function(){
         that.get_odds();
         that.get_last_code();
-      },5000)
+      },10000)
     },
     //离开这个路由时触发的钩子
     destroyed()

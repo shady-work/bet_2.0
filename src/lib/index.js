@@ -22,7 +22,7 @@ Vue.prototype.getOrder = function()
       let list  = data.list;
       for(let i = 0; i<list.length;i++)
       {
-          let html = `${list[i].lty_name} <p>${list[i].expect} ${list[i].mark_a}  ${list[i].mark_b} ${list[i].money}</p>`;
+          let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
           this.orderData.push(html);
       }
     });

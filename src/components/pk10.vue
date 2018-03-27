@@ -750,8 +750,7 @@
           var index = this.dicrationaries.indexOf(this.bet_content[i].content);
           html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money  +   '\n';
         }
-        console.log(html);
-        return;
+
         if(confirm(html))
         {
           this.do_bet();
@@ -885,7 +884,7 @@
       this.timeId = setInterval(function(){
         that.get_odds();
         that.get_last();
-      },5000);
+      },10000);
 
     },
     //离开这个路由时触发的钩子

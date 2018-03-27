@@ -726,7 +726,7 @@
                 });
                 //获取全局的未结算清单
                 this.$set(this.$store.state,'unclear',this.getOrder());
-                 alert(res.data.msg);
+                alert(res.data.msg);
               }
               else
               {
@@ -752,7 +752,8 @@
         /**
          * 倒计时
          */
-        count_down:function () {
+        count_down:function ()
+        {
            var that  = this;
            //封盘倒计时
            this.timeId2 = setInterval(function(){
@@ -760,6 +761,10 @@
              {
                that.mins = '00';
                that.seconds = that.open_time;
+               if(that.end_time == 0)
+               {
+                 that.thisExpect = parseInt(that.thisExpect) + 1;
+               }
                if(that.open_time <= 0 )
                {
                  clearInterval(that.timeId2);
@@ -799,7 +804,8 @@
             this.hasNext = data.hasNext;
             this.hasPrev = data.hasPrev;
             this.history_list = data.list;
-            for(let i = 0; i<this.history_list.length;i++){
+            for(let i = 0; i<this.history_list.length;i++)
+            {
                  let expect = this.history_list[i].expect;
                  this.history_expects.push(expect);
                  let codes = this.history_list[i].opencode.split(',');
@@ -841,7 +847,7 @@
       this.timeId = setInterval(function(){
         that.get_odds();
         that.get_last_code();
-      },5000);
+      },10000);
 
     },
 

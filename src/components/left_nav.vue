@@ -1,5 +1,6 @@
 <template>
     <div id="left-nav">
+        <!--用户信息模块-->
         <user></user>
         <div class="lottery-list">
             <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'">
@@ -33,6 +34,7 @@
         </div>
 
 
+        <!--近期下注列表-->
         <div class="recent-bet" @click="toggleDiv(recent)">
             <img src="../assets/img/list_more.png" alt="">
             <p class="color-white">近期下注</p>
@@ -45,14 +47,14 @@
         </div>
 
        <!--开奖网站参考-->
-        <div class="recent-bet" @click="toggleDiv(website)">
+        <!--<div class="recent-bet" @click="toggleDiv(website)">
             <img src="../assets/img/network.png" alt="">
             <p class="color-white">开奖网站参考</p>
             <p class="color-white">{{website.str}}</p>
         </div>
         <div class="recent-content text-left" v-show="website.flag">
-            123
-        </div>
+
+        </div>-->
     </div>
 </template>
 
@@ -70,8 +72,8 @@ export default
         {
             recent:
             {
-                str:"+",
-                flag:false,
+                str:"-",
+                flag:true,
             },
             website:
             {
@@ -153,6 +155,7 @@ $(function()
     let headerHeight  = 78;
     $("#left-nav").height(browserHeight - headerHeight);
     $("#center").height(browserHeight - headerHeight + 80);
+    $('.recent-content').height($("#left-nav").height() - 381);
 
 });
 
@@ -243,13 +246,9 @@ $(function()
         width: 100%;
         border-top: 2px solid rgba(200,200,200,0.3);
         box-sizing:border-box;
-        padding-left:25px;
-        padding-top:6px;
         color:#f3f3f3;
-        padding-right: 15px;
-        padding-bottom:15px;
-      height: 300px;
-      overflow: auto;
+        padding:6px 15px 15px 25px;
+        overflow: auto;
     }
     .recent-content>div:first-of-type
     {

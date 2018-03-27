@@ -94,7 +94,6 @@ export default
     log_out:function()
     {
        this.$http.delete(`${this.global.config.API}token`).then(function(res){
-        console.log(res);
         this.$store.state.isLogin    = false; //设置登录flag
         this.$store.state.user_id    = null;//设置登录user_id
         window.sessionStorage.isLogin  = null;  //本地会话保存登录状态
