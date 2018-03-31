@@ -42,7 +42,7 @@
         </div>
 
         <!--近期下注内容-->
-        <div class="recent-content text-left" v-show="recent.flag">
+        <div class="recent-content text-left" v-show="recent.flag" style="height: 400px;">
             <div class="list-recent" v-for="v in $store.state.unclear" v-html="v"></div>
         </div>
 
@@ -155,7 +155,7 @@ $(function()
     let headerHeight  = 78;
     $("#left-nav").height(browserHeight - headerHeight);
     $("#center").height(browserHeight - headerHeight + 80);
-    $('.recent-content').height($("#left-nav").height() - 381);
+    // $('.recent-content').height($("#left-nav").height() - 381);
 
 });
 

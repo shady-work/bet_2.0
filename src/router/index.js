@@ -5,6 +5,7 @@ import Login from '@/components/login';
 import Pk10 from '@/components/pk10';
 import Pcegg from '@/components/pcegg';
 import Cakeno28 from '@/components/cakeno28';
+import Recharge from '@/components/recharge_';
 import Index from '../index.vue';
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
@@ -40,6 +41,11 @@ export default new Router(
           path:"/cakeno28",
           name:"Cakeno28",
           component:Cakeno28,
+        },
+        {
+          path:"/recharge",
+          name:"Recharge",
+          component:Recharge,
         },
       ],
     },

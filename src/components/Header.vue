@@ -38,6 +38,12 @@
           <p>历史开奖</p>
       </a>
 
+
+      <a href="#/recharge" class="nav-top">
+        <i class="fa fa-usd" aria-hidden="true"></i>
+        <p>充值</p>
+      </a>
+
       <a @click="showOne(3)" class="nav-top">
           <i class="fa fa-list-ol"></i>
           <p>玩法规则</p>
