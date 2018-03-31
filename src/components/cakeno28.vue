@@ -29,8 +29,8 @@
           </p>
           <div class="pan">
             <label>盘类</label>
-            <select name="" id="">
-              <option value="">B</option>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{v.ratewin_name}}</option>
             </select>
           </div>
         </div>
@@ -259,6 +259,11 @@
             timeId2:1,
             history_codes:[],
 
+          //查看用户可选的盘口
+          handicaps:[],
+          //当前是哪个盘口
+          which_handicap:'',
+
         };
       return my_data;
     },
@@ -299,10 +304,40 @@
           }
 
         },
-        get_odds: function ()
+        get_odds: function (which_handicap = null)
         {
-          //获取两面盘的赔率
-          this.$http.get(`${this.global.config.API}cake/odds`).then(function (response) {
+          if(which_handicap)
+          {
+            this.$http.get(`${this.global.config.API}cake/odds?pan=${which_handicap}`).then(function (response) {
+              let data = response.data.data;
+              let odds = data.odds;
+              this.odds = {
+                mixture: [],
+                mixture_str: ['大', '小', '单', '双', '大单', '大双', '小单', '小双', '极大', '极小', '豹子'],
+                color: [],
+                color_str: ['红波', '绿波', '蓝波'],
+                special: [],
+              };
+              for (let i = 0; i < 30; i++) {
+                if (data.odds.ball_2['e' + i]) {
+                  this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
+                }
+                if (data.odds.ball_1['e' + i]) {
+                  this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
+                }
+                if (data.odds.ball_3['e' + i]) {
+                  this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
+                }
+              }
+              this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
+
+
+            });
+          }
+          else
+          {
+            //获取两面盘的赔率
+            this.$http.get(`${this.global.config.API}cake/odds`).then(function (response) {
             let data = response.data.data;
             let odds = data.odds;
             this.odds = {
@@ -327,7 +362,7 @@
 
 
           });
-
+          }
 
         },
         choose_one: function (k, str, str2)
@@ -507,9 +542,31 @@
                 this.history_codes = res.data.data.list;
               }
             });
+        },
+        /**
+         * 查看用户可选盘口
+         */
+        get_users_handicaps:function()
+        {
+          this.$http.get(`${this.global.config.API}pk10/pans`)
+            .then(function(res)
+            {
+              console.log(res.data);
+              this.handicaps = [];
+              if(res.data.status == 200)
+              {
+                for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+                {
+                  this.handicaps.push(res.data.data.ratelist[i]);
+                  this.which_handicap = res.data.data.ratelist[0].ratewin_name;
+                }
+
+              }
+            });
         }
 
-      },
+
+    },
     created : function ()
     {
       if (window.sessionStorage.isLogin != "ok")
@@ -525,6 +582,7 @@
         this.get_time();
 
         this.get_codes_history();
+        this.get_users_handicaps()
       }
     },
     mounted: function () {
@@ -539,6 +597,39 @@
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
     },
+    watch:
+      {
+        /**
+         *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
+         * @param n
+         * @param o
+         */
+        "which_handicap":function(n,o)
+        {
+          this.get_odds(n);
+        },
+        /**
+         * 当open_time<0时，说明已经销售完了，关闭所有请求，
+         * @param n
+         */
+        "open_time":function(n)
+        {
+          if(n<0)
+          {
+            clearInterval(this.timeId);
+          }else if (n === 0)
+          {
+            clearInterval(this.timeId);
+            var that = this;
+            //获取赔率、最新开奖结果的倒计时 5s一次
+            this.timeId = setInterval(function()
+            {
+              that.get_odds();
+              that.get_last();
+            },10000);
+          }
+        }
+      }
   }
 </script>
 

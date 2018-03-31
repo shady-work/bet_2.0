@@ -22,8 +22,8 @@
           </p>
           <div class="pan">
             <label>盘类</label>
-            <select name="" id="">
-              <option value="">B</option>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{v.ratewin_name}}</option>
             </select>
           </div>
         </div>
@@ -520,6 +520,11 @@
 
           history_codes:[],//历史开奖的数据
 
+          //查看用户可选的盘口
+          handicaps:[],
+          //当前是哪个盘口
+          which_handicap:'',
+
 
         };
       return my_data;
@@ -627,23 +632,45 @@
         });
       },
       //获取用户赔率
-      get_odds:function()
+      get_odds:function(which_handicap = null)
       {
-        this.$http.get(`${this.global.config.API}pk10/odds/1`).then(function(res){
+        if(which_handicap)
+        {
+          this.$http.get(`${this.global.config.API}pk10/odds/1?pan=${which_handicap}`).then(function(res){
             var data = res.data.data.odds;
             this.odds.single_ball = data;
-        });
-        this.$http.get(`${this.global.config.API}pk10/odds/2`).then(function(res){
-          var data = res.data.data.odds;
-          this.odds.double_aspect = data;
+          });
+          this.$http.get(`${this.global.config.API}pk10/odds/2?pan=${which_handicap}`).then(function(res){
+            var data = res.data.data.odds;
+            this.odds.double_aspect = data;
 
-        });
-        this.$http.get(`${this.global.config.API}pk10/odds/3`).then(function(res){
-          var data = res.data.data.odds;
-          this.odds.sum_digit = data.sum_digit;
-          this.odds.sum_half = data.sum_half;
+          });
+          this.$http.get(`${this.global.config.API}pk10/odds/3?pan=${which_handicap}`).then(function(res){
+            var data = res.data.data.odds;
+            this.odds.sum_digit = data.sum_digit;
+            this.odds.sum_half = data.sum_half;
 
-        });
+          });
+        }
+        else
+        {
+          this.$http.get(`${this.global.config.API}pk10/odds/1`).then(function(res){
+            var data = res.data.data.odds;
+            this.odds.single_ball = data;
+          });
+          this.$http.get(`${this.global.config.API}pk10/odds/2`).then(function(res){
+            var data = res.data.data.odds;
+            this.odds.double_aspect = data;
+
+          });
+          this.$http.get(`${this.global.config.API}pk10/odds/3`).then(function(res){
+            var data = res.data.data.odds;
+            this.odds.sum_digit = data.sum_digit;
+            this.odds.sum_half = data.sum_half;
+
+          });
+        }
+
       },
 
       bet_db:function(k,k2)
@@ -837,6 +864,27 @@
                   this.history_codes = res.data.data.list;
               }
            });
+      },
+      /**
+       * 查看用户可选盘口
+       */
+      get_users_handicaps:function()
+      {
+        this.$http.get(`${this.global.config.API}pk10/pans`)
+          .then(function(res)
+          {
+            console.log(res.data);
+            this.handicaps = [];
+            if(res.data.status == 200)
+            {
+              for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+              {
+                this.handicaps.push(res.data.data.ratelist[i]);
+                this.which_handicap = res.data.data.ratelist[0].ratewin_name;
+              }
+
+            }
+          });
       }
 
     },
@@ -873,6 +921,8 @@
       //获取pk10的开奖数据
       this.get_open_history();
 
+      this.get_users_handicaps();
+
     },
     /**
      * 在created创建后的钩子
@@ -896,6 +946,42 @@
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
     },
+    /**
+     * 监听用户切换盘时 刷新赔率
+     */
+    watch:
+      {
+        /**
+         *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
+         * @param n
+         * @param o
+         */
+        "which_handicap":function(n,o)
+        {
+          this.get_odds(n);
+        },
+        /**
+         * 当open_time<0时，说明已经销售完了，关闭所有请求，
+         * @param n
+         */
+        "open_time":function(n)
+        {
+          if(n<0)
+          {
+            clearInterval(this.timeId);
+          }else if (n === 0)
+          {
+            clearInterval(this.timeId);
+            var that = this;
+            //获取赔率、最新开奖结果的倒计时 5s一次
+            this.timeId = setInterval(function()
+            {
+              that.get_odds();
+              that.get_last();
+            },10000);
+          }
+        }
+      }
   }//end export default
 </script>
 

@@ -24,8 +24,8 @@
           </p>
           <div class="pan">
             <label>盘类</label>
-            <select name="" id="">
-              <option value="">B</option>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{v.ratewin_name}}</option>
             </select>
           </div>
         </div>
@@ -404,6 +404,12 @@
           //更新odds和开奖数据的定时器
           timeId:0,
           timeId2:5,
+
+          //查看用户可选的盘口
+          handicaps:[],
+          //当前是哪个盘口
+          which_handicap:'',
+
       };
       return my_data;
     },
@@ -449,7 +455,8 @@
          * 历史开奖的tab
          * @param idx
          */
-        showTables: function (idx) {
+        showTables: function (idx)
+        {
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
           this.history_tables[idx] = 1;
         },
@@ -500,48 +507,49 @@
         /**
          * 获取赔率
          */
-        get_odds:function(){
+        get_odds:function(which_handicap = null){
           //获取两面盘的赔率
-          this.$http.get(`${this.global.config.API}ssc/odds/6`).then(function(response){
-
-            if(response.data.status == 403) return false;
-            let data = response.data.data;
-            let odds = data.odds;
-             let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
-             let Alphabet = ['K','L','M','N'];
-             for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
-               this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
-               this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
-               this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
-               this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
-               this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
-             }
-             //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
-             this.odds.double_aspect.ball_1_half.reverse().reverse();
-             Alphabet = ['A','B','C','D','E','F','G'];
-             for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
+          if(which_handicap)
+          {
+            this.$http.get(`${this.global.config.API}ssc/odds/6?pan=${which_handicap}`).then(function(response){
+              if(response.data.status == 403) return false;
+              let data = response.data.data;
+              let odds = data.odds;
+              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
+              let Alphabet = ['K','L','M','N'];
+              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
+                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
+                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
+                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
+                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
+                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
+              }
+              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
+              this.odds.double_aspect.ball_1_half.reverse().reverse();
+              Alphabet = ['A','B','C','D','E','F','G'];
+              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
                 this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
-             }
-          });
+              }
+            });
 
-          //获取单球1-5的赔率
-          this.$http.get(`${this.global.config.API}ssc/odds/7`).then(function(response) {
-            if(response.data.status == 403) return false;
-            let data = response.data.data.odds;
-            let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
-            for(let i=0;i<Alphabet.length;i++) {
-              this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
-              this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
-              this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
-              this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
-              this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
-            }
-            this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
-          });
+            //获取单球1-5的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/7?pan=${which_handicap}`).then(function(response) {
+              if(response.data.status == 403) return false;
+              let data = response.data.data.odds;
+              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
+              for(let i=0;i<Alphabet.length;i++) {
+                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
+              }
+              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
+            });
 
-          //获取第一球的赔率
-          this.$http.get(`${this.global.config.API}ssc/odds/1`).then(function(response){
-            if(response.data.status == 403) return false;
+            //获取第一球的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/1?pan=${which_handicap}`).then(function(response){
+              if(response.data.status == 403) return false;
               let Alphabet = ['A','B','C','D','E'];
               for(let i=0;i<this.odds.ball_3.front3.length;i++){
                 this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
@@ -549,7 +557,59 @@
                 this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
               }
 
-          });
+            });
+          }
+          else
+          {
+            this.$http.get(`${this.global.config.API}ssc/odds/6`).then(function(response){
+              if(response.data.status == 403) return false;
+              let data = response.data.data;
+              let odds = data.odds;
+              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
+              let Alphabet = ['K','L','M','N'];
+              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
+                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
+                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
+                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
+                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
+                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
+              }
+              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
+              this.odds.double_aspect.ball_1_half.reverse().reverse();
+              Alphabet = ['A','B','C','D','E','F','G'];
+              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
+                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
+              }
+            });
+
+            //获取单球1-5的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/7`).then(function(response) {
+              if(response.data.status == 403) return false;
+              let data = response.data.data.odds;
+              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
+              for(let i=0;i<Alphabet.length;i++) {
+                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
+              }
+              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
+            });
+
+            //获取第一球的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/1`).then(function(response){
+              if(response.data.status == 403) return false;
+              let Alphabet = ['A','B','C','D','E'];
+              for(let i=0;i<this.odds.ball_3.front3.length;i++){
+                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
+                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
+                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
+              }
+
+            });
+          }
+
 
         },
         /**
@@ -713,7 +773,7 @@
          *提交下注！！！
          */
         do_bet:function () {
-           this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:'a'}).then(function(res){
+           this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
               if(res.data.status == 200)
               {
                  //清除下注内容
@@ -760,18 +820,26 @@
              if(that.end_time <= 0)
              {
                that.mins = '00';
-               that.seconds = that.open_time;
+               that.seconds = Math.abs(that.open_time);
                if(that.end_time == 0)
                {
                  that.thisExpect = parseInt(that.thisExpect) + 1;
                }
                if(that.open_time <= 0 )
                {
-                 clearInterval(that.timeId2);
+
+                 if(that.open_time == 0)
+                 {
+                   clearInterval(that.timeId2);
+                   that.get_time();
+                 }
+                 else
+                 {
+                   that.open_time++
+                 }
                  //重新获取时间
-                 that.get_time();
                  //获取全局的未结算清单
-                 that.$set(that.$store.state,'unclear',that.getOrder());
+                // that.$set(that.$store.state,'unclear',that.getOrder());
                  return;
                }
              }
@@ -791,37 +859,63 @@
            //开盘倒计时
         },
 
-      /**
-       * 获取历史开奖
-       */
-      get_history:function()
-      {
-          let url = `${this.global.config.API}ssc/history/lottery?per_page=10`;
-          this.history_codes = [];
-          this.$http.get(url).then(function(res){
-            let data = res.data.data;
-            this.curPage = data.curPage;
-            this.hasNext = data.hasNext;
-            this.hasPrev = data.hasPrev;
-            this.history_list = data.list;
-            for(let i = 0; i<this.history_list.length;i++)
-            {
-                 let expect = this.history_list[i].expect;
-                 this.history_expects.push(expect);
-                 let codes = this.history_list[i].opencode.split(',');
-                 this.history_codes.push(codes);
-            }
-            this.history_codes.reverse().reverse();
-          });
+        /**
+         * 获取历史开奖
+         */
+        get_history:function()
+        {
+            let url = `${this.global.config.API}ssc/history/lottery?per_page=10`;
+            this.history_codes = [];
+            this.$http.get(url).then(function(res){
+              let data = res.data.data;
+              this.curPage = data.curPage;
+              this.hasNext = data.hasNext;
+              this.hasPrev = data.hasPrev;
+              this.history_list = data.list;
+              for(let i = 0; i<this.history_list.length;i++)
+              {
+                   let expect = this.history_list[i].expect;
+                   this.history_expects.push(expect);
+                   let codes = this.history_list[i].opencode.split(',');
+                   this.history_codes.push(codes);
+              }
+              this.history_codes.reverse().reverse();
+            });
+        },
+        /**
+         * 设置下注金额
+         */
+        setBetMoney:function(money)
+        {
+           this.fast_money = money;
         },
 
-      setBetMoney:function(money)
-      {
-         this.fast_money = money;
-      }
+        /**
+         * 查看用户可选盘口
+         */
+        get_users_handicaps:function()
+        {
+           this.$http.get(`${this.global.config.API}ssc/pans`)
+             .then(function(res)
+             {
+               //console.log(res.data);
+               this.handicaps = [];
+               if(res.data.status == 200)
+               {
+                 for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+                 {
+                   this.handicaps.push(res.data.data.ratelist[i]);
+                   this.which_handicap = res.data.data.ratelist[0].ratewin_name;
+
+                 }
+
+               }
+             });
+        }
     },
 
-    created: function () {
+    created: function ()
+    {
 
       if(this.$store.state.isLogin)
       {
@@ -832,29 +926,70 @@
 
         //获取重庆时时彩的时间和期数
         this.get_time();
-
+        //获取开奖历史
         this.get_history();
+
+        this.get_users_handicaps();
       }
-
-
 
     },
 
     mounted: function () {
       //在created之后创建的构子
       var that = this;
+
       //获取赔率、最新开奖结果的倒计时 5s一次
-      this.timeId = setInterval(function(){
+      this.timeId = setInterval(function()
+      {
         that.get_odds();
         that.get_last_code();
       },10000);
 
     },
-
-    destroyed(){
+    /**
+     * 离开这个路由时触发的函数，摧毁定时器
+     */
+    destroyed()
+    {
        clearInterval(this.timeId);
        clearInterval(this.timeId2);
     },
+    /**
+     * 监听用户切换盘时 刷新赔率
+     */
+    watch:
+    {
+      /**
+       *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
+       * @param n
+       * @param o
+       */
+      "which_handicap":function(n,o)
+      {
+        this.get_odds(n);
+      },
+      /**
+       * 当open_time<0时，说明已经销售完了，关闭所有请求，
+       * @param n
+       */
+      "open_time":function(n)
+      {
+        if(n<0)
+        {
+          clearInterval(this.timeId);
+        }else if (n === 0)
+        {
+          clearInterval(this.timeId);
+          var that = this;
+          //获取赔率、最新开奖结果的倒计时 5s一次
+          this.timeId = setInterval(function()
+          {
+            that.get_odds();
+            that.get_last_code();
+          },10000);
+        }
+      }
+    }
   }
 </script>
 
