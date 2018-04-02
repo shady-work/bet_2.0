@@ -142,7 +142,7 @@ export default
      height:78px;
      background:url('../assets/img/title.jpg');
      background-size: cover;
-     min-width:1200px;
+     min-width:1400px;
    }
    #header>.a-waps
    {
@@ -160,7 +160,7 @@ export default
    {
      display: block;
      float: left;
-     width: 121.5px;
+     width: 80px;
      height: 100%;
      box-sizing: border-box;
      /* border: 1px solid #000; */

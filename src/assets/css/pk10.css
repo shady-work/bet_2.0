@@ -5,10 +5,9 @@
     }
     .head
     {
-        height: 90px;
         width: 100%;
         box-sizing: border-box;
-        padding-left: 15px;
+        padding-left: 5px;
     }
     .head>img
     {
@@ -17,22 +16,21 @@
         height: 60px;
         margin-top: 15px;
     }
- .head .details > .logo-tubiao {
-   float: left;
-   width: 45px;
-   height: 45px;
-   margin-top: -3px;
-   margin-left: 15px;
- }
+   .head .details > .logo-tubiao {
+     float: left;
+     width: 45px;
+     height: 45px;
+     margin-top: -3px;
+     margin-left: 15px;
+   }
     .details
     {
         width: 1050px;
         float: left;
         height: 60px;
-        margin-top:15px;
+        margin-top:5px;
         background: rgba(0,0,0,0.5);
-
-        margin-left: 15px;
+        margin-left: 5px;
         box-sizing: border-box;
         padding-top: 10px;
     }
@@ -113,7 +111,7 @@
     {
         width: 800px;
         overflow: hidden;
-        margin-left:20px;
+        margin-left:10px;
         float: left;
         background: #4294d0;
     }
@@ -289,7 +287,7 @@
 
      #history
      {
-         width: 257px;
+         width: 250px;
          height: 500px;
         /* border: 1px solid #fff; */
          float: left;
@@ -520,8 +518,8 @@
     }
     .history-balls>.code-ball
     {
-        height: 20px;
-        width: 20px;
+        height: 18px;
+        width: 18px;
         border-radius: 3px;
         background-size: cover;
         font-size: 18px;

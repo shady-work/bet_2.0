@@ -146,8 +146,9 @@ export default
        width:300px;
        height: 345px;
        position: absolute;
-       left: 560px;
-       top: 278px;
+       left: 50%;
+       margin-left: -150px;
+       top: 50px;
        /* border: 1px solid #000; */
    }
    .xy-header

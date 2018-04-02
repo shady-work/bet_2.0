@@ -9,10 +9,10 @@
                 <!--快彩额度:<span class="color-red">10000</span>-->
             </p>
             <p class="kuaicai">
-                可用额度:<span class="color-red">{{parseIn($store.state.cash_money)}}</span>
+                可用额度:<span class="color-red">{{$store.state.cash_money}}</span>
             </p>
             <p class="kuaicai">
-                今日盈亏:<span class="color-red">{{parseIn($store.state.win_lost_today)}}</span>
+                今日盈亏:<span class="color-red">{{$store.state.win_lost_today}}</span>
             </p>
         </div>
         <div class="clear"></div>
@@ -56,7 +56,7 @@ export default
     .left
     {
         float: left;
-        width: 94px;
+        width: 75px;
         height: 100px;
 
     }
@@ -80,7 +80,7 @@ export default
     .right
     {
         float: left;
-        width: 130px;
+        width: 155px;
         text-align:left;
         text-indent:5px;
         color:#f3f3f3;

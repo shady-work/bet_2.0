@@ -3,7 +3,7 @@
         <div class="xinyongziliao" @click="cancel($event)">
                 <div class="xy-header">
                     <img src="../assets/img/index_19_1.png" alt="">
-                    <span>历史开奖</span>
+                    <span>玩法规则</span>
                     <span class="pull-right close-2" @click="close()">X</span>
                     <div class="clear"></div>
                 </div>
@@ -96,12 +96,12 @@ export default
    }
    .xinyongziliao
    {
-       width:900px;
-       height: 545px;
-       position: absolute;
-       left: 360px;
-       top: 178px;
-       /* border: 1px solid #000; */
+     width:900px;
+     height: 445px;
+     position: absolute;
+     left: 50%;
+     margin-left: -450px;
+     top: 50px;
    }
    .xy-header
    {

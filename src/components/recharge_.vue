@@ -219,6 +219,10 @@
             <button class="submit-btn" @click="submit_offline()">提交</button>
           </div>
 
+            <div class="right-right" v-show="condition==2" >
+              <h2 class="mt5">该功能尚未完善</h2>
+            </div>
+
 
         </div>
 
@@ -251,12 +255,12 @@
           money:'',//多少钱
         },
         offline_topup:
-          {
-            //线下的充值提交信息
-            offline_name:'',
-            store_number:'',
-            money:'',
-          },
+        {
+          //线下的充值提交信息
+          offline_name:'',//转账户名
+          store_number:'',//转账的账号
+          money:'',//转账金额
+        },
       }
     },
     methods:
@@ -357,36 +361,49 @@
        */
       submit_offline:function ()
       {
-         this.$http.post(`${this.global.config.API}topup`,
+        //验证
+        if(!this.check_offline())
+        {
+          return;
+        }
+
+        this.$http.post(`${this.global.config.API}topup`,
+        {
+            money:this.offline_topup.money,
+            con:this.which_one  + '充值',
+            tp_mark:'存款账号：' + this.bank_topup.store_number + "<br>" + "存款户名：" + this.offline_topup.offline_name,
+        }).then(function(res)
+        {
+         if(res.data.status == 200)
          {
-              money:this.offline_topup.money,
-              con:this.which_one  + '充值',
-              tp_mark:'存款账号：' + this.bank_topup.store_number + "\n" + "存款户名：" + this.offline_topup.offline_name,
-         }).then(function(res)
+            alert(res.data.msg);
+            window.location.reload();
+         }
+         else
          {
-           if(res.data.status == 200)
-           {
-              alert(res.data.msg);
-             window.location.reload();
-           }
-           else
-           {
-             alert('充值失败，请联系管理员，或稍后再试。');
-           }
-           return;
-         });
+           alert('充值失败，请联系管理员，或稍后再试。');
+         }
+         return;
+        });
       },
       /**
        * 提交银行充值内容
        */
       submit_bank:function()
       {
-        let data = {
+        //验证
+        if(!this.check_bank())
+        {
+          return;
+        }
+
+        let data =
+        {
           money:this.bank_topup.money,
           con:this.which_one  + '充值',
           tp_mark:
-          '银行名称：' + this.bank_topup.bank_name + '\n' +
-          '存款账号：' + this.bank_topup.bank_number + "\n"
+          '银行名称：' + this.bank_topup.bank_name + '<br>' +
+          '存款账号：' + this.bank_topup.bank_number + "<br>"
           + "存款户名：" + this.bank_topup.store_name,
         };
 
@@ -404,7 +421,62 @@
             }
             return;
           });
-      }
+      },
+      /**
+       * 检测银行转账时的信息
+       */
+      check_bank:function()
+      {
+         //验证中文名
+         let pattern =  /^[\u4e00-\u9fa5 ]{2,20}$/;
+         //银行卡的正则
+         let pattern2 = /^[0-9]{8,26}$/;
+
+         if(!pattern.test(this.bank_topup.bank_name))
+         {
+            alert('银行名不对');
+            return false;
+         }
+         if(!pattern.test(this.bank_topup.store_name))
+         {
+            alert('转账户名不对');
+            return false;
+         }
+         if(!pattern2.test( parseInt(this.bank_topup.bank_number)))
+         {
+            alert('转账户名不对');
+            return false;
+         }
+         if(!pattern2.test(parseInt(this.bank_topup.money)))
+         {
+            alert('金钱不对');
+            return false;
+         }
+         return true;
+      },
+      /**
+       * 检测线下的信息
+       */
+      check_offline:function()
+      {
+        //验证中文名
+        let pattern =  /^[\u4e00-\u9fa5 ]{2,20}$/;
+        //银行卡的正则
+        let pattern2 = /^[0-9]{8,26}$/;
+
+        if(!pattern.test(this.offline_topup.offline_name))
+        {
+          alert('账号户名不对');
+          return false;
+        }
+
+        if(!pattern2.test(parseInt(this.offline_topup.money)))
+        {
+          alert('金钱不对');
+          return false;
+        }
+        return true;
+      },
     },
     created()
     {

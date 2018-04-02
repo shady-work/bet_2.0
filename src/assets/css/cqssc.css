@@ -4,10 +4,10 @@
 }
 
 .head {
-  height: 90px;
+
   width: 100%;
   box-sizing: border-box;
-  padding-left: 15px;
+  padding-left: 5px;
 }
 
 .head .details > .logo-tubiao {
@@ -22,10 +22,9 @@
   width: 1080px;
   float: left;
   height: 60px;
-  margin-top: 15px;
+  margin-top: 5px;
   background: rgba(0, 0, 0, 0.5);
-
-  margin-left: 15px;
+  margin-left: 5px;
   box-sizing: border-box;
   padding-top: 10px;
 }
@@ -104,7 +103,7 @@
 #bet-content {
   width: 800px;
   overflow: hidden;
-  margin-left: 20px;
+  margin-left: 10px;
   float: left;
   background: #4294d0;
 }
@@ -265,7 +264,7 @@
 }
 
 #history {
-  width: 285px;
+  width: 280px;
   height: 500px;
   float: left;
   box-sizing: border-box;
@@ -417,8 +416,8 @@
 }
 
 .history-balls > .code-ball {
-  height: 25px;
-  width: 25px;
+  height: 23px;
+  width: 23px;
   background: url('../img/ball.png');
   background-size: cover;
   font-size: 18px;

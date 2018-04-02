@@ -234,12 +234,12 @@ export default
   }
 
   .xinyongziliao {
-    width: 900px;
-    height: 545px;
+    width:900px;
+    height: 445px;
     position: absolute;
-    left: 360px;
-    top: 178px;
-    /* border: 1px solid #000; */
+    left: 50%;
+    margin-left: -450px;
+    top: 50px;
   }
 
   .xy-header {
