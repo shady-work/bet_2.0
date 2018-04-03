@@ -29,10 +29,13 @@
 
                     <div class="xy-right">
                 <div class="xy-right-top">
-                  <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结分类明细</a>
+                  <a :class="tableArray[0]?'active':''" @click="showOne(0)">所有已结算</a>
+
+                  <a :class="tableArray[1]?'active':''" @click="showOne(1)">按条件筛选</a>
                 </div>
                 <table v-show="tableArray[0]">
                   <tr>
+                    <td>期数</td>
                     <td>注单号</td>
                     <td>时间</td>
                     <td>下注内容</td>
@@ -127,6 +130,7 @@ export default
            {
              let data =
                {
+                 'expect' : `${list[i].expect}`,
                  'order' : `${list[i].order_no}`,
                  'time' : `${list[i].create_time}`,
                  'content' : list[i].mark_a + list[i].mark_b,
@@ -139,12 +143,21 @@ export default
          });
          return orderData_2;
        },
+
+       getAll:function()
+       {
+         this.$http.get(`${this.global.config.API}summary?range=last_month&lty_type=ssc`).then(function(res)
+         {
+                console.log(res.data);
+         })
+       },
    },//methods end
    created:function()
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
        this.list = this.getOrder_2();
+       this.getAll();
      }
 
    },

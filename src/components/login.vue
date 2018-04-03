@@ -11,7 +11,7 @@
                 <p class="user-name">密码</p>
 
                 <div class="user">
-                        <input type="password" placeholder="请输入密码" v-model="password">
+                        <input type="password" v-on:keyup.enter="login" placeholder="请输入密码" v-model="password">
                         <i></i>
                 </div>
                 <!--<div class="user mt15">-->

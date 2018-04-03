@@ -96,6 +96,23 @@ export default
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
+        if(idx == 6)
+        {
+          this.$children[6].get_money_details();
+        }
+        if(idx == 5)
+        {
+          this.$children[5].list = this.$children[5].getOrder_2();
+        }
+        if(idx == 4)
+        {
+          this.$children[4].list = this.$children[4].getOrder_2();
+        }
+        if(idx == 2)
+        {
+          this.$children[2].get_codes();
+        }
+
     },
     log_out:function()
     {
@@ -119,6 +136,7 @@ export default
   created:()=>
   {
     //当页面加载时触发的函数
+
 
   },
   components:

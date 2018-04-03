@@ -371,9 +371,9 @@
             'ball_3_digit__A','ball_3_digit__B','ball_3_digit__C','ball_3_digit__D','ball_3_digit__E','ball_3_digit__F','ball_3_digit__G','ball_3_digit__H','ball_3_digit__I','ball_3_digit__J',
             'ball_4_digit__A','ball_4_digit__B','ball_4_digit__C','ball_4_digit__D','ball_4_digit__E','ball_4_digit__F','ball_4_digit__G','ball_4_digit__H','ball_4_digit__I','ball_4_digit__J',
             'ball_5_digit__A','ball_5_digit__B','ball_5_digit__C','ball_5_digit__D','ball_5_digit__E','ball_5_digit__F','ball_5_digit__G','ball_5_digit__H','ball_5_digit__I','ball_5_digit__J',
-            'front3__A','front3__B','front3__C','front3__D','front3__E',
-            'medium3__A','medium3__B','medium3__C','medium3__D','medium3__E',
-            'end3__A','end3__B','end3__C','end3__D','end3__E',
+            'front_3__A','front_3__B','front_3__C','front_3__D','front_3__E',
+            'medium_3__A','medium_3__B','medium_3__C','medium_3__D','medium_3__E',
+            'end_3__A','end_3__B','end_3__C','end_3__D','end_3__E',
           ],
           dicrationaries_2:[
             '第一球大','第一球小','第一球单','第一球双',
@@ -701,7 +701,20 @@
               let keys = ['A','B','C','D','E'];
               this.bet_content.ball_3[k][i] = this.fast_money;//改变下注金额
               this.bet_content.ball_3[k].reverse().reverse();//触发视图层改变
-              this.bets.push({content:k + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+
+              if(k=='front3')
+              {
+                this.bets.push({content:'front_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+              }
+              if(k=='meduim3')
+              {
+                this.bets.push({content:'meduim3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+              }
+              if(k=='end3')
+              {
+                this.bets.push({content:'end_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+              }
+
             }
             else
             {

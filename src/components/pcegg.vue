@@ -146,8 +146,6 @@
         </div>
 
       </form>
-
-
     </div>
 
     <!-- 右边的历史记录 -->
@@ -621,7 +619,7 @@
             this.timeId = setInterval(function()
             {
               that.get_odds();
-              that.get_last();
+              that.get_last_code();
             },10000);
           }
         }

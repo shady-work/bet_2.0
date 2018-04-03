@@ -8,8 +8,8 @@
   .left,.right
   {
     height: 700px;
-    width: 500px;
-    border: 1px solid #e5e5e5;
+    width: 300px;
+
     margin-left: 25px;
     margin-top: 15px;
     float: left;
@@ -430,7 +430,7 @@
          //验证中文名
          let pattern =  /^[\u4e00-\u9fa5 ]{2,20}$/;
          //银行卡的正则
-         let pattern2 = /^[0-9]{8,26}$/;
+         let pattern2 = /^[0-9]{2,26}$/;
 
          if(!pattern.test(this.bank_topup.bank_name))
          {
@@ -462,7 +462,7 @@
         //验证中文名
         let pattern =  /^[\u4e00-\u9fa5 ]{2,20}$/;
         //银行卡的正则
-        let pattern2 = /^[0-9]{8,26}$/;
+        let pattern2 = /^[0-9]{2,26}$/;
 
         if(!pattern.test(this.offline_topup.offline_name))
         {
