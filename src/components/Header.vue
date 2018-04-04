@@ -44,6 +44,12 @@
         <p>充值</p>
       </a>
 
+
+      <a href="#/withdraw" class="nav-top">
+        <i class="fa fa-yen" aria-hidden="true"></i>
+        <p>提现</p>
+      </a>
+
       <a @click="showOne(3)" class="nav-top">
           <i class="fa fa-list-ol"></i>
           <p>玩法规则</p>

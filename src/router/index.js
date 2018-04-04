@@ -7,6 +7,7 @@ import Pcegg from '@/components/pcegg';
 import Cakeno28 from '@/components/cakeno28';
 import Recharge from '@/components/recharge_';
 import Index from '../index.vue';
+import Withdraw from '@/components/withdraw.vue';
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -46,6 +47,11 @@ export default new Router(
           path:"/recharge",
           name:"Recharge",
           component:Recharge,
+        },
+        {
+          path:"/withdraw",
+          name:"Withdraw",
+          component:Withdraw,
         },
       ],
     },

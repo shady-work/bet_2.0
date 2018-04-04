@@ -146,10 +146,10 @@ export default
 
        getAll:function()
        {
-         this.$http.get(`${this.global.config.API}summary?range=last_month&lty_type=ssc`).then(function(res)
+         /*this.$http.get(`${this.global.config.API}summary?range=last_month&lty_type=ssc`).then(function(res)
          {
                 console.log(res.data);
-         })
+         })*/
        },
    },//methods end
    created:function()
