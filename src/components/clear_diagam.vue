@@ -30,8 +30,17 @@
                     <div class="xy-right">
                 <div class="xy-right-top">
                   <a :class="tableArray[0]?'active':''" @click="showOne(0)">所有已结算</a>
-
                   <a :class="tableArray[1]?'active':''" @click="showOne(1)">按条件筛选</a>
+                  <select class="pull-left filter-search" v-model="which_time">
+                    <option v-bind:value="''">请选择</option>
+                    <option v-bind:value="'today'">今日</option>
+                    <option v-bind:value="'this_week'">本周</option>
+                    <option v-bind:value="'last_week'">上周</option>
+                    <option v-bind:value="'this_month'">本月</option>
+                    <option v-bind:value="'last_month'">上月</option>
+                    <option v-bind:value="'this_year'">本年</option>
+                  </select>
+
                 </div>
                 <table v-show="tableArray[0]">
                   <tr>
@@ -48,6 +57,30 @@
                     <td v-for="(val,k) in v" v-if="k == 'win'">{{val?'中奖':'未中'}}</td>
                   </tr>
                 </table>
+                <table v-show="tableArray[1]">
+                        <tr>
+                          <td>盈亏</td>
+                          <td>已结算条数</td>
+                          <td>已结算金额</td>
+                          <td>中奖条数</td>
+                          <td>中奖金额</td>
+                          <td>未中奖条数</td>
+                          <td>未中奖金额</td>
+                          <td>未结算条数</td>
+                          <td>未结算金额</td>
+                        </tr>
+                        <tr>
+                          <td>{{summary.yk}}</td>
+                          <td>{{summary.clearedCount}}</td>
+                          <td>{{summary.clearedMoney}}</td>
+                          <td>{{summary.luckyCount}}</td>
+                          <td>{{summary.luckyMoney}}</td>
+                          <td>{{summary.unluckyCount}}</td>
+                          <td>{{summary.unluckyMoney}}</td>
+                          <td>{{summary.unclearedCount}}</td>
+                          <td>{{summary.unclearedMoney}}</td>
+                        </tr>
+                    </table>
                 <div class="page-xy">
                   <span @click="prev_page">◀</span>
                   <input type="text" v-model="page"  disabled>
@@ -76,6 +109,9 @@ export default
            prev_url:'',
            list:[],
            page :1,
+           which_time:'',//查看报表的哪一段时间
+           summary:{},//报表数据
+
        };
        return data;
    },
@@ -84,8 +120,8 @@ export default
 
        close:function()
        {
-
            this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
+           this.which_time = '';
        },
        stop:function(event)
        {
@@ -98,10 +134,12 @@ export default
        },
        tab_lottery:function(idx,str)
        {
+
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
             this.type = str;
             this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/1/per_page/10`);
+            this.get_data(this.which_time,str)
        },
        //下一页
        next_page:function(){
@@ -144,29 +182,64 @@ export default
          return orderData_2;
        },
 
-       getAll:function()
+       get_data:function(time = 'today',lty_type = 'ssc')
        {
-         /*this.$http.get(`${this.global.config.API}summary?range=last_month&lty_type=ssc`).then(function(res)
+         this.$http.get(`${this.global.config.API}summary?range=${time}&lty_type=${lty_type}`).then(function(res)
          {
-                console.log(res.data);
-         })*/
+
+                if(res.data.status == 200)
+                {
+                  this.summary = res.data.data.summary;
+                }
+                else
+                {
+                  console.log('数据加载失败');
+                }
+         })
        },
+
    },//methods end
    created:function()
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
        this.list = this.getOrder_2();
-       this.getAll();
+
      }
 
    },
+   watch:
+   {
+      'which_time':function(n)
+      {
+          if(n == '')
+          {
+            this.tableArray  = [1,0,0];
+          }
+          else
+          {
+            this.tableArray  = [0,1,0];
+            this.get_data(n,this.type);
+          }
+      }
+   }
 }
 
 </script>
 
 
 <style scoped>
+
+    .filter-search
+    {
+      margin-top: 11px;
+      width: 80px;
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
+      height: 23px;
+      margin-left: 15px;
+    }
     .task
     {
         position:fixed;
