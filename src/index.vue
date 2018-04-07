@@ -128,6 +128,16 @@
              that.$set(that.$store.state,'unclear',that.getOrder());
            },40000);
         }
+
+        $(function()
+        {
+          let browserHeight = $(window).height();
+          let headerHeight  = 78;
+          $("#left-nav").height(browserHeight - headerHeight);
+          //$("#center").height(browserHeight - headerHeight + 80);
+          $('.recent-content').height($("#left-nav").height() - 381);
+        });
+
       }
   }
 </script>

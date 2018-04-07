@@ -1,10 +1,7 @@
 <template>
   <div id="cqssc">
-
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
-
-
       <div class="details">
         <img src="../assets/img/navicons_13.png" class="logo-tubiao" alt="">
         <div class="left">
