@@ -35,7 +35,7 @@ textarea {
   font-size: 14px;
 }
 input{
-  color: #f3f3f3;
+
   text-indent:4px;
   cursor: pointer;
 }
@@ -160,8 +160,6 @@ a:hover{
 
 .tijiao,.chongtian
 {
-  font-weight: 700;
-  color: #fff;
   padding: 5px 10px !important;
   box-sizing: content-box!important;
   margin-top: 5px!important;

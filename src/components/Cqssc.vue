@@ -34,7 +34,7 @@
         </div>
 
         <div class="count-down color-white">
-          <span>{{mins}}</span><b>分</b><span :class="end_time <= 0?'color-red':''">{{seconds}}</span><b>秒</b>
+          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
         </div>
 
 
@@ -234,8 +234,6 @@
         </div>
 
       </form>
-
-
     </div>
 
     <!-- 右边的历史记录 -->
@@ -291,7 +289,7 @@
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
           mins:'00',
           seconds:'00',
-          history_tables: [1, 0, 0],
+          history_tables: [0, 0, 1],
           history_flag: 0,
           history_str: "收起",
           lastOpenCode: [1, 1, 1, 1, 1],          //最后一期开奖号码
@@ -703,15 +701,19 @@
               {
                 this.bets.push({content:'front_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
               }
-              if(k=='meduim3')
+              if(k=='medium3')
               {
-                this.bets.push({content:'meduim3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+
+                this.bets.push({content:'medium_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
               }
               if(k=='end3')
               {
                 this.bets.push({content:'end_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
               }
+              let x = {content:'medium_3' + '__' + keys[i],money:this.fast_money};
 
+              console.log(this.bets);
+              return
             }
             else
             {

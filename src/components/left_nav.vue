@@ -31,6 +31,22 @@
                 </p>
                 <div class="clear"></div>
             </a>
+
+            <a @click="turn(4)" :class="navArray[4]?'lottery active':'lottery'">
+              <img src="../assets/img/football.jpg" alt="">
+              <p class="color-white">
+                足球竞猜
+              </p>
+              <div class="clear"></div>
+            </a>
+
+            <a @click="turn(5)" :class="navArray[5]?'lottery active':'lottery'">
+              <img src="../assets/img/PCdandan.png" alt="">
+              <p class="color-white">
+                真人在线
+              </p>
+              <div class="clear"></div>
+            </a>
         </div>
 
 
@@ -80,7 +96,7 @@ export default
                 str:"+",
                 flag:false,
             },
-            navArray:[1,0,0,0],
+            navArray:[1,0,0,0,0],
             unclear:[],//未结算的清单
         };
         return data;
@@ -98,7 +114,7 @@ export default
         },
         turn:function(idx)
         {
-            this.navArray =  [0,0,0,0];
+            this.navArray =  [0,0,0,0,0];
             this.navArray[idx] =  1;
             switch(idx)
             {
@@ -117,6 +133,14 @@ export default
                 case 3:
                 this.$router.push('pcegg');
                 window.sessionStorage.index = 3;
+                break;
+                case 4:
+                this.$router.push('football');
+                window.sessionStorage.index = 4;
+                break;
+                case 5:
+                this.$router.push('man_online');
+                window.sessionStorage.index = 5;
                 break;
                 default:
                 break;
@@ -168,8 +192,9 @@ $(function()
     #left-nav
     {
         width: 230px;
-        background: #22618d;
+        background: #ea4c4c;
         float: left;
+        border-top: 1px solid #fff;
     }
     .lottery-list
     {

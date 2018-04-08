@@ -99,8 +99,8 @@
           <div class="bet-chooses-top">
 
             <div v-for="(v,k,index) in odds.double_aspect"  :class="(index==0 || index==5)?'first-ball mt0':'first-ball'">
-                <div v-for="(val,key,idx) in double_aspect_a" v-if="v[val]" class="first-ball-details text-0">
-                     <span class="he22 ">{{double_aspect_c[key]}}</span>
+                <div v-for="(val,key,idx) in double_aspect_a" v-if="v[val] != 0.0000" class="first-ball-details text-0">
+                   <span class="he22 ">{{double_aspect_c[key]}}</span>
                   <span class="he22 ">{{v[val]}}</span>
                   <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)">
                   <div class="clear"></div>
@@ -307,8 +307,6 @@
         </div>
 
       </form>
-
-
     </div>
 
     <!-- 右边的历史记录 -->

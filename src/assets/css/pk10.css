@@ -29,7 +29,8 @@
         float: left;
         height: 60px;
         margin-top:5px;
-        background: rgba(0,0,0,0.5);
+        /*background: rgba(0,0,0,0.5);*/
+       background: #ea4c4c;
         margin-left: 5px;
         box-sizing: border-box;
         padding-top: 10px;
@@ -113,17 +114,19 @@
         overflow: hidden;
         margin-left:10px;
         float: left;
-        background: #4294d0;
+        /*background: #4294d0;*/
+        margin-top: 5px;
     }
     #bet-content .bet-content-table,.bet-content-input
     {
         height: 40px;
         width: 100%;
-        background: #266ea0;
+       background: #e63636;
     }
     .bet-content-input
     {
-        background:#2c7cb7;
+      background: #e9e9e9;
+      color: #000;
     }
     #bet-content .bet-content-table a
     {
@@ -150,12 +153,11 @@
      }
      #bet-content .bet-content-table .active
      {
-         background:rgba(255,255,255,0.5);
+       background: #ff6331;
      }
      .fast-bet
      {
          float: left;
-         color:#f3f3f3;
          height:40px;
          line-height:40px;
          font-size: 14px;
@@ -166,7 +168,7 @@
          border:1px solid white;
          width: 60px;
          border-radius:3px;
-         background: none;
+         background: #fff;
      }
      .bet-btns
      {
@@ -181,11 +183,10 @@
          height: 20px;
          margin-top: 10px;
          box-sizing: border-box;
-         padding: 0px 10px;
+         padding: 0 10px;
          float: left;
          line-height: 20px;
          margin-left: 5px;
-         color: #f3f3f3;
          background: rgba(200,200,200,0.5);
          border-radius: 3px;
          font-size: 14px;
@@ -207,7 +208,7 @@
          border: 1px solid rgba(200,200,200,0.5);
          width: 130px;;
          float: left;
-         color: #f3f3f3;
+         color: #000;
          margin-top: 15px;
          position: relative;
          margin-left:20px;
@@ -232,20 +233,24 @@
          width: 50px;
          border-radius: 3px;
          outline: none;
-         background: none;
-         border: 1px solid rgba(255,255,255,0.5);
+         background: white;
+         border: 1px solid rgba(0,0,0,0.5);
      }
      .first-ball-top
      {
-         position: absolute;
-         height: 20px;
-         line-height: 20px;
-         text-align:center;
-         top:-10px;
-         left:5px;
-         border: 1px solid rgba(255,255,255,0.5);
-         font-size: 14px;
-         background: #328bcd;
+       position: absolute;
+       height: 20px;
+       line-height: 20px;
+       text-align: center;
+       top: -10px;
+       left: 5px;
+       border: 1px solid rgba(255, 255, 255, 0.5);
+       font-size: 12px;
+       background: #fff;
+       -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+       border-radius: 3px;
+       color: #000;
      }
      .long-bet
      {
@@ -255,7 +260,7 @@
         margin-top:25px;
         box-sizing: border-box;
         position: relative;
-        color:#f3f3f3;
+        color:#000;
      }
      .long-bet-content
      {
@@ -279,7 +284,7 @@
          border-radius: 3px;
          outline: none;
          background: none;
-         border: 1px solid rgba(255,255,255,0.5);
+         border: 1px solid rgba(0,0,0,0.5);
          margin-top: 5px;
      }
 
@@ -292,10 +297,11 @@
         /* border: 1px solid #fff; */
          float: left;
          box-sizing: border-box;
+       margin-top: 5px;
      }
      .history-header
      {
-         background: #266ea0;
+         background: #e63636;
          height: 40px;
          border-left: 1px solid rgba(200,200,200,0.5);
          box-sizing: border-box;
@@ -313,7 +319,7 @@
      }
      .history-table
      {
-         background: #2c7cb7;
+         background: #e9e9e9;
          height: 40px;
          border-left: 1px solid rgba(200,200,200,0.5);
          box-sizing: border-box;
@@ -327,21 +333,21 @@
           margin-left: 15px;
           margin-top: 5px;
           border-radius: 3px;
-          color: #f3f3f3;
+          color: #000;
           cursor: pointer;
 
       }
       .history-table>.active
       {
-          background: rgba(200,200,200,0.5);
+        background: #ff6331;
+        color: #fff;
       }
       .history-list
       {
         width: 100%;
-        border-left: 1px solid rgba(200,200,200,0.5);
+        border-left: 1px solid rgba(200, 200, 200, 0.5);
         box-sizing: border-box;
         overflow: hidden;
-        background: #4294d0;
       }
       .history-list>p
       {
@@ -359,7 +365,7 @@
       {
           height: 40px;
           width: 100%;
-          background: #2c7cb7;
+          background: #e9e9e9;
           margin-top: 3px;
           border-left: 1px solid rgba(200,200,200,0.5);
           box-sizing: border-box;
@@ -367,18 +373,17 @@
       }
       .history-close>a
       {
-          display:block;
-          height: 30px;
-
-          background:rgba(200,200,200,0.5);
-          width: 50px;
-          margin:0 auto;
-          color: #f3f3f3;
-          text-align: center;
-          line-height: 30px;
-          margin-top: 5px;
-          font-size: 14px;
-          border-radius: 3px;
+        display: block;
+        height: 30px;
+        background: rgba(200, 200, 200, 0.5);
+        width: 50px;
+        margin: 0 auto;
+        color: #000;
+        text-align: center;
+        line-height: 30px;
+        margin-top: 5px;
+        font-size: 14px;
+        border-radius: 3px;
       }
 
       /* .hao0,.hao1,.hao2,.hao3,.hao4,.hao5,.hao6,.hao7,.hao8,.hao9

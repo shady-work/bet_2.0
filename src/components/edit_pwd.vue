@@ -154,7 +154,7 @@ export default
    .xy-header
    {
        height: 30px;
-       background: #174262;
+       background: #e83a36;
        color: #f3f3f3;
    }
    .xy-header>img
@@ -187,11 +187,11 @@ export default
    {
        width: 100%;
        height: 220px;
-       background: #4294d0;
+       background: #fff;
        margin:0 auto;
        box-sizing: border-box;
        padding:15px;
-       color:#f3f3f3;
+       color:#000;
        padding-top:25px;
    }
    .form-pwd label
@@ -208,9 +208,9 @@ export default
    .form-pwd input
    {
        background: none;
-       border:1px solid #f3f3f3;
+       border:1px solid #000;
        width:140px;
-       color:#f3f3f3;
+       color:#000;
        float: left;
        height: 25px;
        text-indent:5px;
@@ -219,7 +219,7 @@ export default
 
    .change
    {
-       background: #5598c5;
+       background: #e63636;
        font-size: 14px;
        padding: 3px;
        outline: none;

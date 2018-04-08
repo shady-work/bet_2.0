@@ -164,7 +164,8 @@ export default
    {
      width:100%;
      height:78px;
-     background:url('../assets/img/title.jpg');
+     /*background:url('../assets/img/title.jpg');*/
+     background: #ea4c4c;
      background-size: cover;
      min-width:1400px;
    }
@@ -184,7 +185,7 @@ export default
    {
      display: block;
      float: left;
-     width: 80px;
+     width: 90px;
      height: 100%;
      box-sizing: border-box;
      /* border: 1px solid #000; */
@@ -206,9 +207,10 @@ export default
      height:35px;
      margin:0 auto;
      margin-top: 10px;
-     color: #3284bf;
+     color: #fff;
      font-size: 32px;
      padding-top: 3px;
+      font-weight: 200;
    }
     .nav-top>.font36
     {
@@ -218,7 +220,7 @@ export default
    {
      font-size: 14px;
      margin-top: 5px;
-     color:#2d74a8;
+     color:#fff;
      font-weight: 700;
    }
    .nav-top:hover

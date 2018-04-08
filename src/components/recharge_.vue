@@ -9,11 +9,10 @@
   {
     height: 700px;
     width: 300px;
-
     margin-left: 25px;
     margin-top: 15px;
     float: left;
-    color: #fff;
+    color: #000;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -73,21 +72,21 @@
   {
     width: 100%;
     height: 40px;
-    border:1px solid #fff;
+    border:1px solid #000;
     border-bottom: none;
     line-height: 40px;
     cursor: pointer;
   }
   .right-left>ul>li:last-of-type
   {
-    border-bottom:1px solid #fff;
+    border-bottom:1px solid #000;
   }
   .right-right
   {
     width: 410px;
     height: 400px;
 
-    border:1px solid #fff;
+    border:1px solid #000;
     float: left;
     margin-left: 2px;
     margin-top: 15px;
@@ -101,10 +100,10 @@
     height: 30px;
     width: 248px;
     border-radius: 3px;
-    border: none;
     color: #000;
     text-indent:5px;
     font-size: 12px;
+    border:1px solid #000;
   }
   .input-my>input::-webkit-input-placeholder{
     color:gray;
@@ -124,20 +123,20 @@
     width: 310px;
     margin-top: 15px;
     height: 30px;
-    background: #9988ff;
+    background: #ff0000;
     color: white;
     outline: none;
     border: none;
   }
   .tabs .active,.right-left .active
   {
-    background: rgba(255,255,255,0.5);
+    background: #ff7300;
   }
   .article-context
   {
     width: 80%;
     margin:0 auto;
-    border: 1px solid #fff;
+    border: 1px solid #000;
     box-sizing: border-box;
     padding: 15px 5px;
     margin-top: 25px;

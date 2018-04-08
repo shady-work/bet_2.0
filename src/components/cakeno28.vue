@@ -205,7 +205,7 @@
       var my_data =
         {
           showArray_cqssc: [1],
-          history_tables: [1, 0, 0],
+          history_tables: [0, 0, 1],
           history_flag: 0,
           history_str: "收起",
           last_expect:111111,

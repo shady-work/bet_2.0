@@ -145,7 +145,9 @@
 <style>
   body
   {
-    background: #328bcd;
+    /*background: #328bcd;*/
+    background: #ea4c4c;
+    overflow-x: hidden;
   }
   #center
   {
@@ -155,6 +157,10 @@
     float: left;
     min-width: 1077px;
     margin-bottom: 20px;
+    width: 100%;
+    height: 100%;
+    background: #f5f5f5;
+    overflow-x: hidden;
   }
   #notice
   {

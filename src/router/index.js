@@ -8,6 +8,8 @@ import Cakeno28 from '@/components/cakeno28';
 import Recharge from '@/components/recharge_';
 import Index from '../index.vue';
 import Withdraw from '@/components/withdraw.vue';
+import football from '@/components/football.vue';
+import man_online from '@/components/man_online.vue';
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -52,6 +54,16 @@ export default new Router(
           path:"/withdraw",
           name:"Withdraw",
           component:Withdraw,
+        },
+        {
+          path:"/football",
+          name:"football",
+          component:football,
+        },
+        {
+          path:"/man_online",
+          name:"man_online",
+          component:man_online,
         },
       ],
     },

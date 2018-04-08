@@ -192,7 +192,7 @@ export default
   .page-xy
   {
     font-size: 16px;
-    color: #fff;
+    color: #000;
   }
   .page-xy>span
   {
@@ -220,12 +220,13 @@ export default
   .xy-header
   {
     height: 30px;
-    background: #174262;
+    background: #e83a36;
     color: #f3f3f3;
   }
   .money-table
   {
-    background: #4294d0;
+    background: white;
+    color: #000;
   }
 
   .xy-header>i
@@ -306,14 +307,14 @@ export default
   table
   {
     width: 100%;
-    color: #f3f3f3;
+    color: #000;
     font-size: 14px;
 
   }
   table tr
   {
     height: 25px;
-    border-bottom:1px solid #2c7db6;
+    border-bottom:1px solid #000;
   }
   td>span
   {
