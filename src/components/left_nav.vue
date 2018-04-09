@@ -33,7 +33,7 @@
             </a>
 
             <a @click="turn(4)" :class="navArray[4]?'lottery active':'lottery'">
-              <img src="../assets/img/football.jpg" alt="">
+              <img src="../assets/img/football.png" alt="">
               <p class="color-white">
                 足球竞猜
               </p>
@@ -41,7 +41,7 @@
             </a>
 
             <a @click="turn(5)" :class="navArray[5]?'lottery active':'lottery'">
-              <img src="../assets/img/PCdandan.png" alt="">
+              <img src="../assets/img/girl.jpg" alt="" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
               <p class="color-white">
                 真人在线
               </p>
