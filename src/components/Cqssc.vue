@@ -405,6 +405,9 @@
           //当前是哪个盘口
           which_handicap:'',
 
+
+          vaild_lotteries:[],//  用户拥有哪些彩种
+
       };
       return my_data;
     },
@@ -931,17 +934,32 @@
 
       if(this.$store.state.isLogin)
       {
-        //获取最新的开奖号码
-        this.get_last_code();
-        //获取用户的赔率
-        this.get_odds();
+        //查看是否有cqssc这个彩种
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        {
+          let  data = response.data.data.user;
+          this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+          if(this.vaild_lotteries.includes('cqssc'))
+          {
+            //获取最新的开奖号码
+            this.get_last_code();
+            //获取用户的赔率
+            this.get_odds();
 
-        //获取重庆时时彩的时间和期数
-        this.get_time();
-        //获取开奖历史
-        this.get_history();
+            //获取重庆时时彩的时间和期数
+            this.get_time();
+            //获取开奖历史
+            this.get_history();
+            this.get_users_handicaps();
+          }
+          else
+          {
+            this.$router.push('pk10');
+          }
+        });
 
-        this.get_users_handicaps();
+
+
       }
 
     },

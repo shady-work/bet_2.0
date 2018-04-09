@@ -1,5 +1,3 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 
 import Vue from 'vue';
 import App from './App';
@@ -9,28 +7,14 @@ import './lib/index.js'//加载一些挂在vue原型上的函数
 
 import common from './assets/js/common';//加载commonjs
 Vue.prototype.global = common;//挂载在vue的原型上
-/**
- * console.log(msg);
- * @param msg
- */
-Vue.prototype.log = function (msg)
-{
-    console.log(msg);
-};
-/**
- * console.table(obj);
- * @param obj
- */
-Vue.prototype.table = function (obj)
-{
-  console.table(obj);
-};
 
+//Vue's ajax
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
+//拦截器，vue的每个request（ajax）都会过这个函数
 Vue.http.interceptors.push(function(request, next)
 {
     //拦截器
@@ -54,6 +38,7 @@ var store = new vuex.Store(
         cash_money:0,         //余额
         unclear:[],//未结算清单  用于侧边栏
         win_lost_today:0,//今日盈亏
+
     },
     mutations:
     {
@@ -86,13 +71,22 @@ const Vm = new Vue(
  * from是你从哪来(obj)
  * next是下一步，不执行的话，路由会一直停滞在这，不会跳转
  */
-// router.beforeEach(function(to, from, next)
-// {
-//
-//
-//    next();
-// });
-//
+router.beforeEach(function(to, from, next)
+{
+
+   //判断是要去哪个路由，如果在路由文件中没有，则跳转到根目录
+   if(!to.name)
+   {
+     Vm.$router.push('/');
+     next();
+   }
+  else
+   {
+     next();
+   }
+
+});
+
 
 
 

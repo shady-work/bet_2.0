@@ -133,6 +133,8 @@ export default
         window.sessionStorage.nickname = null;
         window.sessionStorage.type     = null;
         window.sessionStorage.username = null;
+        window.sessionStorage.token = null;
+        window.sessionStorage.index = null;
         window.location.href = '/';
       });
 

@@ -264,6 +264,8 @@
           //当前是哪个盘口
           which_handicap:'',
 
+          vaild_lotteries:[],//  用户拥有哪些彩种
+
         };
       return my_data;
     },
@@ -444,7 +446,7 @@
         //post bet data
         do_bet:function ()
         {
-          this.$http.post(`${this.global.config.API}cake/order`,{bets:this.bets,odds_table:'a'}).then(function(res){
+          this.$http.post(`${this.global.config.API}cake/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
             if(res.data.status == 200)
             {
               //清除下注内容
@@ -551,7 +553,6 @@
           this.$http.get(`${this.global.config.API}pk10/pans`)
             .then(function(res)
             {
-              console.log(res.data);
               this.handicaps = [];
               if(res.data.status == 200)
               {
@@ -575,14 +576,24 @@
       }
       else
       {
-        this.get_odds();
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        {
+          let  data = response.data.data.user;
+          this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+          if(this.vaild_lotteries.includes('cakeno'))
+          {
+            this.get_odds();
+            this.get_last_code();
+            this.get_time();
+            this.get_codes_history();
+            this.get_users_handicaps()
+          }
+          else
+          {
+            this.$router.push('pcegg');
+          }
+        });
 
-        this.get_last_code();
-
-        this.get_time();
-
-        this.get_codes_history();
-        this.get_users_handicaps()
       }
     },
     mounted: function () {
@@ -625,7 +636,7 @@
             this.timeId = setInterval(function()
             {
               that.get_odds();
-              that.get_last();
+              that.get_last_code();
             },10000);
           }
         }

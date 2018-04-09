@@ -255,6 +255,7 @@
           handicaps:[],
           //当前是哪个盘口
           which_handicap:'',
+          vaild_lotteries:[],//  用户拥有哪些彩种
 
         };
       return my_data;
@@ -564,14 +565,21 @@
       }
       else
       {
-        this.get_odds();
 
-        this.get_last_code();
-
-        this.get_time();
-
-        this.get_codes_history();
-        this.get_users_handicaps()
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response) {
+          let data = response.data.data.user;
+          this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+          if (this.vaild_lotteries.includes('cakeno')) {
+            this.get_odds();
+            this.get_last_code();
+            this.get_time();
+            this.get_codes_history();
+            this.get_users_handicaps();
+          }
+          else {
+            this.$router.push('cqssc');
+          }
+        });
       }
 
     },

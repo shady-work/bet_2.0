@@ -523,6 +523,8 @@
           //当前是哪个盘口
           which_handicap:'',
 
+          vaild_lotteries:[],//  用户拥有哪些彩种
+
 
         };
       return my_data;
@@ -891,7 +893,6 @@
       //检测是否登录
       if (this.$store.state.isLogin || (window.sessionStorage.isLogin == "ok"))
       {
-        this.global.log('欢迎回来~');
         //获取用户信息
         this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
         {
@@ -900,6 +901,26 @@
           this.$store.state.nickname = data.nickname;//昵称
           this.$store.state.cash_money = data.money.cash_money;//现金额度
           this.$store.state.credit_money = data.money.credit_money;//信用额度
+          this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+          if(this.vaild_lotteries.includes('bjpk10'))
+          {
+            //获取开奖时间和下注封盘时间
+            this.get_time();
+            //上期开奖结果
+            this.get_last();
+
+            //获取用户赔率
+            this.get_odds();
+
+            //获取pk10的开奖数据
+            this.get_open_history();
+
+            this.get_users_handicaps();
+          }
+          else
+          {
+            this.$router.push('cakeno28');
+          }
         });
       }
       else
@@ -908,18 +929,7 @@
         return;
       }///没有登录跳转到登录页面
 
-      //获取开奖时间和下注封盘时间
-      this.get_time();
-      //上期开奖结果
-      this.get_last();
 
-      //获取用户赔率
-      this.get_odds();
-
-      //获取pk10的开奖数据
-      this.get_open_history();
-
-      this.get_users_handicaps();
 
     },
     /**

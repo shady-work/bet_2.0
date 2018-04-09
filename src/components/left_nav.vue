@@ -3,28 +3,28 @@
         <!--用户信息模块-->
         <user></user>
         <div class="lottery-list">
-            <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'">
+            <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'" v-show="isShow('cqssc')">
                 <img src="../assets/img/navicons_11.png" alt="">
                 <p class="color-white">
                     重庆时时彩
                 </p>
                 <div class="clear"></div>
             </a>
-            <a @click="turn(1)" :class="navArray[1]?'lottery active':'lottery'">
+            <a @click="turn(1)" :class="navArray[1]?'lottery active':'lottery'" v-show="isShow('bjpk10')">
                 <img src="../assets/img/navicons_09.png" alt="">
                 <p class="color-white">
                     北京赛车
                 </p>
                 <div class="clear"></div>
             </a>
-            <a @click="turn(2)" :class="navArray[2]?'lottery active':'lottery'">
+            <a @click="turn(2)" :class="navArray[2]?'lottery active':'lottery'" v-show="isShow('cakeno')">
                 <img src="../assets/img/kuaile8.png" alt="">
                 <p class="color-white">
                    加拿大28
                 </p>
                 <div class="clear"></div>
             </a>
-            <a @click="turn(3)" :class="navArray[3]?'lottery active':'lottery'">
+            <a @click="turn(3)" :class="navArray[3]?'lottery active':'lottery'" v-show="isShow('pcegg')">
                 <img src="../assets/img/PCdandan.png" alt="">
                 <p class="color-white">
                     PC蛋蛋
@@ -98,6 +98,7 @@ export default
             },
             navArray:[1,0,0,0,0],
             unclear:[],//未结算的清单
+            vaild_lotteries:[],//  用户拥有哪些彩种
         };
         return data;
     },
@@ -146,6 +147,10 @@ export default
                 break;
             }
         },
+        isShow:function(str)
+        {
+           return this.vaild_lotteries.includes(str);
+        },
 
     },
     created:function ()
@@ -161,6 +166,40 @@ export default
           this.navArray[index] = 1;
         }
 
+        //获取用户有哪些彩种
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        {
+          let  data = response.data.data.user;
+          this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+
+          if(this.vaild_lotteries.includes('cqssc'))
+          {
+            this.navArray = [0,0,0,0,0];
+            this.navArray = [1,0,0,0,0];
+          }
+          else
+          {
+            if(this.vaild_lotteries.includes('bjpk10'))
+            {
+              this.navArray = [0,0,0,0,0];
+              this.navArray = [0,1,0,0,0];
+            }
+            else
+            {
+              if(this.vaild_lotteries.includes('cakeno'))
+              {
+                this.navArray = [0,0,0,0,0];
+                this.navArray = [0,0,1,0,0];
+              }
+              else
+              {
+                this.navArray = [0,0,0,0,0];
+                this.navArray = [0,0,0,1,0];
+              }
+            }
+          }
+
+        });
          //window.sessionStorage.index
       }
 
