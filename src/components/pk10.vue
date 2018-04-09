@@ -818,7 +818,7 @@
        */
       do_bet:function ()
       {
-        this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content,odds_table:'a'})
+        this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content,odds_table:this.which_handicap})
           .then(function(res)
           {
             if(res.data.status == 200)
@@ -873,7 +873,6 @@
         this.$http.get(`${this.global.config.API}pk10/pans`)
           .then(function(res)
           {
-            console.log(res.data);
             this.handicaps = [];
             if(res.data.status == 200)
             {

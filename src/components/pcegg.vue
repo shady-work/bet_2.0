@@ -436,7 +436,7 @@
         //post bet data
         do_bet:function ()
         {
-          this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets,odds_table:'a'}).then(function(res){
+          this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
             if(res.data.status == 200)
             {
               //清除下注内容
