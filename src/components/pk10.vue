@@ -901,7 +901,7 @@
           this.$store.state.cash_money = data.money.cash_money;//现金额度
           this.$store.state.credit_money = data.money.credit_money;//信用额度
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
-          if(this.vaild_lotteries.includes('bjpk10'))
+          if(this.vaild_lotteries.indexOf('bjpk10') != -1)
           {
             //获取开奖时间和下注封盘时间
             this.get_time();

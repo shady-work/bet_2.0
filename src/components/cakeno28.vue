@@ -87,11 +87,13 @@
                 混合
               </div>
               <div v-for="(v,k) in odds.mixture" class="long-bet-content" v-if="v !=  0.0000">
-                <span>{{odds.mixture_str[k]}}</span>
+                <span v-if="k != 28">{{odds.mixture_str[k]}}</span>
+                <span v-if="k == 28">豹子</span>
                 <span>{{v}}</span>
-                <input type="text" v-if="odds.mixture_str[k] != '豹子'" v-model="bet_content.mixture[k]"
+                <input type="text" v-if="k != 28" v-model="bet_content.mixture[k]"
                        @click="choose_one(k,'mixture','ball_2')">
-                <input type="text" v-if="odds.mixture_str[k] == '豹子'" v-model="bet_content.mixture[k]"
+
+                <input type="text" v-if="k == 28" v-model="bet_content.mixture[k]"
                        @click="choose_one(1,'mixture','ball_4')">
                 <div class="clear"></div>
               </div>
@@ -580,7 +582,7 @@
         {
           let  data = response.data.data.user;
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
-          if(this.vaild_lotteries.includes('cakeno'))
+          if(this.vaild_lotteries.indexOf('cakeno') != -1)
           {
             this.get_odds();
             this.get_last_code();

@@ -939,13 +939,12 @@
         {
           let  data = response.data.data.user;
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
-          if(this.vaild_lotteries.includes('cqssc'))
+          if(this.vaild_lotteries.indexOf('cqssc') != -1)
           {
             //获取最新的开奖号码
             this.get_last_code();
             //获取用户的赔率
             this.get_odds();
-
             //获取重庆时时彩的时间和期数
             this.get_time();
             //获取开奖历史

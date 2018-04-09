@@ -149,7 +149,15 @@ export default
         },
         isShow:function(str)
         {
-           return this.vaild_lotteries.includes(str);
+          let numb = this.vaild_lotteries.indexOf(str);
+          if(numb == -1)
+          {
+            return false;
+          }
+          else
+          {
+            return true;
+          }
         },
 
     },
@@ -172,21 +180,21 @@ export default
           let  data = response.data.data.user;
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
 
-          if(this.vaild_lotteries.includes('cqssc'))
+          if(this.vaild_lotteries.indexOf('cqssc') != -1)
           {
             this.navArray = [0,0,0,0,0];
             this.navArray = [1,0,0,0,0];
           }
           else
           {
-            if(this.vaild_lotteries.includes('bjpk10'))
+            if(this.vaild_lotteries.indexOf('bjpk10') != -1)
             {
               this.navArray = [0,0,0,0,0];
               this.navArray = [0,1,0,0,0];
             }
             else
             {
-              if(this.vaild_lotteries.includes('cakeno'))
+              if(this.vaild_lotteries.indexOf('cakeno') != -1)
               {
                 this.navArray = [0,0,0,0,0];
                 this.navArray = [0,0,1,0,0];
