@@ -103,13 +103,13 @@ export default
        },
        //下一页
        next_page:function(){
-          if(this.next_url) this.list = this.getOrder_2(`${this.global.config.API}${this.next_url}`);
+          if(this.next_url) this.list = this.getOrder_2(this.next_url);
           else alert('没有下一页');
 
        },
        //上一页
        prev_page:function(){
-         if(this.prev_url) this.list = this.getOrder_2(`${this.global.config.API}${this.prev_url}`);
+         if(this.prev_url) this.list = this.getOrder_2(this.prev_url);
          else alert('没有上一页');
        },
       //获取cqssc,pk10,egg,cake未结算的数据

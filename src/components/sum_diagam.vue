@@ -67,9 +67,9 @@
                     <td>{{v.expect}}</td>
                     <td>{{v.order_no}}</td>
                     <td>{{v.create_time}}</td>
-                    <td>{{v.mark_a}}</td>
-                    <td>{{v.mark_b}}</td>
-                    <td>{{v.win}}</td>
+                    <td>{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
+                    <td>{{v.money}}</td>
+                    <td>{{v.open_ret==1?'中奖':'未中奖'}}</td>
                   </tr>
                 </table>
 
@@ -147,13 +147,13 @@ export default
        },
        //下一页
        next_page:function(){
-         if(this.next_url) this.list = this.get_codes(this.global.config.API + this.next_url);
+         if(this.next_url) this.list = this.get_details('',this.next_url);
          else alert('没有下一页');
 
        },
        //上一页
        prev_page:function(){
-         if(this.prev_url) this.list = this.get_codes(this.global.config.API+this.prev_url);
+         if(this.prev_url) this.list = this.get_details('',this.prev_url);
          else alert('没有上一页');
        },
        //获取cqssc,pk10,egg,cake未结算的数据
@@ -194,7 +194,7 @@ export default
        this.details_show = true;
        if(url)
        {
-         this.$http.get(this.global.config.API + url).then(function(res)
+         this.$http.get(url+'&per_page=10').then(function(res)
          {
 
            if(res.data.status == 200)
@@ -203,13 +203,13 @@ export default
              this.next_url = data.nextPageUrl;
              this.prev_url = data.prevPageUrl;
              this.details_data = data.orders;
-             this.page = data.curPageNum;
+             this.page = data.curPage;
            }
          });
        }
        else
        {
-         this.$http.get(`${this.global.config.API}details?date=${date_str}`).then(function(res)
+         this.$http.get(`${this.global.config.API}details?date=${date_str}&per_page=10`).then(function(res)
          {
            console.log(res.data.data);
            if(res.data.status == 200)
@@ -218,7 +218,7 @@ export default
              this.next_url = data.nextPageUrl;
              this.prev_url = data.prevPageUrl;
              this.details_data = data.orders;
-             this.page = data.curPageNum;
+             this.page = data.curPage;
            }
          });
        }

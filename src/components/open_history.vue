@@ -182,13 +182,13 @@ export default
     },
     //下一页
     next_page:function(){
-      if(this.next_url) this.list = this.get_codes(this.global.config.API + this.next_url);
+      if(this.next_url) this.list = this.get_codes(this.next_url);
       else alert('没有下一页');
 
     },
     //上一页
     prev_page:function(){
-      if(this.prev_url) this.list = this.get_codes(this.global.config.API+this.prev_url);
+      if(this.prev_url) this.list = this.get_codes(this.prev_url);
       else alert('没有上一页');
     },
     get_codes:function(url = `${this.global.config.API}ssc/history/lottery/per_page/10`){

@@ -124,6 +124,10 @@ export default
         {
           this.$children[2].get_codes();
         }
+        if(idx == 7)
+        {
+          this.$children[7].get_all_data();
+        }
 
     },
     log_out:function()
