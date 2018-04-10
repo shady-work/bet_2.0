@@ -3,7 +3,7 @@
             <div class="xinyongziliao" @click="stop($event)">
                     <div class="xy-header">
                         <i class="fa fa-bar-chart"></i>
-                        <span>已结算报表</span>
+                        <span>结算报表</span>
                         <span class="pull-right close-2" @click="close()">X</span>
                         <div class="clear"></div>
                     </div>
@@ -11,76 +11,70 @@
                     <div class="xy-left">
 
                       <div class="xy-list">
-                        <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
-                          重庆时时彩
+                        <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0)">
+                           本周报表
                         </a>
-                        <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
-                          北京赛车pk10
-                        </a>
-                        <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
-                          加拿大28
-                        </a>
-                        <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
-                          pc蛋蛋
+                        <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1)">
+                          上周报表
                         </a>
                       </div>
                     </div>
-
-
                     <div class="xy-right">
                 <div class="xy-right-top">
-                  <a :class="tableArray[0]?'active':''" @click="showOne(0)">所有已结算</a>
-                  <a :class="tableArray[1]?'active':''" @click="showOne(1)">按条件筛选</a>
-                  <select class="pull-left filter-search" v-model="which_time">
-                    <option v-bind:value="''">请选择</option>
-                    <option v-bind:value="'today'">今日</option>
-                    <option v-bind:value="'this_week'">本周</option>
-                    <option v-bind:value="'last_week'">上周</option>
-                    <option v-bind:value="'this_month'">本月</option>
-                    <option v-bind:value="'last_month'">上月</option>
-                    <option v-bind:value="'this_year'">本年</option>
-                  </select>
-
+                  <a :class="tableArray[0]?'active':''" @click="showOne(0)">结算报表</a>
                 </div>
-                <table v-show="tableArray[0]">
+                <table v-show="!details_show">
                   <tr>
+                    <td>日期</td>
+                    <td>下注条数</td>
+                    <td>下注总金额</td>
+                    <td>盈亏</td>
+                    <td>返水</td>
+                    <td>退水后盈亏</td>
+                  </tr>
+
+                  <tr v-for="(v,k) in data">
+                    <td>{{v.week_name}}/{{v.date_str }}</td>
+                    <td>{{v.sum_data.order_num}}</td>
+                    <td>{{v.sum_data.sum_money}}</td>
+                    <td>{{v.sum_data.win}}</td>
+                    <td>{{v.sum_data.fs}}</td>
+                    <td class="color-red">
+                      <a @click="get_details(v.date_str)" v-if="v.sum_data.winAndFs != 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
+                        {{v.sum_data.winAndFs}}
+                      </a>
+                      <span v-else>
+                        {{v.sum_data.winAndFs}}
+                      </span>
+                    </td>
+                  </tr>
+                </table>
+
+
+
+                <table class="details-1" v-show="details_show" style="font-size: 12px;">
+                  <tr>
+                    <td>彩种</td>
                     <td>期数</td>
                     <td>注单号</td>
                     <td>时间</td>
                     <td>下注内容</td>
                     <td>下注金额</td>
-                    <td>当时赔率</td>
-                    <td>是否中奖</td>
+                    <td>中奖结果</td>
                   </tr>
-                  <tr v-for="v in list">
-                    <td v-for="(val,k) in v" v-if="k != 'win'">{{val}}</td>
-                    <td v-for="(val,k) in v" v-if="k == 'win'">{{val?'中奖':'未中'}}</td>
+                  <tr v-for="v in details_data">
+                    <td>{{v.lty_name}}</td>
+                    <td>{{v.expect}}</td>
+                    <td>{{v.order_no}}</td>
+                    <td>{{v.create_time}}</td>
+                    <td>{{v.mark_a}}</td>
+                    <td>{{v.mark_b}}</td>
+                    <td>{{v.win}}</td>
                   </tr>
                 </table>
-                <table v-show="tableArray[1]">
-                        <tr>
-                          <td>盈亏</td>
-                          <td>已结算条数</td>
-                          <td>已结算金额</td>
-                          <td>中奖条数</td>
-                          <td>中奖金额</td>
-                          <td>未中奖条数</td>
-                          <td>未中奖金额</td>
-                          <td>未结算条数</td>
-                          <td>未结算金额</td>
-                        </tr>
-                        <tr>
-                          <td>{{summary.yk}}</td>
-                          <td>{{summary.clearedCount}}</td>
-                          <td>{{summary.clearedMoney}}</td>
-                          <td>{{summary.luckyCount}}</td>
-                          <td>{{summary.luckyMoney}}</td>
-                          <td>{{summary.unluckyCount}}</td>
-                          <td>{{summary.unluckyMoney}}</td>
-                          <td>{{summary.unclearedCount}}</td>
-                          <td>{{summary.unclearedMoney}}</td>
-                        </tr>
-                    </table>
+
+
+
                 <div class="page-xy">
                   <span @click="prev_page">◀</span>
                   <input type="text" v-model="page"  disabled>
@@ -111,6 +105,10 @@ export default
            page :1,
            which_time:'',//查看报表的哪一段时间
            summary:{},//报表数据
+           sum_week:{},//本周和上周的结算报表
+           data:[],
+           details_data:[],
+           details_show:false,
 
        };
        return data;
@@ -137,9 +135,15 @@ export default
 
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
-            this.type = str;
-            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/1/per_page/10`);
-            this.get_data(this.which_time,str)
+            this.details_show = false;
+            if(idx == 0 )
+            {
+              this.data = this.sum_week['this_week'];
+            }
+            if(idx == 1 )
+            {
+              this.data = this.sum_week['last_week'];
+            }
        },
        //下一页
        next_page:function(){
@@ -153,34 +157,6 @@ export default
          else alert('没有上一页');
        },
        //获取cqssc,pk10,egg,cake未结算的数据
-       getOrder_2 : function(url = `${this.global.config.API}ssc/history/clear/1/per_page/10`)
-       {
-         var orderData_2 = [];
-         this.$http.get(url).then(function(res)
-         {
-           if(res.data.status == 403) return false;
-           let data = res.data.data;
-           this.page = data.curPage;
-           this.next_url = data.nextPageUrl;
-           this.prev_url = data.prevPageUrl;
-           let list  = data.list;
-           for(let i = 0; i<list.length;i++)
-           {
-             let data =
-               {
-                 'expect' : `${list[i].expect}`,
-                 'order' : `${list[i].order_no}`,
-                 'time' : `${list[i].create_time}`,
-                 'content' : list[i].mark_a + list[i].mark_b,
-                 'money' : list[i].money,
-                 'rate' : list[i].rate,
-                 'win' : list[i].open_ret,
-               };
-             orderData_2.push(data);
-           }
-         });
-         return orderData_2;
-       },
 
        get_data:function(time = 'today',lty_type = 'ssc')
        {
@@ -197,21 +173,64 @@ export default
                 }
          })
        },
-
-       get_all_data:function()
+     /**
+      * 获取上周和本周的下注统计
+      */
+     get_all_data:function()
+     {
+       this.$http.get(`${this.global.config.API}clearList`).then(function(res)
        {
-         this.$http.get(`${this.global.config.API}clearList`).then(function(res)
+         console.log(res.data.data);
+         if(res.data.status == 200)
          {
-           console.log(res.data);
-         })
-       },
+           this.sum_week = res.data.data;
+           this.data = this.sum_week.this_week;
+         }
+
+       });
+     },
+     get_details:function(date_str,url)
+     {
+       this.details_show = true;
+       if(url)
+       {
+         this.$http.get(this.global.config.API + url).then(function(res)
+         {
+
+           if(res.data.status == 200)
+           {
+             let data = res.data.data;
+             this.next_url = data.nextPageUrl;
+             this.prev_url = data.prevPageUrl;
+             this.details_data = data.orders;
+             this.page = data.curPageNum;
+           }
+         });
+       }
+       else
+       {
+         this.$http.get(`${this.global.config.API}details?date=${date_str}`).then(function(res)
+         {
+           console.log(res.data.data);
+           if(res.data.status == 200)
+           {
+             let data = res.data.data;
+             this.next_url = data.nextPageUrl;
+             this.prev_url = data.prevPageUrl;
+             this.details_data = data.orders;
+             this.page = data.curPageNum;
+           }
+         });
+       }
+
+     },
 
    },//methods end
    created:function()
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
-       this.list = this.getOrder_2();
+
        this.get_all_data();
 
      }

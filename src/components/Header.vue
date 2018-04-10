@@ -22,8 +22,12 @@
 
       <a @click="showOne(4)" class="nav-top">
         <i class="fa fa-bar-chart"></i>
-        <p>已结算报表</p>
+        <p>统计报表</p>
+      </a>
 
+      <a @click="showOne(7)" class="nav-top">
+        <i class="fa fa-pie-chart"></i>
+        <p>结算报表</p>
       </a>
 
 
@@ -68,6 +72,7 @@
     <clear v-show="showArray[4]"></clear>
     <unclear v-show="showArray[5]"></unclear>
     <money-change v-show="showArray[6]"></money-change>
+    <sum v-show="showArray[7]"></sum>
   </div>
 
 
@@ -80,6 +85,7 @@ import editPwd from './edit_pwd';
 import openHistory from './open_history';
 import rules from './rules';
 import clear from './clear_diagam';
+import sum from './sum_diagam';
 import unclear from './unclear_diagam';
 import money_change from './money_change';
 export default
@@ -156,6 +162,7 @@ export default
     'clear':clear,
     'unclear':unclear,
     'moneyChange':money_change,
+    'sum':sum,
   }
 }
 

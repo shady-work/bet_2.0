@@ -2,6 +2,8 @@
   <div id="pcegg">
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
+
+
       <div class="details">
         <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
         <div class="left">
@@ -26,9 +28,9 @@
             今天已售100期,还剩79期
           </p>
           <div class="pan">
-            <label>盘类</label>
+            <label class="color-white">盘类</label>
             <select v-model="which_handicap">
-              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{v.ratewin_name}}</option>
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
             </select>
           </div>
         </div>
@@ -57,7 +59,7 @@
       <form action="">
         <div class="bet-content-table">
           <a class="color-white active">
-            PC蛋蛋
+            加拿大28
             <span></span>
           </a>
         </div>
@@ -68,9 +70,15 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-           <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
+            <a @click="setBetMoney(10)">10</a>
+            <a @click="setBetMoney(50)">50</a>
+            <a @click="setBetMoney(100)">100</a>
+            <a @click="setBetMoney(200)">200</a>
+            <a @click="setBetMoney(500)">500</a>
+            <a @click="setBetMoney(1000)">1000</a>
             <a @click="clear_bet()" class="pull-right chongtian">重填</a>
             <a @click="comfire_bet" class="pull-right tijiao">提交</a>
+            <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
           </div>
           <div class="clear"></div>
         </div>
@@ -90,7 +98,8 @@
                 <span>{{v}}</span>
                 <input type="text" v-if="k != 28" v-model="bet_content.mixture[k]"
                        @click="choose_one(k,'mixture','ball_2')">
-                <input type="text" v-if="k == 28" v-model="bet_content.mixture[10]"
+
+                <input type="text" v-if="k == 28" v-model="bet_content.mixture[k]"
                        @click="choose_one(1,'mixture','ball_4')">
                 <div class="clear"></div>
               </div>
@@ -139,14 +148,22 @@
             <input type="text" class="fast-bet-input" v-model="fast_money">
           </div>
           <div class="bet-btns">
-           <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
+            <a @click="setBetMoney(10)">10</a>
+            <a @click="setBetMoney(50)">50</a>
+            <a @click="setBetMoney(100)">100</a>
+            <a @click="setBetMoney(200)">200</a>
+            <a @click="setBetMoney(500)">500</a>
+            <a @click="setBetMoney(1000)">1000</a>
             <a @click="clear_bet()" class="pull-right chongtian">重填</a>
             <a @click="comfire_bet" class="pull-right tijiao">提交</a>
+            <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
           </div>
           <div class="clear"></div>
         </div>
 
       </form>
+
+
     </div>
 
     <!-- 右边的历史记录 -->
@@ -171,7 +188,6 @@
       <div class="history-list" v-show="history_tables[2]">
         <div class="history-balls" v-for="v in history_codes">
           <span>{{v.expect}}</span>
-
           <span class="code-ball">{{v.details.ball_0[0]}}</span>
           <span class="code-fh">+</span>
           <span class="code-ball">{{v.details.ball_0[1]}}</span>
@@ -194,12 +210,11 @@
 <script>
   export default {
     name: "Pcegg",
-    data()
-    {
+    data() {
       var my_data =
         {
           showArray_cqssc: [1],
-          history_tables: [0,0,1],
+          history_tables: [0, 0, 1],
           history_flag: 0,
           history_str: "收起",
           last_expect:111111,
@@ -228,7 +243,7 @@
             },
           bets: [],
           dicrationaries:
-          [   'ball_1__e1','ball_1__e2','ball_1__e3','ball_1__e4','ball_1__e5','ball_1__e6',
+            [   'ball_1__e1','ball_1__e2','ball_1__e3','ball_1__e4','ball_1__e5','ball_1__e6',
               'ball_1__e7','ball_1__e8','ball_1__e9','ball_1__e10','ball_1__e11','ball_1__e12',
               'ball_1__e13','ball_1__e14','ball_1__e15','ball_1__e16','ball_1__e17','ball_1__e18',
               'ball_1__e19','ball_1__e20','ball_1__e21','ball_1__e22','ball_1__e23',
@@ -238,9 +253,9 @@
               'ball_2__e7','ball_2__e8','ball_2__e9','ball_2__e10','ball_4__e1',
 
               'ball_3__e1','ball_3__e2','ball_3__e3',
-          ],
+            ],
           dicrationaries_2:
-          [
+            [
               '特码-0','特码-1','特码-2','特码-3','特码-4','特码-5','特码-6','特码-7','特码-8','特码-9',
               '特码-10','特码-11','特码-12','特码-13','特码-14','特码-15','特码-16','特码-17','特码-18','特码-19',
               '特码-20','特码-21','特码-22','特码-23','特码-24','特码-25','特码-26','特码-27',
@@ -248,21 +263,25 @@
               '混合-大','混合-小','混合-单','混合-双','混合-大单','混合-大双','混合-小单','混合-小双','混合-极大','混合-极小','混合-豹子',
 
               '波色-红波','波色-绿波','波色-蓝波',
-          ],
+            ],
           timeId:0,
           timeId2:1,
           history_codes:[],
+
           //查看用户可选的盘口
           handicaps:[],
           //当前是哪个盘口
           which_handicap:'',
+
           vaild_lotteries:[],//  用户拥有哪些彩种
+          fanshui:'',
 
         };
       return my_data;
     },
+
     methods:
-    {
+      {
         showType: function (idx)
         {
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
@@ -295,6 +314,7 @@
           else {
             this.close_history();
           }
+
         },
         get_odds: function (which_handicap = null)
         {
@@ -322,47 +342,50 @@
                 }
               }
               this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
+
+
             });
           }
-          //获取两面盘的赔率
           else
           {
+            //获取两面盘的赔率
             this.$http.get(`${this.global.config.API}egg/odds`).then(function (response) {
-            let data = response.data.data;
-            let odds = data.odds;
-            this.odds = {
-              mixture: [],
-              mixture_str: ['大', '小', '单', '双', '大单', '大双', '小单', '小双', '极大', '极小', '豹子'],
-              color: [],
-              color_str: ['红波', '绿波', '蓝波'],
-              special: [],
-            };
-            for (let i = 0; i < 30; i++) {
-              if (data.odds.ball_2['e' + i]) {
-                this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
+              let data = response.data.data;
+              let odds = data.odds;
+              this.odds = {
+                mixture: [],
+                mixture_str: ['大', '小', '单', '双', '大单', '大双', '小单', '小双', '极大', '极小', '豹子'],
+                color: [],
+                color_str: ['红波', '绿波', '蓝波'],
+                special: [],
+              };
+              for (let i = 0; i < 30; i++) {
+                if (data.odds.ball_2['e' + i]) {
+                  this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
+                }
+                if (data.odds.ball_1['e' + i]) {
+                  this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
+                }
+                if (data.odds.ball_3['e' + i]) {
+                  this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
+                }
               }
-              if (data.odds.ball_1['e' + i]) {
-                this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
-              }
-              if (data.odds.ball_3['e' + i]) {
-                this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
-              }
-            }
-            this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
-          });
+              this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
+
+
+            });
           }
+
         },
         choose_one: function (k, str, str2)
         {
 
-          if (str2 == 'ball_4')
-          {
+          if (str2 == 'ball_4') {
             var content = `ball_4__e1`;
             this.bet_content.mixture[10] = this.fast_money;//改变下注金额
             this.bet_content.mixture.reverse().reverse();//触发视图层改变
           }
-          else
-          {
+          else {
             var content = str2 + "__e" + (k + 1);
             this.bet_content[str][k] = this.fast_money;//改变下注金额
             this.bet_content[str].reverse().reverse();//触发视图层改变
@@ -375,11 +398,11 @@
 
           //recover bet money
           this.bet_content =
-          {
+            {
               mixture: ['', '', '', '', '', '', '', '', '', '', ''],
               color: ['', '', ''],
               special: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-          };
+            };
           //clear UI
           this.bet_content.mixture.reverse().reverse();
 
@@ -390,26 +413,22 @@
         comfire_bet: function ()
         {
           //当用户没有选择下注内容的时候要提示用户选择
-          if (this.bets.length < 1)
-          {
+          if (this.bets.length < 1) {
             alert('请选择下注内容后再提交');
             return 0;
           }
           //过滤掉相同的对象
           this.filter_same();
           let html = '';
-          for (let i = 0; i < this.bets.length; i++)
-          {
+          for (let i = 0; i < this.bets.length; i++) {
             var index = this.dicrationaries.indexOf(this.bets[i].content);
             html += this.dicrationaries_2[index] + '  @ ￥' + this.bets[i].money + '\n';
           }
-          if (confirm(html))
-          {
+          if (confirm(html)) {
             this.do_bet();
 
           }
-          else
-          {
+          else {
             console.log('取消');
           }
         },
@@ -448,7 +467,6 @@
                 let  data = response.data.data.user;
                 this.$set(this.$store.state,'cash_money',data.money.cash_money)
               });
-
               //获取全局的未结算清单
               this.$set(this.$store.state,'unclear',this.getOrder());
               alert(res.data.msg);
@@ -466,11 +484,16 @@
         {
           let url = `${this.global.config.API}egg/lastLty`;
           this.$http.get(url).then(function(response){
-             let data = response.data;
-             this.open_codes = data.details.ball_0;
-             this.last_expect = data.expect;
+            let data = response.data;
+            this.open_codes = data.details.ball_0;
+            this.last_expect = data.expect;
+
           });
+
+
+
         },
+
         get_time : function()
         {
           let url2 = `${this.global.config.API}egg/time`;
@@ -521,7 +544,6 @@
         {
           this.fast_money = money;
         },
-
         get_codes_history:function()
         {
           this.$http.get(`${this.global.config.API}egg/history/lottery?per_page=10&page=1`)
@@ -529,36 +551,43 @@
             {
               if(res.data.status == 200)
               {
-
                 this.history_codes = res.data.data.list;
               }
             });
         },
-      /**
-       * 查看用户可选盘口
-       */
-      get_users_handicaps:function()
-      {
-        this.$http.get(`${this.global.config.API}pk10/pans`)
-          .then(function(res)
-          {
-            console.log(res.data);
-            this.handicaps = [];
-            if(res.data.status == 200)
+        /**
+         * 查看用户可选盘口
+         */
+        get_users_handicaps:function()
+        {
+          this.$http.get(`${this.global.config.API}egg/pans`)
+            .then(function(res)
             {
-              for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+              this.handicaps = [];
+              if(res.data.status == 200)
               {
-                this.handicaps.push(res.data.data.ratelist[i]);
-                this.which_handicap = res.data.data.ratelist[0].ratewin_name;
+                for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+                {
+                  this.handicaps.push(res.data.data.ratelist[i]);
+                  this.which_handicap = res.data.data.ratelist[0].ratewin_name;
+                  this.fanshui = res.data.data.ratelist[0].fs;
+                }
+
               }
+            });
+        },
+        return_percent:function(str)
+        {
+          return ( (str * 100).toString()  +  "%");
+        },
+        return_upper:function(str)
+        {
+          return str.toUpperCase();
+        }
 
-            }
-          });
-      }
 
-
-    },
-    created: function ()
+      },
+    created : function ()
     {
       if (window.sessionStorage.isLogin != "ok")
       {
@@ -566,37 +595,35 @@
       }
       else
       {
-
-        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response) {
-          let data = response.data.data.user;
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        {
+          let  data = response.data.data.user;
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
-          if (this.vaild_lotteries.indexOf('cakeno') != -1) {
+          if(this.vaild_lotteries.indexOf('cakeno') != -1)
+          {
             this.get_odds();
             this.get_last_code();
             this.get_time();
             this.get_codes_history();
-            this.get_users_handicaps();
+            this.get_users_handicaps()
           }
-          else {
-            this.$router.push('cqssc');
+          else
+          {
+            this.$router.push('pcegg');
           }
         });
-      }
 
+      }
     },
-    mounted: function ()
-    {
-      //在created之后创建的构子
+    mounted: function () {
       var that = this;
-      //获取赔率、最新开奖结果的倒计时 5s一次
       this.timeId = setInterval(function(){
         that.get_odds();
         that.get_last_code();
-      },10000)
+      },10000);
     },
     //离开这个路由时触发的钩子
-    destroyed()
-    {
+    destroyed(){
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
     },
@@ -610,6 +637,13 @@
         "which_handicap":function(n,o)
         {
           this.get_odds(n);
+          for(let i = 0;i<this.handicaps.length;i++)
+          {
+            if(n == this.handicaps[i].ratewin_name)
+            {
+              this.fanshui = this.handicaps[i].fs;
+            }
+          }
         },
         /**
          * 当open_time<0时，说明已经销售完了，关闭所有请求，
@@ -638,6 +672,6 @@
 
 
 <style scoped>
-  @import url('../assets/css/pcegg.css');
+  @import url('../assets/css/cakeno28.css');
 </style>
 

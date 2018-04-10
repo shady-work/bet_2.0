@@ -20,10 +20,11 @@
             今天已售{{sales_}}期,还剩{{120-sales_}}期
           </p>
           <div class="pan">
-            <label>盘类</label>
+            <label class="color-white">盘类</label>
             <select v-model="which_handicap">
-              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{v.ratewin_name}}</option>
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
             </select>
+
           </div>
         </div>
 
@@ -89,6 +90,7 @@
             <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
             <a @click="comfire_content" class="pull-right tijiao" >提交</a>
+            <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
           </div>
           <div class="clear"></div>
         </div>
@@ -229,6 +231,7 @@
             <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet" >重填</a>
             <a  class="pull-right tijiao" @click="comfire_content" >提交</a>
+            <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
           </div>
           <div class="clear"></div>
         </div>
@@ -407,6 +410,7 @@
 
 
           vaild_lotteries:[],//  用户拥有哪些彩种
+        fanshui:'',
 
       };
       return my_data;
@@ -913,7 +917,7 @@
            this.$http.get(`${this.global.config.API}ssc/pans`)
              .then(function(res)
              {
-               //console.log(res.data);
+               console.log(res.data);
                this.handicaps = [];
                if(res.data.status == 200)
                {
@@ -921,12 +925,20 @@
                  {
                    this.handicaps.push(res.data.data.ratelist[i]);
                    this.which_handicap = res.data.data.ratelist[0].ratewin_name;
-
+                   this.fanshui = res.data.data.ratelist[0].fs;
                  }
 
                }
              });
-        }
+        },
+        return_percent:function(str)
+        {
+          return ( (str * 100).toString()  +  "%");
+        },
+       return_upper:function(str)
+       {
+         return str.toUpperCase();
+       }
     },
 
     created: function ()
@@ -996,6 +1008,13 @@
       "which_handicap":function(n,o)
       {
         this.get_odds(n);
+        for(let i = 0;i<this.handicaps.length;i++)
+        {
+          if(n == this.handicaps[i].ratewin_name)
+          {
+            this.fanshui = this.handicaps[i].fs;
+          }
+        }
       },
       /**
        * 当open_time<0时，说明已经销售完了，关闭所有请求，

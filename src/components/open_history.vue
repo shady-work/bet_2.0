@@ -74,7 +74,7 @@
             <td style="width:200px;">
               <p>开奖号码</p>
             </td>
-            <td>总和</td>
+            <td>冠亚和</td>
           </tr>
           <tr v-for="v in list" v-if="type == 'pk10'">
             <td><p>{{v.opentime}}</p></td>
@@ -82,7 +82,7 @@
             <td width="400">
               <span v-for="val in v.open_codes" class="open-code">{{val}}</span>
             </td>
-            <td width="60">{{get_sum(v.open_codes)}}</td>
+            <td width="60">{{parseInt(v.open_codes[0]) + parseInt(v.open_codes[1])}}</td>
 
           </tr>
 
@@ -182,13 +182,13 @@ export default
     },
     //下一页
     next_page:function(){
-      if(this.next_url) this.list = this.get_codes(`${this.global.config.API}${this.next_url}`);
+      if(this.next_url) this.list = this.get_codes(this.global.config.API + this.next_url);
       else alert('没有下一页');
 
     },
     //上一页
     prev_page:function(){
-      if(this.prev_url) this.list = this.get_codes(`${this.global.config.API}${this.prev_url}`);
+      if(this.prev_url) this.list = this.get_codes(this.global.config.API+this.prev_url);
       else alert('没有上一页');
     },
     get_codes:function(url = `${this.global.config.API}ssc/history/lottery/per_page/10`){
