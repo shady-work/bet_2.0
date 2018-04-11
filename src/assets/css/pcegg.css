@@ -254,7 +254,7 @@
 }
 .special-code .long-bet-content>span:first-child
 {
-  color: #000;
+  color: #fff;
   font-size: 18px;
 }
 .long-bet-content>span{
@@ -430,21 +430,21 @@
   float: left;
   height: 25px;
   width: auto;
-  line-height: 25px;
+  line-height: 23px;
 
 }
 .history-balls>span:nth-of-type(2)
 {
-  margin-left: 4px;
+  margin-left:1px;
 }
 .history-balls>.code-ball
 {
-  height: 25px;
-  width: 25px;
+  height: 22px;
+  width: 22px;
   background: url('../img/ball_cana.png');
   background-size: cover;
-  font-size: 18px;
-  color: #000;
+  font-size: 14px;
+  color: #fff;
   font-weight: 700;
   margin-left:3px;
   margin-right:3px;
@@ -454,3 +454,32 @@
   margin-left:3px;
   margin-right:3px;
 }
+.bg-red{
+  background: #9c464d!important;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.bg-green{
+  background: #3b9c6d !important;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+
+.bg-blue{
+  background: #285b9c !important;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+
+.bg-white{
+  background: #9f9f9f !important;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+

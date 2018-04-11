@@ -4,6 +4,8 @@ import App from './App';
 import router from './router';
 import vuex from 'vuex';
 import './lib/index.js'//加载一些挂在vue原型上的函数
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 
 import common from './assets/js/common';//加载commonjs
 Vue.prototype.global = common;//挂载在vue的原型上
@@ -12,7 +14,8 @@ Vue.prototype.global = common;//挂载在vue的原型上
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
-
+/*使用ElementUI插件*/
+Vue.use(ElementUI);
 Vue.config.productionTip = false;
 //拦截器，vue的每个request（ajax）都会过这个函数
 Vue.http.interceptors.push(function(request, next)

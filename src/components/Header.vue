@@ -122,7 +122,10 @@ export default
         }
         if(idx == 2)
         {
+          this.$children[2].table_lotterys = [1,0,0,0];
+          this.$children[2].type = 'ssc';
           this.$children[2].get_codes();
+
         }
         if(idx == 7)
         {

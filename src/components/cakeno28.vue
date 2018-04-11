@@ -11,13 +11,13 @@
           <p class="color-white mt5">开奖号码</p>
         </div>
         <div class="balls">
-          <span>{{open_codes[0]}}</span>
-          <span class="bg-none">+</span>
-          <span>{{open_codes[1]}}</span>
-          <span class="bg-none">+</span>
-          <span>{{open_codes[2]}}</span>
-          <span class="bg-none">=</span>
-          <span>{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+          <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+          <span class="bg-none color-white">+</span>
+          <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+          <span class="bg-none color-white">+</span>
+          <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+          <span class="bg-none color-white">=</span>
+          <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
           <div class="clear"></div>
         </div>
         <div class="description">
@@ -42,10 +42,7 @@
         </div>
 
         <div class="count-down color-white">
-          <span>{{mins}}</span>
-          <b>分</b>
-          <span :class="end_time <= 0?'color-red':''">{{seconds}}</span>
-          <b>秒</b>
+          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
         </div>
         <img src="../assets/img/alert-1.png" alt="" class="audio">
         <div class="clear"></div>
@@ -93,13 +90,12 @@
                 混合
               </div>
               <div v-for="(v,k) in odds.mixture" class="long-bet-content" v-if="v !=  0.0000">
-                <span v-if="k != 28">{{odds.mixture_str[k]}}</span>
-                <span v-if="k == 28">豹子</span>
+                <span >{{odds.mixture_str[k]}}</span>
                 <span>{{v}}</span>
-                <input type="text" v-if="k != 28" v-model="bet_content.mixture[k]"
+                <input type="text" v-if="k != 10" v-model="bet_content.mixture[k]"
                        @click="choose_one(k,'mixture','ball_2')">
 
-                <input type="text" v-if="k == 28" v-model="bet_content.mixture[k]"
+                <input type="text" v-if="k == 10" v-model="bet_content.mixture[10]"
                        @click="choose_one(1,'mixture','ball_4')">
                 <div class="clear"></div>
               </div>
@@ -126,7 +122,7 @@
                 特码
               </div>
               <div v-for="(v,k) in odds.special" class="long-bet-content">
-                <span class="hao0 ml10 mt5">{{k}}</span>
+                <span class="hao0 ml10 mt5" :class="returnColor(k)">{{k}}</span>
                 <span>{{v}}</span>
                 <input type="text" v-model="bet_content.special[k]" @click="choose_one(k,'special','ball_1')">
                 <div class="clear"></div>
@@ -188,13 +184,13 @@
       <div class="history-list" v-show="history_tables[2]">
         <div class="history-balls" v-for="v in history_codes">
           <span>{{v.expect}}</span>
-          <span class="code-ball">{{v.details.ball_0[0]}}</span>
+          <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
           <span class="code-fh">+</span>
-          <span class="code-ball">{{v.details.ball_0[1]}}</span>
+          <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
           <span class="code-fh">+</span>
-          <span class="code-ball">{{v.details.ball_0[2]}}</span>
+          <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
           <span class="code-fh">=</span>
-          <span class="code-ball">{{v.details.ball_1[0]}}</span>
+          <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
         </div>
       </div>
       <div class="history-close ">
@@ -203,6 +199,20 @@
         </a>
       </div>
     </div>
+
+
+    <!--下注提示框-->
+    <el-dialog
+      title="确认下注"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <div v-html="bet_html"></div>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="centerDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="do_bet()">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -213,6 +223,8 @@
     data() {
       var my_data =
         {
+          centerDialogVisible:false,
+          bet_html:'',
           showArray_cqssc: [1],
           history_tables: [0, 0, 1],
           history_flag: 0,
@@ -341,9 +353,7 @@
                   this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
                 }
               }
-              this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
-
-
+              this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
             });
           }
           else
@@ -370,7 +380,7 @@
                 this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
               }
             }
-            this.odds.mixture.push(data.odds.ball_4['e1']);//混合的赔率添加豹子
+            this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
 
 
           });
@@ -414,7 +424,14 @@
         {
           //当用户没有选择下注内容的时候要提示用户选择
           if (this.bets.length < 1) {
-            alert('请选择下注内容后再提交');
+            // alert('请选择下注内容后再提交');
+            this.$message(
+              {
+                dangerouslyUseHTMLString: true,
+                message: '请选择下注内容后再提交',
+                center: true,
+                type: 'warning'
+              });
             return 0;
           }
           //过滤掉相同的对象
@@ -422,15 +439,11 @@
           let html = '';
           for (let i = 0; i < this.bets.length; i++) {
             var index = this.dicrationaries.indexOf(this.bets[i].content);
-            html += this.dicrationaries_2[index] + '  @ ￥' + this.bets[i].money + '\n';
+            html += this.dicrationaries_2[index] + '  @ ￥' + this.bets[i].money + '</br>';
           }
-          if (confirm(html)) {
-            this.do_bet();
-
-          }
-          else {
-            console.log('取消');
-          }
+          this.centerDialogVisible = true;
+          this.bet_html = html;
+          return;
         },
         /**
          * 过滤掉相同的数组
@@ -456,6 +469,7 @@
         //post bet data
         do_bet:function ()
         {
+          this.centerDialogVisible = false;
           this.$http.post(`${this.global.config.API}cake/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
             if(res.data.status == 200)
             {
@@ -469,11 +483,19 @@
               });
               //获取全局的未结算清单
               this.$set(this.$store.state,'unclear',this.getOrder());
-              alert(res.data.msg);
+              //alert(res.data.msg);
+              this.$message(
+                {
+                  dangerouslyUseHTMLString: true,
+                  message: res.data.msg,
+                  center: true,
+                  type: 'success'
+                });
             }
             else
             {
-              alert(res.data.msg);
+              //alert(res.data.msg);
+              this.$message.error(res.data.msg);
             }
 
           });
@@ -520,6 +542,11 @@
               that.seconds = that.open_time;
               if(that.open_time <= 0 )
               {
+                // if(that.open < -100)
+                // {
+                //   that.mins = "--";
+                //   that.seconds = "--";
+                // }
                 clearInterval(that.timeId2);
                 that.get_time();
                 //获取全局的未结算清单
@@ -560,7 +587,7 @@
          */
         get_users_handicaps:function()
         {
-          this.$http.get(`${this.global.config.API}pk10/pans`)
+          this.$http.get(`${this.global.config.API}cake/pans`)
             .then(function(res)
             {
               this.handicaps = [];
@@ -578,11 +605,34 @@
         },
         return_percent:function(str)
         {
-          return ( (str * 100).toString()  +  "%");
+          return str;
         },
         return_upper:function(str)
         {
           return str.toUpperCase();
+        },
+        returnColor:function(num)
+        {
+          let className = '';
+          num = parseInt(num);
+          if(num%3 == 0)
+          {
+            className = 'bg-red';
+          }
+          if(num%3 == 1)
+          {
+            className = 'bg-green';
+          }
+          if(num%3 == 2)
+          {
+            className = 'bg-blue';
+          }
+          if(num == 0 || num == 13 || num == 14 || num ==27)
+          {
+            className = 'bg-white';
+          }
+          return className;
+
         }
 
 
@@ -595,6 +645,7 @@
       }
       else
       {
+        //this.bet_content.mixture[28] = '';
         this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
         {
           let  data = response.data.data.user;

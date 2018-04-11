@@ -66,8 +66,6 @@
             <td>{{v.details.medium_3[0]}}</td>
             <td>{{v.details.end_3[0]}}</td>
           </tr>
-
-
           <tr v-if="type == 'pk10'">
             <td>日期</td>
             <td>期数</td>
@@ -80,13 +78,11 @@
             <td><p>{{v.opentime}}</p></td>
             <td>{{v.expect}}</td>
             <td width="400">
-              <span v-for="val in v.open_codes" class="open-code">{{val}}</span>
+              <span v-for="val in v.open_codes" :class="'hao'+(val/10*10)" class="color-white open-code">{{val}}</span>
             </td>
             <td width="60">{{parseInt(v.open_codes[0]) + parseInt(v.open_codes[1])}}</td>
 
           </tr>
-
-
           <tr v-if="type == 'cake'">
             <td>日期</td>
             <td width="80">期数</td>
@@ -102,15 +98,12 @@
             <td><p>{{v.opentime}}</p></td>
             <td>{{v.expect}}</td>
             <td >
-              <span v-for="val in v.details.ball_0" class="open-code">{{val}}</span>
+              <span v-for="val in v.details.ball_0" :class="returnColor(val)" class="color-white open-code">{{val}}</span>
             </td>
-            <td>{{v.details.ball_1[0]}}</td>
+            <td><span :class="returnColor(v.details.ball_1[0])" class="color-white open-code" style="margin-left:22px;">{{v.details.ball_1[0]}}</span></td>
             <td>{{v.details.ball_2[0]}}-{{v.details.ball_2[1]}}-{{v.details.ball_2[2]}}-{{v.details.ball_2[3]}}</td>
             <td>{{v.details.ball_3[0]}}</td>
           </tr>
-
-
-
           <tr v-if="type == 'egg'">
             <td>日期</td>
             <td width="80">期数</td>
@@ -126,13 +119,12 @@
             <td><p>{{v.opentime}}</p></td>
             <td>{{v.expect}}</td>
             <td >
-              <span v-for="val in v.details.ball_0" class="open-code">{{val}}</span>
+              <span v-for="val in v.details.ball_0" :class="returnColor(val)" class="color-white open-code">{{val}}</span>
             </td>
-            <td>{{v.details.ball_1[0]}}</td>
+            <td><span :class="returnColor(v.details.ball_1[0])" class="color-white open-code" style="margin-left:22px;">{{v.details.ball_1[0]}}</span></td>
             <td>{{v.details.ball_2[0]}}-{{v.details.ball_2[1]}}-{{v.details.ball_2[2]}}-{{v.details.ball_2[3]}}</td>
             <td>{{v.details.ball_3[0]}}</td>
           </tr>
-
         </table>
         <div class="page-xy">
           <span @click="prev_page">◀</span>
@@ -166,8 +158,9 @@ export default
   {
 
     close: function () {
-
       this.$parent.showArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.type = 'ssc';
+      this.table_lotterys = [1,0,0,0];
     },
     cancel: function (event) {
       var e = event || window.event;
@@ -209,6 +202,30 @@ export default
       }
       return sum;
     },
+    returnColor:function(num)
+    {
+      let className = '';
+      num = parseInt(num);
+      if(num%3 == 0)
+      {
+        className = 'bg-red';
+      }
+      if(num%3 == 1)
+      {
+        className = 'bg-green';
+      }
+      if(num%3 == 2)
+      {
+        className = 'bg-blue';
+      }
+
+      if(num == 0 || num == 13 || num == 14 || num ==27)
+      {
+        className = 'bg-white';
+      }
+      return className;
+
+    }
 
   },
   created:function(){
@@ -415,4 +432,74 @@ export default
     border: none;
     float: left;
   }
+
+  .hao1
+  {
+    background: #959612;
+  }
+  .hao2
+  {
+    background: #0060ff;
+  }
+  .hao3
+  {
+    background: #4d4d4d;
+  }
+  .hao4
+  {
+    background: #ff7300;
+  }
+  .hao5
+  {
+    background: #00adad;
+  }
+  .hao6
+  {
+    background:#5200ff;
+  }
+  .hao7
+  {
+    background: #666666;
+  }
+  .hao8
+  {
+    background: #ff0000;
+  }
+  .hao9
+  {
+    background:#760000;
+  }
+  .hao10
+  {
+    background:#167301;
+  }
+
+  .bg-red{
+    background: #9c464d!important;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+
+  .bg-green{
+    background: #3b9c6d !important;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+
+
+  .bg-blue{
+    background: #285b9c !important;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+  .bg-white{
+    background: #9f9f9f !important;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+  }
+
 </style>

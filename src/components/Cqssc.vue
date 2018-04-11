@@ -14,7 +14,7 @@
         </div>
         <div class="description">
           <p class="color-white">
-            10分钟一期，每天09:50-01:54:30销售
+            10分钟一期 ，每天09:50-01:54:30
           </p>
           <p class="color-white mt5">
             今天已售{{sales_}}期,还剩{{120-sales_}}期
@@ -89,7 +89,7 @@
           <div class="bet-btns">
             <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
-            <a @click="comfire_content" class="pull-right tijiao" >提交</a>
+            <a @click="comfire_content" :plain="true" class="pull-right tijiao" >提交</a>
             <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
           </div>
           <div class="clear"></div>
@@ -272,6 +272,20 @@
     </div>
 
 
+
+    <!--下注提示框-->
+    <el-dialog
+      title="确认下注"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <div v-html="bet_html"></div>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="centerDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="do_bet()">确 定</el-button>
+  </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -289,6 +303,8 @@
       day = day < 10 ? ("0" + day) : day;
       let my_data =
       {
+          centerDialogVisible:false,
+          bet_html:'',
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
           mins:'00',
           seconds:'00',
@@ -619,9 +635,17 @@
          */
         comfire_content:function()
         {
+
             //当用户没有选择下注内容的时候要提示用户选择
             if(this.bets.length < 1){
-              alert('请选择下注内容后再提交');
+              this.$message(
+              {
+                dangerouslyUseHTMLString: true,
+                message: '请选择下注内容后再提交',
+                center: true,
+                type: 'warning'
+              });
+              // alert('请选择下注内容后再提交');
               return 0;
             }
             //过滤掉相同的对象
@@ -629,15 +653,12 @@
             let html = '';
             for(let i = 0; i<this.bets.length;i++){
                var index = this.dicrationaries.indexOf(this.bets[i].content);
-               html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money  +   '\n';
+               html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money  +   '</br>';
             }
-            if(confirm(html)){
-              this.do_bet();
+            this.centerDialogVisible = true;
+            this.bet_html = html;
+            return;
 
-            }
-            else {
-              console.log('取消');
-            }
 
         },
         //两面盘下注方法1
@@ -792,11 +813,12 @@
          *提交下注！！！
          */
         do_bet:function () {
+          this.centerDialogVisible = false;
            this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
               if(res.data.status == 200)
               {
                  //清除下注内容
-                 this.clear_bet();
+                this.clear_bet();
                  //从服务器上获取余额
                 this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
                 {
@@ -805,11 +827,19 @@
                 });
                 //获取全局的未结算清单
                 this.$set(this.$store.state,'unclear',this.getOrder());
-                alert(res.data.msg);
+                //alert(res.data.msg);
+                this.$message(
+                  {
+                    dangerouslyUseHTMLString: true,
+                    message: res.data.msg,
+                    center: true,
+                    type: 'success'
+                  });
               }
               else
               {
-                alert(res.data.msg);
+                // alert(res.data.msg);
+                this.$message.error(res.data.msg);
               }
 
            });
@@ -933,7 +963,7 @@
         },
         return_percent:function(str)
         {
-          return ( (str * 100).toString()  +  "%");
+          return str;
         },
        return_upper:function(str)
        {

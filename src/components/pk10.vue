@@ -36,14 +36,7 @@
         </div>
 
         <div class="count-down color-white">
-                    <span>
-                        {{mins}}
-                    </span>
-          <b>分</b>
-          <span :class="end_time <= 0?'color-red':''">
-                        {{seconds}}
-                    </span>
-          <b>秒</b>
+          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
         </div>
 
 
@@ -63,7 +56,7 @@
             <span></span>
           </a>
           <a :class="showArray_cqssc[1]?'color-white active':'color-white'" @click="showType(1)">
-            单名1-10
+            数字盘
             <span></span>
           </a>
           <a :class="showArray_cqssc[2]?'color-white active':'color-white'" @click="showType(2)">
@@ -239,7 +232,7 @@
               <div class="first-ball-top">
                 {{singleball_b[index]}}
               </div>
-              <div v-for="(val,key) in singleball_a" class="long-bet-content ">
+              <div v-for="(val,key) in singleball_a" class="long-bet-content" >
                 <span :class="'hao'+(key+1)">{{key+1}}</span>
                 <span>{{odds.single_ball[k][val]}}</span>
                 <input type="text" v-model="bets.single_ball[k][key]" @click="single_ball_1(val,key,k)">
@@ -249,7 +242,7 @@
               <div class="clear"></div>
 
 
-              <div v-for="(val,key) in double_aspect_a" class="long-bet-content">
+              <div v-for="(val,key) in double_aspect_a" class="long-bet-content" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val] != 0.0000 || !odds.double_aspect['ball_' + (index+1) + '_half'][val]">
                 <span class="font16px">{{double_aspect_c[key]}}</span>
                 <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
                 <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')">
@@ -281,7 +274,7 @@
               <div class="clear"></div>
 
 
-              <div v-for="(val,key) in double_aspect_a" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val]" class="long-bet-content">
+              <div v-for="(val,key) in double_aspect_a" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val] != 0.000 || !odds.double_aspect['ball_' + (index+1) + '_half'][val]" class="long-bet-content" >
                 <span class="font16px">{{double_aspect_c[key]}}</span>
                 <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
                 <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')">
@@ -346,6 +339,18 @@
     </div>
 
 
+    <!--下注提示框-->
+    <el-dialog
+      title="确认下注"
+      :visible.sync="centerDialogVisible"
+      width="30%"
+      center>
+      <div v-html="bet_html"></div>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="centerDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="do_bet()">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -358,6 +363,8 @@
     data() {
       var my_data =
         {
+          centerDialogVisible:false,
+          bet_html:'',
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
           history_tables: [1, 0, 0],
           history_flag: 0,
@@ -475,6 +482,21 @@
             'ball_5_digit__A','ball_5_digit__B','ball_5_digit__C',
             'ball_5_digit__D','ball_5_digit__E','ball_5_digit__F',
             'ball_5_digit__G','ball_5_digit__H','ball_5_digit__I','ball_5_digit__J',
+            'ball_6_digit__A','ball_6_digit__B','ball_6_digit__C',
+            'ball_6_digit__D','ball_6_digit__E','ball_6_digit__F',
+            'ball_6_digit__G','ball_6_digit__H','ball_6_digit__I','ball_6_digit__J',
+            'ball_7_digit__A','ball_7_digit__B','ball_7_digit__C',
+            'ball_7_digit__D','ball_7_digit__E','ball_7_digit__F',
+            'ball_7_digit__G','ball_7_digit__H','ball_7_digit__I','ball_7_digit__J',
+            'ball_8_digit__A','ball_8_digit__B','ball_8_digit__C',
+            'ball_8_digit__D','ball_8_digit__E','ball_8_digit__F',
+            'ball_8_digit__G','ball_8_digit__H','ball_8_digit__I','ball_8_digit__J',
+            'ball_9_digit__A','ball_9_digit__B','ball_9_digit__C',
+            'ball_9_digit__D','ball_9_digit__E','ball_9_digit__F',
+            'ball_9_digit__G','ball_9_digit__H','ball_9_digit__I','ball_9_digit__J',
+            'ball_10_digit__A','ball_10_digit__B','ball_10_digit__C',
+            'ball_10_digit__D','ball_10_digit__E','ball_10_digit__F',
+            'ball_10_digit__G','ball_10_digit__H','ball_10_digit__I','ball_10_digit__J',
 
              //冠亚军总和
             'sum_half__A','sum_half__B','sum_half__C','sum_half__D',
@@ -486,16 +508,16 @@
           //参照表2
           dicrationaries_2:[
             //两面
-            '第一名大','第一名小','第一名单','第一名双','第一名龙','第一名虎',
-            '第二名大','第二名小','第二名单','第二名双','第二名龙','第二名虎',
-            '第三名大','第三名小','第三名单','第三名双','第三名龙','第三名虎',
-            '第四名大','第四名小','第四名单','第四名双','第四名龙','第四名虎',
-            '第五名大','第五名小','第五名单','第五名双','第五名龙','第五名虎',
-            '第六名大','第六名小','第六名单','第六名双',
-            '第七名大','第七名小','第七名单','第七名双',
-            '第八名大','第八名小','第八名单','第八名双',
-            '第九名大','第九名小','第九名单','第九名双',
-            '第十名大','第十名小','第十名单','第十名双',
+            '第一名-大','第一名-小','第一名-单','第一名-双','第一名-龙','第一名-虎',
+            '第二名-大','第二名-小','第二名-单','第二名-双','第二名-龙','第二名-虎',
+            '第三名-大','第三名-小','第三名-单','第三名-双','第三名-龙','第三名-虎',
+            '第四名-大','第四名-小','第四名-单','第四名-双','第四名-龙','第四名-虎',
+            '第五名-大','第五名-小','第五名-单','第五名-双','第五名-龙','第五名-虎',
+            '第六名-大','第六名-小','第六名-单','第六名-双',
+            '第七名-大','第七名-小','第七名-单','第七名-双',
+            '第八名-大','第八名-小','第八名-单','第八名-双',
+            '第九名-大','第九名-小','第九名-单','第九名-双',
+            '第十名-大','第十名-小','第十名-单','第十名-双',
             //特码
             '第一名-特码-1','第一名-特码-2','第一名-特码-3','第一名-特码-4',
             '第一名-特码-5','第一名-特码-6','第一名-特码-7','第一名-特码-8','第一名-特码-9','第一名-特码-10',
@@ -507,6 +529,16 @@
             '第四名-特码-5','第四名-特码-6','第四名-特码-7','第四名-特码-8','第四名-特码-9','第四名-特码-10',
             '第五名-特码-1','第五名-特码-2','第五名-特码-3','第五名-特码-4',
             '第五名-特码-5','第五名-特码-6','第五名-特码-7','第五名-特码-8','第五名-特码-9','第五名-特码-10',
+            '第六名-特码-1','第六名-特码-2','第六名-特码-3','第六名-特码-4',
+            '第六名-特码-5','第六名-特码-6','第六名-特码-7','第六名-特码-8','第六名-特码-9','第六名-特码-10',
+            '第七名-特码-1','第七名-特码-2','第七名-特码-3','第七名-特码-4',
+            '第七名-特码-5','第七名-特码-6','第七名-特码-7','第七名-特码-8','第七名-特码-9','第七名-特码-10',
+            '第八名-特码-1','第八名-特码-2','第八名-特码-3','第八名-特码-4',
+            '第八名-特码-5','第八名-特码-6','第八名-特码-7','第八名-特码-8','第八名-特码-9','第八名-特码-10',
+            '第九名-特码-1','第九名-特码-2','第九名-特码-3','第九名-特码-4',
+            '第九名-特码-5','第九名-特码-6','第九名-特码-7','第九名-特码-8','第九名-特码-9','第九名-特码-10',
+            '第十名-特码-1','第十名-特码-2','第十名-特码-3','第十名-特码-4',
+            '第十名-特码-5','第十名-特码-6','第十名-特码-7','第十名-特码-8','第十名-特码-9','第十名-特码-10',
              //冠亚军总和
             '冠亚军-大','冠亚军-小','冠亚军-单','冠亚军-双',
             '冠亚军-特码-3','冠亚军-特码-4','冠亚军-特码-5','冠亚军-特码-6','冠亚军-特码-7',
@@ -768,7 +800,14 @@
       {
         //当用户没有选择下注内容的时候要提示用户选择
         if(this.bet_content.length < 1){
-          alert('请选择下注内容后再提交');
+          this.$message(
+            {
+              dangerouslyUseHTMLString: true,
+              message: '请选择下注内容后再提交',
+              center: true,
+              type: 'warning'
+            });
+         // alert('请选择下注内容后再提交');
           return 0;
         }
 
@@ -780,17 +819,12 @@
         for(let i = 0; i<this.bet_content.length;i++)
         {
           var index = this.dicrationaries.indexOf(this.bet_content[i].content);
-          html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money  +   '\n';
+          html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money  +   '</br>';
         }
+        this.centerDialogVisible = true;
+        this.bet_html = html;
+        return;
 
-        if(confirm(html))
-        {
-          this.do_bet();
-        }
-        else
-        {
-          console.log('取消');
-        }
 
       },
       /**
@@ -823,6 +857,7 @@
        */
       do_bet:function ()
       {
+        this.centerDialogVisible = false;
         this.$http.post(`${this.global.config.API}pk10/order`,{bets:this.bet_content,odds_table:this.which_handicap})
           .then(function(res)
           {
@@ -838,12 +873,20 @@
               });
               //获取全局的未结算清单
               this.$set(this.$store.state,'unclear',this.getOrder());
-              alert(res.data.msg);
+              // alert(res.data.msg);
+              this.$message(
+                {
+                  dangerouslyUseHTMLString: true,
+                  message: res.data.msg,
+                  center: true,
+                  type: 'success'
+                });
             }
             else
             {
-              alert(res.data.msg);
-            }
+              // alert(res.data.msg);
+              this.$message.error(res.data.msg);
+             }
         });
       },
 
@@ -894,7 +937,7 @@
       },
       return_percent:function(str)
       {
-        return ( (str * 100).toString()  +  "%");
+        return str;
       },
       return_upper:function(str)
       {

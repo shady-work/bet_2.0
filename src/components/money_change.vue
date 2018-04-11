@@ -102,15 +102,15 @@ export default
        },
        prevPage:function()
        {
-        if(this.prevPageUrl == '')
+        if(this.hasPrev)
        {
          alert('没有上一页了');
          return;
        }
        else
        {
-         this.page--;
-         this.$http.get(`${this.global.config.API}${this.prevPageUrl}`)
+
+         this.$http.get(this.prevPageUrl)
            .then(function(res){
              if(res.data.status == 200)
              {
@@ -119,6 +119,7 @@ export default
                this.hasNext = res.data.data.chgs.hasNext;
                this.prevPageUrl = this.hasPrev?res.data.data.chgs.prevPageUrl:'';
                this.nextPageUrl = this.hasNext?res.data.data.chgs.nextPageUrl:'';
+               this.page = res.data.data.curPage;
              }
              else
              {
@@ -129,15 +130,14 @@ export default
        },
         nextPage:function()
         {
-         if(this.nextPageUrl == '')
+         if(this.hasNext)
          {
            alert('没有下一页了');
            return;
          }
          else
          {
-           this.page++;
-           this.$http.get(`${this.global.config.API}${this.nextPageUrl}`)
+           this.$http.get(this.nextPageUrl)
              .then(function(res){
                if(res.data.status == 200)
                {
@@ -146,6 +146,7 @@ export default
                  this.hasNext = res.data.data.chgs.hasNext;
                  this.prevPageUrl = this.hasPrev?res.data.data.chgs.prevPageUrl:'';
                  this.nextPageUrl = this.hasNext?res.data.data.chgs.nextPageUrl:'';
+                 this.page = res.data.data.curPage;
                }
                else
                {
