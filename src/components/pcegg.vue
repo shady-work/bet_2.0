@@ -330,9 +330,9 @@
         },
         get_odds: function (which_handicap = null)
         {
-          if(which_handicap)
+          if(which_handicap || this.which_handicap)
           {
-            this.$http.get(`${this.global.config.API}egg/odds?pan=${which_handicap}`).then(function (response) {
+            this.$http.get(`${this.global.config.API}egg/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response) {
               let data = response.data.data;
               let odds = data.odds;
               this.odds = {

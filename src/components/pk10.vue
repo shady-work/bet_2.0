@@ -688,22 +688,24 @@
       //获取用户赔率
       get_odds:function(which_handicap = null)
       {
-        if(which_handicap)
+        if(which_handicap || this.which_handicap)
         {
-          this.$http.get(`${this.global.config.API}pk10/odds/1?pan=${which_handicap}`).then(function(res){
+          this.$http.get(`${this.global.config.API}pk10/odds/1?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(res)
+          {
             var data = res.data.data.odds;
             this.odds.single_ball = data;
           });
-          this.$http.get(`${this.global.config.API}pk10/odds/2?pan=${which_handicap}`).then(function(res){
+          this.$http.get(`${this.global.config.API}pk10/odds/2?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(res)
+          {
             var data = res.data.data.odds;
             this.odds.double_aspect = data;
 
           });
-          this.$http.get(`${this.global.config.API}pk10/odds/3?pan=${which_handicap}`).then(function(res){
+          this.$http.get(`${this.global.config.API}pk10/odds/3?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(res)
+          {
             var data = res.data.data.odds;
             this.odds.sum_digit = data.sum_digit;
             this.odds.sum_half = data.sum_half;
-
           });
         }
         else
@@ -979,14 +981,15 @@
             this.get_time();
             //上期开奖结果
             this.get_last();
-
+            //获取用户有哪些盘口
+            this.get_users_handicaps();
             //获取用户赔率
             this.get_odds();
 
             //获取pk10的开奖数据
             this.get_open_history();
 
-            this.get_users_handicaps();
+
           }
           else
           {

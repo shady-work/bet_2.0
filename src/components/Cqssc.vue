@@ -527,9 +527,10 @@
          */
         get_odds:function(which_handicap = null){
           //获取两面盘的赔率
-          if(which_handicap)
+          if(which_handicap || this.which_handicap)
           {
-            this.$http.get(`${this.global.config.API}ssc/odds/6?pan=${which_handicap}`).then(function(response){
+            this.$http.get(`${this.global.config.API}ssc/odds/6?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
+            {
               if(response.data.status == 403) return false;
               let data = response.data.data;
               let odds = data.odds;
@@ -551,7 +552,8 @@
             });
 
             //获取单球1-5的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/7?pan=${which_handicap}`).then(function(response) {
+            this.$http.get(`${this.global.config.API}ssc/odds/7?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
+            {
               if(response.data.status == 403) return false;
               let data = response.data.data.odds;
               let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
@@ -566,7 +568,8 @@
             });
 
             //获取第一球的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/1?pan=${which_handicap}`).then(function(response){
+            this.$http.get(`${this.global.config.API}ssc/odds/1?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
+            {
               if(response.data.status == 403) return false;
               let Alphabet = ['A','B','C','D','E'];
               for(let i=0;i<this.odds.ball_3.front3.length;i++){
@@ -635,7 +638,6 @@
          */
         comfire_content:function()
         {
-
             //当用户没有选择下注内容的时候要提示用户选择
             if(this.bets.length < 1){
               this.$message(
@@ -785,7 +787,8 @@
         /**
          * 过滤掉相同的数组
          */
-        filter_same:function () {
+        filter_same:function ()
+        {
              for(let i = 0; i < this.bets.length;i++)
              {
                 let key =  this.bets[i].content;
@@ -844,7 +847,8 @@
         /**
          * 获取重庆时时彩的时间和期数
          */
-        get_time:function () {
+        get_time:function ()
+        {
           this.$http.get(`${this.global.config.API}ssc/time`).then(function(res){
              //console.log(res.data);
              let data = res.data;
@@ -986,15 +990,16 @@
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
           if(this.vaild_lotteries.indexOf('cqssc') != -1)
           {
-            //获取最新的开奖号码
-            this.get_last_code();
-            //获取用户的赔率
-            this.get_odds();
-            //获取重庆时时彩的时间和期数
+            // 1 获取重庆时时彩的时间和期数
             this.get_time();
-            //获取开奖历史
-            this.get_history();
+            // 2 获取最新的开奖号码
+            this.get_last_code();
+            // 3 获取用户拥有哪些盘口
             this.get_users_handicaps();
+            // 4 获取用户的赔率
+            this.get_odds();
+            // 5 获取开奖历史
+            this.get_history();
           }
           else
           {
@@ -1008,7 +1013,8 @@
 
     },
 
-    mounted: function () {
+    mounted: function ()
+    {
       //在created之后创建的构子
       var that = this;
 
