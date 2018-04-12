@@ -2,8 +2,6 @@
   <div id="pcegg">
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
-
-
       <div class="details">
         <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
         <div class="left">
@@ -278,6 +276,7 @@
             ],
           timeId:0,
           timeId2:1,
+          timeId3:2,
           history_codes:[],
 
           //查看用户可选的盘口
@@ -287,6 +286,7 @@
 
           vaild_lotteries:[],//  用户拥有哪些彩种
           fanshui:'',
+          orderData:[],//未结算数据
 
         };
       return my_data;
@@ -332,7 +332,8 @@
         {
           if(which_handicap || this.which_handicap)
           {
-            this.$http.get(`${this.global.config.API}egg/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response) {
+            this.$http.get(`${this.global.config.API}egg/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response)
+            {
               let data = response.data.data;
               let odds = data.odds;
               this.odds = {
@@ -354,8 +355,6 @@
                 }
               }
               this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
-
-
             });
           }
           else
@@ -383,6 +382,8 @@
                 }
               }
               this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
+
+
             });
           }
 
@@ -424,7 +425,6 @@
         {
           //当用户没有选择下注内容的时候要提示用户选择
           if (this.bets.length < 1) {
-            // alert('请选择下注内容后再提交');
             this.$message(
               {
                 dangerouslyUseHTMLString: true,
@@ -482,8 +482,8 @@
                 this.$set(this.$store.state,'cash_money',data.money.cash_money)
               });
               //获取全局的未结算清单
-              this.$set(this.$store.state,'unclear',this.getOrder());
-              //alert(res.data.msg);
+              this.get_ssc_unclear();
+              //提示下注成功
               this.$message(
                 {
                   dangerouslyUseHTMLString: true,
@@ -554,13 +554,14 @@
                   //重新获取时间
                   that.get_time();
                   //获取未结算的订单
-                  that.$set(that.$store.state,'unclear',that.getOrder());
+                  this.get_ssc_unclear();
                 }
                 else
                 {
                   that.open_time++
                 }
                 return;
+
               }
             }
             else {
@@ -642,7 +643,29 @@
           }
           return className;
 
-        }
+        },
+        /**
+         * 获取cqssc未结算的清单
+         */
+        get_ssc_unclear:function()
+        {
+
+          //获取cqssc未结算的数据
+          this.$http.get(`${this.global.config.API}egg/history/clear/0`).then(function(res)
+          {
+            if(res.data.status == 403) return false;
+            this.orderData = [];
+            let data = res.data.data;
+            let list  = data.list;
+            for(let i = 0; i<list.length;i++)
+            {
+              let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
+              this.orderData.push(html);
+            }
+            //设置全局的未结算清单
+            this.$set(this.$store.state,'unclear',this.orderData);
+          });
+        },
 
 
       },
@@ -650,7 +673,7 @@
     {
       if (window.sessionStorage.isLogin != "ok")
       {
-        this.$router.push('login');
+        this.$router.push('/');
       }
       else
       {
@@ -664,7 +687,8 @@
             this.get_last_code();
             this.get_time();
             this.get_codes_history();
-            this.get_users_handicaps()
+            this.get_users_handicaps();
+            this.get_ssc_unclear();
           }
           else
           {
@@ -674,17 +698,27 @@
 
       }
     },
-    mounted: function () {
+    mounted: function ()
+    {
       var that = this;
-      this.timeId = setInterval(function(){
+      this.timeId = setInterval(function()
+      {
         that.get_odds();
         that.get_last_code();
       },10000);
+
+      //获取未结算数据 45s一次
+      this.timeId3 = setInterval(function()
+      {
+        that.get_ssc_unclear();
+      },45000);
     },
     //离开这个路由时触发的钩子
-    destroyed(){
+    destroyed()
+    {
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
+      clearInterval(this.timeId3);
     },
     watch:
       {
@@ -725,7 +759,7 @@
             },10000);
           }
         }
-      }
+      }//end of watch Object
   }
 </script>
 

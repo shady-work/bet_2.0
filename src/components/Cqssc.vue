@@ -415,9 +415,10 @@
           history_codes:[[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],[0,0,0,0,0],],//开奖号码的集合
           history_expects:[],//开奖期数的集合
 
-          //更新odds和开奖数据的定时器
+          //更新odds和开奖数据，未结算数据的定时器
           timeId:0,
           timeId2:5,
+          timeId3:10,
 
           //查看用户可选的盘口
           handicaps:[],
@@ -427,6 +428,7 @@
 
           vaild_lotteries:[],//  用户拥有哪些彩种
           fanshui:'',
+          orderData:[],//未结算数据
 
       };
       return my_data;
@@ -818,8 +820,9 @@
         /**
          *提交下注！！！
          */
-        do_bet:function () {
-          this.centerDialogVisible = false;
+        do_bet:function ()
+        {
+           this.centerDialogVisible = false;
            this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
               if(res.data.status == 200)
               {
@@ -831,15 +834,17 @@
                   let  data = response.data.data.user;
                   this.$set(this.$store.state,'cash_money',data.money.cash_money)
                 });
-                //获取全局的未结算清单
-                this.$set(this.$store.state,'unclear',this.getOrder());
+
+                //提示下注成功
                 this.$message(
-                  {
-                    dangerouslyUseHTMLString: true,
-                    message: res.data.msg,
-                    center: true,
-                    type: 'success'
-                  });
+                {
+                  dangerouslyUseHTMLString: true,
+                  message: res.data.msg,
+                  center: true,
+                  type: 'success'
+                });
+                //设置未结算清单
+                this.get_ssc_unclear();
               }
               else
               {
@@ -893,7 +898,7 @@
                    //重新获取时间
                    that.get_time();
                    //获取未结算的订单
-                   that.$set(that.$store.state,'unclear',that.getOrder());
+                   this.get_ssc_unclear();
                  }
                  else
                  {
@@ -913,8 +918,6 @@
              }
              that.end_time--;
              that.open_time--;
-
-
            },1000);
            //开盘倒计时
         },
@@ -979,7 +982,29 @@
         return_upper:function(str)
         {
          return str.toUpperCase();
-        }
+        },
+        /**
+         * 获取cqssc未结算的清单
+         */
+        get_ssc_unclear:function()
+        {
+
+          //获取cqssc未结算的数据
+          this.$http.get(`${this.global.config.API}ssc/history/clear/0`).then(function(res)
+          {
+            if(res.data.status == 403) return false;
+            this.orderData = [];
+            let data = res.data.data;
+            let list  = data.list;
+            for(let i = 0; i<list.length;i++)
+            {
+              let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
+              this.orderData.push(html);
+            }
+            //设置全局的未结算清单
+            this.$set(this.$store.state,'unclear',this.orderData);
+          });
+        },
     },
 
     created: function ()
@@ -1004,6 +1029,8 @@
             this.get_odds();
             // 5 获取开奖历史
             this.get_history();
+            // 6 获取未结算清单
+            this.get_ssc_unclear();
           }
           else
           {
@@ -1026,6 +1053,13 @@
         that.get_odds();
         that.get_last_code();
       },10000);
+      //获取未结算数据 45s一次
+      this.timeId3 = setInterval(function()
+      {
+        that.get_ssc_unclear();
+      },45000);
+
+
 
     },
     /**
@@ -1035,6 +1069,7 @@
     {
        clearInterval(this.timeId);
        clearInterval(this.timeId2);
+       clearInterval(this.timeId3);
     },
     /**
      * 监听用户切换盘时 刷新赔率

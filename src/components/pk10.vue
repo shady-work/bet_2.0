@@ -550,6 +550,7 @@
 
           timeId:0, //定时器1
           timeId2:1, //定时器2
+          timeId3:10, //定时器3
 
           history_codes:[],//历史开奖的数据
 
@@ -561,6 +562,7 @@
           vaild_lotteries:[],//  用户拥有哪些彩种
 
           fanshui:"",
+          orderData:[],//未结算数据
 
 
         };
@@ -648,7 +650,7 @@
                 //重新获取时间
                 that.get_time();
                 //获取未结算的订单
-                that.$set(that.$store.state,'unclear',that.getOrder());
+                this.get_ssc_unclear();
               }
               else
               {
@@ -890,7 +892,9 @@
                 this.$set(this.$store.state,'cash_money',data.money.cash_money)
               });
               //获取全局的未结算清单
-              this.$set(this.$store.state,'unclear',this.getOrder());
+              this.get_ssc_unclear();
+
+
               this.$message(
                 {
                   dangerouslyUseHTMLString: true,
@@ -958,7 +962,29 @@
       return_upper:function(str)
       {
         return str.toUpperCase();
-      }
+      },
+      /**
+       * 获取cqssc未结算的清单
+       */
+      get_ssc_unclear:function()
+      {
+
+        //获取cqssc未结算的数据
+        this.$http.get(`${this.global.config.API}pk10/history/clear/0`).then(function(res)
+        {
+          if(res.data.status == 403) return false;
+          this.orderData = [];
+          let data = res.data.data;
+          let list  = data.list;
+          for(let i = 0; i<list.length;i++)
+          {
+            let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
+            this.orderData.push(html);
+          }
+          //设置全局的未结算清单
+          this.$set(this.$store.state,'unclear',this.orderData);
+        });
+      },
 
     },
     created: function ()
@@ -977,17 +1003,20 @@
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
           if(this.vaild_lotteries.indexOf('bjpk10') != -1)
           {
-            //获取开奖时间和下注封盘时间
+            // 1 获取开奖时间和下注封盘时间
             this.get_time();
-            //上期开奖结果
+            // 2 上期开奖结果
             this.get_last();
-            //获取用户有哪些盘口
+            // 3 获取用户有哪些盘口
             this.get_users_handicaps();
-            //获取用户赔率
+            // 4 获取用户赔率
             this.get_odds();
 
-            //获取pk10的开奖数据
+            // 5获取pk10的开奖数据
             this.get_open_history();
+
+            // 6 获取未结算清单
+            this.get_ssc_unclear();
 
           }
           else
@@ -1017,6 +1046,12 @@
         that.get_last();
       },10000);
 
+      //获取未结算数据 45s一次
+      this.timeId3 = setInterval(function()
+      {
+        that.get_ssc_unclear();
+      },45000);
+
     },
     //离开这个路由时触发的钩子
     destroyed()
@@ -1026,6 +1061,7 @@
        */
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
+      clearInterval(this.timeId3);
     },
     /**
      * 监听用户切换盘时 刷新赔率

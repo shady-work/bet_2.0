@@ -71,6 +71,8 @@
                window.sessionStorage.nickname = null;
                window.sessionStorage.type     = null;
                window.sessionStorage.username = null;
+               window.sessionStorage.token = null;
+               window.sessionStorage.index = null;
                clearInterval(this.timeId);
                this.$router.push('/');
              }
@@ -120,13 +122,13 @@
         {
            clearInterval(this.timeId);
            let that = this ;
-           this.timeId = setInterval(that.get_users_info,10000);
+           this.timeId = setInterval(that.get_users_info,30000);
 
            //每25秒刷新未结算的订单，在每次下注后，也会对应刷新；
-           this.timeId3 = setInterval(function()
+           /*this.timeId3 = setInterval(function()
            {
              that.$set(that.$store.state,'unclear',that.getOrder());
-           },40000);
+           },40000);*/
         }
 
         $(function()
@@ -138,7 +140,11 @@
           $('.recent-content').height($("#left-nav").height() - 381);
         });
 
-      }
+      },
+      destroyed()
+      {
+        clearInterval(this.timeId);
+      },
   }
 </script>
 
