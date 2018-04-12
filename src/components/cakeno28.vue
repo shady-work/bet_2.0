@@ -651,11 +651,10 @@
     {
       if (window.sessionStorage.isLogin != "ok")
       {
-        this.$router.push('login');
+        this.$router.push('/');
       }
       else
       {
-        //this.bet_content.mixture[28] = '';
         this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
         {
           let  data = response.data.data.user;
@@ -676,20 +675,23 @@
 
       }
     },
-    mounted: function () {
+    mounted: function ()
+    {
       var that = this;
-      this.timeId = setInterval(function(){
+      this.timeId = setInterval(function()
+      {
         that.get_odds();
         that.get_last_code();
       },10000);
     },
     //离开这个路由时触发的钩子
-    destroyed(){
+    destroyed()
+    {
       clearInterval(this.timeId);
       clearInterval(this.timeId2);
     },
     watch:
-      {
+    {
         /**
          *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
          * @param n
@@ -727,7 +729,7 @@
             },10000);
           }
         }
-      }
+    }//end of watch Object
   }
 </script>
 

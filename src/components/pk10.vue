@@ -989,7 +989,6 @@
             //获取pk10的开奖数据
             this.get_open_history();
 
-
           }
           else
           {
@@ -1000,7 +999,6 @@
       else
       {
         window.location.href = '/';
-        return;
       }///没有登录跳转到登录页面
 
 

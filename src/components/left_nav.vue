@@ -120,7 +120,7 @@ export default
             switch(idx)
             {
                 case 0:
-                this.$router.push('/');
+                this.$router.push('/index');
                 window.sessionStorage.index = 0;
                 break;
                 case 1:

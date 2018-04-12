@@ -426,7 +426,7 @@
 
 
           vaild_lotteries:[],//  用户拥有哪些彩种
-        fanshui:'',
+          fanshui:'',
 
       };
       return my_data;
@@ -437,7 +437,8 @@
          * 选择玩法
          * @param idx
          */
-        showType: function (idx) {
+        showType: function (idx)
+        {
           this.showArray_cqssc = [0, 0, 0, 0, 0, 0, 0];
           this.showArray_cqssc[idx] = 1;
           //清空数据
@@ -481,7 +482,8 @@
         /**
          * close history tab
          */
-        close_history: function () {
+        close_history: function ()
+        {
 
           for (let i = 0; i < this.history_tables.length; i++) {
             if (this.history_tables[i]) {
@@ -497,7 +499,8 @@
         /**
          * show history_tab
          */
-        showHistory: function () {
+        showHistory: function ()
+        {
           if (this.history_str == "展开") {
             $(".history-close").slideDown();
             $(".history-list").eq(this.history_flag).slideDown();
@@ -514,7 +517,8 @@
         /**
          * 获取最新一期的开奖数据
          */
-        get_last_code: function () {
+        get_last_code: function ()
+        {
           this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
           //获取到最新一期的数据
           let data = res.data;
@@ -1005,10 +1009,8 @@
           {
             this.$router.push('pk10');
           }
+
         });
-
-
-
       }
 
     },
