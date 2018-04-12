@@ -627,21 +627,38 @@
       {
         var that  = this;
         //封盘倒计时
-        this.timeId2 = setInterval(function(){
+        this.timeId2 = setInterval(function()
+        {
           if(that.end_time <= 0)
           {
             that.mins = '00';
             that.seconds = that.open_time;
             if(that.open_time <= 0 )
             {
-              clearInterval(that.timeId2);
-              that.get_time();
-              //获取全局的未结算清单
-              that.$set(that.$store.state,'unclear',that.getOrder());
+              if(that.open_time < -100)
+              {
+                that.mins = "--";
+                that.seconds = "--";
+              }
+
+              if(that.open_time == 0)
+              {
+                //清除定时器
+                clearInterval(that.timeId2);
+                //重新获取时间
+                that.get_time();
+                //获取未结算的订单
+                that.$set(that.$store.state,'unclear',that.getOrder());
+              }
+              else
+              {
+                that.open_time++
+              }
               return;
             }
           }
-          else {
+          else
+          {
             let mins = Math.floor(that.end_time/60);
             mins = '0' + mins;
             that.mins = mins;
@@ -768,7 +785,7 @@
         this.bets.single_ball[k].reverse().reverse();//触发视图层改变
         let content = k + '__' + keys[k2];
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-        console.log(this.bet_content);
+
       },
       sumbo:function(v,k)
       {
@@ -776,7 +793,7 @@
         this.bets.sum_digit.reverse().reverse();//触发视图层改变
         let content = 'sum_digit__' + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-        console.table(this.bet_content)
+
       },
       single_ball_1:function (v,k,str)
       {
@@ -807,7 +824,6 @@
               center: true,
               type: 'warning'
             });
-         // alert('请选择下注内容后再提交');
           return 0;
         }
 
@@ -873,7 +889,6 @@
               });
               //获取全局的未结算清单
               this.$set(this.$store.state,'unclear',this.getOrder());
-              // alert(res.data.msg);
               this.$message(
                 {
                   dangerouslyUseHTMLString: true,
@@ -884,7 +899,6 @@
             }
             else
             {
-              // alert(res.data.msg);
               this.$message.error(res.data.msg);
              }
         });
@@ -908,7 +922,7 @@
            {
               if(res.data.status == 200)
               {
-                  //console.log(res.data);
+
                   this.history_codes = res.data.data.list;
               }
            });
@@ -924,7 +938,7 @@
             this.handicaps = [];
             if(res.data.status == 200)
             {
-              console.log(res.data);
+
               for(let i = 0 ; i <res.data.data.ratelist.length;i++)
               {
                 this.handicaps.push(res.data.data.ratelist[i]);
@@ -982,7 +996,7 @@
       }
       else
       {
-        window.location.href = '#/login';
+        window.location.href = '/';
         return;
       }///没有登录跳转到登录页面
 
@@ -996,8 +1010,9 @@
     {
       var that = this;
       //获取赔率、最新开奖结果的倒计时 5s一次
-      this.timeId = setInterval(function(){
-        that.get_odds();
+      this.timeId = setInterval(function()
+      {
+        that.get_odds(this.which_handicap);
         that.get_last();
       },10000);
 

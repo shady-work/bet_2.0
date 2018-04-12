@@ -645,7 +645,6 @@
                 center: true,
                 type: 'warning'
               });
-              // alert('请选择下注内容后再提交');
               return 0;
             }
             //过滤掉相同的对象
@@ -827,7 +826,6 @@
                 });
                 //获取全局的未结算清单
                 this.$set(this.$store.state,'unclear',this.getOrder());
-                //alert(res.data.msg);
                 this.$message(
                   {
                     dangerouslyUseHTMLString: true,
@@ -838,7 +836,6 @@
               }
               else
               {
-                // alert(res.data.msg);
                 this.$message.error(res.data.msg);
               }
 
@@ -876,23 +873,29 @@
                }
                if(that.open_time <= 0 )
                {
-
+                 if(that.open_time < -100)
+                 {
+                   that.mins = "--";
+                   that.seconds = "--";
+                 }
                  if(that.open_time == 0)
                  {
+                   //清除定时器
                    clearInterval(that.timeId2);
+                   //重新获取时间
                    that.get_time();
+                   //获取未结算的订单
+                   that.$set(that.$store.state,'unclear',that.getOrder());
                  }
                  else
                  {
                    that.open_time++
                  }
-                 //重新获取时间
-                 //获取全局的未结算清单
-                // that.$set(that.$store.state,'unclear',that.getOrder());
                  return;
                }
              }
-             else {
+             else
+             {
                let mins = Math.floor(that.end_time/60);
                mins = '0' + mins;
                that.mins = mins;
@@ -947,7 +950,7 @@
            this.$http.get(`${this.global.config.API}ssc/pans`)
              .then(function(res)
              {
-               console.log(res.data);
+
                this.handicaps = [];
                if(res.data.status == 200)
                {
@@ -965,10 +968,10 @@
         {
           return str;
         },
-       return_upper:function(str)
-       {
+        return_upper:function(str)
+        {
          return str.toUpperCase();
-       }
+        }
     },
 
     created: function ()

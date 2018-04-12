@@ -284,12 +284,23 @@
         {
          if(res.data.status == 200)
          {
-            alert(res.data.msg);
+           this.$message(
+             {
+               message:res.data.msg,
+               type:'success',
+               center:true,
+             });
             window.location.reload();
          }
          else
          {
-           alert('提现失败，请联系管理员，或稍后再试。');
+           this.$message(
+             {
+               message:'提现失败，请联系管理员，或稍后再试。',
+               type:'warning',
+               center:true,
+             });
+
          }
          return;
         });
@@ -321,12 +332,22 @@
           {
             if(res.data.status == 200)
             {
-              alert(res.data.msg);
+              this.$message(
+                {
+                  message:res.data.msg,
+                  type:'success',
+                  center:true,
+                });
               window.location.reload();
             }
             else
             {
-              alert('提现失败，请联系管理员，或稍后再试。');
+              this.$message(
+                {
+                  message:'提现失败，请联系管理员，或稍后再试。',
+                  type:'warning',
+                  center:true,
+                });
             }
             return;
           });
@@ -343,22 +364,42 @@
 
          if(!pattern.test(this.bank_topup.bank_name))
          {
-            alert('银行名不对');
+           this.$message(
+             {
+               message:'银行名不对',
+               type:'warning',
+               center:true,
+             });
             return false;
          }
          if(!pattern.test(this.bank_topup.store_name))
          {
-            alert('转账户名不对');
+           this.$message(
+             {
+               message:'转账户名不对',
+               type:'warning',
+               center:true,
+             });
             return false;
          }
          if(!pattern2.test( parseInt(this.bank_topup.bank_number)))
          {
-            alert('转账户名不对');
+           this.$message(
+             {
+               message:'卡号不对',
+               type:'warning',
+               center:true,
+             });
             return false;
          }
          if(!pattern2.test(parseInt(this.bank_topup.money)))
          {
-            alert('金钱不对');
+           this.$message(
+             {
+               message:'金钱不对',
+               type:'warning',
+               center:true,
+             });
             return false;
          }
          return true;
@@ -375,13 +416,24 @@
 
         if(!pattern.test(this.offline_topup.offline_name))
         {
-          alert('账号户名不对');
+
+          this.$message(
+            {
+              message:'账号户名不对',
+              type:'warning',
+              center:true,
+            });
           return false;
         }
 
         if(!pattern2.test(parseInt(this.offline_topup.money)))
         {
-          alert('金钱不对');
+          this.$message(
+            {
+              message:'金钱不对',
+              type:'warning',
+              center:true,
+            });
           return false;
         }
         return true;

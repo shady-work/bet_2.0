@@ -31,8 +31,9 @@
                         <div class="xy-right-top">
                             <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结分类明细</a>
                         </div>
-                         <table v-show="tableArray[0]">
+                         <table v-show="tableArray[0]" >
                             <tr class="color-red">
+                                <td>期数</td>
                                 <td>注单号</td>
                                 <td>时间</td>
                                 <td>下注内容</td>
@@ -41,7 +42,7 @@
                                 <td>预赢金额</td>
                             </tr>
                             <tr v-for="v in list">
-                                <td v-for="val in v">{{val}}</td>
+                                <td v-for="val in v"  style="border:1px solid #e5e5e5;box-sizing: border-box">{{val}}</td>
                             </tr>
                         </table>
                         <div class="page-xy">
@@ -128,9 +129,10 @@ export default
            {
              let data =
                {
+                 'expect': `${list[i].expect}`,
                  'order' : `${list[i].order_no}`,
                  'time' : `${list[i].create_time}`,
-                 'content' : list[i].mark_a + list[i].mark_b,
+                 'content' : list[i].mark_a + '-' + list[i].mark_b,
                  'money' : list[i].money,
                  'rate' : list[i].rate,
                  'win' : list[i].win,
@@ -147,6 +149,7 @@ export default
      if(window.sessionStorage.isLogin == 'ok')
      {
        this.list = this.getOrder_2();
+
      }
    },
 }

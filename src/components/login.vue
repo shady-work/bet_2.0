@@ -22,13 +22,13 @@
                     登录
                 </button>
                 <div class="register-forget">
-                    <a href="" class="pull-left">
-                        注册
-                    </a>
+                    <!--<a href="" class="pull-left">-->
+                        <!--注册-->
+                    <!--</a>-->
 
-                    <a href="" class="pull-right">
-                        忘记密码
-                    </a>
+                    <!--<a href="" class="pull-right">-->
+                        <!--忘记密码-->
+                    <!--</a>-->
                 </div>
             </div>
         </div>
@@ -56,14 +56,26 @@ export default
             let uPattern = /^[a-zA-Z0-9_-]{4,16}$/;
             if(!uPattern.test(this.username))
             {
-                alert("用户名格式不对~")
+
+                this.$message(
+                {
+                  message:'用户名格式不对',
+                  type:'warning',
+                  center:true,
+                });
                 return false;
             }
             //密码验证
             let pwdPattern = /^[0-9a-zA-Z]{6,16}$/;
             if(!pwdPattern.test(this.password))
             {
-                alert("密码格式不对~")
+
+                this.$message(
+                {
+                  message:'密码格式不对~',
+                  type:'warning',
+                  center:true,
+                });
                 return false;
             }
 
@@ -73,6 +85,12 @@ export default
                 //登录成功
               if(response.data.status == 200)
                 {
+                    this.$message(
+                    {
+                      message:'欢迎回来！',
+                      type:'success',
+                      center:true,
+                    });
                     window.sessionStorage.token = response.data.data.token;
                     this.$store.state.isLogin = true; //设置登录flag
                     this.$store.state.user_id = response.data.data.user_id;//设置登录user_id
@@ -83,7 +101,13 @@ export default
                 }
                 else
                 {
-                    alert(response.data.msg);
+                    // alert(response.data.msg);
+                    this.$message(
+                    {
+                      message:response.data.msg,
+                      type:'warning',
+                      center:true,
+                    });
                 }
             });
         },

@@ -424,7 +424,6 @@
         {
           //当用户没有选择下注内容的时候要提示用户选择
           if (this.bets.length < 1) {
-            // alert('请选择下注内容后再提交');
             this.$message(
               {
                 dangerouslyUseHTMLString: true,
@@ -542,16 +541,26 @@
               that.seconds = that.open_time;
               if(that.open_time <= 0 )
               {
-                // if(that.open < -100)
-                // {
-                //   that.mins = "--";
-                //   that.seconds = "--";
-                // }
-                clearInterval(that.timeId2);
-                that.get_time();
-                //获取全局的未结算清单
-                that.$set(that.$store.state,'unclear',that.getOrder());
+                if(that.open_time < -100)
+                {
+                  that.mins = "--";
+                  that.seconds = "--";
+                }
+                if(that.open_time == 0)
+                {
+                  //清除定时器
+                  clearInterval(that.timeId2);
+                  //重新获取时间
+                  that.get_time();
+                  //获取未结算的订单
+                  that.$set(that.$store.state,'unclear',that.getOrder());
+                }
+                else
+                {
+                  that.open_time++
+                }
                 return;
+
               }
             }
             else {

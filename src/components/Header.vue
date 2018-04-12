@@ -114,10 +114,18 @@ export default
         }
         if(idx == 5)
         {
+
+          this.$children[5].tableArray = [1,0,0];
+          this.$children[5].type = 'ssc';
+          this.$children[5].table_lotterys = [1,0,0,0];
           this.$children[5].list = this.$children[5].getOrder_2();
+
         }
         if(idx == 4)
         {
+          this.$children[4].tableArray = [1,0,0];
+          this.$children[4].table_lotterys = [1,0,0,0];
+          this.$children[4].type = 'ssc';
           this.$children[4].list = this.$children[4].getOrder_2();
         }
         if(idx == 2)
@@ -129,6 +137,9 @@ export default
         }
         if(idx == 7)
         {
+          this.$children[7].tableArray = [1,0,0];
+          this.$children[7].type = 'ssc';
+          this.$children[7].table_lotterys = [1,0,0,0];
           this.$children[7].get_all_data();
         }
 

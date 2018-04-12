@@ -53,8 +53,8 @@
                     <td>是否中奖</td>
                   </tr>
                   <tr v-for="v in list">
-                    <td v-for="(val,k) in v" v-if="k != 'win'">{{val}}</td>
-                    <td v-for="(val,k) in v" v-if="k == 'win'">{{val?'中奖':'未中'}}</td>
+                    <td v-for="(val,k) in v" v-if="k != 'win'" style="border:1px solid #e5e5e5;box-sizing: border-box">{{val}}</td>
+                    <td v-for="(val,k) in v" v-if="k == 'win'" style="border:1px solid #e5e5e5;box-sizing: border-box">{{val?'中奖':'未中'}}</td>
                   </tr>
                 </table>
                 <table v-show="tableArray[1]">
@@ -101,8 +101,8 @@ export default
    {
        var data =
        {
-          tableArray:[1,0,0],
-          table_lotterys:[1,0,0,0],
+           tableArray:[1,0,0],
+           table_lotterys:[1,0,0,0],
            unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
            type:'ssc',//默认要的彩种数据
            next_url:'',
@@ -198,22 +198,12 @@ export default
          })
        },
 
-       get_all_data:function()
-       {
-         this.$http.get(`${this.global.config.API}clearList`).then(function(res)
-         {
-           console.log(res.data);
-         })
-       },
-
    },//methods end
    created:function()
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
        this.list = this.getOrder_2();
-       this.get_all_data();
-
      }
 
    },

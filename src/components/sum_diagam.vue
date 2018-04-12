@@ -34,13 +34,13 @@
                   </tr>
 
                   <tr v-for="(v,k) in data">
-                    <td>{{v.week_name}}/{{v.date_str }}</td>
-                    <td>{{v.sum_data.order_num}}</td>
-                    <td>{{v.sum_data.sum_money}}</td>
-                    <td>{{v.sum_data.win}}</td>
-                    <td>{{v.sum_data.fs}}</td>
-                    <td class="color-red">
-                      <a @click="get_details(v.date_str)" v-if="v.sum_data.winAndFs != 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.week_name}}/{{v.date_str }}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.order_num}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.sum_money}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.win}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.fs}}</td>
+                    <td class="color-red" style="border:1px solid #e5e5e5;box-sizing: border-box">
+                      <a @click="get_details(v.date_str)" v-if="v.sum_data.order_num > 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
                         {{v.sum_data.winAndFs}}
                       </a>
                       <span v-else>
@@ -63,13 +63,13 @@
                     <td>中奖结果</td>
                   </tr>
                   <tr v-for="v in details_data">
-                    <td>{{v.lty_name}}</td>
-                    <td>{{v.expect}}</td>
-                    <td>{{v.order_no}}</td>
-                    <td>{{v.create_time}}</td>
-                    <td>{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
-                    <td>{{v.money}}</td>
-                    <td>{{v.open_ret==1?'中奖':'未中奖'}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.lty_name}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.expect}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.order_no}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.create_time}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.money}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.open_ret==1?'中奖':'未中奖'}}</td>
                   </tr>
                 </table>
 
@@ -95,8 +95,8 @@ export default
    {
        var data =
        {
-          tableArray:[1,0,0],
-          table_lotterys:[1,0,0,0],
+           tableArray:[1,0,0],
+           table_lotterys:[1,0,0,0],
            unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
            type:'ssc',//默认要的彩种数据
            next_url:'',
@@ -180,7 +180,7 @@ export default
      {
        this.$http.get(`${this.global.config.API}clearList`).then(function(res)
        {
-         console.log(res.data.data);
+
          if(res.data.status == 200)
          {
            this.sum_week = res.data.data;
@@ -211,7 +211,7 @@ export default
        {
          this.$http.get(`${this.global.config.API}details?date=${date_str}&per_page=10`).then(function(res)
          {
-           console.log(res.data.data);
+
            if(res.data.status == 200)
            {
              let data = res.data.data;
