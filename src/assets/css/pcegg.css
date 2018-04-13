@@ -66,10 +66,11 @@
 }
 .pan
 {
-  position: absolute;
-  right:0px;
-  top: 22px;
-  color:#000;
+    float: left;
+    color: #000;
+    margin-top:10px;
+    margin-left:12px;
+    margin-right:12px;
 }
 .pan select
 {
@@ -165,10 +166,10 @@
 }
 .bet-btns
 {
-  float: left;
-  height: 40px;
-  overflow: hidden;
-  width: 630px;
+    float: left;
+    height: 40px;
+    overflow: hidden;
+    width: 534px;
 }
 .bet-btns>a
 {

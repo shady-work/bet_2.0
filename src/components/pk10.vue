@@ -20,13 +20,7 @@
           <p class="color-white mt5">
             今天已售{{sales_}}期,还剩{{unsaleNum}}期
           </p>
-          <div class="pan">
-            <label >盘类</label>
-            <select v-model="which_handicap">
-              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-            </select>
 
-          </div>
         </div>
 
         <div class="left">
@@ -75,6 +69,12 @@
         </div>
 
         <div class="bet-content-input">
+          <div class="pan">
+            <label>盘类</label>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
+            </select>
+          </div>
           <div class="fast-bet">
             快速下注金额
             <input type="text" class="fast-bet-input" v-model="fast_money">
@@ -289,6 +289,12 @@
         </div>
 
         <div class="bet-content-input mrt-55">
+          <div class="pan">
+            <label >盘类</label>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
+            </select>
+          </div>
           <div class="fast-bet">
             快速下注金额
             <input type="text" class="fast-bet-input" v-model="fast_money">
@@ -650,7 +656,7 @@
                 //重新获取时间
                 that.get_time();
                 //获取未结算的订单
-                this.get_ssc_unclear();
+                that.get_ssc_unclear();
               }
               else
               {
