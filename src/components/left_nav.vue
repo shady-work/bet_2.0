@@ -96,7 +96,7 @@ export default
                 str:"+",
                 flag:false,
             },
-            navArray:[1,0,0,0,0],
+            navArray:[1,0,0,0,0,0],
             unclear:[],//未结算的清单
             vaild_lotteries:[],//  用户拥有哪些彩种
         };
@@ -115,7 +115,7 @@ export default
         },
         turn:function(idx)
         {
-            this.navArray =  [0,0,0,0,0];
+            this.navArray =  [0,0,0,0,0,0];
             this.navArray[idx] =  1;
             switch(idx)
             {
@@ -166,10 +166,10 @@ export default
        //获取全局的未结算清单
       if(this.$store.state.isLogin)
       {
-        this.$set(this.$store.state,'unclear',this.getOrder());
+
         if(window.sessionStorage.index)
         {
-          this.navArray = [0,0,0,0];
+          this.navArray = [0,0,0,0,0,0];
           let index = parseInt(window.sessionStorage.index);
           this.navArray[index] = 1;
         }

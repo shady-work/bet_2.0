@@ -1,222 +1,115 @@
-<style scoped>
 
-  #recharge
-  {
-    overflow: hidden;
-  }
-
-  .left,.right
-  {
-    height: 700px;
-    width: 300px;
-
-    margin-left: 25px;
-    margin-top: 15px;
-    float: left;
-    color: #000;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 8px;
-    overflow: hidden;
-  }
-  .title
-  {
-    margin-top: 15px;
-    font-size: 16px;
-  }
-  .context
-  {
-    text-indent: 8px;
-    line-height: 20px;
-    text-align: left;
-    margin-top: 5px;
-  }
-  .right
-  {
-    width: 600px;
-  }
-  .tabs
-  {
-    width: 550px;
-    margin:0 auto;
-    height: 45px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-  }
-  .tabs>li
-  {
-    float: left;
-    line-height: 45px;
-    text-align:center;
-    width:49%;
-    font-size: 16px;
-    font-weight: 700;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    border:1px solid gray;
-    margin-left: 1px;
-    cursor: pointer;
-  }
-  .right-left
-  {
-    width: 120px;
-    height: 40px;
-    margin-left: 16px;
-    margin-top: 15px;
-
-    float: left;
-  }
-  .right-left>ul>li
-  {
-    width: 100%;
-    height: 40px;
-    border:1px solid #fff;
-    border-bottom: none;
-    line-height: 40px;
-    cursor: pointer;
-  }
-  .right-left>ul>li:last-of-type
-  {
-    border-bottom:1px solid #fff;
-  }
-  .right-right
-  {
-    width: 530px;
-    height: 400px;
-    float: left;
-    margin-left: 19px;
-    margin-top: 15px;
-  }
-  .input-my
-  {
-    margin-top: 15px;
-  }
-  .input-my>input
-  {
-    height: 30px;
-    width: 248px;
-    border-radius: 3px;
-    color: #000;
-    text-indent:5px;
-    font-size: 12px;
-    border: 1px solid #000;
-  }
-  .input-my>input::-webkit-input-placeholder{
-    color:gray;
-
-  }
-  .input-my>input::-moz-placeholder{   /* Mozilla Firefox 19+ */
-    color:gray;
-  }
-  .input-my>input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
-    color:gray;
-  }
-  .input-my>input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
-    color:gray;
-  }
-  .submit-btn
-  {
-    width: 310px;
-    margin-top: 15px;
-    height: 30px;
-    background: #ff0000;
-    color: white;
-    outline: none;
-    border: none;
-  }
-  .tabs .active,.right-left .active
-  {
-    background: #ff7300;
-  }
-  .article-context
-  {
-    width: 80%;
-    margin:0 auto;
-    border: 1px solid #fff;
-    box-sizing: border-box;
-    padding: 15px 5px;
-    margin-top: 25px;
-    font-size: 16px;
-    line-height: 22px;
-  }
-</style>
 <template>
     <div id="recharge">
 
-        <div class="left">
-              <h2 class="title">提现帮助</h2>
-              <p class="context">
-                尊敬的客户，您好。感谢您使用XXXX平台提现系统尊敬的客户，您好。
-                感谢您使用XXXX平台提现系统尊敬的客户，您好。感谢您使用XXXX平台提现系统尊敬的客户，您好。感谢您使用XXXX平台提现系统
-              </p>
-              <!--要显示的提现内容-->
+        <div class="recharge" v-show="!isShowTable" >
+            <div class="left">
+                  <h2 class="title">提现帮助</h2>
+                  <p class="context">
+                    尊敬的客户，您好!请按照你的提现方式，进行填写您的提现信息，请务必填写正确的信息，否则会导致提现失败。
+                      <br>
+                      提现需要时间审核，请您耐心等待。
+                  </p>
+                  <p  @click="isShowTable = true;" style="margin-top: 15px;cursor: pointer;font-size: 16px;text-decoration:underline;">查看提现记录</p>
+                  <!--要显示的提现内容-->
+            </div>
+
+            <div class="right">
+                <ul class="tabs">
+                  <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
+                  <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
+                </ul>
+
+                <!--银行卡提现-->
+                <div class="right-right" v-show="isActive[0]">
+                <h2 class="mt5">请填写您的银行信息</h2>
+                <div class="input-my">
+                  <span>银行名称</span>
+                  <input type="text" v-model="bank_topup.bank_name" placeholder="如：建设银行">
+                </div>
+
+                <div class="input-my">
+                  <span>开户名称</span>
+                  <input type="text" v-model="bank_topup.bank_where" placeholder="如：厦门分行">
+                </div>
+
+                <div class="input-my">
+                  <span>银行户名</span>
+                  <input type="text" v-model="bank_topup.store_name" placeholder="如：张三">
+                </div>
+
+                <div class="input-my">
+                  <span>银行账号</span>
+                  <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
+                </div>
+
+                <div class="input-my">
+                  <span>提现金额</span>
+                  <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
+                </div>
+
+                <button class="submit-btn" @click="submit_bank()">提交</button>
+              </div>
+
+                <!--线下提现-->
+                <div class="right-right" v-show="isActive[1]" >
+                <h2 class="mt5">请填写您的汇款信息</h2>
+                <div class="input-my">
+                  <span>账号姓名</span>
+                  <input type="text" v-model="offline_topup.offline_name" placeholder="支付宝户名">
+                </div>
+
+                <div class="input-my">
+                  <span>存款账号</span>
+                  <input type="text" v-model="offline_topup.store_number" placeholder="支付宝账号">
+                </div>
+
+                <div class="input-my">
+                  <span>存款金额</span>
+                  <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
+                </div>
+
+                <button class="submit-btn" @click="submit_offline()">提交</button>
+              </div>
+
+
+
+            </div>
         </div>
 
-        <div class="right">
-            <ul class="tabs">
-              <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
-              <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
-            </ul>
+        <div class="history" v-show="isShowTable">
+            <h2 style="width: 1015px;text-align:center;margin-top: 15px;font-size: 18px;">
+                提现记录
+                <a class="pull-right" style="margin-right: 15px;cursor: pointer;" @click="isShowTable=false;">返回</a>
+            </h2>
+            <table width="1000" style="margin-left: 15px;margin-top: 15px;">
+                <thead>
+                <tr>
+                    <td>日期</td>
+                    <td>类型</td>
+                    <td>金额</td>
+                    <td>详情</td>
+                    <td>状态</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(v,k) in history">
+                    <td>{{v.tp_time}}</td>
+                    <td>{{v.con}}</td>
+                    <td>{{v.money}}</td>
+                    <td v-html="v.tp_mark"></td>
+                    <td>{{v.tp_stu==1?'审核中':(v.tp_stu==0?'拒绝':'已通过')}}</td>
+                </tr>
+                </tbody>
+            </table>
 
-            <!--银行卡提现-->
-            <div class="right-right" v-show="isActive[0]">
-            <h2 class="mt5">请填写您的银行信息</h2>
-            <div class="input-my">
-              <span>银行名称</span>
-              <input type="text" v-model="bank_topup.bank_name" placeholder="如：建设银行">
+            <div class="page-xy" style="width: 1015px;margin-top: 15px;">
+                <span @click="prevPage">◀</span>
+                <b>第{{page}}页</b>
+                <span @click="nextPage">▶</span>
+                <b>共{{pageNum}}页,{{sum}}条</b>
             </div>
-
-            <div class="input-my">
-              <span>开户名称</span>
-              <input type="text" v-model="bank_topup.bank_where" placeholder="如：厦门分行">
-            </div>
-
-            <div class="input-my">
-              <span>银行户名</span>
-              <input type="text" v-model="bank_topup.store_name" placeholder="如：张三">
-            </div>
-
-            <div class="input-my">
-              <span>银行账号</span>
-              <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
-            </div>
-
-            <div class="input-my">
-              <span>提现金额</span>
-              <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
-            </div>
-
-            <button class="submit-btn" @click="submit_bank()">提交</button>
-          </div>
-
-            <!--线下提现-->
-            <div class="right-right" v-show="isActive[1]" >
-            <h2 class="mt5">请填写您的汇款信息</h2>
-            <div class="input-my">
-              <span>账号姓名</span>
-              <input type="text" v-model="offline_topup.offline_name" placeholder="支付宝户名">
-            </div>
-
-            <div class="input-my">
-              <span>存款账号</span>
-              <input type="text" v-model="offline_topup.store_number" placeholder="支付宝账号">
-            </div>
-
-            <div class="input-my">
-              <span>存款金额</span>
-              <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
-            </div>
-
-            <button class="submit-btn" @click="submit_offline()">提交</button>
-          </div>
-
-
-
         </div>
-
     </div>
 </template>
 
@@ -247,6 +140,16 @@
           store_number:'',//转账的账号
           money:'',//转账金额
         },
+          history:[],//充值历史
+          isShowTable:false,//是否显示充值记录
+          page:1,
+          per_page:15,
+          hasNext:false,
+          hasPrev:false,
+          nextPageUrl:'',
+          prevPageUrl:'',
+          pageNum:0,
+          sum:0,
       }
     },
     methods:
@@ -290,7 +193,6 @@
                type:'success',
                center:true,
              });
-            window.location.reload();
          }
          else
          {
@@ -300,9 +202,8 @@
                type:'warning',
                center:true,
              });
-
          }
-         return;
+
         });
       },
       /**
@@ -438,12 +339,253 @@
         }
         return true;
       },
+
+        /**
+         * 获取充值记录
+         */
+        get_history()
+        {
+            this.$http.get(`${this.global.config.API}withdraw`)
+                .then((res)=>
+                {
+
+                    if(res.data.status == 200)
+                    {
+                        console.log(res.data);
+                        this.history = res.data.data.list;
+                        this.hasPrev = res.data.data.hasPrev;
+                        this.hasNext = res.data.data.hasNext;
+                        this.sum = res.data.data.sum;
+                        this.pageNum = res.data.data.pageNum;
+                        this.prevPageUrl = this.hasPrev?res.data.data.prevPageUrl:'';
+                        this.nextPageUrl = this.hasNext?res.data.data.nextPageUrl:'';
+                    }
+                });
+        },
+        prevPage:function()
+        {
+            if(!this.hasPrev)
+            {
+                this.$message.error('没有上一页了');
+                return;
+            }
+            else
+            {
+                this.$http.get(this.prevPageUrl)
+                    .then(function(res)
+                    {
+                        if(res.data.status == 200)
+                        {
+                            this.history = res.data.data.list;
+                            this.hasPrev = res.data.data.hasPrev;
+                            this.hasNext = res.data.data.hasNext;
+                            this.sum = res.data.data.sum;
+                            this.pageNum = res.data.data.pageNum;
+                            this.prevPageUrl = this.hasPrev?res.data.data.prevPageUrl:'';
+                            this.nextPageUrl = this.hasNext?res.data.data.nextPageUrl:'';
+                        }
+                        else
+                        {
+                            this.$message.error('充值记录数据加载失败！');
+                        }
+                    });
+            }
+        },
+        nextPage:function()
+        {
+            if(!this.hasNext)
+            {
+                this.$message.error('没有下一页了');
+                return;
+            }
+            else
+            {
+                this.$http.get(this.nextPageUrl)
+                    .then(function(res){
+                        if(res.data.status == 200)
+                        {
+                            this.history = res.data.data.list;
+                            this.hasPrev = res.data.data.hasPrev;
+                            this.hasNext = res.data.data.hasNext;
+                            this.sum = res.data.data.sum;
+                            this.pageNum = res.data.data.pageNum;
+                            this.prevPageUrl = this.hasPrev?res.data.data.prevPageUrl:'';
+                            this.nextPageUrl = this.hasNext?res.data.data.nextPageUrl:'';
+                        }
+                        else
+                        {
+                            this.$message.error('充值记录数据加载失败！');
+                        }
+                    });
+            }
+        },
+
     },
     created()
     {
-
+        this.get_history();
     }
   }
 </script>
 
 
+<style scoped>
+
+    #recharge
+    {
+        overflow: hidden;
+    }
+
+    .left,.right
+    {
+        height: 700px;
+        width: 300px;
+
+        margin-left: 25px;
+        margin-top: 15px;
+        float: left;
+        color: #000;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 8px;
+        overflow: hidden;
+    }
+    .title
+    {
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    .context
+    {
+        text-indent: 8px;
+        line-height: 20px;
+        text-align: left;
+        margin-top: 5px;
+    }
+    .right
+    {
+        width: 600px;
+    }
+    .tabs
+    {
+        width: 550px;
+        margin:0 auto;
+        height: 45px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .tabs>li
+    {
+        float: left;
+        line-height: 45px;
+        text-align:center;
+        width:49%;
+        font-size: 16px;
+        font-weight: 700;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        border:1px solid gray;
+        margin-left: 1px;
+        cursor: pointer;
+    }
+    .right-left
+    {
+        width: 120px;
+        height: 40px;
+        margin-left: 16px;
+        margin-top: 15px;
+
+        float: left;
+    }
+    .right-left>ul>li
+    {
+        width: 100%;
+        height: 40px;
+        border:1px solid #fff;
+        border-bottom: none;
+        line-height: 40px;
+        cursor: pointer;
+    }
+    .right-left>ul>li:last-of-type
+    {
+        border-bottom:1px solid #fff;
+    }
+    .right-right
+    {
+        width: 530px;
+        height: 400px;
+        float: left;
+        margin-left: 19px;
+        margin-top: 15px;
+    }
+    .input-my
+    {
+        margin-top: 15px;
+    }
+    .input-my>input
+    {
+        height: 30px;
+        width: 248px;
+        border-radius: 3px;
+        color: #000;
+        text-indent:5px;
+        font-size: 12px;
+        border: 1px solid #000;
+    }
+    .input-my>input::-webkit-input-placeholder{
+        color:gray;
+
+    }
+    .input-my>input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+        color:gray;
+    }
+    .input-my>input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+        color:gray;
+    }
+    .input-my>input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+        color:gray;
+    }
+    .submit-btn
+    {
+        width: 310px;
+        margin-top: 15px;
+        height: 30px;
+        background: #ff0000;
+        color: white;
+        outline: none;
+        border: none;
+    }
+    .tabs .active,.right-left .active
+    {
+        background: #ff7300;
+    }
+    .article-context
+    {
+        width: 80%;
+        margin:0 auto;
+        border: 1px solid #fff;
+        box-sizing: border-box;
+        padding: 15px 5px;
+        margin-top: 25px;
+        font-size: 16px;
+        line-height: 22px;
+    }
+    td
+    {
+        box-sizing: border-box;
+        border: 1px solid #e5e5e5;
+        padding:5px 2px;
+    }
+    .page-xy
+    {
+        font-size: 16px;
+        color: #000;
+    }
+    .page-xy>span
+    {
+        cursor: pointer;
+    }
+</style>
