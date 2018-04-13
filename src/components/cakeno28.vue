@@ -56,7 +56,7 @@
 
         <div class="bet-content-input">
             <div class="pan">
-                <label>盘类</label>
+                <label>盘口</label>
                 <select v-model="which_handicap">
                     <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
                 </select>
@@ -139,7 +139,7 @@
 
         <div class="bet-content-input mt5">
             <div class="pan">
-                <label>盘类</label>
+                <label>盘口</label>
                 <select v-model="which_handicap">
                     <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
                 </select>

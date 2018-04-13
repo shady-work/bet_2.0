@@ -3,37 +3,26 @@
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
       <div class="details">
-        <img src="../assets/img/navicons_13.png" class="logo-tubiao" alt="">
+        <img src="../assets/img/cqssc-logo.png" class="logo-tubiao" alt="">
         <div class="left">
-          <p class="color-white">第{{lastExpect}}期</p>
-          <p class="color-white mt5">开奖号码</p>
+          <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期</p>
+            <div class="balls">
+                <span v-for="v in lastOpenCode">{{v}}</span>
+                <div class="clear"></div>
+            </div>
         </div>
-        <div class="balls">
-          <span v-for="v in lastOpenCode">{{v}}</span>
-          <div class="clear"></div>
+        <div class="right">
+            <div class="right-left">
+                <p style="color:#209F16;">第{{thisExpect}}期</p>
+                <p>距离下期开奖还有</p>
+            </div>
+            <div class="right-right">
+                <span class="fen">{{mins}}</span>
+                <span>分</span>
+                <span class="fen">{{seconds}}</span>
+                <span >秒</span>
+            </div>
         </div>
-        <div class="description">
-          <p class="color-white">
-            10分钟一期 ，每天09:50-01:54:30
-          </p>
-          <p class="color-white mt5">
-            今天已售{{sales_}}期,还剩{{120-sales_}}期
-          </p>
-
-        </div>
-
-        <div class="left">
-          <p class="color-white text-right">第{{thisExpect}}期</p>
-          <p class="color-white mt5 text-right" v-show="end_time > 0">距离封盘</p>
-          <p class="color-white mt5 text-right" v-show="end_time <= 0">距离开盘</p>
-        </div>
-
-        <div class="count-down color-white">
-          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
-        </div>
-
-
-        <img src="../assets/img/alert-1.png" alt="" class="audio">
         <div class="clear"></div>
       </div>
 
@@ -77,7 +66,7 @@
         <!--选择下注内容-->
         <div class="bet-content-input">
           <div class="pan">
-            <label>盘类</label>
+            <label>盘口</label>
             <select v-model="which_handicap">
               <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
             </select>
@@ -224,7 +213,7 @@
         <!--选择下注内容-->
         <div class="bet-content-input mt5">
           <div class="pan">
-            <label>盘类</label>
+            <label>盘口</label>
             <select v-model="which_handicap">
               <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
             </select>
