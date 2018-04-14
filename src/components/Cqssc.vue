@@ -237,7 +237,7 @@
     <!-- 右边的历史记录 -->
     <div id="history">
       <div class="history-header" @click="showHistory">
-        长龙排行 <span class="pull-right">{{history_str}}</span>
+        长龙排行 <span class="pull-right pointer" >{{history_str}}</span>
       </div>
       <div class="history-table">
         <a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
@@ -260,7 +260,7 @@
         </div>
       </div>
       <div class="history-close ">
-        <a @click="close_history()">
+        <a @click="close_history()" class="pointer">
           关闭
         </a>
       </div>
