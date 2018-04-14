@@ -12,6 +12,8 @@ import football from '@/components/football.vue';
 import man_online from '@/components/man_online.vue';
 import money_change from '@/components/money_change.vue';
 import unclear_diagam from '@/components/unclear_diagam.vue';
+import clear_diagam from '@/components/clear_diagam.vue';
+import sum_diagam from '@/components/sum_diagam.vue';
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -76,6 +78,16 @@ export default new Router(
           path:"/unclear_diagam",
           name:"unclear_diagam",
           component:unclear_diagam,
+        },
+        {
+          path:"/clear_diagam",
+          name:"clear_diagam",
+          component:clear_diagam,
+        },
+        {
+          path:"/sum_diagam",
+          name:"sum_diagam",
+          component:sum_diagam,
         },
       ],
     },

@@ -97,7 +97,7 @@ export default
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
             this.type = str;
-            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0/per_page/10`);
+            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0`);
        },
        prevPage:function()
        {
@@ -109,7 +109,7 @@ export default
            else
            {
 
-               this.$http.get("http://lty-main.com" + this.prevPageUrl)
+               this.$http.get(this.prevPageUrl)
                    .then(function(res)
                    {
                        if(res.data.status == 200)
@@ -140,7 +140,7 @@ export default
            }
            else
            {
-               this.$http.get("http://lty-main.com" + this.nextPageUrl)
+               this.$http.get(this.nextPageUrl)
                    .then(function(res){
                        if(res.data.status == 200)
                        {

@@ -1,102 +1,108 @@
 <template>
-    <div class="task" @click="close()">
-            <div class="xinyongziliao" @click="stop($event)">
-                    <div class="xy-header">
-                        <i class="fa fa-bar-chart"></i>
-                        <span>已结算报表</span>
-                        <span class="pull-right close-2" @click="close()">X</span>
-                        <div class="clear"></div>
-                    </div>
 
-                    <div class="xy-left">
-
-                      <div class="xy-list">
-                        <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
-                          重庆时时彩
-                        </a>
-                        <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
-                          北京赛车pk10
-                        </a>
-                        <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
-                          加拿大28
-                        </a>
-                        <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
-                          pc蛋蛋
-                        </a>
-                      </div>
-                    </div>
-
-
-                    <div class="xy-right">
-                <div class="xy-right-top">
-                  <a :class="tableArray[0]?'active':''" @click="showOne(0)">所有已结算</a>
-                  <a :class="tableArray[1]?'active':''" @click="showOne(1)">按条件筛选</a>
-                  <select class="pull-left filter-search" v-model="which_time">
-                    <option v-bind:value="''">请选择</option>
-                    <option v-bind:value="'today'">今日</option>
-                    <option v-bind:value="'this_week'">本周</option>
-                    <option v-bind:value="'last_week'">上周</option>
-                    <option v-bind:value="'this_month'">本月</option>
-                    <option v-bind:value="'last_month'">上月</option>
-                    <option v-bind:value="'this_year'">本年</option>
-                  </select>
-
-                </div>
-                <table v-show="tableArray[0]">
-                  <tr>
-                    <td>期数</td>
-                    <td>注单号</td>
-                    <td>时间</td>
-                    <td>下注内容</td>
-                    <td>下注金额</td>
-                    <td>当时赔率</td>
-                    <td>是否中奖</td>
-                  </tr>
-                  <tr v-for="v in list">
-                    <td v-for="(val,k) in v" v-if="k != 'win'" style="border:1px solid #e5e5e5;box-sizing: border-box">{{val}}</td>
-                    <td v-for="(val,k) in v" v-if="k == 'win'" style="border:1px solid #e5e5e5;box-sizing: border-box">{{val?'中奖':'未中'}}</td>
-                  </tr>
-                </table>
-                <table v-show="tableArray[1]">
-                        <tr>
-                          <td>盈亏</td>
-                          <td>已结算条数</td>
-                          <td>已结算金额</td>
-                          <td>中奖条数</td>
-                          <td>中奖金额</td>
-                          <td>未中奖条数</td>
-                          <td>未中奖金额</td>
-                          <td>未结算条数</td>
-                          <td>未结算金额</td>
-                        </tr>
-                        <tr>
-                          <td>{{summary.yk}}</td>
-                          <td>{{summary.clearedCount}}</td>
-                          <td>{{summary.clearedMoney}}</td>
-                          <td>{{summary.luckyCount}}</td>
-                          <td>{{summary.luckyMoney}}</td>
-                          <td>{{summary.unluckyCount}}</td>
-                          <td>{{summary.unluckyMoney}}</td>
-                          <td>{{summary.unclearedCount}}</td>
-                          <td>{{summary.unclearedMoney}}</td>
-                        </tr>
-                    </table>
-                <div class="page-xy">
-                  <span @click="prev_page">◀</span>
-                  <input type="text" v-model="page"  disabled>
-                  <span @click="next_page">▶</span>
-                </div>
-              </div>
-
-                    <div class="clear"></div>
+    <div class="xinyongziliao">
+            <div class="xy-header">
+                <i class="fa fa-bar-chart"></i>
+                <span>已结算报表</span>
+                <div class="clear"></div>
             </div>
+            <div class="xy-left">
+
+              <div class="xy-list">
+                <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
+                  重庆时时彩
+                </a>
+                <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
+                  北京赛车pk10
+                </a>
+                <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
+                  加拿大28
+                </a>
+                <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
+                  pc蛋蛋
+                </a>
+              </div>
+            </div>
+            <div class="xy-right">
+        <div class="xy-right-top">
+          <a :class="tableArray[0]?'active':''" @click="showOne(0)">所有已结算</a>
+          <a :class="tableArray[1]?'active':''" @click="showOne(1)">按条件筛选</a>
+          <select class="pull-left filter-search" v-model="which_time">
+            <option v-bind:value="''">请选择</option>
+            <option v-bind:value="'today'">今日</option>
+            <option v-bind:value="'this_week'">本周</option>
+            <option v-bind:value="'last_week'">上周</option>
+            <option v-bind:value="'this_month'">本月</option>
+            <option v-bind:value="'last_month'">上月</option>
+            <option v-bind:value="'this_year'">本年</option>
+          </select>
+
+        </div>
+        <table v-show="tableArray[0]">
+          <tr class="color-red">
+              <td>时间</td>
+              <td>期数</td>
+              <td>注单号</td>
+              <td>下注内容</td>
+              <td>下注金额</td>
+              <td>当时赔率</td>
+              <td>是否中奖</td>
+          </tr>
+          <tr v-for="v in data">
+              <td>{{v.create_time}}</td>
+              <td>{{v.expect}}</td>
+              <td>{{v.order_no}}</td>
+              <td>{{v.mark_a}}--{{v.mark_b}}</td>
+              <td>{{v.money}}</td>
+              <td>{{v.rate}}</td>
+              <td v-if="v.open_ret == 1" style="color: #00ae00;font-weight: 700;">中奖</td>
+              <td v-if="v.open_ret == 0" style="color: gray;">未中</td>
+          </tr>
+        </table>
+        <table v-show="tableArray[1]">
+                <tr>
+                  <td>盈亏</td>
+                  <td>已结算条数</td>
+                  <td>已结算金额</td>
+                  <td>中奖条数</td>
+                  <td>中奖金额</td>
+                  <td>未中奖条数</td>
+                  <td>未中奖金额</td>
+                  <td>未结算条数</td>
+                  <td>未结算金额</td>
+                </tr>
+                <tr>
+                  <td>{{summary.yk}}</td>
+                  <td>{{summary.clearedCount}}</td>
+                  <td>{{summary.clearedMoney}}</td>
+                  <td>{{summary.luckyCount}}</td>
+                  <td>{{summary.luckyMoney}}</td>
+                  <td>{{summary.unluckyCount}}</td>
+                  <td>{{summary.unluckyMoney}}</td>
+                  <td>{{summary.unclearedCount}}</td>
+                  <td>{{summary.unclearedMoney}}</td>
+                </tr>
+            </table>
+        <div class="page-xy">
+            <span v-if="hasPrev" @click="prevPage">◀</span>
+            <span v-if="!hasPrev" style="color:gray;">◀</span>
+            <b>第{{page}}页</b>
+            <span v-if="hasNext" @click="nextPage">▶</span>
+            <span v-if="!hasNext" style="color:gray;">▶</span>
+            <b>共{{pageNum}}页,{{sum}}条</b>
+        </div>
+      </div>
+
+            <div class="clear"></div>
     </div>
+
 </template>
 
 
 <script>
 export default
 {
+   name:"clear_diagam",
    data:function()
    {
        var data =
@@ -105,12 +111,17 @@ export default
            table_lotterys:[1,0,0,0],
            unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
            type:'ssc',//默认要的彩种数据
-           next_url:'',
-           prev_url:'',
+           nextPageUrl:'',
+           prevPageUrl:'',
+           sum:0,
+           pageNum:0,
            list:[],
            page :1,
            which_time:'',//查看报表的哪一段时间
            summary:{},//报表数据
+           hasNext:false,
+           hasPrev:false,
+           data:[],
 
        };
        return data;
@@ -138,62 +149,108 @@ export default
             this.table_lotterys = [0,0,0,0];
             this.table_lotterys[idx] = 1;
             this.type = str;
-            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/1/per_page/10`);
+            this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/1`);
             this.get_data(this.which_time,str)
        },
-       //下一页
-       next_page:function(){
-         if(this.next_url) this.list = this.getOrder_2(this.next_url);
-         else alert('没有下一页');
+       prevPage:function()
+       {
+           if(!this.hasPrev)
+           {
+               this.$message.error('没有上一页了');
+               return;
+           }
+           else
+           {
 
+               this.$http.get("http://lty-main.com" + this.prevPageUrl)
+                   .then(function(res)
+                   {
+                       if(res.data.status == 200)
+                       {
+                           let data = res.data.data;
+                           this.data  = data.list;
+                           this.hasPrev = data.hasPrev;
+                           this.hasNext = data.hasNext;
+                           this.sum = data.sum;
+                           this.pageNum = data.pageNum;
+                           this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                           this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                           this.page = data.curPage;
+                       }
+                       else
+                       {
+                           this.$message.error(res.data.msg);
+                       }
+                   });
+           }
        },
-       //上一页
-       prev_page:function(){
-         if(this.prev_url) this.list = this.getOrder_2(this.prev_url);
-         else alert('没有上一页');
+       nextPage:function()
+       {
+           if(!this.hasNext)
+           {
+               this.$message.error('没有下一页了');
+               return;
+           }
+           else
+           {
+               this.$http.get("http://lty-main.com" + this.nextPageUrl)
+                   .then(function(res){
+                       if(res.data.status == 200)
+                       {
+                           let data = res.data.data;
+                           this.data  = data.list;
+                           this.hasPrev = data.hasPrev;
+                           this.hasNext = data.hasNext;
+                           this.sum = data.sum;
+                           this.pageNum = data.pageNum;
+                           this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                           this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                           this.page = data.curPage;
+                       }
+                       else
+                       {
+                           this.$message.error(res.data.msg);
+                       }
+                   });
+           }
        },
        //获取cqssc,pk10,egg,cake未结算的数据
-       getOrder_2 : function(url = `${this.global.config.API}ssc/history?clear=1&per_page=10`)
+       getOrder_2 : function(url = `${this.global.config.API}ssc/history?clear=1`)
        {
-         var orderData_2 = [];
          this.$http.get(url).then(function(res)
          {
-           if(res.data.status == 403) return false;
-           let data = res.data.data;
-           this.page = data.curPage;
-           this.next_url = data.nextPageUrl;
-           this.prev_url = data.prevPageUrl;
-           let list  = data.list;
-           for(let i = 0; i<list.length;i++)
+           if(res.data.status == 200)
            {
-             let data =
-               {
-                 'expect' : `${list[i].expect}`,
-                 'order' : `${list[i].order_no}`,
-                 'time' : `${list[i].create_time}`,
-                 'content' : list[i].mark_a + list[i].mark_b,
-                 'money' : list[i].money,
-                 'rate' : list[i].rate,
-                 'win' : list[i].open_ret,
-               };
-             orderData_2.push(data);
+               let data = res.data.data;
+               this.page = data.curPage;
+               this.data  = data.list;
+               this.hasPrev = data.hasPrev;
+               this.hasNext = data.hasNext;
+               this.sum = data.sum;
+               this.pageNum = data.pageNum;
+               this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+               this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+               this.page = data.curPage;
            }
+           else
+           {
+               this.$message.error(res.data.msg);
+           }
+
          });
-         return orderData_2;
        },
 
        get_data:function(time = 'today',lty_type = 'ssc')
        {
          this.$http.get(`${this.global.config.API}summary?range=${time}&lty_type=${lty_type}`).then(function(res)
          {
-
                 if(res.data.status == 200)
                 {
                   this.summary = res.data.data.summary;
                 }
                 else
                 {
-                  console.log('数据加载失败');
+                  this.$message.error(res.data.msg);
                 }
          })
        },
@@ -239,24 +296,13 @@ export default
       height: 23px;
       margin-left: 15px;
     }
-    .task
-    {
-        position:fixed;
-        width:100%;
-        height: 100%;
-        left:0;
-        top:0;
-        background: rgba(0,0,0,0.6);
-        z-index:3;
-    }
+
     .xinyongziliao
     {
-      width:900px;
+      width:1080px;
       height: 445px;
-      position: absolute;
-      left: 50%;
-      margin-left: -450px;
-      top: 50px;
+      margin-left: 10px;
+      margin-top:5px;
     }
     .xy-header
     {
@@ -268,7 +314,7 @@ export default
     {
         float: left;
         width: 20px;
-        margin-top: 5px;
+        margin-top: 8px;
         height: 20px;
         margin-left: 15px;
     }
@@ -293,10 +339,11 @@ export default
     .xy-left
     {
         width: 185px;
-        height: 515px;
+        height: 725px;
         float: left;
         box-sizing: border-box;
         background: #fff;
+        border-right:1px solid #e5e5e5;
     }
     .xy-list>a
     {
@@ -321,8 +368,8 @@ export default
     }
     .xy-right
     {
-        height: 515px;
-        width:715px;
+        height: 725px;
+        width:895px;
         background: #fff;
         float: left;
         position: relative;
@@ -392,6 +439,11 @@ export default
         height: 40px;
         border-bottom:1px solid #e5e5e5;
     }
+    td
+    {
+        border: 1px solid #e5e5e5;
+        padding:8px 3px;
+    }
     td>span
     {
         display: block;
@@ -455,35 +507,15 @@ export default
     }
     .page-xy
     {
-        width: 100%;
-        height: 30px;
-        box-sizing: border-box;
-        background: #e63636;
+        font-size: 16px;
+        color: #000;
+        padding:8px 0;
         position: absolute;
-        bottom: 0;
-        left:0;
+        bottom:0;
+        left:355px;
     }
     .page-xy>span
     {
-        float: left;
-        width:30px;
-        line-height:30px;
-        margin-left:5px;
-        margin-right:3px;
-        color:#f3f3f3;
-      cursor: pointer;
-
-    }
-    .page-xy>input
-    {
-        width: 40px;
-        height: 20px;
-        margin-top: 5px;
-        text-align:center;
-        color:#f3f3f3;
-        font-size: 12px;
-        background: #ff7300;
-        border:none;
-        float: left;
+        cursor: pointer;
     }
 </style>

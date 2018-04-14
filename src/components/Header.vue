@@ -20,12 +20,12 @@
           <p>未结明细</p>
       </a>
 
-      <a @click="showOne(4)" class="nav-top">
+      <a href="/#/clear_diagam" class="nav-top">
         <i class="fa fa-bar-chart"></i>
-        <p>统计报表</p>
+        <p>今日已结</p>
       </a>
 
-      <a @click="showOne(7)" class="nav-top">
+      <a href="/#/sum_diagam" class="nav-top">
         <i class="fa fa-pie-chart"></i>
         <p>结算报表</p>
       </a>
@@ -69,8 +69,6 @@
     <edi-pwd v-show="showArray[1]"></edi-pwd>
     <open-history v-show="showArray[2]"></open-history>
     <rules v-show="showArray[3]"></rules>
-    <clear v-show="showArray[4]"></clear>
-    <sum v-show="showArray[7]"></sum>
   </div>
 
 
@@ -82,8 +80,6 @@ import xinyongziliao from './xinyongziliao';
 import editPwd from './edit_pwd';
 import openHistory from './open_history';
 import rules from './rules';
-import clear from './clear_diagam';
-import sum from './sum_diagam';
 export default
 {
   name:"Header",
@@ -104,13 +100,6 @@ export default
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
-        if(idx == 4)
-        {
-          this.$children[4].tableArray = [1,0,0];
-          this.$children[4].table_lotterys = [1,0,0,0];
-          this.$children[4].type = 'ssc';
-          this.$children[4].list = this.$children[4].getOrder_2();
-        }
         if(idx == 2)
         {
           this.$children[2].table_lotterys = [1,0,0,0];
@@ -118,14 +107,6 @@ export default
           this.$children[2].get_codes();
 
         }
-        if(idx == 7)
-        {
-          this.$children[7].tableArray = [1,0,0];
-          this.$children[7].type = 'ssc';
-          this.$children[7].table_lotterys = [1,0,0,0];
-          this.$children[7].get_all_data();
-        }
-
     },
     /**
      * 退出登录
@@ -161,8 +142,6 @@ export default
     'edi-pwd':editPwd,
     'open-history':openHistory,
     'rules':rules,
-    'clear':clear,
-    'sum':sum,
   }
 }
 
