@@ -50,7 +50,7 @@
         <p>提现</p>
       </a>
 
-      <a @click="showOne(3)" class="nav-top">
+      <a href="/#/rules" class="nav-top">
           <i class="fa fa-list-ol"></i>
           <p>玩法规则</p>
       </a>
@@ -63,8 +63,6 @@
 
 
     <edi-pwd v-show="showArray[1]"></edi-pwd>
-    <open-history v-show="showArray[2]"></open-history>
-    <rules v-show="showArray[3]"></rules>
   </div>
 
 
@@ -73,7 +71,6 @@
 
 <script>
 import editPwd from './edit_pwd';
-import rules from './rules';
 export default
 {
   name:"Header",
@@ -130,9 +127,7 @@ export default
   },
   components:
   {
-
     'edi-pwd':editPwd,
-    'rules':rules,
   }
 }
 

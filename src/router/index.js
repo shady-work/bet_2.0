@@ -15,6 +15,7 @@ import unclear_diagam from '@/components/unclear_diagam.vue';
 import clear_diagam from '@/components/clear_diagam.vue';
 import sum_diagam from '@/components/sum_diagam.vue';
 import open_history from '@/components/open_history.vue';
+import rules from '@/components/rules.vue';
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -94,6 +95,11 @@ export default new Router(
           path:"/open_history",
           name:"open_history",
           component:open_history,
+        },
+        {
+          path:"/rules",
+          name:"rules",
+          component:rules,
         },
       ],
     },
