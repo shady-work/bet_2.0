@@ -13,9 +13,9 @@
 
 .head .details > .logo-tubiao {
   float: left;
-  width: 45px;
-  height: 45px;
-  margin-top: -3px;
+  width: 54px;
+  height: 54px;
+  margin-top: 4px;
   margin-left: 15px;
 }
 
@@ -40,7 +40,7 @@
 .right
 {
     width:300px;
-    height:64px;
+    height:65px;
     border: 1px solid #f2dcaf;
     background: #fffdf1;
     float: left;
@@ -98,7 +98,7 @@
 .balls > span {
   display: block;
   float: left;
-  background: url("..//img/ball.png");
+  background: url("../img/ball.png");
   height: 40px;
   width: 40px;
   background-size: cover;

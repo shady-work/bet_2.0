@@ -2,44 +2,35 @@
   <div id="pcegg">
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
-      <div class="details">
-        <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
-        <div class="left">
-          <p class="color-white">第{{last_expect}}期</p>
-          <p class="color-white mt5">开奖号码</p>
+        <div class="details">
+            <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
+            <div class="left">
+                <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+2}}期</p>
+                <div class="balls">
+                    <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+                    <span class="bg-none color-white">+</span>
+                    <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+                    <span class="bg-none color-white">+</span>
+                    <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+                    <span class="bg-none color-white">=</span>
+                    <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="right-left">
+                    <p style="color:#209F16;">第{{this_expect}}期</p>
+                    <p>距离下期开奖还有</p>
+                </div>
+                <div class="right-right">
+                    <span class="fen">{{mins}}</span>
+                    <span>分</span>
+                    <span class="fen">{{seconds}}</span>
+                    <span >秒</span>
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="balls">
-          <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
-          <span class="bg-none color-white">+</span>
-          <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
-          <span class="bg-none color-white">+</span>
-          <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
-          <span class="bg-none color-white">=</span>
-          <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
-          <div class="clear"></div>
-        </div>
-        <div class="description">
-          <p class="color-white">
-            10分钟一期，每天09:50-01:54:30销售
-          </p>
-          <p class="color-white mt5">
-            今天已售100期,还剩79期
-          </p>
-
-        </div>
-
-        <div class="left">
-          <p class="color-white text-right">第{{this_expect}}期</p>
-          <p class="color-white mt5 text-right" v-show="end_time > 0">距离封盘</p>
-          <p class="color-white mt5 text-right" v-show="end_time <= 0">距离开盘</p>
-        </div>
-
-        <div class="count-down color-white">
-          <span>{{mins}}</span><b>分</b><span>{{seconds}}</span><b>秒</b>
-        </div>
-        <img src="../assets/img/alert-1.png" alt="" class="audio">
-        <div class="clear"></div>
-      </div>
 
       <div class="clear"></div>
     </div>

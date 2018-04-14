@@ -14,37 +14,90 @@
 .head .details > .logo-tubiao
 {
   float: left;
-  width: 45px;
-  height: 45px;
-  margin-top: -3px;
+  width: 54px;
+  height: 54px;
+  margin-top: 4px;
   margin-left: 15px;
 }
 .details
 {
   width: 1050px;
   float: left;
-  height: 60px;
+  height: 86px;
   margin-top:5px;
   background: #ea4c4c;
   margin-left: 5px;
   box-sizing: border-box;
   padding-top: 10px;
 }
-.left
+.left {
+    width: 355px;
+    height: 100%;
+    float: left;
+    margin-left: 13px;
+    text-align:left;
+}
+.right
 {
-  width: 120px;
-  height: 100%;
-  float: left;
+    width:300px;
+    height:65px;
+    border: 1px solid #f2dcaf;
+    background: #fffdf1;
+    float: left;
+}
+.right-left
+{
+    width:130px;
+    float: left;
+    height:100%;
+}
+.right-right
+{
+    width:170px;
+    float: left;
+}
+.right-right span
+{
+    float: left;
+    margin-top:5px;
+    height:50px;
+    line-height:50px;
+    margin-right:5px;
+}
+.right-right .fen
+{
+    display: block;
+    width:50px;
+    height:50px;
+    background: url('../img/opentimebg.png');
+    background-size: cover;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-top:5px;
+    font-size:28px;
+    color: #fff;
+    line-height:50px;
+    float: left;
+    margin-right:5px;
+}
+
+.right-left>p
+{
+    height:32px;
+    line-height:32px;
 }
 .balls
 {
   float: left;
+    margin-top:5px;
+    margin-left:12px;
 }
 .balls>span
 {
   display:block;
   float: left;
-  background: url("..//img/ball_cana.png");
+  background: url("../img/ball_cana.png");
   height: 40px;
   width: 40px;
   background-size: cover;
@@ -56,14 +109,7 @@
   color: #000;
 }
 
-.description
-{
-  float: left;
-  height:100%;
-  text-align: left;
-  margin-left: 18px;
-  position: relative;
-}
+
 .pan
 {
     float: left;
@@ -76,33 +122,7 @@
 {
   border-radius: 3px;
 }
-.count-down
-{
-  float: left;
-  height: 100%;
-}
-.count-down>span
-{
-  display:block;
-  width: 40px;
-  height: 40px;
-  border:2px solid #99cff6;
-  border-radius: 50%;
-  text-align:center;
-  line-height:40px;
-  font-size: 22px;
-  margin-left: 5px;
-  float: left;
-}
-.count-down>b
-{
-  float: left;
-  margin-top: 25px;
-}
-.audio
-{
-  margin-top: 6px;
-}
+
 #bet-content
 {
   width: 800px;
