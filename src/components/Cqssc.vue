@@ -742,7 +742,7 @@
               }
               let x = {content:'medium_3' + '__' + keys[i],money:this.fast_money};
 
-              console.log(this.bets);
+
               return
             }
             else

@@ -9,13 +9,13 @@
       <!--<p>信用资料</p>-->
       <!--</a>-->
 
-      <a @click="showOne(6)" class="nav-top">
+      <a href="/#/money_change" class="nav-top">
         <i class="fa fa-credit-card"></i>
         <p>资金明细</p>
       </a>
 
 
-      <a @click="showOne(5)"  class="nav-top">
+      <a href="/#/unclear_diagam"  class="nav-top">
           <i class="fa fa-line-chart"></i>
           <p>未结明细</p>
       </a>
@@ -70,8 +70,6 @@
     <open-history v-show="showArray[2]"></open-history>
     <rules v-show="showArray[3]"></rules>
     <clear v-show="showArray[4]"></clear>
-    <unclear v-show="showArray[5]"></unclear>
-    <money-change v-show="showArray[6]"></money-change>
     <sum v-show="showArray[7]"></sum>
   </div>
 
@@ -86,8 +84,6 @@ import openHistory from './open_history';
 import rules from './rules';
 import clear from './clear_diagam';
 import sum from './sum_diagam';
-import unclear from './unclear_diagam';
-import money_change from './money_change';
 export default
 {
   name:"Header",
@@ -108,19 +104,6 @@ export default
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
-        if(idx == 6)
-        {
-          this.$children[6].get_money_details();
-        }
-        if(idx == 5)
-        {
-
-          this.$children[5].tableArray = [1,0,0];
-          this.$children[5].type = 'ssc';
-          this.$children[5].table_lotterys = [1,0,0,0];
-          this.$children[5].list = this.$children[5].getOrder_2();
-
-        }
         if(idx == 4)
         {
           this.$children[4].tableArray = [1,0,0];
@@ -144,6 +127,9 @@ export default
         }
 
     },
+    /**
+     * 退出登录
+     */
     log_out:function()
     {
        this.$http.delete(`${this.global.config.API}token`).then(function(res){
@@ -168,8 +154,6 @@ export default
   created:()=>
   {
     //当页面加载时触发的函数
-
-
   },
   components:
   {
@@ -178,8 +162,6 @@ export default
     'open-history':openHistory,
     'rules':rules,
     'clear':clear,
-    'unclear':unclear,
-    'moneyChange':money_change,
     'sum':sum,
   }
 }

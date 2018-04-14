@@ -1,10 +1,8 @@
 <template>
-    <div class="task" @click="close()">
-            <div class="xinyongziliao" @click="stop($event)">
+    <div class="money-change" >
                     <div class="xy-header">
                          <i class="fa fa-line-chart"></i>
                         <span>未结算报表</span>
-                        <span class="pull-right close-2" @click="close()">X</span>
                         <div class="clear"></div>
                     </div>
 
@@ -28,39 +26,44 @@
 
 
                     <div class="xy-right">
-                        <div class="xy-right-top">
-                            <a :class="tableArray[0]?'active':''" @click="showOne(0)">未结分类明细</a>
-                        </div>
                          <table v-show="tableArray[0]" >
                             <tr class="color-red">
+                                <td>时间</td>
                                 <td>期数</td>
                                 <td>注单号</td>
-                                <td>时间</td>
                                 <td>下注内容</td>
-                                <td>下注金额</td>
                                 <td>当时赔率</td>
+                                <td>下注金额</td>
                                 <td>预赢金额</td>
                             </tr>
-                            <tr v-for="v in list">
-                                <td v-for="val in v"  style="border:1px solid #e5e5e5;box-sizing: border-box">{{val}}</td>
+                            <tr v-for="v in data">
+                                <td>{{v.create_time}}</td>
+                                <td>{{v.expect}}</td>
+                                <td>{{v.order_no}}</td>
+                                <td>{{v.mark_a}}--{{v.mark_b}}</td>
+                                <td>{{v.rate}}</td>
+                                <td>{{v.money}}</td>
+                                <td>{{v.win}}</td>
                             </tr>
                         </table>
                         <div class="page-xy">
-                                <span @click="prev_page">◀</span>
-                                <input type="text" v-model="page"  disabled>
-                                <span @click="next_page">▶</span>
+                            <span v-if="hasPrev" @click="prevPage">◀</span>
+                            <span v-if="!hasPrev" style="color:gray;">◀</span>
+                            <b>第{{page}}页</b>
+                            <span v-if="hasNext" @click="nextPage">▶</span>
+                            <span v-if="!hasNext" style="color:gray;">▶</span>
+                            <b>共{{pageNum}}页,{{sum}}条</b>
                         </div>
                     </div>
-
                     <div class="clear"></div>
             </div>
-    </div>
 </template>
 
 
 <script>
 export default
 {
+   name:"unclear_diagam",
    data:function()
    {
        var data =
@@ -69,26 +72,20 @@ export default
           table_lotterys:[1,0,0,0],
           unclear:[{'order':'','time' :'','content':'','money':'','rate':'', 'win':''}],
           type:'ssc',//默认要的彩种数据
+          hasNext:false,
+          hasPrev:false,
           next_url:'',
           prev_url:'',
           list:[],
           page :1,
+          pageNum:0,
+          sum:0,
+          data:[],
        };
        return data;
    },
    methods:
    {
-
-       close:function()
-       {
-           this.tableArray = [1,0,0];
-           this.type = 'ssc';
-           this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
-       },
-       stop:function(event)
-       {
-         event.cancelBubble = true;
-       },
        showOne:function(idx)
        {
             this.tableArray = [0,0,0];
@@ -102,45 +99,88 @@ export default
             this.type = str;
             this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0/per_page/10`);
        },
-       //下一页
-       next_page:function(){
-          if(this.next_url) this.list = this.getOrder_2(this.next_url);
-          else alert('没有下一页');
+       prevPage:function()
+       {
+           if(!this.hasPrev)
+           {
+               alert('没有上一页了');
+               return;
+           }
+           else
+           {
 
+               this.$http.get("http://lty-main.com" + this.prevPageUrl)
+                   .then(function(res)
+                   {
+                       if(res.data.status == 200)
+                       {
+                           let data = res.data.data;
+                           this.data  = data.list;
+                           this.hasPrev = data.hasPrev;
+                           this.hasNext = data.hasNext;
+                           this.sum = data.sum;
+                           this.pageNum = data.pageNum;
+                           this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                           this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                           this.page = data.curPage;
+                       }
+                       else
+                       {
+                           this.$message.error(res.data.msg);
+                       }
+                   });
+           }
        },
-       //上一页
-       prev_page:function(){
-         if(this.prev_url) this.list = this.getOrder_2(this.prev_url);
-         else alert('没有上一页');
+       nextPage:function()
+       {
+           if(!this.hasNext)
+           {
+               alert('没有下一页了');
+               return;
+           }
+           else
+           {
+               this.$http.get("http://lty-main.com" + this.nextPageUrl)
+                   .then(function(res){
+                       if(res.data.status == 200)
+                       {
+                           let data = res.data.data;
+                           this.data  = data.list;
+                           this.hasPrev = data.hasPrev;
+                           this.hasNext = data.hasNext;
+                           this.sum = data.sum;
+                           this.pageNum = data.pageNum;
+                           this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                           this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                           this.page = data.curPage;
+                       }
+                       else
+                       {
+                           this.$message.error(res.data.msg);
+                       }
+                   });
+           }
        },
       //获取cqssc,pk10,egg,cake未结算的数据
-      getOrder_2 : function(url = `${this.global.config.API}ssc/history/clear/0/per_page/10`)
+      getOrder_2 : function(url = `${this.global.config.API}ssc/history/clear/0`)
       {
         var orderData_2 = [];
         this.$http.get(url).then(function(res)
         {
            if(res.data.status == 403) return false;
-           let data = res.data.data;
-           this.page = data.curPage;
-           this.next_url = data.nextPageUrl;
-           this.prev_url = data.prevPageUrl;
-           let list  = data.list;
-           for(let i = 0; i<list.length;i++)
-           {
-             let data =
-               {
-                 'expect': `${list[i].expect}`,
-                 'order' : `${list[i].order_no}`,
-                 'time' : `${list[i].create_time}`,
-                 'content' : list[i].mark_a + '-' + list[i].mark_b,
-                 'money' : list[i].money,
-                 'rate' : list[i].rate,
-                 'win' : list[i].win,
-               };
-             orderData_2.push(data);
-            }
+            let data = res.data.data;
+            this.data  = data.list;
+            console.log(this.data);
+            this.hasPrev = data.hasPrev;
+            this.hasNext = data.hasNext;
+            this.sum = data.sum;
+            this.pageNum = data.pageNum;
+            this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+            this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+            this.page = data.curPage;
+
         });
-       return orderData_2;
+
      },
 
    },
@@ -159,24 +199,25 @@ export default
 
 
 <style scoped>
-    .task
+    .page-xy
     {
-        position:fixed;
-        width:100%;
-        height: 100%;
-        left:0;
-        top:0;
-        background: rgba(0,0,0,0.6);
-        z-index:3;
+        font-size: 16px;
+        color: #000;
+        padding:8px 0;
+        position: absolute;
+        bottom:10px;
+        left:355px;
     }
-    .xinyongziliao
+    .page-xy>span
     {
-      width:900px;
-      height: 445px;
-      position: absolute;
-      left: 50%;
-      margin-left: -450px;
-      top: 50px;
+        cursor: pointer;
+    }
+
+    .money-change
+    {
+        width:1080px;
+        margin-left:10px;
+        margin-top:5px;
     }
     .xy-header
     {
@@ -188,47 +229,37 @@ export default
     {
         float: left;
         width: 20px;
-        margin-top: 5px;
+        margin-top: 8px;
         height: 20px;
         margin-left: 15px;
     }
     .xy-header>span
     {
-            float: left;
-            height:30px;
-            line-height: 30px;
-            font-size: 14px;
-            margin-left:5px;
+        float: left;
+        height:30px;
+        line-height: 30px;
+        font-size: 14px;
+        margin-left:5px;
 
     }
-    .close-2
+    table
     {
-        margin-right: 5px;
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 24px!important;
-        cursor: pointer;
+        width:100%;
+    }
+    table tr td
+    {
+        border: 1px solid #e5e5e5;
+        padding:8px 3px;
     }
     .xy-left
     {
         width: 185px;
-        height: 515px;
+        height: 590px;
         float: left;
         box-sizing: border-box;
         background: #fff;
-    }
-    .xy-user
-    {
-        height: 80px;
-        width: 100%;
-        line-height:80px;
-        font-size: 16px;
-        color: #f3f3f3;
-    }
-    .xy-user
-    {
-        width: 100%;
+        border-right: 1px solid #e5e5e5;
+
     }
     .xy-list>a
     {
@@ -246,175 +277,18 @@ export default
     }
     .xy-list>.active
     {
-            background: -webkit-linear-gradient(left,rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Safari 5.1 - 6.0 */
-            background: -o-linear-gradient(right, rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Opera 11.1 - 12.0 */
-            background: -moz-linear-gradient(right,rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Firefox 3.6 - 15 */
-            background: linear-gradient(to right, rgba(230,0,0,0.3),rgba(200,200,200,0)); /* 标准的语法 */
+        background: -webkit-linear-gradient(left,rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Safari 5.1 - 6.0 */
+        background: -o-linear-gradient(right, rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Opera 11.1 - 12.0 */
+        background: -moz-linear-gradient(right,rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Firefox 3.6 - 15 */
+        background: linear-gradient(to right, rgba(230,0,0,0.3),rgba(200,200,200,0)); /* 标准的语法 */
     }
     .xy-right
     {
-        height: 515px;
-        width:715px;
+        height: 590px;
+        width:895px;
         background: #fff;
         float: left;
         position: relative;
     }
-    .xy-right-top
-    {
-        width: 100%;
-        height: 44px;
-        overflow: hidden;
-        background: #ededed;
-    }
-    .xy-right-top>a
-    {
-        float: left;
-        height: 22px;
-        box-sizing:border-box;
-        padding:1px 3px;
-        color:#f3f3f3;
-        font-size: 13px;
-        margin-top: 11px;
-        margin-left: 5px;
-        line-height: 21px;
-        cursor: pointer;
-    }
-    .xy-right-top>a.active
-    {
-        background: #fb5722;
-        border-radius: 3px;
-    }
-    .xy-right-top-left
-    {
-        float: left;
-        width: 307.5px;
-        height: 100%;
-        overflow: hidden;
-    }
-    .yibancai
-    {
-        height: 100%;
-        width: 100px;
-        color: #f3f3f3;
-        font-size: 18px;
-        line-height: 74px;
-    }
-    .edu
-    {
-        padding-top: 15px;
-        box-sizing: border-box;
-    }
-    .edu>p
-    {
-        height: 20px;
-        line-height: 20px;
-        color:#f3f3f3;
-        font-size: 14px;
-    }
-    table
-    {
-        width: 100%;
-        color: #000;
-        font-size: 14px;
 
-    }
-    table>tr
-    {
-        height: 40px;
-        border-bottom:1px solid #e5e5e5;
-    }
-    td>span
-    {
-        display: block;
-        padding: 3px;
-    }
-
-    .open-code
-    {
-        float: left;
-        width: 25px;
-        height: 25px;
-        background: url('../assets/img/ball.png');
-        background-size: cover;
-        margin-left:5px;
-        margin-right:2px;
-        color: #5e6061;
-        line-height: 25px;
-        font-size: 18px;
-        font-weight: 700;
-        text-align: center;
-    }
-    .xy-right-top>span
-    {
-        float: left;
-        height: 30px;
-        margin-top:7px;
-        line-height: 30px;
-        font-size: 14px;
-        margin-left: 5px;
-        color: #f3f3f3;
-    }
-
-    .xy-right-top>input
-    {
-        width: 120px;
-        float: left;
-        background: none;
-        outline: none;
-        border: 1px solid #f3f3f3;
-        color: #f3f3f3;
-        float: left;
-        height: 22px;;
-        margin-top:11px;
-        margin-left: 5px;
-        border-radius:3px;
-    }
-    .xy-right-top>button
-    {
-        float: left;
-        background: #5598c5;
-        font-size: 14px;
-        padding: 3px;
-        outline: none;
-        border: 1px solid #f3f3f3;
-        color:#f3f3f3;
-        margin-top:9px;
-        border-radius: 3px;
-        margin-left: 15px;
-        width: 70px;
-        /* height: 20px; */
-    }
-    .page-xy
-    {
-        width: 100%;
-        height: 30px;
-        box-sizing: border-box;
-        background: #e63636;
-        position: absolute;
-        bottom: 0px;
-        left:0;
-    }
-    .page-xy>span
-    {
-        float: left;
-        width:30px;
-        line-height:30px;
-        margin-left:5px;
-        margin-right:3px;
-        color:#f3f3f3;
-        cursor:pointer;
-
-    }
-    .page-xy>input
-    {
-        width: 40px;
-        height: 20px;
-        margin-top: 5px;
-        text-align:center;
-        color:#f3f3f3;
-        font-size: 12px;
-        background: #fb5722;
-        border:none;
-        float: left;
-    }
 </style>

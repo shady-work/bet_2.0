@@ -1,48 +1,53 @@
 
 <template>
-    <div class="task" @click="close()">
-            <div class="xinyongziliao" @click="stop($event)">
-                    <div class="xy-header">
-                        <i class="fa fa-bar-chart"></i>
-                        <span>资金明细</span>
-                        <span class="pull-right close-2" @click="close()">X</span>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="money-table">
-                      <table border="1">
-                         <thead>
-                            <tr>
-                              <td>类型</td>
-                              <td>金额</td>
-                              <td>时间</td>
-                              <!--<td>备注</td>-->
-                            </tr>
-                         </thead>
-                         <tbody>
-                            <tr v-for="(v,k) in data">
-                              <td  width="200">{{v.con}}</td>
-                              <td  width="200">{{v.chg}}</td>
-                              <td  width="200">{{v.opr_time}}</td>
-                              <!--<td  class="beizhu"><p>{{v.opr_mark}}</p></td>-->
-                            </tr>
-                         </tbody>
-                      </table>
-                      <div class="page-xy">
-                        <span @click="prevPage">◀</span>
-                        <b>第{{page}}页</b>
-                        <span @click="nextPage">▶</span>
-                        <b>共{{pageNum}}页,{{sum}}条</b>
-                      </div>
-                    </div>
+        <div class="money-change">
+                <div class="xy-header">
+                    <i class="fa fa-bar-chart"></i>
+                    <span>资金明细</span>
                     <div class="clear"></div>
-            </div>
-    </div>
+                </div>
+                <div class="money-table">
+                  <table border="1">
+                     <thead>
+                        <tr>
+                          <td>时间</td>
+                          <td>类型</td>
+                          <td>变动前金额</td>
+                          <td>金额</td>
+                          <td>变动后金额</td>
+                          <!--<td>备注</td>-->
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr v-for="(v,k) in data">
+                          <td  width="200">{{v.opr_time}}</td>
+                          <td  width="200">{{v.con}}</td>
+                          <td  width="200">{{v.old}}</td>
+                          <td  width="200">{{v.chg}}</td>
+                          <td  width="200">{{v.cur}}</td>
+                          <!--<td  class="beizhu"><p style="">{{v.opr_mark}}</p></td>-->
+                        </tr>
+                     </tbody>
+                  </table>
+                  <div class="page-xy">
+                    <span v-if="hasPrev" @click="prevPage">◀</span>
+                    <span v-if="!hasPrev" style="color:gray;">◀</span>
+                    <b>第{{page}}页</b>
+                    <span v-if="hasNext" @click="nextPage">▶</span>
+                    <span v-if="!hasNext" style="color:gray;">▶</span>
+                    <b>共{{pageNum}}页,{{sum}}条</b>
+                  </div>
+                </div>
+                <div class="clear"></div>
+        </div>
+
 </template>
 
 
 <script>
 export default
 {
+    name:'money_change',
    data:function()
    {
        var data =
@@ -69,15 +74,9 @@ export default
 
    methods:
    {
-
-       close:function()
-       {
-           this.$parent.showArray = [0,0,0,0,0,0,0,0,0];
-       },
-       stop:function(event)
-       {
-          event.cancelBubble = true;
-       },
+       /**
+        * 获取资金明细列表
+        */
        get_money_details:function()
        {
          this.$http.get(`${this.global.config.API}chgs`)
@@ -130,8 +129,8 @@ export default
            });
        }
        },
-        nextPage:function()
-        {
+       nextPage:function()
+       {
          if(!this.hasNext)
          {
            alert('没有下一页了');
@@ -156,11 +155,8 @@ export default
                }
              });
          }
-        },
-        my_trim:function(str)
-        {
-          return str.replace(/^\s+|\s+$/gm,'');
-        }
+       },
+
 
    },//methods end
    created:function()
@@ -187,38 +183,23 @@ export default
 
 
 <style scoped>
-  .beizhu
-  {
-    width: 200px;
-    height: 30px;
-  }
+
   .page-xy
   {
     font-size: 16px;
     color: #000;
+      padding:8px 0;
   }
   .page-xy>span
   {
     cursor: pointer;
   }
-  .task
+
+  .money-change
   {
-    position:fixed;
-    width:100%;
-    height: 100%;
-    left:0;
-    top:0;
-    background: rgba(0,0,0,0.6);
-    z-index:3;
-  }
-  .xinyongziliao
-  {
-    width:700px;
-    height: 445px;
-    position: absolute;
-    left: 50%;
-    margin-left: -350px;
-    top: 50px;
+    width:1080px;
+      margin-left:10px;
+      margin-top:5px;
   }
   .xy-header
   {
@@ -236,7 +217,7 @@ export default
   {
     float: left;
     width: 20px;
-    margin-top: 5px;
+    margin-top: 8px;
     height: 20px;
     margin-left: 15px;
   }
@@ -249,84 +230,15 @@ export default
     margin-left:5px;
 
   }
-  .close-2
-  {
-    margin-right: 5px;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 24px!important;
-    cursor: pointer;
-  }
-  .xy-list>a
-  {
-    display: block;
-    width: 100%;
-    padding: 3px;
-    text-align: left;
-    text-indent:35px;
-    height: 30px;
-    line-height:30px;
-    color:#f3f3f3;
-    font-size: 14px;
-    box-sizing: border-box;
-    cursor: pointer;
-  }
-  .xy-list>.active
-  {
-    background: -webkit-linear-gradient(left,rgba(210,210,210,0.3),rgba(200,200,200,0)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(210,210,210,0.3),rgba(200,200,200,0)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right,rgba(210,210,210,0.3),rgba(200,200,200,0)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(210,210,210,0.3),rgba(200,200,200,0)); /* 标准的语法 */
-  }
-
-  .xy-right-top>a
-  {
-    float: left;
-    height: 22px;
-    box-sizing:border-box;
-    padding:1px 3px;
-    color:#f3f3f3;
-    font-size: 13px;
-    margin-top: 11px;
-    margin-left: 5px;
-    line-height: 21px;
-    cursor: pointer;
-  }
-  .xy-right-top>a.active
-  {
-    background: #5598c5;
-    border-radius: 3px;
-  }
-
-
-  .edu>p
-  {
-    height: 20px;
-    line-height: 20px;
-    color:#f3f3f3;
-    font-size: 14px;
-  }
   table
   {
-    width: 100%;
-    color: #000;
-    font-size: 14px;
-
+      width:100%;
   }
-  table tr
+  table tr td
   {
-    height: 25px;
-    border-bottom:1px solid #000;
+      border: 1px solid #e5e5e5;
+      padding:8px 3px;
   }
-  td>span
-  {
-    display: block;
-    padding: 3px;
-  }
-
-
-
 </style>
 
 

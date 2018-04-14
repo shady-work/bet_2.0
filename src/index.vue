@@ -11,15 +11,6 @@
      </div>
      <div class="clear"></div>
     <!-- 底部的滚动条 -->
-    <div id="notice">
-      <!--<div class="left">-->
-        <!--<img src="./assets/img/alert-1.png" alt="">-->
-        <!--<span>近期公告</span>-->
-      <!--</div>-->
-      <!--<marquee behavior="" direction="">-->
-        <!--本网站2010年成立于菲律宾，专业经营各项博彩业务，主营北京赛车pk10，幸运飞艇，重庆时时彩，广东快乐十分，幸运农场，六合彩等项目，自主开户，现金开户，安全稳定，下注简单，服务优质。-->
-      <!--</marquee>-->
-    </div>
    </div>
 </template>
 

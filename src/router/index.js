@@ -10,6 +10,8 @@ import Index from '../index.vue';
 import Withdraw from '@/components/withdraw.vue';
 import football from '@/components/football.vue';
 import man_online from '@/components/man_online.vue';
+import money_change from '@/components/money_change.vue';
+import unclear_diagam from '@/components/unclear_diagam.vue';
 import VueResource from 'vue-resource';/*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -64,6 +66,16 @@ export default new Router(
           path:"/man_online",
           name:"man_online",
           component:man_online,
+        },
+        {
+          path:"/money_change",
+          name:"money_change",
+          component:money_change,
+        },
+        {
+          path:"/unclear_diagam",
+          name:"unclear_diagam",
+          component:unclear_diagam,
         },
       ],
     },
