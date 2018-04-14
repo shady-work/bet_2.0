@@ -9,10 +9,10 @@
                 <!--快彩额度:<span class="color-red">10000</span>-->
             </p>
             <p class="kuaicai">
-                可用额度:<span class="">{{$store.state.cash_money}}</span>
+                <span>可用额度:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{$store.state.cash_money}}</span>
             </p>
-            <p class="kuaicai">
-                今日盈亏:<span class="">{{$store.state.win_lost_today}}</span>
+            <p class="kuaicai" >
+                <span>今日盈亏:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{$store.state.win_lost_today}}</span>
             </p>
         </div>
         <div class="clear"></div>

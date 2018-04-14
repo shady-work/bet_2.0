@@ -4,10 +4,6 @@
     <!-- 上面的选择 -->
     <div class="a-waps">
       <img src="" alt="" id="logo">
-      <!--<a @click="showOne(0)" class="nav-top">-->
-      <!--<i class="fa fa-credit-card"></i>-->
-      <!--<p>信用资料</p>-->
-      <!--</a>-->
 
       <a href="/#/money_change" class="nav-top">
         <i class="fa fa-credit-card"></i>
@@ -37,7 +33,7 @@
       </a>
 
 
-      <a @click="showOne(2)" class="nav-top">
+      <a href="/#/open_history" class="nav-top">
             <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
       </a>
@@ -65,7 +61,7 @@
       </a>
     </div>
 
-    <xinyongziliao v-show="showArray[0]"></xinyongziliao>
+
     <edi-pwd v-show="showArray[1]"></edi-pwd>
     <open-history v-show="showArray[2]"></open-history>
     <rules v-show="showArray[3]"></rules>
@@ -76,9 +72,7 @@
 </template>
 
 <script>
-import xinyongziliao from './xinyongziliao';
 import editPwd from './edit_pwd';
-import openHistory from './open_history';
 import rules from './rules';
 export default
 {
@@ -93,9 +87,7 @@ export default
   },
   methods:
   {
-    /**@augments
-     *
-     */
+
     showOne:function(idx)
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
@@ -138,9 +130,8 @@ export default
   },
   components:
   {
-    'xinyongziliao':xinyongziliao,
+
     'edi-pwd':editPwd,
-    'open-history':openHistory,
     'rules':rules,
   }
 }

@@ -1,10 +1,9 @@
 <template>
-  <div class="task" @click="close()">
-    <div class="xinyongziliao" @click="cancel">
+
+    <div class="xinyongziliao" >
       <div class="xy-header">
-        <img src="../assets/img/index_19_1.png" alt="">
+        <i class="fa fa-history"></i>
         <span>历史开奖</span>
-        <span class="pull-right close-2" @click="close()">X</span>
         <div class="clear"></div>
       </div>
 
@@ -38,7 +37,7 @@
           </button>
         </div>-->
         <table border="1">
-          <tr v-if="type == 'ssc'">
+          <tr v-if="type == 'ssc'" class="color-red">
             <td>日期</td>
             <td>期数</td>
             <td style="width:200px;">
@@ -66,7 +65,8 @@
             <td>{{v.details.medium_3[0]}}</td>
             <td>{{v.details.end_3[0]}}</td>
           </tr>
-          <tr v-if="type == 'pk10'">
+
+          <tr v-if="type == 'pk10'" class="color-red">
             <td>日期</td>
             <td>期数</td>
             <td style="width:200px;">
@@ -83,7 +83,8 @@
             <td width="60">{{parseInt(v.open_codes[0]) + parseInt(v.open_codes[1])}}</td>
 
           </tr>
-          <tr v-if="type == 'cake'">
+
+          <tr v-if="type == 'cake'" class="color-red">
             <td>日期</td>
             <td width="80">期数</td>
             <td style="width:115px;">
@@ -104,7 +105,8 @@
             <td>{{v.details.ball_2[0]}}-{{v.details.ball_2[1]}}-{{v.details.ball_2[2]}}-{{v.details.ball_2[3]}}</td>
             <td>{{v.details.ball_3[0]}}</td>
           </tr>
-          <tr v-if="type == 'egg'">
+
+          <tr v-if="type == 'egg'" class="color-red">
             <td>日期</td>
             <td width="80">期数</td>
             <td style="width:115px;">
@@ -126,31 +128,38 @@
             <td>{{v.details.ball_3[0]}}</td>
           </tr>
         </table>
-        <div class="page-xy">
-          <span @click="prev_page">◀</span>
-          <input type="text" v-model="page">
-          <span @click="next_page">▶</span>
-          <span class="pull-right" style="width:auto;">每页10条</span>
-        </div>
+          <div class="page-xy">
+              <span v-if="hasPrev" @click="prevPage">◀</span>
+              <span v-if="!hasPrev" style="color:gray;">◀</span>
+              <b>第{{page}}页</b>
+              <span v-if="hasNext" @click="nextPage">▶</span>
+              <span v-if="!hasNext" style="color:gray;">▶</span>
+              <b>共{{pageNum}}页,{{sum}}条</b>
+          </div>
       </div>
 
       <div class="clear"></div>
     </div>
-  </div>
+
 </template>
 
 <script>
-export default
-{
+export default {
+
+  name:'open_history',
   data: function () {
     var data =
     {
         table_lotterys:[1,0,0,0],
         type:'ssc',//默认要的彩种数据
-        next_url:'',
-        prev_url:'',
         list:[],
         page :1,
+        hasNext:false,
+        hasPrev:false,
+        nextPageUrl:'',
+        prevPageUrl:'',
+        sum:0,
+        pageNum:0,
     };
     return data;
   },
@@ -171,26 +180,29 @@ export default
       this.table_lotterys = [0,0,0,0];
       this.table_lotterys[idx] = 1;
       this.type = str;
-      this.list = this.get_codes(`${this.global.config.API}${this.type}/history/lottery/per_page/10`);
+      this.list = this.get_codes(`${this.global.config.API}${this.type}/history/lottery`);
     },
-    //下一页
-    next_page:function(){
-      if(this.next_url) this.list = this.get_codes(this.next_url);
-      else alert('没有下一页');
+    /**
+     * 获取开奖号码
+     * @param url
+     */
+    get_codes:function(url = `${this.global.config.API}ssc/history/lottery`)
+    {
+      this.$http.get(url).then(function(res)
+      {
+          if(res.data.status == 200)
+          {
+              let data = res.data.data;
+              this.list = data.list;
+              this.hasPrev = data.hasPrev;
+              this.hasNext = data.hasNext;
+              this.sum = data.sum;
+              this.pageNum = data.pageNum;
+              this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+              this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+              this.page = data.curPage;
+          }
 
-    },
-    //上一页
-    prev_page:function(){
-      if(this.prev_url) this.list = this.get_codes(this.prev_url);
-      else alert('没有上一页');
-    },
-    get_codes:function(url = `${this.global.config.API}ssc/history/lottery/per_page/10`){
-      this.$http.get(url).then(function(res){
-        let data = res.data.data;
-        this.list = data.list;
-        this.page = data.curPage;
-        this.next_url = data.nextPageUrl;
-        this.prev_url = data.prevPageUrl;
       });
     },
     get_sum:function(arr)
@@ -225,7 +237,69 @@ export default
       }
       return className;
 
-    }
+    },
+    prevPage:function()
+    {
+      if(!this.hasPrev)
+      {
+          this.$message.error('没有上一页了');
+          return;
+      }
+      else
+      {
+
+          this.$http.get("http://lty-main.com" + this.prevPageUrl)
+              .then(function(res)
+              {
+                  if(res.data.status == 200)
+                  {
+                      let data = res.data.data;
+                      this.list = data.list;
+                      this.hasPrev = data.hasPrev;
+                      this.hasNext = data.hasNext;
+                      this.sum = data.sum;
+                      this.pageNum = data.pageNum;
+                      this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                      this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                      this.page = data.curPage;
+                  }
+                  else
+                  {
+                      this.$message.error(res.data.msg);
+                  }
+              });
+      }
+    },
+    nextPage:function()
+    {
+      if(!this.hasNext)
+      {
+          this.$message.error('没有下一页了');
+          return;
+      }
+      else
+      {
+          this.$http.get("http://lty-main.com" + this.nextPageUrl)
+              .then(function(res){
+                  if(res.data.status == 200)
+                  {
+                      let data = res.data.data;
+                      this.list = data.list;
+                      this.hasPrev = data.hasPrev;
+                      this.hasNext = data.hasNext;
+                      this.sum = data.sum;
+                      this.pageNum = data.pageNum;
+                      this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                      this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                      this.page = data.curPage;
+                  }
+                  else
+                  {
+                      this.$message.error(res.data.msg);
+                  }
+              });
+      }
+  },
 
   },
   created:function(){
@@ -240,23 +314,13 @@ export default
 
 
 <style scoped>
-  .task {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 3;
-  }
 
-  .xinyongziliao {
-    width:900px;
-    height: 445px;
-    position: absolute;
-    left: 50%;
-    margin-left: -450px;
-    top: 50px;
+  .xinyongziliao
+  {
+      width:1080px;
+      margin-top:5px;
+      margin-left:10px;
+
   }
 
   .xy-header {
@@ -265,10 +329,10 @@ export default
     color: #f3f3f3;
   }
 
-  .xy-header > img {
+  .xy-header > i {
     float: left;
     width: 20px;
-    margin-top: 5px;
+    margin-top: 8px;
     height: 20px;
     margin-left: 15px;
   }
@@ -282,21 +346,14 @@ export default
 
   }
 
-  .close-2 {
-    margin-right: 5px;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-size: 24px !important;
-    cursor: pointer;
-  }
 
   .xy-left {
     width: 155px;
-    height: 515px;
+    height: 795px;
     float: left;
     box-sizing: border-box;
     background: #fff;
+    border-right: 1px solid #e5e5e5;
   }
 
 
@@ -323,8 +380,8 @@ export default
   }
 
   .xy-right {
-    height: 515px;
-    width: 745px;
+    height: 795px;
+    width: 925px;
     background: #fff;
     float: left;
   }
@@ -403,34 +460,20 @@ export default
     width: 70px;
   }
 
-  .page-xy {
-    width: 100%;
-    height: 30px;
-    box-sizing: border-box;
-    background: #e63636;
+  .page-xy
+  {
+      font-size: 16px;
+      color: #000;
+      padding:8px 0;
   }
-
-  .page-xy > span {
-    float: left;
-    width: 30px;
-    line-height: 30px;
-    margin-left: 5px;
-    margin-right: 3px;
-    color: #f3f3f3;
-    cursor: pointer;
-
+  .page-xy>span
+  {
+      cursor: pointer;
   }
-
-  .page-xy > input {
-    width: 40px;
-    height: 20px;
-    margin-top: 5px;
-    text-align: center;
-    color: #f3f3f3;
-    font-size: 12px;
-    background: #ff7300;
-    border: none;
-    float: left;
+  td
+  {
+      border: 1px solid #e5e5e5;
+      padding:8px 3px;
   }
 
   .hao1
