@@ -181,4 +181,15 @@ a:hover{
 .pointer{
     cursor:pointer;
 }
+/*全局的*/
+.global-div
+{
+    position:absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 20px;
+    width:1200px;
 
+    overflow-x: hidden;
+
+}

@@ -92,6 +92,8 @@
                 this.$store.state.credit_money = data.money.credit_money;//信用额度
                 this.$store.state.win_lost_today = data.yk;//信用额度
               });
+              //跳转到cqssc
+              this.$router.push('cqssc');
             }
             else
             {

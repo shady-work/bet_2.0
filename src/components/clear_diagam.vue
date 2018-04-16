@@ -4,6 +4,7 @@
             <div class="xy-header">
                 <i class="fa fa-bar-chart"></i>
                 <span>已结算报表</span>
+                <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>
                 <div class="clear"></div>
             </div>
             <div class="xy-left">
@@ -162,7 +163,7 @@ export default
            else
            {
 
-               this.$http.get("http://lty-main.com" + this.prevPageUrl)
+               this.$http.get(this.prevPageUrl)
                    .then(function(res)
                    {
                        if(res.data.status == 200)
@@ -193,7 +194,7 @@ export default
            }
            else
            {
-               this.$http.get("http://lty-main.com" + this.nextPageUrl)
+               this.$http.get(this.nextPageUrl)
                    .then(function(res){
                        if(res.data.status == 200)
                        {
@@ -260,6 +261,7 @@ export default
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
+       this.$store.state.isShowSecond = true;
        this.list = this.getOrder_2();
      }
 
@@ -277,7 +279,18 @@ export default
             this.tableArray  = [0,1,0];
             this.get_data(n,this.type);
           }
-      }
+      },
+       /**
+        * 监听$store.state.isShowSecond，当关闭时，返回cqssc
+        * @param n
+        */
+       "$store.state.isShowSecond":function(n)
+       {
+           if(n === false)
+           {
+               this.$router.push('index/');
+           }
+       }
    }
 }
 

@@ -4,6 +4,7 @@
                 <div class="xy-header">
                     <i class="fa fa-bar-chart"></i>
                     <span>资金明细</span>
+                    <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>
                     <div class="clear"></div>
                 </div>
                 <div class="money-table">
@@ -47,7 +48,7 @@
 <script>
 export default
 {
-    name:'money_change',
+   name:'money_change',
    data:function()
    {
        var data =
@@ -163,10 +164,25 @@ export default
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
+        this.$store.state.isShowSecond = true;
         this.get_money_details();
      }
 
    },
+    watch:
+    {
+        /**
+         * 监听$store.state.isShowSecond，当关闭时，返回cqssc
+         * @param n
+         */
+        "$store.state.isShowSecond":function(n)
+        {
+            if(n === false)
+            {
+                this.$router.push(window.sessionStorage.which_lty);
+            }
+        }
+    }
 }
 
 </script>

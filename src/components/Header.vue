@@ -10,6 +10,11 @@
         <p>资金明细</p>
       </a>
 
+      <!--<router-link to="/money_change">-->
+          <!--<i class="fa fa-credit-card"></i>-->
+          <!--<p>资金明细</p>-->
+      <!--</router-link>-->
+
 
       <a href="/#/unclear_diagam"  class="nav-top">
           <i class="fa fa-line-chart"></i>
@@ -27,17 +32,14 @@
       </a>
 
 
-      <a @click="showOne(1)" class="nav-top">
-        <i class="fa fa-unlock-alt font36"></i>
-        <p>修改密码</p>
-      </a>
-
-
       <a href="/#/open_history" class="nav-top">
             <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
       </a>
-
+      <a href="/#/rules" class="nav-top">
+          <i class="fa fa-list-ol"></i>
+          <p>玩法规则</p>
+      </a>
 
       <a href="#/recharge" class="nav-top">
         <i class="fa fa-usd" aria-hidden="true"></i>
@@ -50,9 +52,9 @@
         <p>提现</p>
       </a>
 
-      <a href="/#/rules" class="nav-top">
-          <i class="fa fa-list-ol"></i>
-          <p>玩法规则</p>
+      <a @click="showOne(1)" class="nav-top">
+          <i class="fa fa-unlock-alt font36"></i>
+          <p>修改密码</p>
       </a>
 
       <a @click="log_out()" class="nav-top">
@@ -89,13 +91,6 @@ export default
     {
         this.showArray = [0,0,0,0,0,0,0,0,0];
         this.showArray[idx] = 1;
-        if(idx == 2)
-        {
-          this.$children[2].table_lotterys = [1,0,0,0];
-          this.$children[2].type = 'ssc';
-          this.$children[2].get_codes();
-
-        }
     },
     /**
      * 退出登录

@@ -41,6 +41,7 @@ var store = new vuex.Store(
         cash_money:0,         //余额
         unclear:[],//未结算清单  用于侧边栏
         win_lost_today:0,//今日盈亏
+        isShowSecond:false,//是否显示每个彩种下面的第二级view
 
     },
     mutations:

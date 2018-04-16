@@ -120,28 +120,34 @@ export default
             switch(idx)
             {
                 case 0:
-                this.$router.push('/index');
+                this.$router.push('/cqssc');
                 window.sessionStorage.index = 0;
+                window.sessionStorage.which_lty = 'cqssc';
                 break;
                 case 1:
-                this.$router.push('pk10');
+                this.$router.push('/pk10');
                 window.sessionStorage.index = 1;
+                window.sessionStorage.which_lty = 'pk10';
                 break;
                 case 2:
-                this.$router.push('cakeno28');
-                  window.sessionStorage.index = 2;
+                this.$router.push('/cakeno28');
+                window.sessionStorage.index = 2;
+                window.sessionStorage.which_lty = 'cakeno28';
                 break;
                 case 3:
-                this.$router.push('pcegg');
+                this.$router.push('/pcegg');
                 window.sessionStorage.index = 3;
+                window.sessionStorage.which_lty = 'pcegg';
                 break;
                 case 4:
                 this.$router.push('football');
                 window.sessionStorage.index = 4;
+                window.sessionStorage.which_lty = 'football';
                 break;
                 case 5:
                 this.$router.push('man_online');
                 window.sessionStorage.index = 5;
+                window.sessionStorage.which_lty = 'man_online';
                 break;
                 default:
                 break;
@@ -166,6 +172,10 @@ export default
        //获取全局的未结算清单
       if(this.$store.state.isLogin)
       {
+        //默认是index ==>cqssc的彩种、
+        window.sessionStorage.which_lty = 'index';
+
+
 
         if(window.sessionStorage.index)
         {

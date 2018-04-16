@@ -4,7 +4,7 @@
             <div class="xy-header">
                 <i class="fa fa-bar-chart"></i>
                 <span>结算报表</span>
-
+                <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>
                 <b style="line-height:30px;" v-show="details_show">{{when_}}</b>
                 <div class="clear"></div>
             </div>
@@ -249,9 +249,24 @@ export default
    {
      if(window.sessionStorage.isLogin == 'ok')
      {
+       this.$store.state.isShowSecond = true;
        this.get_all_data();
      }
    },
+   watch:
+   {
+       /**
+        * 监听$store.state.isShowSecond，当关闭时，返回cqssc
+        * @param n
+        */
+       "$store.state.isShowSecond":function(n)
+       {
+           if(n === false)
+           {
+               this.$router.push('index/');
+           }
+       }
+   }
 }
 
 </script>

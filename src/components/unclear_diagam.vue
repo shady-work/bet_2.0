@@ -3,6 +3,7 @@
                     <div class="xy-header">
                          <i class="fa fa-line-chart"></i>
                         <span>未结算报表</span>
+                        <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>
                         <div class="clear"></div>
                     </div>
 
@@ -170,7 +171,6 @@ export default
            if(res.data.status == 403) return false;
             let data = res.data.data;
             this.data  = data.list;
-            console.log(this.data);
             this.hasPrev = data.hasPrev;
             this.hasNext = data.hasNext;
             this.sum = data.sum;
@@ -188,10 +188,25 @@ export default
 
      if(window.sessionStorage.isLogin == 'ok')
      {
+       this.$store.state.isShowSecond = true;
        this.list = this.getOrder_2();
 
      }
    },
+    watch:
+    {
+        /**
+         * 监听$store.state.isShowSecond，当关闭时，返回cqssc
+         * @param n
+         */
+        "$store.state.isShowSecond":function(n)
+        {
+            if(n === false)
+            {
+                this.$router.push('index/');
+            }
+        }
+    }
 }
 
 

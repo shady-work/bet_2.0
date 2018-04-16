@@ -14,7 +14,7 @@
         <div class="right">
             <div class="right-left">
                 <p style="color:#209F16;">第{{thisExpect}}期</p>
-                <p>距离下期开奖还有</p>
+                <p>{{tips}}</p>
             </div>
             <div class="right-right">
                 <span class="fen">{{mins}}</span>
@@ -276,10 +276,14 @@
       center>
       <div v-html="bet_html"></div>
       <span slot="footer" class="dialog-footer">
-    <el-button @click="centerDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="do_bet()">确 定</el-button>
-  </span>
+            <el-button @click="centerDialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="do_bet()">确 定</el-button>
+      </span>
     </el-dialog>
+
+
+
+
 
   </div>
 </template>
@@ -424,6 +428,7 @@
           vaild_lotteries:[],//  用户拥有哪些彩种
           fanshui:'',
           orderData:[],//未结算数据
+          tips:'距离本期封盘还有',
 
       };
       return my_data;
@@ -875,6 +880,7 @@
              {
                that.mins = '00';
                that.seconds = Math.abs(that.open_time);
+               that.tips = "离开盘还有";
                if(that.end_time == 0)
                {
                  that.thisExpect = parseInt(that.thisExpect) + 1;
@@ -885,6 +891,7 @@
                  {
                    that.mins = "--";
                    that.seconds = "--";
+                   that.tips = '请等待开盘';
                  }
                  if(that.open_time == 0)
                  {
@@ -894,6 +901,7 @@
                    that.get_time();
                    //获取未结算的订单
                    that.get_ssc_unclear();
+                   that.tips = "距离本期封盘还有";
                  }
                  else
                  {
@@ -911,6 +919,7 @@
                seconds  = seconds>9?seconds:('0'+seconds);
                that.seconds = seconds;
              }
+
              that.end_time--;
              that.open_time--;
            },1000);

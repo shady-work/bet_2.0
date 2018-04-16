@@ -4,7 +4,7 @@
                 <div class="xy-header">
                    <i class="fa fa-list-ol"></i>
                     <span>玩法规则</span>
-                    <span class="pull-right close-2" @click="close()">X</span>
+                    <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>
                     <div class="clear"></div>
                 </div>
 
@@ -228,7 +228,25 @@ export default
            e.cancelBubble = true;
        },
 
-   }
+   },
+   created()
+   {
+       this.$store.state.isShowSecond = true;
+   },
+    watch:
+        {
+            /**
+             * 监听$store.state.isShowSecond，当关闭时，返回cqssc
+             * @param n
+             */
+            "$store.state.isShowSecond":function(n)
+            {
+                if(n === false)
+                {
+                    this.$router.push('index/');
+                }
+            }
+        }
 }
 </script>
 

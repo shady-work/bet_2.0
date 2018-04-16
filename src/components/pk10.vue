@@ -15,7 +15,7 @@
           <div class="right">
               <div class="right-left">
                   <p style="color:#209F16;">第{{thisExpect}}期</p>
-                  <p>距离下期开奖还有</p>
+                  <p>{{tips}}</p>
               </div>
               <div class="right-right">
                   <span class="fen">{{mins}}</span>
@@ -356,6 +356,10 @@
     <el-button type="primary" @click="do_bet()">确 定</el-button>
   </span>
     </el-dialog>
+
+
+
+
   </div>
 </template>
 
@@ -568,6 +572,7 @@
 
           fanshui:"",
           orderData:[],//未结算数据
+          tips:'距离本期封盘还有',
 
 
         };
@@ -640,12 +645,14 @@
           {
             that.mins = '00';
             that.seconds = that.open_time;
+            that.tips = "离开盘还有";
             if(that.open_time <= 0 )
             {
               if(that.open_time < -100)
               {
                 that.mins = "--";
                 that.seconds = "--";
+                that.tips = '请等待开盘';
               }
 
               if(that.open_time == 0)
@@ -656,6 +663,7 @@
                 that.get_time();
                 //获取未结算的订单
                 that.get_ssc_unclear();
+                that.tips = "距离本期封盘还有";
               }
               else
               {
@@ -673,6 +681,7 @@
             seconds  = seconds>9?seconds:('0'+seconds);
             that.seconds = seconds;
           }
+
           that.end_time--;
           that.open_time--;
 
