@@ -914,7 +914,6 @@
                 {
                     this.bets.splice(i,1);
                     flag = true;
-                    break;
                 }
                 if(flag)
                 {

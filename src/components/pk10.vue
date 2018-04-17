@@ -96,7 +96,7 @@
                 <div v-for="(val,key,idx) in double_aspect_a" v-if="v[val] != 0.0000" class="first-ball-details text-0">
                    <span class="he22 ">{{double_aspect_c[key]}}</span>
                   <span class="he22 ">{{v[val]}}</span>
-                  <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)">
+                  <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)" @change="bet_db_change(index,key)">
                   <div class="clear"></div>
                 </div>
                 <div class="first-ball-top">
@@ -113,7 +113,7 @@
               <div v-for="(v,index) in sum_half_a" class="long-bet-content">
                 <span>{{sum_half_b[index]}}</span>
                 <span>{{odds.sum_half[v]}}</span>
-                <input type="text" v-model="bets.sum_half[index]" @click="bet_db2(v,index)">
+                <input type="text" v-model="bets.sum_half[index]" @click="bet_db2(v,index)" @change="bet_db2_change(v,index)" >
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -128,7 +128,10 @@
               <div v-for="(val,key,idx) in singleball_a" class="first-ball-details">
                 <span :class="'hao' + (key+1)">{{key+1}}</span>
                 <span class="he22">{{v[val]}}</span>
-                <input type="text" class="innnn" v-model="bets.single_ball['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1_10(k,key)">
+                <input type="text" class="innnn" v-model="bets.single_ball['ball_'+ (index+1) +'_digit'][key]"
+                       @click="single_ball_1_10(k,key)"
+                       @change="single_ball_1_10_change(k,key)"
+                >
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -151,7 +154,10 @@
               <div v-for="(v,index) in sum_digit_a" class="long-bet-content">
                 <span>{{index+3}}</span>
                 <span>{{odds.sum_digit[v]}}</span>
-                <input type="text" v-model="bets.sum_digit[index]" @click="sumbo(v,index)">
+                <input type="text" v-model="bets.sum_digit[index]"
+                       @click="sumbo(v,index)"
+                       @change="sumbo_change(v,index)"
+                >
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -164,7 +170,10 @@
               <div v-for="(v,index) in sum_half_a" class="long-bet-content">
                 <span>{{sum_half_b[index]}}</span>
                 <span>{{odds.sum_half[v]}}</span>
-                <input type="text" v-model="bets.sum_half[index]" @click="bet_db2(v,index)" >
+                <input type="text" v-model="bets.sum_half[index]"
+                       @click="bet_db2(v,index)"
+                       @change="bet_db2_change(v,index)"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -179,7 +188,10 @@
               <div v-for="(v,index) in singleball_a" class="long-bet-content ">
                 <span :class="'hao'+(index+1)">{{index+1}}</span>
                 <span>{{odds.single_ball.ball_1_digit[v]}}</span>
-                <input type="text" v-model="bets.single_ball.ball_1_digit[index]" @click="single_ball_1(v,index,'ball_1_digit')">
+                <input type="text" v-model="bets.single_ball.ball_1_digit[index]"
+                       @click="single_ball_1(v,index,'ball_1_digit')"
+                       @change="single_ball_1_change(v,index,'ball_1_digit')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -189,7 +201,10 @@
               <div v-for="(v,index) in double_aspect_a" class="long-bet-content">
                 <span class="font16px">{{double_aspect_c[index]}}</span>
                 <span>{{odds.double_aspect.ball_1_half[v]}}</span>
-                <input type="text" v-model="bets.double_aspect.ball_1_half[index]" @click="single_ball_2(v,index,'ball_1_half')">
+                <input type="text" v-model="bets.double_aspect.ball_1_half[index]"
+                       @click="single_ball_2(v,index,'ball_1_half')"
+                       @change="single_ball_2_change(v,index,'ball_1_half')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -204,7 +219,10 @@
               <div v-for="(v,index) in singleball_a" class="long-bet-content ">
                 <span :class="'hao'+(index+1)">{{index+1}}</span>
                 <span>{{odds.single_ball.ball_2_digit[v]}}</span>
-                <input type="text" v-model="bets.single_ball.ball_2_digit[index]" @click="single_ball_1(v,index,'ball_2_digit')">
+                <input type="text" v-model="bets.single_ball.ball_2_digit[index]"
+                       @click="single_ball_1(v,index,'ball_2_digit')"
+                       @change="single_ball_1_change(v,index,'ball_2_digit')"
+                >
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -213,7 +231,10 @@
               <div v-for="(v,index) in double_aspect_a" class="long-bet-content">
                 <span class="font16px">{{double_aspect_c[index]}}</span>
                 <span>{{odds.double_aspect.ball_2_half[v]}}</span>
-                <input type="text" v-model="bets.double_aspect.ball_2_half[index]" @click="single_ball_2(v,index,'ball_2_half')">
+                <input type="text" v-model="bets.double_aspect.ball_2_half[index]"
+                       @click="single_ball_2(v,index,'ball_2_half')"
+                       @change="single_ball_2_change(v,index,'ball_2_half')"
+                >
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -234,7 +255,10 @@
               <div v-for="(val,key) in singleball_a" class="long-bet-content" >
                 <span :class="'hao'+(key+1)">{{key+1}}</span>
                 <span>{{odds.single_ball[k][val]}}</span>
-                <input type="text" v-model="bets.single_ball[k][key]" @click="single_ball_1(val,key,k)">
+                <input type="text" v-model="bets.single_ball[k][key]"
+                       @click="single_ball_1(val,key,k)"
+                       @change="single_ball_1_change(val,key,k)"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -244,7 +268,10 @@
               <div v-for="(val,key) in double_aspect_a" class="long-bet-content" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val] != 0.0000 || !odds.double_aspect['ball_' + (index+1) + '_half'][val]">
                 <span class="font16px">{{double_aspect_c[key]}}</span>
                 <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
-                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')">
+                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]"
+                       @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')"
+                       @change="single_ball_2_change(val,key,'ball_' + (index+1) + '_half')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -266,7 +293,10 @@
               <div v-for="(val,key) in singleball_a" class="long-bet-content ">
                 <span :class="'hao'+(key+1)">{{key+1}}</span>
                 <span>{{odds.single_ball[k][val]}}</span>
-                <input type="text" v-model="bets.single_ball[k][key]" @click="single_ball_1(val,key,k)">
+                <input type="text" v-model="bets.single_ball[k][key]"
+                       @click="single_ball_1(val,key,k)"
+                       @change="single_ball_1_change(val,key,k)"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -276,7 +306,10 @@
               <div v-for="(val,key) in double_aspect_a" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val] != 0.000 || !odds.double_aspect['ball_' + (index+1) + '_half'][val]" class="long-bet-content" >
                 <span class="font16px">{{double_aspect_c[key]}}</span>
                 <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
-                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]" @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')">
+                <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]"
+                       @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')"
+                       @change="single_ball_2_change(val,key,'ball_' + (index+1) + '_half')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -400,7 +433,7 @@
 
           sum_digit_a:['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'],
           sum_half_a:['A','B','C','D'],
-          sum_half_b:['冠军单','冠军双','冠亚大','冠亚小'],
+          sum_half_b:['冠军大','冠军小','冠亚单','冠亚双'],
 
           //赔率
           odds:{
@@ -744,28 +777,124 @@
         }
 
       },
-
+      //两面盘点击下注1
       bet_db:function(k,k2)
       {
+        if(this.bets.double_aspect[this.double_aspect[k]][k2] != "")
+        {
+          return false;
+        }
         this.bets.double_aspect[this.double_aspect[k]][k2] = this.fast_money;//改变下注金额
         this.bets.double_aspect[this.double_aspect[k]].reverse().reverse();//触发视图层改变
         let content = this.double_aspect[k] + '__' + this.double_aspect_a[k2];
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
       },
+      //两面盘修改下注1
+      bet_db_change(k,k2)
+      {
+        let content = this.double_aspect[k] + '__' + this.double_aspect_a[k2];
+        this.bet_content.push({content:content,money:this.bets.double_aspect[this.double_aspect[k]][k2]});//添加到下注内容区
+      },
+      //两面盘点击下注2
       bet_db2:function(v,k)
       {
+        if(this.bets.sum_half[k] != "")
+        {
+          return false;
+        }
         this.bets.sum_half[k] = this.fast_money;//改变下注金额
         this.bets.sum_half.reverse().reverse();//触发视图层改变
         let content = 'sum_half__' + v;
         this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
       },
+      //两面盘修改下注2
+      bet_db2_change:function(v,k)
+      {
+        let content = 'sum_half__' + v;
+        this.bet_content.push({content:content,money:this.bets.sum_half[k]});//添加到下注内容区
+      },
+      //单球点击下注
+      single_ball_1_10:function(k,k2)
+      {
+        if(this.bets.single_ball[k][k2] != "")
+        {
+          return false;
+        }
+        let keys = ['A','B','C','D','E','F','G','H','I','J'];
+        this.bets.single_ball[k][k2] = this.fast_money;//改变下注金额
+        this.bets.single_ball[k].reverse().reverse();//触发视图层改变
+        let content = k + '__' + keys[k2];
+        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
+      },
+      //单球修改下注
+      single_ball_1_10_change:function(k,k2)
+      {
+        let keys = ['A','B','C','D','E','F','G','H','I','J'];
+        let content = k + '__' + keys[k2];
+        this.bet_content.push({content:content,money:this.bets.single_ball[k][k2]});//添加到下注内容区
+      },
+      //总和点击下注
+      sumbo:function(v,k)
+      {
+        if(this.bets.sum_digit[k] != "")
+        {
+          return false;
+        }
+        this.bets.sum_digit[k] = this.fast_money;//改变下注金额
+        this.bets.sum_digit.reverse().reverse();//触发视图层改变
+        let content = 'sum_digit__' + v;
+        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
+      },
+      //总和修改下注
+      sumbo_change:function(v,k)
+      {
+        let content = 'sum_digit__' + v;
+        this.bet_content.push({content:content,money:this.bets.sum_digit[k]});//添加到下注内容区
+      },
+      //单球点击下注1
+      single_ball_1:function (v,k,str)
+      {
+        if(this.bets.single_ball[str][k] != "")
+        {
+          return false;
+        }
+        this.bets.single_ball[str][k] = this.fast_money;//改变下注金额
+        this.bets.single_ball[str].reverse().reverse();//触发视图层改变
+        let content = str + "__" + v;
+        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
+      },
+      //单球修改下注2
+      single_ball_1_change:function (v,k,str)
+      {
+        let content = str + "__" + v;
+        this.bet_content.push({content:content,money:this.bets.single_ball[str][k]});//添加到下注内容区
+      },
+      //单球点击下注1
+      single_ball_2:function (v,k,str)
+      {
+        if(this.bets.double_aspect[str][k] != "")
+        {
+          return false;
+        }
+        this.bets.double_aspect[str][k] = this.fast_money;//改变下注金额
+        this.bets.double_aspect[str].reverse().reverse();//触发视图层改变
+        let content = str + "__" + v;
+        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
+      },
+      //单球点击下注1
+      single_ball_2_change:function (v,k,str)
+      {
+        let content = str + "__" + v;
+        this.bet_content.push({content:content,money:this.bets.double_aspect[str][k]});//添加到下注内容区
+      },
+      //清除下注内容
       clear_bet:function ()
       {
         //清空数据
         this.bet_content = [];
         //重置ui
         this.bets =
-        {
+          {
             single_ball:{
               'ball_1_digit':['','','','','','','','','','',],
               'ball_2_digit':['','','','','','','','','','',],
@@ -792,47 +921,17 @@
             },
             sum_digit:['','','','','','','','','','','','','','','','',''],
             sum_half:['','','',''],
-        };
+          };
         //更新视图层
         this.bets.single_ball.ball_1_digit.reverse().reverse();
-      },
-      single_ball_1_10:function(k,k2)
-      {
-        let keys = ['A','B','C','D','E','F','G','H','I','J'];
-        this.bets.single_ball[k][k2] = this.fast_money;//改变下注金额
-        this.bets.single_ball[k].reverse().reverse();//触发视图层改变
-        let content = k + '__' + keys[k2];
-        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-
-      },
-      sumbo:function(v,k)
-      {
-        this.bets.sum_digit[k] = this.fast_money;//改变下注金额
-        this.bets.sum_digit.reverse().reverse();//触发视图层改变
-        let content = 'sum_digit__' + v;
-        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-
-      },
-      single_ball_1:function (v,k,str)
-      {
-        this.bets.single_ball[str][k] = this.fast_money;//改变下注金额
-        this.bets.single_ball[str].reverse().reverse();//触发视图层改变
-        let content = str + "__" + v;
-        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-      },
-      single_ball_2:function (v,k,str)
-      {
-        this.bets.double_aspect[str][k] = this.fast_money;//改变下注金额
-        this.bets.double_aspect[str].reverse().reverse();//触发视图层改变
-        let content = str + "__" + v;
-        this.bet_content.push({content:content,money:this.fast_money});//添加到下注内容区
-
       },
       /**
        * 用户确认下注
        */
       comfire_content:function()
       {
+        //过滤掉相同的对象
+        this.filter_same();
         //当用户没有选择下注内容的时候要提示用户选择
         if(this.bet_content.length < 1){
           this.$message(
@@ -844,9 +943,6 @@
             });
           return 0;
         }
-
-        //过滤掉相同的对象
-        this.filter_same();
 
         //拼接字符串
         let html = '';
@@ -879,6 +975,11 @@
               break;
             }
           }
+          if(!this.bet_content[i].money)
+          {
+            this.bet_content.splice(i,1);
+            flag = true;
+          }
           if(flag)
           {
             this.filter_same();
@@ -907,8 +1008,6 @@
               });
               //获取全局的未结算清单
               this.get_ssc_unclear();
-
-
               this.$message(
                 {
                   dangerouslyUseHTMLString: true,

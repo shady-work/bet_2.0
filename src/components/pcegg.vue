@@ -1,221 +1,232 @@
 <template>
-  <div id="pcegg">
-    <!-- 期数 时间 开奖号码 -->
-    <div class="head">
-        <div class="details">
-            <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
-            <div class="left">
-                <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+2}}期</p>
-                <div class="balls">
-                    <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
-                    <span class="bg-none color-white">+</span>
-                    <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
-                    <span class="bg-none color-white">+</span>
-                    <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
-                    <span class="bg-none color-white">=</span>
-                    <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+    <div id="pcegg">
+        <!-- 期数 时间 开奖号码 -->
+        <div class="head">
+            <div class="details">
+                <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
+                <div class="left">
+                    <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期</p>
+                    <div class="balls">
+                        <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+                        <span class="bg-none color-white">+</span>
+                        <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+                        <span class="bg-none color-white">+</span>
+                        <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+                        <span class="bg-none color-white">=</span>
+                        <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="right-left">
+                        <p style="color:#209F16;">第{{this_expect}}期</p>
+                        <p>{{tips}}</p>
+                    </div>
+                    <div class="right-right">
+                        <span class="fen">{{mins}}</span>
+                        <span>分</span>
+                        <span class="fen">{{seconds}}</span>
+                        <span >秒</span>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <!-- 下注内容区 -->
+        <div id="bet-content">
+            <form action="">
+                <div class="bet-content-table">
+                    <a class="color-white active">
+                        PC蛋蛋
+                        <span></span>
+                    </a>
+                </div>
+
+                <div class="bet-content-input">
+                    <div class="pan">
+                        <label>盘口</label>
+                        <select v-model="which_handicap">
+                            <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
+                        </select>
+                    </div>
+                    <div class="fast-bet">
+                        快速下注金额
+                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                    </div>
+                    <div class="bet-btns">
+                        <a @click="setBetMoney(10)">10</a>
+                        <a @click="setBetMoney(50)">50</a>
+                        <a @click="setBetMoney(100)">100</a>
+                        <a @click="setBetMoney(200)">200</a>
+                        <a @click="setBetMoney(500)">500</a>
+                        <a @click="setBetMoney(1000)">1000</a>
+                        <a @click="clear_bet()" class="pull-right chongtian">重填</a>
+                        <a @click="comfire_bet" class="pull-right tijiao">提交</a>
+                        <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
+                    </div>
                     <div class="clear"></div>
                 </div>
-            </div>
-            <div class="right">
-                <div class="right-left">
-                    <p style="color:#209F16;">第{{this_expect}}期</p>
-                    <p>{{tips}}</p>
+
+
+                <!-- 第一球 -->
+                <div class="bet-chooses">
+                    <div class="bet-chooses-top">
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                                混合
+                            </div>
+                            <div v-for="(v,k) in odds.mixture" class="long-bet-content" v-if="v !=  0.0000">
+                                <span >{{odds.mixture_str[k]}}</span>
+                                <span>{{v}}</span>
+                                <input type="text" v-if="k != 10" v-model="bet_content.mixture[k]"
+                                       @click="choose_one(k,'mixture','ball_2')"
+                                       @change="choose_one_change(k,'mixture','ball_2')"
+                                >
+
+                                <input type="text" v-if="k == 10" v-model="bet_content.mixture[10]"
+                                       @click="choose_one(1,'mixture','ball_4')"
+                                       @change="choose_one_change(1,'mixture','ball_4')"
+                                >
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                                波色
+                            </div>
+                            <div v-for="(v,k) in odds.color" class="long-bet-content" v-if="v !=  0.0000">
+                                <span>{{odds.color_str[k]}}</span>
+                                <span>{{v}}</span>
+                                <input type="text" v-model="bet_content.color[k]"
+                                       @click="choose_one(k,'color','ball_3')"
+                                       @change="choose_one_change(k,'color','ball_3')"
+                                >
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet special-code" style="height:auto;">
+                            <div class="first-ball-top">
+                                特码
+                            </div>
+                            <div v-for="(v,k) in odds.special" class="long-bet-content">
+                                <span class="hao0 ml10 mt5" :class="returnColor(k)">{{k}}</span>
+                                <span>{{v}}</span>
+                                <input type="text" v-model="bet_content.special[k]"
+                                       @click="choose_one(k,'special','ball_1')"
+                                       @change="choose_one_change(k,'special','ball_1')"
+                                >
+                                <div class="clear"></div>
+                            </div>
+
+
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div class="clear"></div>
+                    </div>
                 </div>
-                <div class="right-right">
-                    <span class="fen">{{mins}}</span>
-                    <span>分</span>
-                    <span class="fen">{{seconds}}</span>
-                    <span >秒</span>
+
+
+                <div class="bet-content-input mt5">
+                    <div class="pan">
+                        <label>盘口</label>
+                        <select v-model="which_handicap">
+                            <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
+                        </select>
+                    </div>
+                    <div class="fast-bet">
+                        快速下注金额
+                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                    </div>
+                    <div class="bet-btns">
+                        <a @click="setBetMoney(10)">10</a>
+                        <a @click="setBetMoney(50)">50</a>
+                        <a @click="setBetMoney(100)">100</a>
+                        <a @click="setBetMoney(200)">200</a>
+                        <a @click="setBetMoney(500)">500</a>
+                        <a @click="setBetMoney(1000)">1000</a>
+                        <a @click="clear_bet()" class="pull-right chongtian">重填</a>
+                        <a @click="comfire_bet" class="pull-right tijiao">提交</a>
+                        <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </form>
+
+
+        </div>
+
+        <!-- 右边的历史记录 -->
+        <div id="history">
+            <div class="history-header" @click="showHistory">
+                长龙排行 <span class="pull-right pointer">{{history_str}}</span>
+            </div>
+            <div class="history-table">
+                <a @click="showType(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
+                <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙-出</a>
+                <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
+            </div>
+
+            <div class="history-list" v-show="history_tables[0]">
+
+            </div>
+
+            <div class="history-list" v-show="history_tables[1]">
+
+            </div>
+
+            <div class="history-list" v-show="history_tables[2]">
+                <div class="history-balls" v-for="v in history_codes">
+                    <span>{{v.expect}}</span>
+                    <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
+                    <span class="code-fh">+</span>
+                    <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
+                    <span class="code-fh">+</span>
+                    <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
+                    <span class="code-fh">=</span>
+                    <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
                 </div>
             </div>
-            <div class="clear"></div>
-        </div>
-
-      <div class="clear"></div>
-    </div>
-
-    <!-- 下注内容区 -->
-    <div id="bet-content">
-      <form action="">
-        <div class="bet-content-table">
-          <a class="color-white active">
-              PC蛋蛋
-            <span></span>
-          </a>
-        </div>
-
-        <div class="bet-content-input">
-            <div class="pan">
-                <label >盘口</label>
-                <select v-model="which_handicap">
-                    <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-                </select>
+            <div class="history-close ">
+                <a @click="close_history()" class="pointer">
+                    关闭
+                </a>
             </div>
-          <div class="fast-bet">
-            快速下注金额
-            <input type="text" class="fast-bet-input" v-model="fast_money">
-          </div>
-          <div class="bet-btns">
-            <a @click="setBetMoney(10)">10</a>
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
-            <a @click="clear_bet()" class="pull-right chongtian">重填</a>
-            <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-            <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
-          </div>
-          <div class="clear"></div>
         </div>
 
 
-        <!-- 第一球 -->
-        <div class="bet-chooses">
-          <div class="bet-chooses-top">
-
-            <div class="long-bet" style="height:auto;">
-              <div class="first-ball-top">
-                混合
-              </div>
-              <div v-for="(v,k) in odds.mixture" class="long-bet-content" v-if="v !=  0.0000">
-                <span >{{odds.mixture_str[k]}}</span>
-                <span>{{v}}</span>
-                <input type="text" v-if="k != 10" v-model="bet_content.mixture[k]"
-                       @click="choose_one(k,'mixture','ball_2')">
-
-                <input type="text" v-if="k == 10" v-model="bet_content.mixture[10]"
-                       @click="choose_one(1,'mixture','ball_4')">
-                <div class="clear"></div>
-              </div>
-
-              <div class="clear"></div>
-            </div>
-
-            <div class="long-bet" style="height:auto;">
-              <div class="first-ball-top">
-                波色
-              </div>
-              <div v-for="(v,k) in odds.color" class="long-bet-content" v-if="v !=  0.0000">
-                <span>{{odds.color_str[k]}}</span>
-                <span>{{v}}</span>
-                <input type="text" v-model="bet_content.color[k]" @click="choose_one(k,'color','ball_3')">
-                <div class="clear"></div>
-              </div>
-
-              <div class="clear"></div>
-            </div>
-
-            <div class="long-bet special-code" style="height:auto;">
-              <div class="first-ball-top">
-                特码
-              </div>
-              <div v-for="(v,k) in odds.special" class="long-bet-content">
-                <span class="hao0 ml10 mt5" :class="returnColor(k)">{{k}}</span>
-                <span>{{v}}</span>
-                <input type="text" v-model="bet_content.special[k]" @click="choose_one(k,'special','ball_1')">
-                <div class="clear"></div>
-              </div>
-
-
-              <div class="clear"></div>
-            </div>
-
-
-            <div class="clear"></div>
-          </div>
-        </div>
-
-
-        <div class="bet-content-input mt5">
-            <div class="pan">
-                <label >盘口</label>
-                <select v-model="which_handicap">
-                    <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-                </select>
-            </div>
-          <div class="fast-bet">
-            快速下注金额
-            <input type="text" class="fast-bet-input" v-model="fast_money">
-          </div>
-          <div class="bet-btns">
-            <a @click="setBetMoney(10)">10</a>
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
-            <a @click="clear_bet()" class="pull-right chongtian">重填</a>
-            <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-            <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
-          </div>
-          <div class="clear"></div>
-        </div>
-
-      </form>
-
-
-    </div>
-
-    <!-- 右边的历史记录 -->
-    <div id="history">
-      <div class="history-header" @click="showHistory">
-        长龙排行 <span class="pull-right pointer">{{history_str}}</span>
-      </div>
-      <div class="history-table">
-        <a @click="showType(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
-        <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙-出</a>
-        <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
-      </div>
-
-      <div class="history-list" v-show="history_tables[0]">
-
-      </div>
-
-      <div class="history-list" v-show="history_tables[1]">
-
-      </div>
-
-      <div class="history-list" v-show="history_tables[2]">
-        <div class="history-balls" v-for="v in history_codes">
-          <span>{{v.expect}}</span>
-          <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
-          <span class="code-fh">+</span>
-          <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
-          <span class="code-fh">+</span>
-          <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
-          <span class="code-fh">=</span>
-          <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
-        </div>
-      </div>
-      <div class="history-close ">
-        <a @click="close_history()" class="pointer">
-          关闭
-        </a>
-      </div>
-    </div>
-
-
-    <!--下注提示框-->
-    <el-dialog
-      title="确认下注"
-      :visible.sync="centerDialogVisible"
-      width="30%"
-      center>
-      <div v-html="bet_html"></div>
-      <span slot="footer" class="dialog-footer">
+        <!--下注提示框-->
+        <el-dialog
+                title="确认下注"
+                :visible.sync="centerDialogVisible"
+                width="30%"
+                center>
+            <div v-html="bet_html"></div>
+            <span slot="footer" class="dialog-footer">
     <el-button @click="centerDialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="do_bet()">确 定</el-button>
   </span>
-    </el-dialog>
-  </div>
+        </el-dialog>
+
+    </div>
 </template>
 
 
 <script>
   export default {
-    name: "Pcegg",
+    name: "Cakeno28",
     data() {
       var my_data =
         {
@@ -387,20 +398,46 @@
           }
 
         },
+        //**选择一个下注
         choose_one: function (k, str, str2)
         {
-
-          if (str2 == 'ball_4') {
-            var content = `ball_4__e1`;
+          let content = '';
+          if (str2 == 'ball_4')
+          {
+            content = `ball_4__e1`;
+            if(this.bet_content.mixture[10] != "")
+            {
+              return false;
+            }
             this.bet_content.mixture[10] = this.fast_money;//改变下注金额
             this.bet_content.mixture.reverse().reverse();//触发视图层改变
           }
-          else {
-            var content = str2 + "__e" + (k + 1);
+          else
+          {
+            content = str2 + "__e" + (k + 1);
+            if(this.bet_content[str][k] != "")
+            {
+              return false;
+            }
             this.bet_content[str][k] = this.fast_money;//改变下注金额
             this.bet_content[str].reverse().reverse();//触发视图层改变
           }
           this.bets.push({content: content, money: this.fast_money});//添加到下注内容区
+        },
+        choose_one_change: function (k, str, str2)
+        {
+          let content = '';
+          if (str2 == 'ball_4')
+          {
+            content = `ball_4__e1`;
+            this.bets.push({content: content, money: this.bet_content.mixture[10]});//添加到下注内容区
+          }
+          else
+          {
+            content = str2 + "__e" + (k + 1);
+            this.bets.push({content: content, money: this.bet_content[str][k]});//添加到下注内容区
+          }
+
         },
         clear_bet: function ()
         {
@@ -422,6 +459,8 @@
 
         comfire_bet: function ()
         {
+          //过滤掉相同的对象
+          this.filter_same();
           //当用户没有选择下注内容的时候要提示用户选择
           if (this.bets.length < 1) {
             this.$message(
@@ -433,8 +472,6 @@
               });
             return 0;
           }
-          //过滤掉相同的对象
-          this.filter_same();
           let html = '';
           for (let i = 0; i < this.bets.length; i++) {
             var index = this.dicrationaries.indexOf(this.bets[i].content);
@@ -458,6 +495,11 @@
                 flag = true;
                 break;
               }
+            }
+            if(!this.bets[i].money)
+            {
+              this.bets.splice(i,1);
+              flag = true;
             }
             if (flag) {
               this.filter_same();
@@ -574,6 +616,7 @@
               seconds  = seconds>9?seconds:('0'+seconds);
               that.seconds = seconds;
             }
+
             that.end_time--;
             that.open_time--;
           },1000);
@@ -689,7 +732,7 @@
             this.get_last_code();
             this.get_time();
             this.get_codes_history();
-            this.get_users_handicaps();
+            this.get_users_handicaps()
             this.get_ssc_unclear();
           }
           else
@@ -767,6 +810,6 @@
 
 
 <style scoped>
-  @import url('../assets/css/cakeno28.css');
+    @import url('../assets/css/cakeno28.css');
 </style>
 

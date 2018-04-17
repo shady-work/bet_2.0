@@ -83,10 +83,14 @@
                 <span >{{odds.mixture_str[k]}}</span>
                 <span>{{v}}</span>
                 <input type="text" v-if="k != 10" v-model="bet_content.mixture[k]"
-                       @click="choose_one(k,'mixture','ball_2')">
+                       @click="choose_one(k,'mixture','ball_2')"
+                       @change="choose_one_change(k,'mixture','ball_2')"
+                >
 
                 <input type="text" v-if="k == 10" v-model="bet_content.mixture[10]"
-                       @click="choose_one(1,'mixture','ball_4')">
+                       @click="choose_one(1,'mixture','ball_4')"
+                       @change="choose_one_change(1,'mixture','ball_4')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -100,7 +104,10 @@
               <div v-for="(v,k) in odds.color" class="long-bet-content" v-if="v !=  0.0000">
                 <span>{{odds.color_str[k]}}</span>
                 <span>{{v}}</span>
-                <input type="text" v-model="bet_content.color[k]" @click="choose_one(k,'color','ball_3')">
+                <input type="text" v-model="bet_content.color[k]"
+                       @click="choose_one(k,'color','ball_3')"
+                       @change="choose_one_change(k,'color','ball_3')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -114,7 +121,10 @@
               <div v-for="(v,k) in odds.special" class="long-bet-content">
                 <span class="hao0 ml10 mt5" :class="returnColor(k)">{{k}}</span>
                 <span>{{v}}</span>
-                <input type="text" v-model="bet_content.special[k]" @click="choose_one(k,'special','ball_1')">
+                <input type="text" v-model="bet_content.special[k]"
+                       @click="choose_one(k,'special','ball_1')"
+                       @change="choose_one_change(k,'special','ball_1')"
+                >
                 <div class="clear"></div>
               </div>
 
@@ -388,20 +398,46 @@
           }
 
         },
+        //**选择一个下注
         choose_one: function (k, str, str2)
         {
-
-          if (str2 == 'ball_4') {
-            var content = `ball_4__e1`;
+          let content = '';
+          if (str2 == 'ball_4')
+          {
+            content = `ball_4__e1`;
+            if(this.bet_content.mixture[10] != "")
+            {
+              return false;
+            }
             this.bet_content.mixture[10] = this.fast_money;//改变下注金额
             this.bet_content.mixture.reverse().reverse();//触发视图层改变
           }
-          else {
-            var content = str2 + "__e" + (k + 1);
+          else
+          {
+            content = str2 + "__e" + (k + 1);
+            if(this.bet_content[str][k] != "")
+            {
+              return false;
+            }
             this.bet_content[str][k] = this.fast_money;//改变下注金额
             this.bet_content[str].reverse().reverse();//触发视图层改变
           }
           this.bets.push({content: content, money: this.fast_money});//添加到下注内容区
+        },
+        choose_one_change: function (k, str, str2)
+        {
+          let content = '';
+          if (str2 == 'ball_4')
+          {
+            content = `ball_4__e1`;
+            this.bets.push({content: content, money: this.bet_content.mixture[10]});//添加到下注内容区
+          }
+          else
+          {
+            content = str2 + "__e" + (k + 1);
+            this.bets.push({content: content, money: this.bet_content[str][k]});//添加到下注内容区
+          }
+
         },
         clear_bet: function ()
         {
@@ -423,19 +459,19 @@
 
         comfire_bet: function ()
         {
+          //过滤掉相同的对象
+          this.filter_same();
           //当用户没有选择下注内容的时候要提示用户选择
           if (this.bets.length < 1) {
             this.$message(
-              {
-                dangerouslyUseHTMLString: true,
-                message: '请选择下注内容后再提交',
-                center: true,
-                type: 'warning'
-              });
+            {
+            dangerouslyUseHTMLString: true,
+            message: '请选择下注内容后再提交',
+            center: true,
+            type: 'warning'
+          });
             return 0;
           }
-          //过滤掉相同的对象
-          this.filter_same();
           let html = '';
           for (let i = 0; i < this.bets.length; i++) {
             var index = this.dicrationaries.indexOf(this.bets[i].content);
@@ -459,6 +495,11 @@
                 flag = true;
                 break;
               }
+            }
+            if(!this.bets[i].money)
+            {
+              this.bets.splice(i,1);
+              flag = true;
             }
             if (flag) {
               this.filter_same();
