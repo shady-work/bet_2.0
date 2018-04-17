@@ -10,7 +10,7 @@
                 <div class="money-table">
                   <table border="1">
                      <thead>
-                        <tr>
+                        <tr class="color-red">
                           <td>时间</td>
                           <td>类型</td>
                           <td>变动前金额</td>

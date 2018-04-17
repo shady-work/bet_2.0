@@ -95,7 +95,7 @@
                 <span class="he22 padding3">
                     {{val}}
                 </span>
-                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)">
+                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1(k,key)">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -675,8 +675,8 @@
             this.bet_content[key][index] = this.fast_money;//改变下注金额
             this.bet_content[key].reverse().reverse();//触发视图层改变
             this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
-
         },
+        test(){console.log(12333123123)},
         //两面盘下注方法2
         double_2:function (index) {
           let keys = ['A','B','C','D','E','F','G'];//组织数组
@@ -822,6 +822,7 @@
          */
         do_bet:function ()
         {
+
            this.centerDialogVisible = false;
            this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
               if(res.data.status == 200)
@@ -975,7 +976,6 @@
                    this.which_handicap = res.data.data.ratelist[0].ratewin_name;
                    this.fanshui = res.data.data.ratelist[0].fs;
                  }
-
                }
              });
         },

@@ -36,6 +36,12 @@
             <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
       </a>
+
+      <a href="/#/bet_rules" class="nav-top">
+        <i class="fa fa-navicon"></i>
+        <p>玩法资讯</p>
+      </a>
+
       <a href="/#/rules" class="nav-top">
           <i class="fa fa-list-ol"></i>
           <p>玩法规则</p>

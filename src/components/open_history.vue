@@ -37,7 +37,7 @@
             查询
           </button>
         </div>-->
-        <table border="1">
+        <table border="1" v-show="isShow">
           <tr v-if="type == 'ssc'" class="color-red">
             <td>日期</td>
             <td>期数</td>
@@ -129,7 +129,7 @@
             <td>{{v.details.ball_3[0]}}</td>
           </tr>
         </table>
-          <div class="page-xy">
+          <div class="page-xy" v-show="isShow">
               <span v-if="hasPrev" @click="prevPage">◀</span>
               <span v-if="!hasPrev" style="color:gray;">◀</span>
               <b>第{{page}}页</b>
@@ -161,6 +161,7 @@ export default {
         prevPageUrl:'',
         sum:0,
         pageNum:0,
+        isShow:false,
     };
     return data;
   },
@@ -189,6 +190,7 @@ export default {
      */
     get_codes:function(url = `${this.global.config.API}ssc/history/lottery`)
     {
+      this.isShow = false;
       this.$http.get(url).then(function(res)
       {
           if(res.data.status == 200)
@@ -204,7 +206,11 @@ export default {
               this.page = data.curPage;
           }
 
+      }).then(function()
+      {
+          this.isShow = true;
       });
+
     },
     get_sum:function(arr)
     {
@@ -320,7 +326,7 @@ export default {
       {
         if(n === false)
         {
-            this.$router.push('index/');
+            this.$router.push(window.sessionStorage.which_lty);
         }
       }
   }

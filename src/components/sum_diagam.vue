@@ -10,76 +10,91 @@
             </div>
 
             <div class="xy-left">
-
               <div class="xy-list">
+                <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2)">
+                  今日
+                </a>
                 <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0)">
                    本周报表
                 </a>
                 <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1)">
                   上周报表
                 </a>
+                <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3)">
+                  本月
+                </a>
+                <a :class="table_lotterys[4]?'active':''" @click="tab_lottery(4)">
+                  自定义
+                </a>
+
               </div>
             </div>
-            <div class="xy-right">
-        <table v-show="!details_show" style="height: 100%;">
-          <tr>
-            <td>日期</td>
-            <td>下注条数</td>
-            <td>下注总金额</td>
-            <td>盈亏</td>
-            <td>返水</td>
-            <td>退水后盈亏</td>
-          </tr>
+            <div class="xy-right" v-show="!is_coustom_date">
+                <table v-show="!details_show" >
+                  <tr class="color-red">
+                    <td>日期</td>
+                    <td>下注条数</td>
+                    <td>下注总金额</td>
+                    <td>盈亏</td>
+                    <td>返水</td>
+                    <td>退水后盈亏</td>
+                  </tr>
 
-          <tr v-for="(v,k) in data">
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.week_name}}/{{v.date_str }}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.order_num}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.sum_money}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.win}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.fs}}</td>
-            <td class="color-red" style="border:1px solid #e5e5e5;box-sizing: border-box">
-              <a @click="get_details(v.date_str,v.week_name + '/ ' + v.date_str )" v-if="v.sum_data.order_num > 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
-                {{v.sum_data.winAndFs}}
-              </a>
-              <span v-else>
-                {{v.sum_data.winAndFs}}
-              </span>
-            </td>
-          </tr>
-        </table>
+                  <tr v-for="(v,k) in data">
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.week_name}}/{{v.date_str }}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.order_num}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.sum_money}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.win}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.fs}}</td>
+                    <td class="color-red" style="border:1px solid #e5e5e5;box-sizing: border-box">
+                      <a @click="get_details(v.date_str,v.week_name + '/ ' + v.date_str )" v-if="v.sum_data.order_num > 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
+                        {{v.sum_data.winAndFs}}
+                      </a>
+                      <span v-else>
+                        {{v.sum_data.winAndFs}}
+                      </span>
+                    </td>
+                  </tr>
+                </table>
 
+                <table class="details-1" v-show="details_show" >
+                  <tr class="color-red">
+                    <td>彩种</td>
+                    <td>期数</td>
+                    <td>注单号</td>
+                    <td>时间</td>
+                    <td>下注内容</td>
+                    <td>下注金额</td>
+                    <td>中奖结果</td>
+                  </tr>
+                  <tr v-for="v in details_data">
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.lty_name}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.expect}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.order_no}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.create_time}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.money}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.open_ret==1?'中奖':'未中奖'}}</td>
+                  </tr>
+                </table>
 
+                <div class="page-xy" v-show="details_show">
+                    <span v-if="hasPrev" @click="prevPage">◀</span>
+                    <span v-if="!hasPrev" style="color:gray;">◀</span>
+                    <b>第{{page}}页</b>
+                    <span v-if="hasNext" @click="nextPage">▶</span>
+                    <span v-if="!hasNext" style="color:gray;">▶</span>
+                    <b>共{{pageNum}}页,{{sum}}条</b>
+                </div>
+            </div>
 
-        <table class="details-1" v-show="details_show" >
-          <tr>
-            <td>彩种</td>
-            <td>期数</td>
-            <td>注单号</td>
-            <td>时间</td>
-            <td>下注内容</td>
-            <td>下注金额</td>
-            <td>中奖结果</td>
-          </tr>
-          <tr v-for="v in details_data">
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.lty_name}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.expect}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.order_no}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.create_time}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.money}}</td>
-            <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.open_ret==1?'中奖':'未中奖'}}</td>
-          </tr>
-        </table>
+            <div class="xy-right" v-show="is_coustom_date" style="text-align:left;">
+                <div class="xy-head" style="padding-top: 12px;box-sizing: border-box;padding-left:15px;">
+                    <span>请选择日期</span>
+                    <input type="date" class="from-date" >-<input type="date" class="from-date" >
 
-        <div class="page-xy" v-show="details_show">
-            <span v-if="hasPrev" @click="prevPage">◀</span>
-            <span v-if="!hasPrev" style="color:gray;">◀</span>
-            <b>第{{page}}页</b>
-            <span v-if="hasNext" @click="nextPage">▶</span>
-            <span v-if="!hasNext" style="color:gray;">▶</span>
-            <b>共{{pageNum}}页,{{sum}}条</b>
-        </div>
-      </div>
+                </div>
+            </div>
 
             <div class="clear"></div>
     </div>
@@ -104,8 +119,269 @@ export default
            page :1,
            which_time:'',//查看报表的哪一段时间
            summary:{},//报表数据
-           sum_week:{},//本周和上周的结算报表
-           data:[],
+           sum_week:
+           {
+               last_week:[
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+
+               ],
+               this_week:[
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+                   {
+                       date_str:"04-09",
+                       sum_data:
+                           {
+                               fs:0,
+                               order_num:0,
+                               sum_money:0,
+                               win:0,
+                               winAndFs:0,
+                           },
+                       week_name:"星期一"
+                   },
+               ]
+           },//本周和上周的结算报表
+           data:[
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+               {
+                   date_str:"04-09",
+                   sum_data:
+                       {
+                           fs:0,
+                           order_num:0,
+                           sum_money:0,
+                           win:0,
+                           winAndFs:0,
+                       },
+                   week_name:"星期一"
+               },
+
+           ],
            details_data:[],
            details_show:false,
            hasNext:false,
@@ -115,6 +391,7 @@ export default
            sum:0,
            pageNum:0,
            when_:'星期三/04-11',
+           is_coustom_date:false,// 是否自定义时间查找
 
        };
        return data;
@@ -140,6 +417,20 @@ export default
             if(idx == 1 )
             {
               this.data = this.sum_week['last_week'];
+            }
+            if(idx == 2)
+            {
+                //获取本日的统计报表
+                let date  = new Date();
+                let month = date.getMonth() + 1;
+                let day   = date.getDate();
+                let dateStr = month + "-" + day;
+                this.get_details(dateStr,dateStr);
+            }
+            if(idx == 4)
+            {
+                //获取自定义的时间报表
+                this.is_coustom_date = true;
             }
        },
        prevPage:function()
@@ -216,7 +507,8 @@ export default
          if(res.data.status == 200)
          {
            this.sum_week = res.data.data;
-           this.data = this.sum_week.this_week;
+             console.log(this.sum_week);
+             this.data = this.sum_week.this_week;
          }
 
        });
@@ -263,7 +555,7 @@ export default
        {
            if(n === false)
            {
-               this.$router.push('index/');
+               this.$router.push(window.sessionStorage.which_lty);
            }
        }
    }
@@ -342,7 +634,12 @@ export default
         float: left;
         position: relative;
     }
-
+    .xy-head
+    {
+        height:50px;
+        background: #e5e5e5;
+        width:100%;
+    }
     .edu>p
     {
         height: 20px;

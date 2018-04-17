@@ -288,7 +288,7 @@ export default
        {
            if(n === false)
            {
-               this.$router.push('index/');
+               this.$router.push(window.sessionStorage.which_lty);
            }
        }
    }

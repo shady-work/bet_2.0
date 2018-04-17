@@ -173,7 +173,7 @@ export default
       if(this.$store.state.isLogin)
       {
         //默认是index ==>cqssc的彩种、
-        window.sessionStorage.which_lty = 'index';
+        window.sessionStorage.which_lty = 'cqssc';
 
 
 
