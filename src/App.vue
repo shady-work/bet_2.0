@@ -21,7 +21,7 @@ export default
 
     #app
     {
-      font-family: "黑体";
+      font-family: "微软雅黑";
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       text-align: center;

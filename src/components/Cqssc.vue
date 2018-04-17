@@ -89,13 +89,9 @@
           <div class="bet-chooses-top">
             <div v-for="(v,k,index) in  odds.double_aspect"  :class="index==0?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,ind) in v" class="first-ball-details text-0">
-                <span class="he22 padding3">
-                      {{odds.ball_5_half_str[key]}}
-                </span>
-                <span class="he22 padding3">
-                    {{val}}
-                </span>
-                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1(k,key)">
+                <span class="he22 padding3">{{odds.ball_5_half_str[key]}}</span>
+                <span class="he22 padding3 color-red f700" >{{val}}</span>
+                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1_change(k,key)">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -111,8 +107,8 @@
 
               <div v-for="(v,k) in odds.dragon_and_tiger" class="long-bet-content">
                 <span>{{odds.dragon_and_tiger_str[k]}}</span>
-                <span>{{v}}</span>
-                <input type="text" v-model="bet_content.dragon_and_tiger[k]" @click="double_2(k)">
+                <span class="color-red f700">{{v}}</span>
+                <input type="text" v-model="bet_content.dragon_and_tiger[k]" @click="double_2(k)" @change="double_2_change(k)">
                 <div class="clear"></div>
               </div>
             </div>
@@ -126,10 +122,8 @@
             <div v-for="(v,k,index) in odds.single_ball_1_5" :class="index==0?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,idx) in v" class="first-ball-details text-9">
                 <span class="hao0">{{key}}</span>
-                <span class="he22">
-                     {{val}}
-                 </span>
-                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)">
+                <span class="he22 color-red f700" style="text-indent:5px;">{{val}}</span>
+                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -153,7 +147,7 @@
               <div v-for="(item,index) in odds.single_ball_1_5['ball_'+(k+1)+'_digit']" class="long-bet-content">
                 <span class="hao0 ml10 mt5">{{index}}</span>
                 <span>{{item}}</span>
-                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')" >
+                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')">
                 <div class="clear"></div>
               </div>
 
@@ -167,7 +161,7 @@
               <div v-for="(item,index) in odds.double_aspect['ball_'+(k+1)+'_half']" class="long-bet-content">
                 <span>{{odds.ball_5_half_str[index]}}</span>
                 <span>{{item}}</span>
-                <input type="text" v-model="bet_content['ball_'+ (k+1) +'_half'][index]" @click="ball_1_5(k,index,'lm')">
+                <input type="text" v-model="bet_content['ball_'+ (k+1) +'_half'][index]" @click="ball_1_5(k,index,'lm')"  @change="ball_1_5_change(k,index,'lm')">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -180,7 +174,7 @@
               <div v-for="(item,index) in odds.dragon_and_tiger" class="long-bet-content">
                 <span>{{odds.dragon_and_tiger_str[index]}}</span>
                 <span>{{item}}</span>
-                <input type="text" v-model="bet_content.dragon_and_tiger[index]" @click="ball_1_5(k,index,'he')">
+                <input type="text" v-model="bet_content.dragon_and_tiger[index]" @click="ball_1_5(k,index,'he')" @change="ball_1_5_change(k,index,'he')">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -191,7 +185,7 @@
               <div v-for="(i,idx) in item" class="first-ball-details">
                 <span>{{odds.ball_3_str[idx]}}</span>
                 <span class="w68">{{i}}</span>
-                <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')">
+                <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top" v-if="index=='front3'">
@@ -644,8 +638,12 @@
          */
         comfire_content:function()
         {
+
+            //过滤掉相同的对象
+            this.filter_same();
             //当用户没有选择下注内容的时候要提示用户选择
-            if(this.bets.length < 1){
+            if(this.bets.length < 1)
+            {
               this.$message(
               {
                 dangerouslyUseHTMLString: true,
@@ -655,8 +653,7 @@
               });
               return 0;
             }
-            //过滤掉相同的对象
-            this.filter_same();
+
             let html = '';
             for(let i = 0; i<this.bets.length;i++){
                var index = this.dicrationaries.indexOf(this.bets[i].content);
@@ -671,19 +668,43 @@
         //两面盘下注方法1
         double_1:function(key,index)
         {
+            if(this.bet_content[key][index] != "")
+            {
+                return false;
+            }
             let keys = ['K','L','M','N'];//组织数组
             this.bet_content[key][index] = this.fast_money;//改变下注金额
             this.bet_content[key].reverse().reverse();//触发视图层改变
             this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
         },
-        test(){console.log(12333123123)},
+        //两面盘下注方法1 在用户更改下注金钱时触发的函数
+        double_1_change(key,index)
+        {
+            let keys = ['K','L','M','N'];//组织数组
+            this.bet_content[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + keys[index],money:this.bet_content[key][index]});//添加到下注内容区
+        },
+
         //两面盘下注方法2
         double_2:function (index) {
           let keys = ['A','B','C','D','E','F','G'];//组织数组
           let key  = 'dragon_and_tiger';//组织数组
+          if(this.bet_content[key][index] != "")
+          {
+            return false;
+          }
           this.bet_content[key][index] = this.fast_money;//改变下注金额
           this.bet_content[key].reverse().reverse();//触发视图层改变
           this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
+
+        },
+        //两面盘下注方法2 在用户更改下注金钱时触发的函数
+        double_2_change:function (index) {
+
+            let keys = ['A','B','C','D','E','F','G'];//组织数组
+            let key  = 'dragon_and_tiger';//组织数组
+            this.bet_content[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + keys[index],money:this.bet_content[key][index]});//添加到下注内容区
 
         },
         //单球的下注
@@ -692,11 +713,25 @@
           let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
           let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
           let key  = keys[k];//组织数组
+          if(this.bet_content.single_ball_1_5[key][index] != "")
+          {
+            return false;
+          }
           this.bet_content.single_ball_1_5[key][index] = this.fast_money;//改变下注金额
           this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
           this.bets.push({content:key + '__' + Alphabet[index],money:this.fast_money});//添加到下注内容区
 
         },
+        //单球的下注 在用户改变下注金额的时候触发的函数
+        single_ball_1_change(k,index)
+        {
+            let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
+            let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
+            let key  = keys[k];//组织数组
+            this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + Alphabet[index],money: this.bet_content.single_ball_1_5[key][index]});//添加到下注内容区
+        },
+
 
         //1-5球的下注
         ball_1_5:function (k,i,type) {
@@ -705,6 +740,10 @@
               let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
               let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
               let key  = keys[k];//组织数组
+              if(this.bet_content.single_ball_1_5[key][i] != "")
+              {
+                    return false;
+              }
               this.bet_content.single_ball_1_5[key][i] = this.fast_money;//改变下注金额
               this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
               this.bets.push({content:key + '__' + Alphabet[i],money:this.fast_money});//添加到下注内容区
@@ -714,6 +753,10 @@
               let arr = ['ball_1_half','ball_2_half','ball_3_half','ball_4_half','ball_5_half'];//组织数组
               let keys = ['K','L','M','N'];//组织数组
               let key = arr[k];
+              if(this.bet_content[key][i] != "")
+              {
+                 return false;
+              }
               this.bet_content[key][i] = this.fast_money;//改变下注金额
               this.bet_content[key].reverse().reverse();//触发视图层改变
               this.bets.push({content:key + '__' + keys[i],money:this.fast_money});//添加到下注内容区
@@ -722,6 +765,10 @@
             {
               let keys = ['A','B','C','D','E','F','G'];//组织数组
               let key  = 'dragon_and_tiger';//组织数组
+              if(this.bet_content[key][i] != "")
+              {
+                    return false;
+              }
               this.bet_content[key][i] = this.fast_money;//改变下注金额
               this.bet_content[key].reverse().reverse();//触发视图层改变
               this.bets.push({content:key + '__' + keys[i],money:this.fast_money});//添加到下注内容区
@@ -729,6 +776,10 @@
             else if(type == 'qzhs')
             {
               let keys = ['A','B','C','D','E'];
+              if(this.bet_content.ball_3[k][i] != "")
+              {
+                    return false;
+              }
               this.bet_content.ball_3[k][i] = this.fast_money;//改变下注金额
               this.bet_content.ball_3[k].reverse().reverse();//触发视图层改变
 
@@ -753,6 +804,57 @@
             else
             {
               alert('????');
+            }
+        },
+
+
+        //1-5球的下注 在用户改变下注金额的时候触发的函数
+        ball_1_5_change:function (k,i,type) {
+            if(type == 'tm')
+            {
+                let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
+                let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
+                let key  = keys[k];//组织数组
+                this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
+                this.bets.push({content:key + '__' + Alphabet[i],money:this.bet_content.single_ball_1_5[key][i]});//添加到下注内容区
+            }
+            else if (type == 'lm')
+            {
+                let arr = ['ball_1_half','ball_2_half','ball_3_half','ball_4_half','ball_5_half'];//组织数组
+                let keys = ['K','L','M','N'];//组织数组
+                let key = arr[k];
+                this.bet_content[key].reverse().reverse();//触发视图层改变
+                this.bets.push({content:key + '__' + keys[i],money:this.bet_content[key][i]});//添加到下注内容区
+            }
+            else if(type == 'he')
+            {
+                let keys = ['A','B','C','D','E','F','G'];//组织数组
+                let key  = 'dragon_and_tiger';//组织数组
+                this.bet_content[key].reverse().reverse();//触发视图层改变
+                this.bets.push({content:key + '__' + keys[i],money:this.bet_content[key][i]});//添加到下注内容区
+            }
+            else if(type == 'qzhs')
+            {
+
+//                console.log(this.bet_content.ball_3[k][i]);
+                let keys = ['A','B','C','D','E'];
+                if(k=='front3')
+                {
+                    this.bets.push({content:'front_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
+                }
+                if(k=='medium3')
+                {
+                    this.bets.push({content:'medium_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
+                }
+                if(k=='end3')
+                {
+                    this.bets.push({content:'end_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
+                }
+                return
+            }
+            else
+            {
+                alert('????');
             }
         },
         /**
@@ -807,6 +909,12 @@
                         flag = true;
                         break;
                     }
+                }
+                if(!this.bets[i].money)
+                {
+                    this.bets.splice(i,1);
+                    flag = true;
+                    break;
                 }
                 if(flag)
                 {

@@ -4,7 +4,7 @@
       <div class="xy-header">
         <i class="fa fa-history"></i>
         <span>历史开奖</span>
-        <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>\
+        <span class="pull-right pointer" style="margin-right: 30px;" @click="$store.state.isShowSecond = false;">关闭</span>
         <div class="clear"></div>
       </div>
 

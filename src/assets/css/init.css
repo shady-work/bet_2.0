@@ -189,7 +189,9 @@ a:hover{
     left: 0;
     margin-bottom: 20px;
     width:1200px;
-
     overflow-x: hidden;
-
+}
+.f700
+{
+    font-weight:700;
 }
