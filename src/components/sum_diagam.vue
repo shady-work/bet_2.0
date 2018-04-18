@@ -24,7 +24,7 @@
                   本月
                 </a>
                 <a :class="table_lotterys[4]?'active':''" @click="tab_lottery(4)">
-                  自定义
+                  按日期查找
                 </a>
 
               </div>
@@ -424,8 +424,27 @@ export default
                 let date  = new Date();
                 let month = date.getMonth() + 1;
                 let day   = date.getDate();
-                let dateStr = month + "-" + day;
+                let week  = date.getDay();
+                let str   = '';
+                if (week == 0) {
+                    str = "星期日";
+                } else if (week == 1) {
+                    str = "星期一";
+                } else if (week == 2) {
+                    str = "星期二";
+                } else if (week == 3) {
+                    str = "星期三";
+                } else if (week == 4) {
+                    str = "星期四";
+                } else if (week == 5) {
+                    str = "星期五";
+                } else if (week == 6) {
+                    str = "星期六";
+                }
+                let dateStr =  str + '/' + month + "-" + day;
                 this.get_details(dateStr,dateStr);
+
+
             }
             if(idx == 4)
             {
@@ -507,8 +526,7 @@ export default
          if(res.data.status == 200)
          {
            this.sum_week = res.data.data;
-             console.log(this.sum_week);
-             this.data = this.sum_week.this_week;
+           this.data = this.sum_week.this_week;
          }
 
        });
@@ -521,8 +539,8 @@ export default
           {
              if(res.data.status == 200)
              {
-              let data = res.data.data;
-              this.details_data = data.orders;
+                let data = res.data.data;
+                this.details_data = data.orders;
                 this.hasPrev = data.hasPrev;
                 this.hasNext = data.hasNext;
                 this.sum = data.sum;

@@ -9,6 +9,7 @@
                     <li @click="choose_one(1)" :class="isActive[1]?'active':''">线下</li>
                     <li @click="choose_one(2)" :class="isActive[2]?'active':''">第三方</li>
                 </ul>
+                <!--<p style="width:900px;height:1px;background:black;margin-top:17px;overflow:hidden;z-index:999;"></p>-->
                 <div class="right-left">
                     <ul>
                         <li v-for="(v,k) in articles" @click="get_an_article(v.id,k)" v-if="v.type == condition" :class="isActive2[k]?'active':''">
@@ -21,22 +22,22 @@
                 <div class="right-right" v-show="condition==0">
                     <h2 class="mt5">请填写您的汇款信息</h2>
                     <div class="input-my">
-                        <span>银行名称</span>
+                        <p style="padding-left:4px;">银行名称</p>
                         <input type="text" v-model="bank_topup.bank_name" placeholder="请输入您汇款时使用的银行卡归属银行">
                     </div>
 
                     <div class="input-my">
-                        <span>存款姓名</span>
+                        <p>存款姓名</p>
                         <input type="text" v-model="bank_topup.store_name" placeholder="请输入您汇款时使用的银行卡的户名">
                     </div>
 
                     <div class="input-my">
-                        <span>存款账号</span>
+                        <p>存款账号</p>
                         <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
                     </div>
 
                     <div class="input-my">
-                        <span>存款金额</span>
+                        <p>存款金额</p>
                         <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
                     </div>
 
@@ -71,7 +72,7 @@
 
             </div>
 
-            <div class="left" style="margin-top:59px;">
+            <div class="left" style="margin-top:67px;">
                 <h2 class="title">充值帮助 <a @click="isShowTable = true;" style="font-size: 18px;cursor: pointer;">(充值记录)</a></h2>
                 <p class="context">
                     尊敬的客户，您好！
@@ -654,23 +655,25 @@
 
         /*border:1px solid #000;*/
         float: left;
-        margin-left: 2px;
+        margin-left: 5px;
         margin-top: 15px;
     }
 
     .input-my
     {
         margin-top: 15px;
+        text-align:left;
     }
     .input-my>input
     {
         height: 30px;
-        width: 248px;
+        width: 410px;
         border-radius: 3px;
         color: #000;
         text-indent:5px;
         font-size: 12px;
         border:1px solid #000;
+        margin-top:10px;
     }
     .input-my>input::-webkit-input-placeholder{
         color:gray;
@@ -687,13 +690,14 @@
     }
     .submit-btn
     {
-        width: 310px;
+        width: 410px;
         margin-top: 15px;
         height: 30px;
         background: #ff0000;
         color: white;
         outline: none;
         border: none;
+        margin-top:20px;
     }
     .tabs .active,.right-left .active
     {

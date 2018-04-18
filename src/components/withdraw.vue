@@ -14,27 +14,27 @@
                 <div class="right-right" v-show="isActive[0]">
                     <h2 class="mt5">请填写您的银行信息</h2>
                     <div class="input-my">
-                        <span>银行名称</span>
+                        <p>银行名称</p>
                         <input type="text" v-model="bank_topup.bank_name" placeholder="如：建设银行">
                     </div>
 
                     <div class="input-my">
-                        <span>开户名称</span>
+                        <p>开户名称</p>
                         <input type="text" v-model="bank_topup.bank_where" placeholder="如：厦门分行">
                     </div>
 
                     <div class="input-my">
-                        <span>银行户名</span>
+                        <p>银行户名</p>
                         <input type="text" v-model="bank_topup.store_name" placeholder="如：张三">
                     </div>
 
                     <div class="input-my">
-                        <span>银行账号</span>
+                        <p>银行账号</p>
                         <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
                     </div>
 
                     <div class="input-my">
-                        <span>提现金额</span>
+                        <p>提现金额</p>
                         <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
                     </div>
 
@@ -59,7 +59,7 @@
                         <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
                     </div>
 
-                    <button class="submit-btn" @click="submit_offline()">提交</button>
+                    <button class="submit-btn" @click="submit_offline()" style="width:530px;">提交</button>
                 </div>
 
 
@@ -526,16 +526,18 @@
     .input-my
     {
         margin-top: 15px;
+        text-align:left;
     }
     .input-my>input
     {
         height: 30px;
-        width: 248px;
+        width:530px;
         border-radius: 3px;
         color: #000;
         text-indent:5px;
         font-size: 12px;
         border: 1px solid #000;
+        margin-top:10px;
     }
     .input-my>input::-webkit-input-placeholder{
         color:gray;
@@ -552,8 +554,8 @@
     }
     .submit-btn
     {
-        width: 310px;
-        margin-top: 15px;
+        width:530px;
+        margin-top: 20px;
         height: 30px;
         background: #ff0000;
         color: white;

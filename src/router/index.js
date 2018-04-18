@@ -17,7 +17,15 @@ import sum_diagam from '@/components/sum_diagam.vue';
 import open_history from '@/components/open_history.vue';
 import rules from '@/components/rules.vue';
 import bet_rules from '@/components/bet_rules.vue';
+import personal from '@/components/personal.vue';
+import home from '@/components/home.vue';
+
+
+
+
+
 import VueResource from 'vue-resource';
+
 /*引入资源请求插件*/
 /*使用VueResource插件*/
 Vue.use(VueResource);
@@ -109,6 +117,16 @@ export default new Router(
                             path: "/bet_rules",
                             name: "bet_rules",
                             component: bet_rules,
+                        },
+                        {
+                            path: "/personal",
+                            name: "personal",
+                            component: personal,
+                        },
+                        {
+                        path: "/home",
+                        name: "home",
+                        component:home,
                         },
                     ],
             },
