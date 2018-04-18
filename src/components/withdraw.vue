@@ -3,7 +3,70 @@
     <div id="recharge">
 
         <div class="recharge" v-show="!isShowTable" >
-            <div class="left">
+
+            <div class="right">
+                <ul class="tabs">
+                    <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
+                    <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
+                </ul>
+
+                <!--银行卡提现-->
+                <div class="right-right" v-show="isActive[0]">
+                    <h2 class="mt5">请填写您的银行信息</h2>
+                    <div class="input-my">
+                        <span>银行名称</span>
+                        <input type="text" v-model="bank_topup.bank_name" placeholder="如：建设银行">
+                    </div>
+
+                    <div class="input-my">
+                        <span>开户名称</span>
+                        <input type="text" v-model="bank_topup.bank_where" placeholder="如：厦门分行">
+                    </div>
+
+                    <div class="input-my">
+                        <span>银行户名</span>
+                        <input type="text" v-model="bank_topup.store_name" placeholder="如：张三">
+                    </div>
+
+                    <div class="input-my">
+                        <span>银行账号</span>
+                        <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
+                    </div>
+
+                    <div class="input-my">
+                        <span>提现金额</span>
+                        <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
+                    </div>
+
+                    <button class="submit-btn" @click="submit_bank()">提交</button>
+                </div>
+
+                <!--线下提现-->
+                <div class="right-right" v-show="isActive[1]" >
+                    <h2 class="mt5">请填写您的汇款信息</h2>
+                    <div class="input-my">
+                        <span>账号姓名</span>
+                        <input type="text" v-model="offline_topup.offline_name" placeholder="支付宝户名">
+                    </div>
+
+                    <div class="input-my">
+                        <span>存款账号</span>
+                        <input type="text" v-model="offline_topup.store_number" placeholder="支付宝账号">
+                    </div>
+
+                    <div class="input-my">
+                        <span>存款金额</span>
+                        <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
+                    </div>
+
+                    <button class="submit-btn" @click="submit_offline()">提交</button>
+                </div>
+
+
+
+            </div>
+
+            <div class="left" style="margin-top:68px;">
                   <h2 class="title">提现帮助</h2>
                   <p class="context">
                     尊敬的客户，您好!请按照你的提现方式，进行填写您的提现信息，请务必填写正确的信息，否则会导致提现失败。
@@ -14,67 +77,7 @@
                   <!--要显示的提现内容-->
             </div>
 
-            <div class="right">
-                <ul class="tabs">
-                  <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
-                  <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
-                </ul>
 
-                <!--银行卡提现-->
-                <div class="right-right" v-show="isActive[0]">
-                <h2 class="mt5">请填写您的银行信息</h2>
-                <div class="input-my">
-                  <span>银行名称</span>
-                  <input type="text" v-model="bank_topup.bank_name" placeholder="如：建设银行">
-                </div>
-
-                <div class="input-my">
-                  <span>开户名称</span>
-                  <input type="text" v-model="bank_topup.bank_where" placeholder="如：厦门分行">
-                </div>
-
-                <div class="input-my">
-                  <span>银行户名</span>
-                  <input type="text" v-model="bank_topup.store_name" placeholder="如：张三">
-                </div>
-
-                <div class="input-my">
-                  <span>银行账号</span>
-                  <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
-                </div>
-
-                <div class="input-my">
-                  <span>提现金额</span>
-                  <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
-                </div>
-
-                <button class="submit-btn" @click="submit_bank()">提交</button>
-              </div>
-
-                <!--线下提现-->
-                <div class="right-right" v-show="isActive[1]" >
-                <h2 class="mt5">请填写您的汇款信息</h2>
-                <div class="input-my">
-                  <span>账号姓名</span>
-                  <input type="text" v-model="offline_topup.offline_name" placeholder="支付宝户名">
-                </div>
-
-                <div class="input-my">
-                  <span>存款账号</span>
-                  <input type="text" v-model="offline_topup.store_number" placeholder="支付宝账号">
-                </div>
-
-                <div class="input-my">
-                  <span>存款金额</span>
-                  <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
-                </div>
-
-                <button class="submit-btn" @click="submit_offline()">提交</button>
-              </div>
-
-
-
-            </div>
         </div>
 
         <div class="history" v-show="isShowTable">

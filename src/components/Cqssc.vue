@@ -91,7 +91,7 @@
               <div v-for="(val,key,ind) in v" class="first-ball-details text-0">
                 <span class="he22 padding3">{{odds.ball_5_half_str[key]}}</span>
                 <span class="he22 padding3 color-red f700" >{{val}}</span>
-                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1_change(k,key)">
+                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1_change(k,key)" style="padding:1px;">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -123,7 +123,7 @@
               <div v-for="(val,key,idx) in v" class="first-ball-details text-9">
                 <span class="hao0">{{key}}</span>
                 <span class="he22 color-red f700" style="text-indent:5px;">{{val}}</span>
-                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)">
+                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)" style="margin-left:5px;margin-top:2px;">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -140,14 +140,14 @@
         <div v-for="(v,k) in odds.single_ball_1_5_str"  class="bet-chooses" v-show="showArray_cqssc[(k+2)]">
           <div class="bet-chooses-top">
             <!--第一球特码-->
-            <div class="long-bet" style="height:auto;">
+            <div class="long-bet" style="height:120px;">
               <div class="first-ball-top">
                 {{v}}
               </div>
               <div v-for="(item,index) in odds.single_ball_1_5['ball_'+(k+1)+'_digit']" class="long-bet-content">
                 <span class="hao0 ml10 mt5">{{index}}</span>
-                <span>{{item}}</span>
-                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')">
+                <span class="he22 color-red f700" style="text-indent:5px;margin-top:5px;margin-left:5px;">{{item}}</span>
+                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')" style="margin-top:5px;width:45px;height:17px;margin-left:5px;">
                 <div class="clear"></div>
               </div>
 
@@ -160,8 +160,8 @@
               </div>
               <div v-for="(item,index) in odds.double_aspect['ball_'+(k+1)+'_half']" class="long-bet-content">
                 <span>{{odds.ball_5_half_str[index]}}</span>
-                <span>{{item}}</span>
-                <input type="text" v-model="bet_content['ball_'+ (k+1) +'_half'][index]" @click="ball_1_5(k,index,'lm')"  @change="ball_1_5_change(k,index,'lm')">
+                <span class="he22 color-red f700" style="margin-top:5px;margin-left:-14px;">{{item}}</span>
+                <input type="text" v-model="bet_content['ball_'+ (k+1) +'_half'][index]" @click="ball_1_5(k,index,'lm')"  @change="ball_1_5_change(k,index,'lm')" style="margin-top:5px;width:45px;heigth:16px;margin-left:11px;">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -173,8 +173,8 @@
               </div>
               <div v-for="(item,index) in odds.dragon_and_tiger" class="long-bet-content">
                 <span>{{odds.dragon_and_tiger_str[index]}}</span>
-                <span>{{item}}</span>
-                <input type="text" v-model="bet_content.dragon_and_tiger[index]" @click="ball_1_5(k,index,'he')" @change="ball_1_5_change(k,index,'he')">
+                <span class="he22 color-red f700" style="margin-top:5px;margin-left:-3px;">{{item}}</span>
+                <input type="text" v-model="bet_content.dragon_and_tiger[index]" @click="ball_1_5(k,index,'he')" @change="ball_1_5_change(k,index,'he')" style="margin-top:5px;width:45px;heigth:16px;margin-left:11px;">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -184,7 +184,7 @@
             <div v-for="(item,index) in odds.ball_3" :class="index=='front3'?'first-ball mt0':'first-ball'" style="width:29%;">
               <div v-for="(i,idx) in item" class="first-ball-details">
                 <span>{{odds.ball_3_str[idx]}}</span>
-                <span class="w68">{{i}}</span>
+                <span class="he22 color-red f700">{{i}}</span>
                 <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')">
                 <div class="clear"></div>
               </div>
@@ -1240,4 +1240,6 @@
   .first-ball-details > span {
     float: left;
   }
+
+
 </style>

@@ -81,16 +81,16 @@
                             </div>
                             <div v-for="(v,k) in odds.mixture" class="long-bet-content" v-if="v !=  0.0000">
                                 <span >{{odds.mixture_str[k]}}</span>
-                                <span>{{v}}</span>
+                                <span class="he22 color-red f700" style="padding:1px;margin-left:-8px;margin-top:4px;">{{v}}</span>
                                 <input type="text" v-if="k != 10" v-model="bet_content.mixture[k]"
                                        @click="choose_one(k,'mixture','ball_2')"
                                        @change="choose_one_change(k,'mixture','ball_2')"
-                                >
+                                       style="margin-top:5px;width:43px;height:17px;margin-left:5px;">
 
                                 <input type="text" v-if="k == 10" v-model="bet_content.mixture[10]"
                                        @click="choose_one(1,'mixture','ball_4')"
                                        @change="choose_one_change(1,'mixture','ball_4')"
-                                >
+                                       style="margin-top:5px;width:43px;height:17px;margin-left:5px;">
                                 <div class="clear"></div>
                             </div>
 
@@ -103,11 +103,11 @@
                             </div>
                             <div v-for="(v,k) in odds.color" class="long-bet-content" v-if="v !=  0.0000">
                                 <span>{{odds.color_str[k]}}</span>
-                                <span>{{v}}</span>
+                                <span class="he22 color-red f700" style="padding:1px;margin-left:-8px;margin-top:4px;">{{v}}</span>
                                 <input type="text" v-model="bet_content.color[k]"
                                        @click="choose_one(k,'color','ball_3')"
                                        @change="choose_one_change(k,'color','ball_3')"
-                                >
+                                       style="margin-top:5px;width:43px;height:17px;margin-left:5px;">
                                 <div class="clear"></div>
                             </div>
 
@@ -120,11 +120,11 @@
                             </div>
                             <div v-for="(v,k) in odds.special" class="long-bet-content">
                                 <span class="hao0 ml10 mt5" :class="returnColor(k)">{{k}}</span>
-                                <span>{{v}}</span>
+                                <span class="he22 color-red f700" style="padding:1px;margin-left:8px;margin-top:4px;">{{v}}</span>
                                 <input type="text" v-model="bet_content.special[k]"
                                        @click="choose_one(k,'special','ball_1')"
                                        @change="choose_one_change(k,'special','ball_1')"
-                                >
+                                       style="margin-top:5px;width:43px;height:17px;margin-left:10px;">
                                 <div class="clear"></div>
                             </div>
 

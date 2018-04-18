@@ -95,8 +95,8 @@
             <div v-for="(v,k,index) in odds.double_aspect"  :class="(index==0 || index==5)?'first-ball mt0':'first-ball'">
                 <div v-for="(val,key,idx) in double_aspect_a" v-if="v[val] != 0.0000" class="first-ball-details text-0">
                    <span class="he22 ">{{double_aspect_c[key]}}</span>
-                  <span class="he22 ">{{v[val]}}</span>
-                  <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)" @change="bet_db_change(index,key)">
+                  <span class="he22 color-red f700" style="margin-left:3px;">{{v[val]}}</span>
+                  <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)" @change="bet_db_change(index,key)" style="margin-top:5px;width:43px;height:17px;margin-left:14px;">
                   <div class="clear"></div>
                 </div>
                 <div class="first-ball-top">
@@ -112,7 +112,7 @@
               </div>
               <div v-for="(v,index) in sum_half_a" class="long-bet-content">
                 <span>{{sum_half_b[index]}}</span>
-                <span>{{odds.sum_half[v]}}</span>
+                <span class="he22 color-red f700" style="margin-left:-4px;padding:3px;">{{odds.sum_half[v]}}</span>
                 <input type="text" v-model="bets.sum_half[index]" @click="bet_db2(v,index)" @change="bet_db2_change(v,index)" >
                 <div class="clear"></div>
               </div>
@@ -127,11 +127,11 @@
             <div v-for="(v,k,index) in odds.single_ball"  :class="(index==0 || index==5)?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,idx) in singleball_a" class="first-ball-details">
                 <span :class="'hao' + (key+1)">{{key+1}}</span>
-                <span class="he22">{{v[val]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;">{{v[val]}}</span>
                 <input type="text" class="innnn" v-model="bets.single_ball['ball_'+ (index+1) +'_digit'][key]"
                        @click="single_ball_1_10(k,key)"
                        @change="single_ball_1_10_change(k,key)"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:14px;">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -153,11 +153,11 @@
               </div>
               <div v-for="(v,index) in sum_digit_a" class="long-bet-content">
                 <span>{{index+3}}</span>
-                <span>{{odds.sum_digit[v]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:-15px;margin-top:1px;">{{odds.sum_digit[v]}}</span>
                 <input type="text" v-model="bets.sum_digit[index]"
                        @click="sumbo(v,index)"
                        @change="sumbo_change(v,index)"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:12px;">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -169,11 +169,11 @@
               </div>
               <div v-for="(v,index) in sum_half_a" class="long-bet-content">
                 <span>{{sum_half_b[index]}}</span>
-                <span>{{odds.sum_half[v]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:-5px;margin-top:2px;">{{odds.sum_half[v]}}</span>
                 <input type="text" v-model="bets.sum_half[index]"
                        @click="bet_db2(v,index)"
                        @change="bet_db2_change(v,index)"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 
@@ -187,11 +187,11 @@
 
               <div v-for="(v,index) in singleball_a" class="long-bet-content ">
                 <span :class="'hao'+(index+1)">{{index+1}}</span>
-                <span>{{odds.single_ball.ball_1_digit[v]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:-1px;">{{odds.single_ball.ball_1_digit[v]}}</span>
                 <input type="text" v-model="bets.single_ball.ball_1_digit[index]"
                        @click="single_ball_1(v,index,'ball_1_digit')"
                        @change="single_ball_1_change(v,index,'ball_1_digit')"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 
@@ -200,11 +200,11 @@
 
               <div v-for="(v,index) in double_aspect_a" class="long-bet-content">
                 <span class="font16px">{{double_aspect_c[index]}}</span>
-                <span>{{odds.double_aspect.ball_1_half[v]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:1px;">{{odds.double_aspect.ball_1_half[v]}}</span>
                 <input type="text" v-model="bets.double_aspect.ball_1_half[index]"
                        @click="single_ball_2(v,index,'ball_1_half')"
                        @change="single_ball_2_change(v,index,'ball_1_half')"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 
@@ -218,11 +218,11 @@
               </div>
               <div v-for="(v,index) in singleball_a" class="long-bet-content ">
                 <span :class="'hao'+(index+1)">{{index+1}}</span>
-                <span>{{odds.single_ball.ball_2_digit[v]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:-1px;">{{odds.single_ball.ball_2_digit[v]}}</span>
                 <input type="text" v-model="bets.single_ball.ball_2_digit[index]"
                        @click="single_ball_1(v,index,'ball_2_digit')"
                        @change="single_ball_1_change(v,index,'ball_2_digit')"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -230,11 +230,11 @@
 
               <div v-for="(v,index) in double_aspect_a" class="long-bet-content">
                 <span class="font16px">{{double_aspect_c[index]}}</span>
-                <span>{{odds.double_aspect.ball_2_half[v]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:1px;">{{odds.double_aspect.ball_2_half[v]}}</span>
                 <input type="text" v-model="bets.double_aspect.ball_2_half[index]"
                        @click="single_ball_2(v,index,'ball_2_half')"
                        @change="single_ball_2_change(v,index,'ball_2_half')"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
               <div class="clear"></div>
@@ -254,11 +254,11 @@
               </div>
               <div v-for="(val,key) in singleball_a" class="long-bet-content" >
                 <span :class="'hao'+(key+1)">{{key+1}}</span>
-                <span>{{odds.single_ball[k][val]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:-1px;">{{odds.single_ball[k][val]}}</span>
                 <input type="text" v-model="bets.single_ball[k][key]"
                        @click="single_ball_1(val,key,k)"
                        @change="single_ball_1_change(val,key,k)"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 
@@ -267,11 +267,11 @@
 
               <div v-for="(val,key) in double_aspect_a" class="long-bet-content" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val] != 0.0000 || !odds.double_aspect['ball_' + (index+1) + '_half'][val]">
                 <span class="font16px">{{double_aspect_c[key]}}</span>
-                <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:2px;">{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
                 <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]"
                        @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')"
                        @change="single_ball_2_change(val,key,'ball_' + (index+1) + '_half')"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 
@@ -292,11 +292,11 @@
               </div>
               <div v-for="(val,key) in singleball_a" class="long-bet-content ">
                 <span :class="'hao'+(key+1)">{{key+1}}</span>
-                <span>{{odds.single_ball[k][val]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:-1px;">{{odds.single_ball[k][val]}}</span>
                 <input type="text" v-model="bets.single_ball[k][key]"
                        @click="single_ball_1(val,key,k)"
                        @change="single_ball_1_change(val,key,k)"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 
@@ -305,11 +305,11 @@
 
               <div v-for="(val,key) in double_aspect_a" v-if="odds.double_aspect['ball_' + (index+1) + '_half'][val] != 0.000 || !odds.double_aspect['ball_' + (index+1) + '_half'][val]" class="long-bet-content" >
                 <span class="font16px">{{double_aspect_c[key]}}</span>
-                <span>{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
+                <span class="he22 color-red f700" style="padding:1px;margin-left:4px;margin-top:1px;">{{odds.double_aspect['ball_' + (index+1) + '_half'][val]}}</span>
                 <input type="text" v-model="bets.double_aspect['ball_' + (index+1) + '_half'][key]"
                        @click="single_ball_2(val,key,'ball_' + (index+1) + '_half')"
                        @change="single_ball_2_change(val,key,'ball_' + (index+1) + '_half')"
-                >
+                       style="margin-top:5px;width:43px;height:17px;margin-left:3px;">
                 <div class="clear"></div>
               </div>
 

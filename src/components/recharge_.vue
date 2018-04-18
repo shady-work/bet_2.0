@@ -2,21 +2,6 @@
 <template>
     <div id="recharge">
         <div class="recharge" v-show="!isShowTable" >
-            <div class="left">
-                <h2 class="title">充值帮助 <a @click="isShowTable = true;" style="font-size: 18px;cursor: pointer;">(充值记录)</a></h2>
-                <p class="context">
-                    尊敬的客户，您好！
-                    本站充值分为三种：
-                    银行转账，线下转账（支付宝，微信），第三方。<br>
-                    （1）银行转账：请手动转账到对应的本站的收款银行，并且将您的转账信息填写到右侧；<br>
-                    （2）线下转账（支付宝，微信）：请手动转账到对应的本站的收款账号，并且将您的转账信息填写到右侧；<br>
-                    （3）第三方：点击右侧第三方支付，并按照提示进行；<br>
-
-
-                </p>
-                <!--要显示的充值内容-->
-                <div class="article-context mt5" style="text-align: left;" v-html="content"></div>
-            </div>
 
             <div class="right">
                 <ul class="tabs">
@@ -59,7 +44,7 @@
                 </div>
 
                 <!--线下充值-->
-                <div class="right-right" v-show="condition==1" >
+                <div class="right-right" v-show="condition==1">
                     <h2 class="mt5">请填写您的汇款信息</h2>
                     <div class="input-my">
                         <span>账号姓名</span>
@@ -85,6 +70,24 @@
 
 
             </div>
+
+            <div class="left" style="margin-top:59px;">
+                <h2 class="title">充值帮助 <a @click="isShowTable = true;" style="font-size: 18px;cursor: pointer;">(充值记录)</a></h2>
+                <p class="context">
+                    尊敬的客户，您好！
+                    本站充值分为三种：
+                    银行转账，线下转账（支付宝，微信），第三方。<br>
+                    （1）银行转账：请手动转账到对应的本站的收款银行，并且将您的转账信息填写到右侧；<br>
+                    （2）线下转账（支付宝，微信）：请手动转账到对应的本站的收款账号，并且将您的转账信息填写到右侧；<br>
+                    （3）第三方：点击右侧第三方支付，并按照提示进行；<br>
+
+
+                </p>
+                <!--要显示的充值内容-->
+                <div class="article-context mt5" style="text-align: left;" v-html="content"></div>
+            </div>
+
+
         </div>
 
 
@@ -649,11 +652,12 @@
         width: 410px;
         height: 400px;
 
-        border:1px solid #000;
+        /*border:1px solid #000;*/
         float: left;
         margin-left: 2px;
         margin-top: 15px;
     }
+
     .input-my
     {
         margin-top: 15px;
