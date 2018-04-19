@@ -32,21 +32,21 @@
             <div class="xy-right" v-show="!is_coustom_date">
                 <table v-show="!details_show" >
                   <tr class="color-red">
-                    <td>日期</td>
-                    <td>下注条数</td>
-                    <td>下注总金额</td>
-                    <td>盈亏</td>
-                    <td>返水</td>
-                    <td>退水后盈亏</td>
+                    <td width="100" style="text-align:left;padding-left:15px;">日期</td>
+                    <td width="60" style="text-align:right;padding-right:15px;">下注条数</td>
+                    <td width="60" style="text-align:right;padding-right:15px;">下注总金额</td>
+                    <td width="60" style="text-align:right;padding-right:15px;">盈亏</td>
+                    <td width="60" style="text-align:right;padding-right:15px;">返水</td>
+                    <td width="60" style="text-align:right;padding-right:15px;">退水后盈亏</td>
                   </tr>
 
                   <tr v-for="(v,k) in data">
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.week_name}}/{{v.date_str }}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.order_num}}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.sum_money}}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.win}}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.sum_data.fs}}</td>
-                    <td class="color-red" style="border:1px solid #e5e5e5;box-sizing: border-box">
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:left;padding-left:15px;">{{v.week_name}}/{{v.date_str }}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.order_num}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.sum_money}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.win}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.fs}}</td>
+                    <td class="color-red" style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">
                       <a @click="get_details(v.date_str,v.week_name + '/ ' + v.date_str )" v-if="v.sum_data.order_num > 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
                         {{v.sum_data.winAndFs}}
                       </a>

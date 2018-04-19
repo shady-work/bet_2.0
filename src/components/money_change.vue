@@ -11,21 +11,21 @@
                   <table border="1">
                      <thead>
                         <tr class="color-red">
-                          <td>时间</td>
-                          <td>类型</td>
-                          <td>变动前金额</td>
-                          <td>金额</td>
-                          <td>变动后金额</td>
+                          <td style="text-align:left;padding-left:60px;">时间</td>
+                          <td style="text-align:left;padding-left:60px;">类型</td>
+                          <td style="text-align:right;padding-right:15px;">变动前金额</td>
+                          <td width="50" style="text-align:right;padding-right:15px;">金额</td>
+                          <td style="text-align:right;padding-right:15px;">变动后金额</td>
                           <!--<td>备注</td>-->
                         </tr>
                      </thead>
                      <tbody>
                         <tr v-for="(v,k) in data">
-                          <td  width="200">{{v.opr_time}}</td>
-                          <td  width="200">{{v.con}}</td>
-                          <td  width="200">{{v.old}}</td>
-                          <td  width="200">{{v.chg}}</td>
-                          <td  width="200">{{v.cur}}</td>
+                          <td  width="100" style="text-align:left;padding-left:15px;">{{v.opr_time}}</td>
+                          <td  width="90" style="text-align:left;padding-left:15px;">{{v.con}}</td>
+                          <td  width="40" style="text-align:right;padding-right:15px;">{{v.old}}</td>
+                          <td  width="40"  style="text-align:right;padding-right:15px;">{{v.chg}}</td>
+                          <td  width="40" style="text-align:right;padding-right:15px;">{{v.cur}}</td>
                           <!--<td  class="beizhu"><p style="">{{v.opr_mark}}</p></td>-->
                         </tr>
                      </tbody>

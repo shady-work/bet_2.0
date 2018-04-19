@@ -4,10 +4,10 @@
     <!-- 上面的选择 -->
     <div class="a-waps">
       <img src="" alt="" id="logo">
-      <a href="/#/home" class="nav-top">
-        <i class="fa  fa-th-list"></i>
-        <p>开奖中心</p>
-      </a>
+      <!--<a href="/#/home" class="nav-top">-->
+        <!--<i class="fa  fa-th-list"></i>-->
+        <!--<p>开奖中心</p>-->
+      <!--</a>-->
 
       <a href="/#/money_change" class="nav-top">
         <i class="fa fa-credit-card"></i>
@@ -62,10 +62,10 @@
         <p>提现</p>
       </a>
 
-      <a class="nav-top" href="#/personal">
-          <i class="fa fa-user-o font36"></i>
-          <p>个人中心</p>
-      </a>
+      <!--<a class="nav-top" href="#/personal">-->
+          <!--<i class="fa fa-user-o font36"></i>-->
+          <!--<p>个人中心</p>-->
+      <!--</a>-->
 
       <a @click="log_out()" class="nav-top">
         <i class="fa fa-sign-out"></i>

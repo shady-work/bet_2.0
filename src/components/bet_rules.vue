@@ -28,18 +28,18 @@
                     <div class="rules  text-left" v-show="isShow[0]">
                        <table>
                            <tr class="color-red">
-                               <td>玩法</td>
-                               <td>单注投注最高金额</td>
-                               <td>单注投注最低金额</td>
-                               <td>单期投注最高金额</td>
-                               <td>赔率</td>
+                               <td width="60" style="text-align:left;padding-left:15px;">玩法</td>
+                               <td width="60" style="text-align:right;padding-right:15px;">单注投注最高金额</td>
+                               <td width="60" style="text-align:right;padding-right:15px;">单注投注最低金额</td>
+                               <td width="60" style="text-align:right;padding-right:15px;">单期投注最高金额</td>
+                               <td width="40" style="text-align:right;padding-right:15px;">赔率</td>
                            </tr>
                            <tr v-for="(v,k) in data">
-                               <td>{{v.play}}</td>
-                               <td>{{v.one_bet_max}}</td>
-                               <td>{{v.one_bet_min}}</td>
-                               <td>{{v.one_bet_win}}</td>
-                               <td>{{v.odds}}</td>
+                               <td style="text-align:left;padding-left:15px;">{{v.play}}</td>
+                               <td style="text-align:right;padding-right:15px;">{{v.one_bet_max}}</td>
+                               <td style="text-align:right;padding-right:15px;">{{v.one_bet_min}}</td>
+                               <td style="text-align:right;padding-right:15px;">{{v.one_bet_win}}</td>
+                               <td style="text-align:right;padding-right:15px;">{{v.odds}}</td>
                            </tr>
                        </table>
                     </div>

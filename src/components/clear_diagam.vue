@@ -44,7 +44,7 @@
               <td>时间</td>
               <td>期数</td>
               <td>注单号</td>
-              <td>下注内容</td>
+              <td style="text-align:left;padding-left:15px;">下注内容</td>
               <td>下注金额</td>
               <td>当时赔率</td>
               <td>是否中奖</td>
@@ -53,7 +53,7 @@
               <td>{{v.create_time}}</td>
               <td>{{v.expect}}</td>
               <td>{{v.order_no}}</td>
-              <td>{{v.mark_a}}--{{v.mark_b}}</td>
+              <td style="text-align:left;padding-left:15px;">{{v.mark_a}}--{{v.mark_b}}</td>
               <td>{{v.money}}</td>
               <td>{{v.rate}}</td>
               <td v-if="v.open_ret == 1" style="color: #00ae00;font-weight: 700;">中奖</td>
