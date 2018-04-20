@@ -62,10 +62,10 @@
         <p>提现</p>
       </a>
 
-      <!--<a class="nav-top" href="#/personal">-->
-          <!--<i class="fa fa-user-o font36"></i>-->
-          <!--<p>个人中心</p>-->
-      <!--</a>-->
+      <a class="nav-top" href="#/personal">
+          <i class="fa fa-user-o font36"></i>
+          <p>个人中心</p>
+      </a>
 
       <a @click="log_out()" class="nav-top">
         <i class="fa fa-sign-out"></i>
