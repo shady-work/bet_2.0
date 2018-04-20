@@ -56,9 +56,8 @@
                     <div class="xinyongziliao" >
 
 
-                        <div class="form-pwd" >
-
-                            <label style="float:left;color:black;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                        <div class="form-pwd">
+                            <label style="float:left;color:black;color:black;display:inline-block;margin-left:54px;font-size:14px;height:40px;line-height:40px;padding:5px;">
                                 请输入旧登入密码:
                             </label>
                             <div>
@@ -67,7 +66,7 @@
                             <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;color:black;display:inline-block;margin-left:54px;font-size:14px;height:40px;line-height:40px;padding:5px;">
                                 请输入新登入密码:
                             </label>
                             <div>
@@ -75,7 +74,7 @@
                             <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;color:black;display:inline-block;margin-left:54px;font-size:14px;height:40px;line-height:40px;padding:5px;">
                                 确认新密码:
                             </label>
                             <div>
@@ -100,16 +99,16 @@
 
                         <div class="form-pwd" >
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 真实姓名
                             </label>
                             <div>
-                                <input type="password"  v-model="old_pwd" placeholder="填写姓名不能有空格" style="width:85%;margin-left:-5px;height:30px;padding:5px;display: inline-block;border: 1px solid #ccc;border-radius:5px;">
+                                <input type="password"  v-model="old_pwd" placeholder="填写姓名不能有空格" style="width:85%;margin-left:-1px;height:30px;padding:5px;display: inline-block;border: 1px solid #ccc;border-radius:5px;">
 
                                 <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 出款银行名称
                             </label>
                             <div>
@@ -117,7 +116,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 开户银行省份
                             </label>
                             <div>
@@ -125,7 +124,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 开户银行县市
                             </label>
                             <div>
@@ -133,7 +132,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 银行账号
                             </label>
                             <div>
@@ -141,7 +140,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 绑定资金密码
                             </label>
                             <div>
@@ -149,7 +148,7 @@
                                 <div class="clear"></div>
                             </div>
 
-                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:20px;height:40px;line-height:40px;padding:5px;">
+                            <label style="float:left;color:black;display:inline-block;margin-left:54px;font-size:15px;height:40px;line-height:40px;padding:5px;">
                                 再次输入资金密码
                             </label>
                             <div>

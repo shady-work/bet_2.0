@@ -23,9 +23,10 @@
                         <tr v-for="(v,k) in data">
                           <td  width="100" style="text-align:left;padding-left:15px;">{{v.opr_time}}</td>
                           <td  width="90" style="text-align:left;padding-left:15px;">{{v.con}}</td>
-                          <td  width="40" style="text-align:right;padding-right:15px;">{{v.old}}</td>
-                          <td  width="40"  style="text-align:right;padding-right:15px;">{{v.chg}}</td>
-                          <td  width="40" style="text-align:right;padding-right:15px;">{{v.cur}}</td>
+                          <td  width="40" style="text-align:right;padding-right:15px;">{{v.old|money_digit}}</td>
+                          <td  width="40"  style="text-align:right;padding-right:15px;color: rgb(0, 174, 0);" v-if="v.chg>0">+{{v.chg|money_digit}}</td>
+                          <td  width="40"  style="text-align:right;padding-right:15px;color: red;" v-if="v.chg<0">{{v.chg|money_digit}}</td>
+                          <td  width="40" style="text-align:right;padding-right:15px;">{{v.cur|money_digit}}</td>
                           <!--<td  class="beizhu"><p style="">{{v.opr_mark}}</p></td>-->
                         </tr>
                      </tbody>
@@ -69,10 +70,15 @@ export default
           status:null,
           sum:0,
           pageNum:0,
+          value:'',
        };
        return data;
    },
-
+    filters:{
+       money_digit:function(value){
+           return Number(value).toFixed(2);
+       }
+    },
    methods:
    {
        /**

@@ -44,11 +44,14 @@
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:left;padding-left:15px;">{{v.week_name}}/{{v.date_str }}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.order_num}}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.sum_money}}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.win}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;" >{{v.sum_data.win}}</td>
+
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.fs}}</td>
                     <td class="color-red" style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">
-                      <a @click="get_details(v.date_str,v.week_name + '/ ' + v.date_str )" v-if="v.sum_data.order_num > 0" style="font-weight: 700;cursor: pointer;text-decoration:underline;">
-                        {{v.sum_data.winAndFs}}
+                      <a @click="get_details(v.date_str,v.week_name + '/ ' + v.date_str )" v-if="v.sum_data.order_num > 0" style="font-weight: 700;cursor: pointer;">
+
+                          <span v-if="v.sum_data.winAndFs>0" style="color: rgb(0, 174, 0);text-decoration:underline;">+{{v.sum_data.winAndFs}}</span>
+                          <span v-if="v.sum_data.winAndFs<0" style="color: red;text-decoration:underline;">{{v.sum_data.winAndFs}}</span>
                       </a>
                       <span v-else>
                         {{v.sum_data.winAndFs}}
@@ -63,18 +66,20 @@
                     <td>期数</td>
                     <td>注单号</td>
                     <td>时间</td>
-                    <td>下注内容</td>
-                    <td>下注金额</td>
-                    <td>中奖结果</td>
+                    <td style="text-align:left;padding-left:5px;">下注内容</td>
+                    <td style="text-align:right;padding-right:10px;">下注金额</td>
+                    <td >中奖结果</td>
                   </tr>
                   <tr v-for="v in details_data">
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.lty_name}}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.expect}}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.order_no}}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.create_time}}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.money}}</td>
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.open_ret==1?'中奖':'未中奖'}}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:left;padding-left:10px;">{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:10px;">{{v.money|money_digit}}</td>
+                    <!--<td style="text-align:center;" v-show="v.open_ret==1">{{v.open_ret==1?'中奖':'未中'}}</td>-->
+                      <td v-if="v.open_ret == 1" style="color: #00ae00;font-weight: 700;">中奖</td>
+                      <td v-if="v.open_ret == 0" style="color: gray;">未中</td>
                   </tr>
                 </table>
 
@@ -396,6 +401,11 @@ export default
        };
        return data;
    },
+    filters:{
+        money_digit:function(value){
+            return Number(value).toFixed(2);
+        }
+    },
    methods:
    {
 

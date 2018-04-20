@@ -34,8 +34,8 @@
                                 <td>注单号</td>
                                 <td style="text-align:left;padding-left:15px;">下注内容</td>
                                 <td>当时赔率</td>
-                                <td>下注金额</td>
-                                <td>预赢金额</td>
+                                <td style="text-align:right;padding-right:10px;">下注金额</td>
+                                <td style="text-align:right;padding-right:10px;">预赢金额</td>
                             </tr>
                             <tr v-for="v in data">
                                 <td>{{v.create_time}}</td>
@@ -43,8 +43,8 @@
                                 <td>{{v.order_no}}</td>
                                 <td style="text-align:left;padding-left:15px;">{{v.mark_a}}--{{v.mark_b}}</td>
                                 <td>{{v.rate}}</td>
-                                <td>{{v.money}}</td>
-                                <td>{{v.win}}</td>
+                                <td style="text-align:right;padding-right:10px;" >{{v.money|money_digit}}</td>
+                                <td style="text-align:right;padding-right:10px;">{{v.win}}</td>
                             </tr>
                         </table>
                         <div class="page-xy">
@@ -85,6 +85,11 @@ export default
        };
        return data;
    },
+    filters:{
+        money_digit:function(value){
+            return Number(value).toFixed(2);
+        }
+    },
    methods:
    {
        showOne:function(idx)

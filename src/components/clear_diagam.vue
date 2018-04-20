@@ -44,7 +44,7 @@
               <td>期数</td>
               <td>注单号</td>
               <td style="text-align:left;padding-left:15px;">下注内容</td>
-              <td>下注金额</td>
+              <td style="text-align:right;padding-right:15px;">下注金额</td>
               <td>当时赔率</td>
               <td>是否中奖</td>
           </tr>
@@ -53,7 +53,7 @@
               <td>{{v.expect}}</td>
               <td>{{v.order_no}}</td>
               <td style="text-align:left;padding-left:15px;">{{v.mark_a}}--{{v.mark_b}}</td>
-              <td>{{v.money}}</td>
+              <td style="text-align:right;padding-right:15px;">{{v.money|money_digit}}</td>
               <td>{{v.rate}}</td>
               <td v-if="v.open_ret == 1" style="color: #00ae00;font-weight: 700;">中奖</td>
               <td v-if="v.open_ret == 0" style="color: gray;">未中</td>
@@ -126,6 +126,11 @@ export default
        };
        return data;
    },
+    filters:{
+        money_digit:function(value){
+            return Number(value).toFixed(2);
+        }
+    },
    methods:
    {
 
@@ -167,6 +172,7 @@ export default
                    {
                        if(res.data.status == 200)
                        {
+                           console.log(res.data);
                            let data = res.data.data;
                            this.data  = data.list;
                            this.hasPrev = data.hasPrev;
