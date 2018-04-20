@@ -16,11 +16,21 @@
                     </div>
                 </div>
                 <div class="left">
-                <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期</p>
+                    <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="" style="color:white;text-decoration:underline;">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="" style="color:white;text-decoration:underline;">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
+                    </p>
                     <div class="balls">
                         <span v-for="v in lastOpenCode">{{v}}</span>
+                        
+
+                        <p class="color-white pull-left open-details">总和：32-小-龙 | 前三：豹子 | 中三：豹子 |  后三：豹子</p>
                         <div class="clear"></div>
                     </div>
+                </div>
+                <div class="opencode_details pull-left">
+                   
                 </div>
               
                 <div class="clear"></div>
@@ -92,7 +102,7 @@ export default {
                     }
                     else
                     {
-                    that.open_time++
+                        that.open_time++
                     }
                     return;
                 }
@@ -119,10 +129,12 @@ export default {
         get_last_code: function ()
         {
           this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
-          //获取到最新一期的数据
-          let data = res.data;
-          this.lastOpenCode = data.opencode;
-          this.lastExpect = `${data.expect}`;
+            //获取到最新一期的数据
+            let data = res.data;
+            console.log(res.data);
+            
+            this.lastOpenCode = data.opencode;
+            this.lastExpect = `${data.expect}`;
           });
         },
 
@@ -175,7 +187,7 @@ export default {
 .details {
   width: 1080px;
   float: left;
-  height: 80px;
+  height: 86px;
   margin-top: 5px;
   background: #ea4c4c;
   margin-left: 5px;
@@ -184,7 +196,7 @@ export default {
 }
 
 .left {
-  width: 400px;
+  /* width: 380px; */
   height: 100%;
   float: left;
   margin-left: 13px;
@@ -246,7 +258,7 @@ export default {
     box-sizing: border-box;
     margin-top:5px;
     width:100%;
-    padding:2px 15px;
+    padding:2px 0px;
 }
 
 .balls > span {
@@ -303,4 +315,11 @@ export default {
 .audio {
   margin-top: 6px;
 }
+
+.open-details
+{
+    line-height: 40px;;
+}
+
+
 </style>

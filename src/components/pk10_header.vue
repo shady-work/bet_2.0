@@ -16,9 +16,14 @@
               </div>
           </div>
           <div class="left">
-              <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期</p>
+              <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="" style="color:white;text-decoration:underline;">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="" style="color:white;text-decoration:underline;">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
+              </p>
               <div class="balls">
                   <span v-for="(v,k) in open_codes" :class="'hao'+ (v/10*10)">{{v/10*10}}</span>
+                   <p class="color-white pull-left open-details">总和：32-小-龙 | 前三：豹子 | 中三：豹子 |  后三：豹子</p>
                   <div class="clear"></div>
               </div>
           </div>
@@ -179,7 +184,6 @@ export default {
         padding-top: 10px;
     }
  .left {
-     width: 400px;
      height: 100%;
      float: left;
      margin-left: 13px;
