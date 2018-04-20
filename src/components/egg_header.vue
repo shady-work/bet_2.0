@@ -3,7 +3,7 @@
         <!-- 期数 时间 开奖号码 -->
         <div class="head">
             <div class="details">
-                <img src="../assets/img/PCdandan.png" class="logo-tubiao" alt="">
+                <img src="../assets/img/icon_lhc.png" class="logo-tubiao" alt="">
                   <div class="right">
                     <div class="right-left">
                         <p style="color:#209F16;">第{{this_expect}}期</p>

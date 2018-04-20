@@ -3,7 +3,7 @@
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
       <div class="details">
-        <img src="../assets/img/cqssc-logo.png" class="logo-tubiao" alt="">
+        <img src="../assets/img/icon_ssc.png" class="logo-tubiao" alt="">
         <div class="left">
           <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期</p>
             <div class="balls">

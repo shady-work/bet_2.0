@@ -4,28 +4,28 @@
         <user></user>
         <div class="lottery-list">
             <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'" v-show="isShow('cqssc')">
-                <img src="../assets/img/navicons_11.png" alt="">
+                <img src="../assets/img/icon_ssc.png" alt="">
                 <p class="color-white">
                     重庆时时彩
                 </p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(1)" :class="navArray[1]?'lottery active':'lottery'" v-show="isShow('bjpk10')">
-                <img src="../assets/img/navicons_09.png" alt="">
+                <img src="../assets/img/icon_bjpk.png" alt="">
                 <p class="color-white">
                     北京赛车
                 </p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(2)" :class="navArray[2]?'lottery active':'lottery'" v-show="isShow('cakeno')">
-                <img src="../assets/img/kuaile8.png" alt="">
+                <img src="../assets/img/icon_jnd28.png" alt="">
                 <p class="color-white">
                    加拿大28
                 </p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(3)" :class="navArray[3]?'lottery active':'lottery'" v-show="isShow('pcegg')">
-                <img src="../assets/img/PCdandan.png" alt="">
+                <img src="../assets/img/icon_lhc.png" alt="">
                 <p class="color-white">
                     PC蛋蛋
                 </p>
@@ -33,7 +33,7 @@
             </a>
 
             <a @click="turn(4)" :class="navArray[4]?'lottery active':'lottery'">
-              <img src="../assets/img/football.png" alt="">
+              <img src="../assets/img/icon_xyft.png" alt="">
               <p class="color-white">
                 足球竞猜
               </p>

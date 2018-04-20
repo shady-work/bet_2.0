@@ -4,7 +4,7 @@
     <!-- 期数 时间 开奖号码 -->
     <div class="head">
       <div class="details">
-        <img src="../assets/img/pk10-logo.png" class="logo-tubiao" alt="">
+        <img src="../assets/img/icon_bjpk.png" class="logo-tubiao" alt="">
           <div class="left">
               <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期</p>
               <div class="balls">

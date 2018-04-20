@@ -2,7 +2,7 @@
         <div>
                 <div class="head">
       <div class="details">
-        <img src="../assets/img/pk10-logo.png" class="logo-tubiao" alt="">
+        <img src="../assets/img/icon_bjpk.png" class="logo-tubiao" alt="">
          <div class="right">
               <div class="right-left">
                   <p style="color:#209F16;">第{{thisExpect}}期</p>
