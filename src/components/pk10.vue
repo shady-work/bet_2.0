@@ -24,12 +24,6 @@
                   <span >秒</span>
               </div>
           </div>
-
-
-
-
-
-
         <div class="clear"></div>
       </div>
 

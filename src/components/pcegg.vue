@@ -550,13 +550,9 @@
             let data = response.data;
             this.open_codes = data.details.ball_0;
             this.last_expect = data.expect;
-
           });
-
-
-
         },
-
+        //获取下注时间
         get_time : function()
         {
           let url2 = `${this.global.config.API}egg/time`;
@@ -572,6 +568,7 @@
             this.count_down()
           });
         },
+        //倒计时
         count_down:function ()
         {
           var that  = this;

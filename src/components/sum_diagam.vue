@@ -412,10 +412,12 @@ export default
             this.details_show = false;
             if(idx == 0 )
             {
+                this.is_coustom_date = false;
               this.data = this.sum_week['this_week'];
             }
             if(idx == 1 )
             {
+              this.is_coustom_date = false;
               this.data = this.sum_week['last_week'];
             }
             if(idx == 2)
@@ -443,8 +445,6 @@ export default
                 }
                 let dateStr =  str + '/' + month + "-" + day;
                 this.get_details(dateStr,dateStr);
-
-
             }
             if(idx == 4)
             {

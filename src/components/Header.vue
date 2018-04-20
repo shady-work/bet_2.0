@@ -4,10 +4,10 @@
     <!-- 上面的选择 -->
     <div class="a-waps">
       <img src="" alt="" id="logo">
-      <!--<a href="/#/home" class="nav-top">-->
-        <!--<i class="fa  fa-th-list"></i>-->
-        <!--<p>开奖中心</p>-->
-      <!--</a>-->
+      <a href="/#/home" class="nav-top">
+        <i class="fa  fa-th-list"></i>
+        <p>开奖中心</p>
+      </a>
 
       <a href="/#/money_change" class="nav-top">
         <i class="fa fa-credit-card"></i>
@@ -27,7 +27,7 @@
 
       <a href="/#/clear_diagam" class="nav-top">
         <i class="fa fa-bar-chart"></i>
-        <p>今日已结</p>
+        <p>已结历史</p>
       </a>
 
       <a href="/#/sum_diagam" class="nav-top">

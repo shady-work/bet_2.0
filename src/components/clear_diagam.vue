@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="xy-right">
-        <div class="xy-right-top">
+     <!--    <div class="xy-right-top">
           <a :class="tableArray[0]?'active':''" @click="showOne(0)">所有已结算</a>
           <a :class="tableArray[1]?'active':''" @click="showOne(1)">按条件筛选</a>
           <select class="pull-left filter-search" v-model="which_time">
@@ -37,8 +37,7 @@
             <option v-bind:value="'last_month'">上月</option>
             <option v-bind:value="'this_year'">本年</option>
           </select>
-
-        </div>
+        </div> -->
         <table v-show="tableArray[0]">
           <tr class="color-red">
               <td>时间</td>
@@ -524,7 +523,7 @@ export default
         color: #000;
         padding:8px 0;
         position: absolute;
-        bottom:0;
+        bottom:30px;
         left:355px;
     }
     .page-xy>span
