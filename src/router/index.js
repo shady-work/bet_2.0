@@ -19,6 +19,7 @@ import rules from '@/components/rules.vue';
 import bet_rules from '@/components/bet_rules.vue';
 import personal from '@/components/personal.vue';
 import home from '@/components/home.vue';
+import ssc_opencodes_history from '@/components/ssc_opencodes_history.vue';
 
 
 
@@ -127,6 +128,11 @@ export default new Router(
                         path: "/home",
                         name: "home",
                         component:home,
+                        },
+                        {
+                        path: "/ssc_opencodes_history",
+                        name: "ssc_opencodes_history",
+                        component:ssc_opencodes_history,
                         },
                     ],
             },
