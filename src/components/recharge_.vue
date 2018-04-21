@@ -22,7 +22,7 @@
                 <div class="right-right" v-show="condition==0">
                     <h2 class="mt5">请填写您的汇款信息</h2>
                     <div class="input-my">
-                        <p style="padding-left:4px;">银行名称</p>
+                        <p>银行名称</p>
                         <input type="text" v-model="bank_topup.bank_name" placeholder="请输入您汇款时使用的银行卡归属银行">
                     </div>
 

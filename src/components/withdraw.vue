@@ -8,6 +8,7 @@
                 <ul class="tabs">
                     <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
                     <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
+                    <p style="text-align:left;line-height:30px;" v-for="(v,k) in history">当前可提款金额为:<b>{{v.money}}</b></p>
                 </ul>
 
                 <!--银行卡提现-->
@@ -67,53 +68,56 @@
             </div>
 
             <div class="left" style="margin-top:-4px;">
-                  <h2 class="title">提现帮助</h2>
+                  <h2 class="title"">提现帮助</h2>
                   <p class="context">
                     尊敬的客户，您好!请按照你的提现方式，进行填写您的提现信息，请务必填写正确的信息，否则会导致提现失败。
-                      <br>
+                      <!--<br>-->
                       提现需要时间审核，请您耐心等待。
                   </p>
-                  <p  @click="isShowTable = true;" style="margin-top: 15px;cursor: pointer;font-size: 16px;text-decoration:underline;">查看提现记录</p>
+                  <!--<p  @click="isShowTable = true;" style="margin-top: 15px;cursor: pointer;font-size: 16px;text-decoration:underline;">查看提现记录</p>-->
                   <!--要显示的提现内容-->
+
+                  <!--提现金额及银行明细-->
+                <div class="history" style="margin-top:10px;">
+                    <h2 style="width:684px;text-align:center;font-size: 16px;">
+                        提现记录
+                        <!--<a class="pull-right" style="margin-right: 15px;cursor: pointer;" @click="isShowTable=false;">返回</a>-->
+                    </h2>
+                    <table width="672" style="margin-top: 15px;">
+                        <thead>
+                        <tr>
+                            <td>日期</td>
+                            <td>类型</td>
+                            <!--<td>金额</td>-->
+                            <td style="text-align:left;padding-left:80px;">详情</td>
+                            <td>状态</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="(v,k) in history">
+                            <td>{{v.tp_time}}</td>
+                            <td>{{v.con}}</td>
+                            <!--<td>{{v.money}}</td>-->
+                            <td v-html="v.tp_mark+ '<br>提现金额 : '+ v.money" style="text-align:left;padding-left:30px;"></td>
+                            <td>{{v.tp_stu==1?'审核中':(v.tp_stu==0?'拒绝':'已通过')}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="page-xy" style="width:700px;margin-top: 15px;">
+                        <span @click="prevPage">◀</span>
+                        <b>第{{page}}页</b>
+                        <span @click="nextPage">▶</span>
+                        <b>共{{pageNum}}页,{{sum}}条</b>
+                    </div>
+                </div>
+            </div>
             </div>
 
 
         </div>
 
-        <div class="history" v-show="isShowTable">
-            <h2 style="width: 1015px;text-align:center;margin-top: 15px;font-size: 18px;">
-                提现记录
-                <a class="pull-right" style="margin-right: 15px;cursor: pointer;" @click="isShowTable=false;">返回</a>
-            </h2>
-            <table width="1000" style="margin-left: 15px;margin-top: 15px;">
-                <thead>
-                <tr>
-                    <td>日期</td>
-                    <td>类型</td>
-                    <td>金额</td>
-                    <td>详情</td>
-                    <td>状态</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="(v,k) in history">
-                    <td>{{v.tp_time}}</td>
-                    <td>{{v.con}}</td>
-                    <td>{{v.money}}</td>
-                    <td v-html="v.tp_mark"></td>
-                    <td>{{v.tp_stu==1?'审核中':(v.tp_stu==0?'拒绝':'已通过')}}</td>
-                </tr>
-                </tbody>
-            </table>
 
-            <div class="page-xy" style="width: 1015px;margin-top: 15px;">
-                <span @click="prevPage">◀</span>
-                <b>第{{page}}页</b>
-                <span @click="nextPage">▶</span>
-                <b>共{{pageNum}}页,{{sum}}条</b>
-            </div>
-        </div>
-    </div>
 </template>
 
 
@@ -452,6 +456,14 @@
         box-sizing: border-box;
         padding: 8px;
         overflow: hidden;
+    }
+    /*提款明细*/
+    .left{
+        height:700px;
+        width:700px;
+    }
+    .left>ul>li{
+        float:left;
     }
     .title
     {
