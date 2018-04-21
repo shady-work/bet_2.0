@@ -602,6 +602,9 @@
           tips:'距离本期封盘还有',
 
 
+          isClose:false,//是否闭盘
+
+
         };
       return my_data;
     },

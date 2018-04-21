@@ -41,7 +41,7 @@
                   </tr>
 
                   <tr v-for="(v,k) in data">
-                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:left;padding-left:15px;">{{v.week_name}}/{{v.date_str }}</td>
+                    <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:left;padding-left:15px;">{{v.week_name}}&nbsp;{{v.date_str }}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.order_num}}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;">{{v.sum_data.sum_money}}</td>
                     <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:15px;" >{{v.sum_data.win}}</td>
@@ -94,10 +94,40 @@
             </div>
 
             <div class="xy-right" v-show="is_coustom_date" style="text-align:left;">
-                <div class="xy-head" style="padding-top: 12px;box-sizing: border-box;padding-left:15px;">
-                    <span>请选择日期</span>
-                    <input type="date" class="from-date" >-<input type="date" class="from-date" >
+                <div class="filter" style="padding:5px 3px;">
+                    <div class="block" style="float:left;">
+                        <el-date-picker
+                                v-model="value1"
+                                align="right"
+                                type="date"
+                                placeholder="选择日期"
+                                :picker-options="pickerOptions1">
+                        </el-date-picker>
+                    </div>
+                    <div class="pull-left" style="height: 40px;line-height: 40px;margin-left:10px;margin-right:10px;"> 至 </div>
+                    <div class="block" style="float:left;">
+                        <el-date-picker
+                                v-model="value2"
+                                align="right"
+                                type="date"
+                                placeholder="选择日期"
+                                :picker-options="pickerOptions1">
+                        </el-date-picker>
+                    </div>
+                    <div class="pull-left" style="height: 40px;line-height: 40px;margin-left:10px;margin-right:10px;"> 类型 </div>
+                    <div class="pull-left">
+                        <el-select v-model="filter_type" placeholder="请选择">
+                            <el-option
+                                    v-for="item in options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </div>
 
+                    <el-button type="success pull-left ml10">查询</el-button>
+                    <div class="clear"></div>
                 </div>
             </div>
 
@@ -430,6 +460,11 @@ export default
               this.is_coustom_date = false;
               this.data = this.sum_week['last_week'];
             }
+            if(idx == 3 )
+            {
+               this.is_coustom_date = false;
+               this.data = this.sum_week['this_month'];
+            }
             if(idx == 2)
             {
                 //获取本日的统计报表
@@ -532,7 +567,7 @@ export default
      {
        this.$http.get(`${this.global.config.API}clearList`).then(function(res)
        {
-
+         console.log(res.data);
          if(res.data.status == 200)
          {
            this.sum_week = res.data.data;
@@ -597,7 +632,7 @@ export default
     .xinyongziliao
     {
         width:1080px;
-        height: 445px;
+        /*height: 445px;*/
         margin-left: 10px;
         margin-top:5px;
     }
@@ -627,7 +662,7 @@ export default
     .xy-left
     {
         width: 185px;
-        height: 685px;
+        height: 1285px;
         float: left;
         box-sizing: border-box;
         background: #fff;
@@ -656,7 +691,7 @@ export default
     }
     .xy-right
     {
-        height: 685px;
+        height: 1285px;
         width:895px;
         background: #fff;
         float: left;

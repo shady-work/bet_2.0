@@ -8,6 +8,42 @@
                     <div class="clear"></div>
                 </div>
                 <div class="money-table">
+                  <!--筛选条件-->
+                  <div class="filter" style="padding:5px 3px;">
+                      <div class="block" style="float:left;">
+                          <el-date-picker
+                                  v-model="value1"
+                                  align="right"
+                                  type="date"
+                                  placeholder="选择日期"
+                                  :picker-options="pickerOptions1">
+                          </el-date-picker>
+                      </div>
+                      <div class="pull-left" style="height: 40px;line-height: 40px;margin-left:10px;margin-right:10px;"> 至 </div>
+                      <div class="block" style="float:left;">
+                          <el-date-picker
+                                  v-model="value2"
+                                  align="right"
+                                  type="date"
+                                  placeholder="选择日期"
+                                  :picker-options="pickerOptions1">
+                          </el-date-picker>
+                      </div>
+                      <div class="pull-left" style="height: 40px;line-height: 40px;margin-left:10px;margin-right:10px;"> 类型 </div>
+                      <div class="pull-left">
+                          <el-select v-model="filter_type" placeholder="请选择">
+                              <el-option
+                                      v-for="item in options"
+                                      :key="item.value"
+                                      :label="item.label"
+                                      :value="item.value">
+                              </el-option>
+                          </el-select>
+                      </div>
+
+                      <el-button type="success pull-left ml10">查询</el-button>
+                      <div class="clear"></div>
+                  </div>
                   <table border="1">
                      <thead>
                         <tr class="color-red">
@@ -71,6 +107,58 @@ export default
           sum:0,
           pageNum:0,
           value:'',
+          pickerOptions1:
+          {
+           disabledDate(time)
+           {
+             return time.getTime() > Date.now();
+           },
+           shortcuts:
+           [
+                {
+                  text: '今天',
+                  onClick(picker) {
+                    picker.$emit('pick', new Date());
+                  }
+                },
+                {
+                  text: '昨天',
+                  onClick(picker) {
+                    const date = new Date();
+                    date.setTime(date.getTime() - 3600 * 1000 * 24);
+                    picker.$emit('pick', date);
+                  }
+                },
+                {
+                  text: '一周前',
+                  onClick(picker) {
+                    const date = new Date();
+                    date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+                    picker.$emit('pick', date);
+                  }
+                }
+           ]
+          },
+          value1:'',//开始的日期
+          value2:'',//结束的日期
+          options: [{
+              value: '选项1',
+              label: '黄金糕'
+              }, {
+              value: '选项2',
+              label: '双皮奶'
+              }, {
+              value: '选项3',
+              label: '蚵仔煎'
+              }, {
+              value: '选项4',
+              label: '龙须面'
+              }, {
+              value: '选项5',
+              label: '北京烤鸭'
+          }],
+          filter_type:"",//选择类型
+
        };
        return data;
    },
@@ -187,6 +275,10 @@ export default
             {
                 this.$router.push(window.sessionStorage.which_lty);
             }
+        },
+        "value2":function(n,o)
+        {
+          console.log(n);
         }
     }
 }
