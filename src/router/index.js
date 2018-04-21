@@ -20,6 +20,9 @@ import bet_rules from '@/components/bet_rules.vue';
 import personal from '@/components/personal.vue';
 import home from '@/components/home.vue';
 import ssc_opencodes_history from '@/components/ssc_opencodes_history.vue';
+import pk10_opencodes_history from '@/components/pk10_opencodes_history.vue';
+import cake_opencodes_history from '@/components/cake_opencodes_history.vue';
+import egg_opencodes_history from '@/components/egg_opencodes_history.vue';
 
 
 
@@ -130,9 +133,25 @@ export default new Router(
                         component:home,
                         },
                         {
-                        path: "/ssc_opencodes_history",
-                        name: "ssc_opencodes_history",
-                        component:ssc_opencodes_history,
+                            path: "/ssc_opencodes_history",
+                            name: "ssc_opencodes_history",
+                            component:ssc_opencodes_history,
+                        },
+                        {
+                            path: "/pk10_opencodes_history",
+                            name: "pk10_opencodes_history",
+                            component:pk10_opencodes_history,
+                        },
+                        {
+                            path: "/cake_opencodes_history",
+                            name: "cake_opencodes_history",
+                            component:cake_opencodes_history,
+                        },
+                        {
+                            path: "/egg_opencodes_history",
+                            name: "egg_opencodes_history",
+                            component:egg_opencodes_history,
+
                         },
                     ],
             },
