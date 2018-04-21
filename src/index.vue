@@ -155,8 +155,8 @@
     left: 230px;
     float: left;
     min-width: 1077px;
-    margin-bottom: 20px;
-    width: 100%;
+
+    width: 90%;
     height: 100%;
     background: #f5f5f5;
     overflow-x: hidden;

@@ -268,7 +268,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center>
-      <div v-html="bet_html"></div>
+      <div v-html="bet_html" @click="fuckyou($event)" ></div>
       <span slot="footer" class="dialog-footer">
             <el-button @click="centerDialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="do_bet()">确 定</el-button>
@@ -653,17 +653,29 @@
               });
               return 0;
             }
-
+            let sumMoney = 0;
             let html = '';
             for(let i = 0; i<this.bets.length;i++){
                var index = this.dicrationaries.indexOf(this.bets[i].content);
-               html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money  +   '</br>';
+               html += "<p style='text-indent:15px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money   
+               + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + i +'>删除</button></p>';
+              sumMoney += parseInt(this.bets[i].money);
             }
+            html += "<p style='text-align:center;'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</p>';;
             this.centerDialogVisible = true;
             this.bet_html = html;
             return;
 
 
+        },
+        fuckyou(event){
+
+          if(event.target.innerHTML == '删除')
+          {
+            console.log(event.target.className);
+            //删除这个下注项
+            delete this.bets[event.target.className];
+          }
         },
         //两面盘下注方法1
         double_1:function(key,index)
