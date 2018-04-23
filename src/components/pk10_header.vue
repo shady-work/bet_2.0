@@ -17,8 +17,8 @@
           </div>
           <div class="left">
               <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" style="color:white;text-decoration:underline;">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" style="color:white;text-decoration:underline;">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="color:white;text-decoration:underline;cursor:pointer;" @click="turn()" >快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="color:white;text-decoration:underline;cursor:pointer;" @click="history_codes()">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
               </p>
               <div class="balls">
@@ -54,6 +54,7 @@ export default {
                  unsaleNum:1,
                  end_time : 100,//这期的封盘时间
                  open_time : 100,//下期的开盘时间
+                navArray:[1,0,0,0,0,0],
             }
         },
         methods:
@@ -136,6 +137,16 @@ export default {
                     this.lastExpect = data.expect;
                 });
             },
+            turn:function () {
+
+                this.$router.push('/pk10');
+                window.sessionStorage.index = 1;
+                window.sessionStorage.which_lty = 'pk10';
+            },
+            history_codes:function () {
+                this.$router.push('/pk10_opencodes_history');
+
+            }
         },//end methods
         created()
         {
@@ -302,4 +313,5 @@ export default {
       {
           background:#167301;
       }
+
 </style>

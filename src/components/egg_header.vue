@@ -18,8 +18,8 @@
                 </div>
                 <div class="left">
                    <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" style="color:white;text-decoration:underline;">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" style="color:white;text-decoration:underline;">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="color:white;text-decoration:underline;cursor:pointer;"  @click="turn()">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="color:white;text-decoration:underline;cursor:pointer" @click="history_codes()">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
 
                     </p>
@@ -164,6 +164,15 @@ export default {
           return className;
 
         },
+        turn:function () {
+            this.$router.push('/pcegg');
+            window.sessionStorage.index = 3;
+            window.sessionStorage.which_lty = 'pcegg';
+        },
+        history_codes:function () {
+            this.$router.push('/egg_opencodes_history');
+
+        }
     },//end methods
     created()
     {

@@ -16,9 +16,9 @@
                     </div>
                 </div>
                 <div class="left">
-                    <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" style="color:white;text-decoration:underline;">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="" style="color:white;text-decoration:underline;">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期 &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="color:white;text-decoration:underline;cursor:pointer;" @click="turn()" >快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a style="color:white;text-decoration:underline;cursor:pointer;" @click="history_codes()">历史记录</a>&nbsp;&nbsp;
                         <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
                     </p>
                     <div class="balls">
@@ -53,8 +53,8 @@ export default {
       let day = time.getDate();
       day = day < 10 ? ("0" + day) : day;
 
-
       return{
+            navArray:[1,0,0,0,0,0],
             lastExpect: `${year}${month}${day}`,//今天日期
             lastOpenCode: [1, 1, 1, 1, 1],          //最后一期开奖号码
             thisExpect: 20180312000,//这期下注的期数
@@ -131,7 +131,7 @@ export default {
           this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
             //获取到最新一期的数据
             let data = res.data;
-            console.log(res.data);
+            // console.log(res.data);
             
             this.lastOpenCode = data.opencode;
             this.lastExpect = `${data.expect}`;
@@ -153,6 +153,20 @@ export default {
              this.count_down();
           });
         },
+        //点击跳转
+        turn:function()
+        {
+
+            this.$router.push('/cqssc');
+            window.sessionStorage.index = 0;
+            window.sessionStorage.which_lty = 'cqssc';
+
+        },
+        //历史记录跳转
+        history_codes:function () {
+            this.$router.push('/ssc_opencodes_history');
+        }
+
     },
     created()
     {
@@ -160,6 +174,7 @@ export default {
         this.get_time();
         // 2 获取最新的开奖号码
         this.get_last_code();
+
     }
 }
 </script>
