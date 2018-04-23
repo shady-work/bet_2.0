@@ -155,41 +155,9 @@
     left: 230px;
     float: left;
     min-width: 1077px;
-
     width: 90%;
     height: 100%;
     background: #f5f5f5;
     overflow-x: hidden;
-  }
-  #notice
-  {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    color:#f3f3f3;
-    overflow: hidden;
-  }
-  #notice>.left
-  {
-    float: left;
-
-    height: 50px;
-    font-size:14px;
-    line-height: 50px;
-  }
-  #notice>.left>img
-  {
-    width: 14px;
-    height: 16px;
-    float: left;
-    margin-top: 16px;
-    margin-left: 16px;
-  }
-  #notice>marquee
-  {
-    float: left;
-    height: 50px;
-    font-size:14px;
-    line-height: 50px;
   }
 </style>

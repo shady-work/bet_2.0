@@ -1,10 +1,60 @@
 <template>
 
-    <div>
-        <div class="history" style="margin-left: 15px;margin-top: 15px;">
-            <table border="1" >
+    <div style="width: 1000px;margin-top: 15px;">
+           <!--筛选条件-->
+           <div class="filter-header" style="height: auto;overflow:hidden;margin-bottom: 15px;">
+               <div class="pull-left" style="width: 600px;">
+                   <div style-="height:30px;width:100%">
+                       <el-form ref="form"  >
+                       <el-form-item label="车号分布" >
+                           <el-checkbox-group v-model="type">
+                               <el-checkbox label="0" name="type" v-bind:value="0"></el-checkbox>
+                               <el-checkbox label="1" name="type" v-bind:value="1"></el-checkbox>
+                               <el-checkbox label="2" name="type"></el-checkbox>
+                               <el-checkbox label="3" name="type"></el-checkbox>
+                               <el-checkbox label="4" name="type"></el-checkbox>
+                               <el-checkbox label="5" name="type"></el-checkbox>
+                               <el-checkbox label="6" name="type"></el-checkbox>
+                               <el-checkbox label="7" name="type"></el-checkbox>
+                               <el-checkbox label="8" name="type"></el-checkbox>
+                               <el-checkbox label="9" name="type"></el-checkbox>
+                           </el-checkbox-group>
+                       </el-form-item>
+                       </el-form>
+                   </div>
+
+                   <div style-="height:30px;width:100%">
+                       <el-form ref="form"  >
+                           <el-form-item label="位置分布">
+                               <el-checkbox-group v-model="type2">
+                                   <el-checkbox label="第一球" name="type"  ></el-checkbox>
+                                   <el-checkbox label="第二球" name="type"></el-checkbox>
+                                   <el-checkbox label="第三球" name="type"></el-checkbox>
+                                   <el-checkbox label="第四球" name="type"></el-checkbox>
+                                   <el-checkbox label="第五球" name="type"></el-checkbox>
+                               </el-checkbox-group>
+                           </el-form-item>
+                       </el-form>
+                   </div>
+               </div>
+                <div class="block" style="float:right; ">
+                    <el-date-picker
+                            v-model="value1"
+                            align="right"
+                            type="date"
+                            format="yyyy-MM-dd"
+                            value-format="yyyy-MM-dd"
+                            placeholder="指定日期"
+                            :picker-options="pickerOptions1">
+                    </el-date-picker>
+
+                    <el-button type="success  ml10" >查询</el-button>
+                </div>
+           </div>
+            <div class="clear"></div>
+            <table border="1" v-show="true">
                 <tr  class="color-red">
-                    <td>期号/时间</td>
+                    <td style="width: 200px;">期号/时间</td>
                     <td style="width: 200px;">
                         <p>开奖号码</p>
                     </td>
@@ -18,7 +68,11 @@
                     <td>
                         <p>{{v.expect}} &nbsp; <span style="color: gray;">{{v.opentime|get_time}}</span></p></td>
                     <td>
-                        <span v-for="val in v.open_codes" class="open-code">{{val}}</span>
+                        <span :class="color(v.open_codes[0],0)?('hao'+v.open_codes[0]):''" class="open-code">{{v.open_codes[0]}}</span>
+                        <span :class="color(v.open_codes[1],1)?('hao'+v.open_codes[1]):''" class="open-code">{{v.open_codes[1]}}</span>
+                        <span :class="color(v.open_codes[2],2)?('hao'+v.open_codes[2]):''" class="open-code">{{v.open_codes[2]}}</span>
+                        <span :class="color(v.open_codes[3],3)?('hao'+v.open_codes[3]):''" class="open-code">{{v.open_codes[3]}}</span>
+                        <span :class="color(v.open_codes[4],4)?('hao'+v.open_codes[4]):''" class="open-code">{{v.open_codes[4]}}</span>
                     </td>
                     <td>{{get_sum(v.open_codes)}}</td>
                     <td v-if="v.details.dragon_and_tiger[1] == '总和单'" style="color:red;">{{v.details.dragon_and_tiger[1]|delete_str}}</td>
@@ -35,11 +89,6 @@
                     <td>{{v.details.end_3[0]}}</td>
                 </tr>
             </table>
-        </div>
-
-
-
-
     </div>
 </template>
 
@@ -50,6 +99,15 @@
     {
       return{
         list:[],//历史数据
+        value1:"",
+        pickerOptions1:{
+          disabledDate(time) {
+            return time.getTime() > Date.now();
+          },
+        },
+        type:[1],//选择的号码
+        type2:[],//选择的号码
+        isFilter:false,//是否筛选
       }
     },//end data
     methods:{
@@ -58,7 +116,7 @@
       {
 
           this.isShow = false;
-          this.$http.get(`${this.global.config.API}ssc/history/lottery`).then(function(res)
+          this.$http.get(`${this.global.config.API}ssc/history/lottery?per_page=300`).then(function(res)
           {
             if(res.data.status == 200)
             {
@@ -84,12 +142,48 @@
         }
         return sum;
       },
+      color(v,k)
+      {
+         //当没有选球的时候
+        if(this.type2.length < 1 )
+        {
+          if(this.type.indexOf(v) != -1)
+          {
+            return true;
+          }
+          else
+          {
+            return false;
+          }
+        }
+        else
+        {
+
+          //有选择球的时候
+          let array = ['第一球','第二球','第三球','第四球','第五球'];
+          for(let i = 0;i<this.type2.length;i++)
+          {
+             if(array.indexOf(this.type2[i]) != -1)
+             {
+                if(array.indexOf(this.type2[i]) == k)
+                {
+                  return true;
+                }
+                else
+                {
+                  return false;
+                }
+             }
+          }
+        }
+      },
 
     },//end methods
 
     created(){
       this.get_ssc_history();
     },//end created
+    //过滤器
     filters:{
 
       delete_str(str)
@@ -102,9 +196,19 @@
         let data = str.substring(10);
         return data;
       }
+    },
+    watch:
+    {
+        "type":function(n,o)
+        {
+          this.isFilter = true;
+          this.color();
+        },
+        "type2":function(n,o)
+        {
 
-
-
+          this.color();
+        },
     }
   }
 </script>
@@ -114,85 +218,6 @@ td
 {
     border: 1px solid #e5e5e5;
     padding:8px;
-}
-
-.xinyongziliao
-{
-    width:1080px;
-    margin-top:5px;
-    margin-left:10px;
-
-}
-
-.xy-header {
-    height: 30px;
-    background: #e83a36;
-    color: #f3f3f3;
-}
-
-.xy-header > i {
-    float: left;
-    width: 20px;
-    margin-top: 8px;
-    height: 20px;
-    margin-left: 15px;
-}
-
-.xy-header > span {
-    float: left;
-    height: 30px;
-    line-height: 30px;
-    font-size: 14px;
-    margin-left: 5px;
-
-}
-
-
-.xy-left {
-    width: 155px;
-    height: 795px;
-    float: left;
-    box-sizing: border-box;
-    background: #fff;
-    border-right: 1px solid #e5e5e5;
-}
-
-
-
-.xy-list > a {
-    display: block;
-    width: 100%;
-    padding: 3px;
-    text-align: left;
-    text-indent: 35px;
-    height: 30px;
-    line-height: 30px;
-    color: #000;
-    font-size: 14px;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-
-.xy-list > .active {
-    background: -webkit-linear-gradient(left,rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Safari 5.1 - 6.0 */
-    background: -o-linear-gradient(right, rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Opera 11.1 - 12.0 */
-    background: -moz-linear-gradient(right,rgba(230,0,0,0.3),rgba(200,200,200,0)); /* Firefox 3.6 - 15 */
-    background: linear-gradient(to right, rgba(230,0,0,0.3),rgba(200,200,200,0)); /* 标准的语法 */
-}
-
-.xy-right {
-    height: 795px;
-    width: 925px;
-    background: #fff;
-    float: left;
-}
-
-
-.edu > p {
-    height: 20px;
-    line-height: 20px;
-    color: #f3f3f3;
-    font-size: 14px;
 }
 
 table {
@@ -212,137 +237,63 @@ td > span {
     float: left;
     width: 25px;
     height: 25px;
-    background: url('../assets/img/ball.png');
+    /*background: url('../assets/img/ball.png');*/
+    background: gray;
+    -webkit-border-radius: 50%;
+    color: #fff;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     background-size: cover;
     margin-left: 5px;
     margin-right: 2px;
-    color: #5e6061;
     line-height: 25px;
     font-size: 18px;
     font-weight: 700;
     text-align: center;
 }
 
-.xy-right-top > span {
-    float: left;
-    height: 30px;
-    margin-top: 7px;
-    line-height: 30px;
-    font-size: 14px;
-    margin-left: 5px;
-    color: #f3f3f3;
+.hao0{
+    background:#24C500;
 }
-
-.xy-right-top > input {
-    width: 138px;
-    float: left;
-    background: none;
-    outline: none;
-    border: 1px solid #f3f3f3;
-    color: #f3f3f3;
-    float: left;
-    height: 22px;;
-    margin-top: 11px;
-    margin-left: 5px;
-    border-radius: 3px;
-}
-
-.xy-right-top > button {
-    float: left;
-    background: #5598c5;
-    font-size: 14px;
-    padding: 3px;
-    outline: none;
-    border: 1px solid #f3f3f3;
-    color: #f3f3f3;
-    margin-top: 9px;
-    border-radius: 3px;
-    margin-left: 15px;
-    width: 70px;
-}
-
-.page-xy
-{
-    font-size: 16px;
-    color: #000;
-    padding:8px 0;
-}
-.page-xy>span
-{
-    cursor: pointer;
-}
-td
-{
-    border: 1px solid #e5e5e5;
-    padding:8px 3px;
-}
-
-.hao1
-{
-    background: #959612;
-}
-.hao2
-{
-    background: #0060ff;
-}
-.hao3
-{
-    background: #4d4d4d;
-}
-.hao4
-{
-    background: #ff7300;
-}
-.hao5
-{
-    background: #00adad;
-}
-.hao6
-{
-    background:#5200ff;
-}
-.hao7
-{
-    background: #666666;
-}
-.hao8
-{
-    background: #ff0000;
-}
-.hao9
-{
+.hao1{
     background:#760000;
 }
-.hao10
-{
-    background:#167301;
+.hao2{
+    background:#FF0000;
 }
-
-.bg-red{
-    background: #9c464d!important;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+.hao3{
+    background: #C4C4EA;
 }
-
-.bg-green{
-    background: #3b9c6d !important;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+.hao4{
+    background:#5200ff;
 }
-
-
-.bg-blue{
-    background: #285b9c !important;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+.hao5{
+    background:#82FFFF;
 }
-.bg-white{
-    background: #9f9f9f !important;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
+.hao6{
+    background:#FF7200;
 }
+.hao7{
+    background:#4A4A4A;
+}
+.hao8{
+    background:#008AFF;
+}
+.hao9{
+    background: #e3ee66;
+}
+</style>
+<style>
+    .el-checkbox__label
+    {
+        padding-left: 2px;
+    }
+    .el-form-item
+    {
+        margin-bottom: -5px;
+    }
+    .el-checkbox-group
+    {
+        text-align: left;
+    }
 </style>

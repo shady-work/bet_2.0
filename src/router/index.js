@@ -91,6 +91,15 @@ export default new Router(
                             path: "/open_history",
                             name: "open_history",
                             component: open_history,
+                            children:
+                            [
+
+                              {
+                                path:'ssc',
+                                name:'ssc_opencodes_history',
+                                component:ssc_opencodes_history,
+                              }
+                            ],
                         },
                         {
                             path: "/rules",
@@ -132,27 +141,27 @@ export default new Router(
                         name: "home",
                         component:home,
                         },
-                        {
-                            path: "/ssc_opencodes_history",
-                            name: "ssc_opencodes_history",
-                            component:ssc_opencodes_history,
-                        },
-                        {
-                            path: "/pk10_opencodes_history",
-                            name: "pk10_opencodes_history",
-                            component:pk10_opencodes_history,
-                        },
-                        {
-                            path: "/cake_opencodes_history",
-                            name: "cake_opencodes_history",
-                            component:cake_opencodes_history,
-                        },
-                        {
-                            path: "/egg_opencodes_history",
-                            name: "egg_opencodes_history",
-                            component:egg_opencodes_history,
-
-                        },
+                        // {
+                        //     path: "/ssc_opencodes_history",
+                        //     name: "ssc_opencodes_history",
+                        //     component:ssc_opencodes_history,
+                        // },
+                        // {
+                        //     path: "/pk10_opencodes_history",
+                        //     name: "pk10_opencodes_history",
+                        //     component:pk10_opencodes_history,
+                        // },
+                        // {
+                        //     path: "/cake_opencodes_history",
+                        //     name: "cake_opencodes_history",
+                        //     component:cake_opencodes_history,
+                        // },
+                        // {
+                        //     path: "/egg_opencodes_history",
+                        //     name: "egg_opencodes_history",
+                        //     component:egg_opencodes_history,
+                        //
+                        // },
                     ],
             },
             {
