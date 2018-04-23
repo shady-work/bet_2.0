@@ -195,6 +195,7 @@ export default {
       {
           if(res.data.status == 200)
           {
+
               let data = res.data.data;
               this.list = data.list;
               this.hasPrev = data.hasPrev;

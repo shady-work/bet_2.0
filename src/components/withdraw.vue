@@ -68,7 +68,7 @@
             </div>
 
             <div class="left" style="margin-top:-4px;">
-                  <h2 class="title"">提现帮助</h2>
+                  <h2 class="title">提现帮助</h2>
                   <p class="context">
                     尊敬的客户，您好!请按照你的提现方式，进行填写您的提现信息，请务必填写正确的信息，否则会导致提现失败。
                       <!--<br>-->

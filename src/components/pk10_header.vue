@@ -19,11 +19,11 @@
               <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a style="color:white;text-decoration:underline;cursor:pointer;" @click="turn()" >快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a style="color:white;text-decoration:underline;cursor:pointer;" @click="history_codes()">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
+                        <span color="color-white;">未结金额:{{money}}</span>&nbsp;&nbsp;&nbsp;
               </p>
               <div class="balls">
                   <span v-for="(v,k) in open_codes" :class="'hao'+ (v/10*10)">{{v/10*10}}</span>
-                   <p class="color-white pull-left open-details">总和：32-小-龙 | 前三：豹子 | 中三：豹子 |  后三：豹子</p>
+                   <p class="color-white pull-left open-details">冠亚军和:{{details.sum[0]}},{{details.sum[2]}},{{details.sum[1]}}丨1~5龙虎:{{details.ball_1[3]}},{{details.ball_2[3]}},{{details.ball_3[3]}},{{details.ball_4[3]}},{{details.ball_5[3]}}</p>
                   <div class="clear"></div>
               </div>
           </div>
@@ -55,6 +55,70 @@ export default {
                  end_time : 100,//这期的封盘时间
                  open_time : 100,//下期的开盘时间
                 navArray:[1,0,0,0,0,0],
+                details:{
+                    "ball_1": [
+                        9,
+                        "单",
+                        "大",
+                        "龙"
+                    ],
+                    "ball_2": [
+                        8,
+                        "双",
+                        "大",
+                        "龙"
+                    ],
+                    "ball_3": [
+                        2,
+                        "双",
+                        "小",
+                        "虎"
+                    ],
+                    "ball_4": [
+                        3,
+                        "单",
+                        "小",
+                        "虎"
+                    ],
+                    "ball_5": [
+                        10,
+                        "双",
+                        "大",
+                        "龙"
+                    ],
+                    "ball_6": [
+                        6,
+                        "双",
+                        "大"
+                    ],
+                    "ball_7": [
+                        4,
+                        "双",
+                        "小"
+                    ],
+                    "ball_8": [
+                        7,
+                        "单",
+                        "大"
+                    ],
+                    "ball_9": [
+                        1,
+                        "单",
+                        "小"
+                    ],
+                    "ball_10": [
+                        5,
+                        "单",
+                        "小"
+                    ],
+                    "sum": [
+                        17,
+                        "单",
+                        "大"
+                    ]
+                },
+
+                money:'',
             }
         },
         methods:
@@ -133,6 +197,9 @@ export default {
             {
                 this.$http.get(`${this.global.config.API}pk10/lastLty`).then(function(res){
                     var data = res.data;
+                    this.details = data.details;
+                    this.money = data.unclear_money;
+                    // console.log(res.data);
                     this.open_codes = data.opencode;
                     this.lastExpect = data.expect;
                 });

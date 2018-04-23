@@ -20,7 +20,7 @@
                     <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a  style="color:white;text-decoration:underline;cursor:pointer;"  @click="turn()">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a  style="color:white;text-decoration:underline;cursor:pointer;" @click="history_codes()">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
+                        <span color="color-white;">未结金额:{{money}}</span>&nbsp;&nbsp;&nbsp;
 
                     </p>
                     <div class="balls">
@@ -32,7 +32,7 @@
                         <span class="bg-none color-white">=</span>
                         <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
 
-                         <p class="color-white pull-left open-details">总和：32-小-龙 | 前三：豹子 | 中三：豹子 |  后三：豹子</p>
+                        <p class="color-white pull-left open-details">总和:{{details.ball_1[0]}},{{details.ball_2[0]}},{{details.ball_2[1]}},{{details.ball_2[2]}},{{details.ball_2[3]}}丨波色:{{details.ball_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -60,6 +60,31 @@ export default {
             unsaleNum:0,
             mins:'00',
             seconds:'00',
+            details: {
+                "ball_0": [
+                    1,
+                    7,
+                    1
+                ],
+                "ball_1": [
+                    9
+                ],
+                "ball_2": [
+                    "小",
+                    "单",
+                    "小单",
+                    "非极值"
+                ],
+                "ball_3": [
+                    "红波"
+                ],
+                "ball_4": [
+                    "非豹子"
+                ],
+                "ball_5": []
+            },
+
+            money:'',
         }
     },//end data
     methods:
@@ -70,6 +95,8 @@ export default {
           let url = `${this.global.config.API}cake/lastLty`;
           this.$http.get(url).then(function(response){
             let data = response.data;
+              this.details = data.details;
+              this.money = data.unclear_money;
             this.open_codes = data.details.ball_0;
             this.last_expect = data.expect;
           });

@@ -19,18 +19,16 @@
                     <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期 &nbsp;&nbsp;&nbsp;&nbsp;
                         <a style="color:white;text-decoration:underline;cursor:pointer;" @click="turn()" >快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <a style="color:white;text-decoration:underline;cursor:pointer;" @click="history_codes()">历史记录</a>&nbsp;&nbsp;
-                        <span color="color-white;">未结金额：1500</span>&nbsp;&nbsp;&nbsp;
+                        <span color="color-white;">未结金额:{{money}}</span>
                     </p>
                     <div class="balls">
                         <span v-for="v in lastOpenCode">{{v}}</span>
-                        
-
-                        <p class="color-white pull-left open-details">总和：32-小-龙 | 前三：豹子 | 中三：豹子 |  后三：豹子</p>
+                        <p class="color-white pull-left open-details">总和:{{parseInt(lastOpenCode[0])+parseInt(lastOpenCode[1])+parseInt(lastOpenCode[2])+parseInt(lastOpenCode[3])+parseInt(lastOpenCode[4])}},{{details.dragon_and_tiger[1]|number1}},{{details.dragon_and_tiger[0]|number1}}丨龙虎:{{details.dragon_and_tiger[2]}}丨前三:{{details.front_3[0]}}丨中三:{{details.medium_3[0]}}丨后三:{{details.end_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
                 </div>
                 <div class="opencode_details pull-left">
-                   
+
                 </div>
               
                 <div class="clear"></div>
@@ -64,6 +62,49 @@ export default {
             sales_: 0,//今日已销售的期数
             end_time:60,//倒计时
             open_time:60,//开奖时间
+            money:'',
+            details:{
+                "ball_1": [
+                    4,
+                    "双",
+                    "小"
+                ],
+                "ball_2": [
+                    8,
+                    "双",
+                    "大"
+                ],
+                "ball_3": [
+                    6,
+                    "双",
+                    "大"
+                ],
+                "ball_4": [
+                    0,
+                    "双",
+                    "小"
+                ],
+                "ball_5": [
+                    7,
+                    "单",
+                    "大"
+                ],
+                "dragon_and_tiger": [
+                    "总和大",
+                    "总和单",
+                    "虎"
+                ],
+                "front_3": [
+                    "杂六"
+                ],
+                "medium_3": [
+                    "杂六"
+                ],
+                "end_3": [
+                    "半顺"
+                ]
+            },
+
       };
     },
     methods:
@@ -131,9 +172,12 @@ export default {
           this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
             //获取到最新一期的数据
             let data = res.data;
+            this.details = data.details;
+            this.money = data.unclear_money;
             // console.log(res.data);
             
             this.lastOpenCode = data.opencode;
+
             this.lastExpect = `${data.expect}`;
           });
         },
@@ -165,8 +209,17 @@ export default {
         //历史记录跳转
         history_codes:function () {
             this.$router.push('/ssc_opencodes_history');
-        }
+        },
 
+
+    },
+    //过滤
+    filters:{
+        number1:function (str) {
+            let data = str.substring(2);
+            return data;
+
+        }
     },
     created()
     {
