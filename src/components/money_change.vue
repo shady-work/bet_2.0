@@ -15,6 +15,8 @@
                                   v-model="value1"
                                   align="right"
                                   type="date"
+                                  format="yyyy-MM-dd"
+                                  value-format="yyyy-MM-dd"
                                   placeholder="选择日期"
                                   :picker-options="pickerOptions1">
                           </el-date-picker>
@@ -25,6 +27,8 @@
                                   v-model="value2"
                                   align="right"
                                   type="date"
+                                  format="yyyy-MM-dd"
+                                  value-format="yyyy-MM-dd"
                                   placeholder="选择日期"
                                   :picker-options="pickerOptions1">
                           </el-date-picker>
@@ -41,7 +45,7 @@
                           </el-select>
                       </div>
 
-                      <el-button type="success pull-left ml10">查询</el-button>
+                      <el-button type="success pull-left ml10" @click="get_money_details_filter()">查询</el-button>
                       <div class="clear"></div>
                   </div>
                   <table border="1">
@@ -88,6 +92,13 @@ export default
    name:'money_change',
    data:function()
    {
+      // let today =
+     let time = new Date();
+     let year = time.getFullYear();
+     let month = time.getMonth() + 1;
+     month = month < 10 ? ("0" + month) : month;
+     let day = time.getDate();
+     day = day < 10 ? ("0" + day) : day;
        var data =
        {
           tableArray:[1,0,0],
@@ -139,25 +150,25 @@ export default
                 }
            ]
           },
-          value1:'',//开始的日期
-          value2:'',//结束的日期
+          value1:``,//开始的日期
+          value2:``,//结束的日期
           options: [{
-              value: '选项1',
-              label: '黄金糕'
+            value: '0',
+            label: '全部'
+          },{
+              value: '1',
+              label: '充值'
               }, {
-              value: '选项2',
-              label: '双皮奶'
+              value: '2',
+              label: '提现'
               }, {
-              value: '选项3',
-              label: '蚵仔煎'
+              value: '3',
+              label: '下注'
               }, {
-              value: '选项4',
-              label: '龙须面'
-              }, {
-              value: '选项5',
-              label: '北京烤鸭'
-          }],
-          filter_type:"",//选择类型
+              value: '4',
+              label: '中奖'
+              }, ],
+          filter_type:"0",//选择类型
 
        };
        return data;
@@ -171,10 +182,11 @@ export default
    {
        /**
         * 获取资金明细列表
+        * type: 可选 查询变动类型 1充值 2提现 3下注 4中奖 range: 可选 查询时间范围 today:今天 week: 本周 lastweek: 上周
         */
-       get_money_details:function()
+       get_money_details:function( url =`${this.global.config.API}chgs` )
        {
-         this.$http.get(`${this.global.config.API}chgs`)
+         this.$http.get(url)
            .then(function(res)
            {
              if(res.data.status == 200)
@@ -192,7 +204,7 @@ export default
                console.log('用户数据加载失败.....');
              }
 
-           })
+           });
        },
        prevPage:function()
        {
@@ -251,6 +263,58 @@ export default
              });
          }
        },
+       // 按条件查询资金变动
+       get_money_details_filter()
+       {
+         //全没值的时候
+         if(parseInt(this.filter_type == 0) && !this.value1 && !this.value2)
+         {
+           this.get_money_details();
+           console.log(1);
+           return;
+         }
+
+         //起始日期为空时
+         if(!this.value1)
+         {
+           if(!this.value2)
+           {
+             if(parseInt(this.filter_type) != 0)
+             {
+               this.get_money_details(`${this.global.config.API}chgs?type=${this.filter_type}`);
+             }
+             else
+             {
+               this.get_money_details();
+             }
+           }
+           else
+           {
+             this.get_money_details(`${this.global.config.API}chgs?type=${this.filter_type}&range=${this.value2}_${this.value2}`);
+           }
+         }
+         else
+         {
+           if(!this.value2)
+           {
+             this.get_money_details(`${this.global.config.API}chgs?type=${this.filter_type}&range=${this.value1}`);
+           }
+           else
+           {
+             if(parseInt(this.filter_type) != 0)
+             {
+               this.get_money_details(`${this.global.config.API}chgs?type=${this.filter_type}&range=${this.value1}_${this.value2}`);
+             }
+             else
+             {
+               this.get_money_details(`${this.global.config.API}chgs?range=${this.value1}_${this.value2}`);
+             }
+
+           }
+
+         }
+         return;
+       },//end get_money_details_filter();
 
 
    },//methods end
@@ -260,6 +324,7 @@ export default
      {
         this.$store.state.isShowSecond = true;
         this.get_money_details();
+
      }
 
    },
@@ -276,10 +341,10 @@ export default
                 this.$router.push(window.sessionStorage.which_lty);
             }
         },
-        "value2":function(n,o)
-        {
-          console.log(n);
-        }
+       "value1":function(n,o)
+       {
+         console.log(n);
+       }
     }
 }
 
