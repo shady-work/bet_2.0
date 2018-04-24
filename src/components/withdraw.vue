@@ -13,7 +13,7 @@
 
                 <!--银行卡提现-->
                 <div class="right-right" v-show="isActive[0]">
-                    <h2 class="mt5">请填写您的银行信息</h2>
+                    <!--<h2 class="mt5" style="margin-top:15px;">请填写您的银行信息</h2>-->
                     <div class="input-my">
                         <p>银行名称</p>
                         <input type="text" v-model="bank_topup.bank_name" placeholder="如：建设银行">
@@ -44,7 +44,7 @@
 
                 <!--线下提现-->
                 <div class="right-right" v-show="isActive[1]" >
-                    <h2 class="mt5">请填写您的汇款信息</h2>
+                    <!--<h2 class="mt5">请填写您的汇款信息</h2>-->
                     <div class="input-my">
                         <span>账号姓名</span>
                         <input type="text" v-model="offline_topup.offline_name" placeholder="支付宝户名">
@@ -60,7 +60,7 @@
                         <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
                     </div>
 
-                    <button class="submit-btn" @click="submit_offline()" style="width:530px;">提交</button>
+                    <button class="submit-btn" @click="submit_offline()">提交</button>
                 </div>
 
 
@@ -79,14 +79,14 @@
 
                   <!--提现金额及银行明细-->
                 <div class="history" style="margin-top:10px;">
-                    <h2 style="width:684px;text-align:center;font-size: 16px;">
+                    <h2 style="width:480px;text-align:center;font-size: 16px;">
                         提现记录
                         <!--<a class="pull-right" style="margin-right: 15px;cursor: pointer;" @click="isShowTable=false;">返回</a>-->
                     </h2>
-                    <table width="672" style="margin-top: 15px;">
+                    <table width="490" style="margin-top: 15px;">
                         <thead>
                         <tr>
-                            <td>日期</td>
+                            <td width="130">日期</td>
                             <td>类型</td>
                             <!--<td>金额</td>-->
                             <td style="text-align:left;padding-left:80px;">详情</td>
@@ -95,7 +95,7 @@
                         </thead>
                         <tbody>
                         <tr v-for="(v,k) in history">
-                            <td>{{v.tp_time}}</td>
+                            <td>{{v.tp_time|get_time()}}</td>
                             <td>{{v.con}}</td>
                             <!--<td>{{v.money}}</td>-->
                             <td v-html="v.tp_mark+ '<br>提现金额 : '+ v.money" style="text-align:left;padding-left:30px;"></td>
@@ -104,12 +104,12 @@
                         </tbody>
                     </table>
 
-                    <div class="page-xy" style="width:700px;margin-top: 15px;">
-                        <span @click="prevPage">◀</span>
-                        <b>第{{page}}页</b>
-                        <span @click="nextPage">▶</span>
-                        <b>共{{pageNum}}页,{{sum}}条</b>
-                    </div>
+                    <!--<div class="page-xy" style="width:400px;margin-top: 15px;">-->
+                        <!--<span @click="prevPage">◀</span>-->
+                        <!--<b>第{{page}}页</b>-->
+                        <!--<span @click="nextPage">▶</span>-->
+                        <!--<b>共{{pageNum}}页,{{sum}}条</b>-->
+                    <!--</div>-->
                 </div>
             </div>
             </div>
@@ -427,6 +427,12 @@
         },
 
     },
+    filters:{
+        get_time:function (str) {
+            let data=str.substring(0,16);
+            return data;
+        }
+    },
     created()
     {
         this.get_history();
@@ -440,6 +446,9 @@
     #recharge
     {
         overflow: hidden;
+        overflow-x:auto;
+
+
     }
 
     .left,.right
@@ -460,7 +469,7 @@
     /*提款明细*/
     .left{
         height:700px;
-        width:700px;
+        width:500px;
     }
     .left>ul>li{
         float:left;
@@ -479,11 +488,11 @@
     }
     .right
     {
-        width: 600px;
+        width:300px;
     }
     .tabs
     {
-        width: 550px;
+        width:295px;
         margin:0 auto;
         height: 45px;
         -webkit-box-sizing: border-box;
@@ -529,7 +538,7 @@
     }
     .right-right
     {
-        width: 530px;
+        width:295px;
         height: 400px;
         float: left;
         margin-left: 19px;
@@ -537,13 +546,14 @@
     }
     .input-my
     {
+
         margin-top: 15px;
         text-align:left;
     }
     .input-my>input
     {
-        height: 30px;
-        width:530px;
+        height:30px;
+        width:260px;
         border-radius: 3px;
         color: #000;
         text-indent:5px;
@@ -566,8 +576,9 @@
     }
     .submit-btn
     {
-        width:530px;
-        margin-top: 20px;
+        width:260px;
+        margin-left:-30px;
+        margin-top:20px;
         height: 30px;
         background: #ff0000;
         color: white;
