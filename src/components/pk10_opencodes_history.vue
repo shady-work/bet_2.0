@@ -1,5 +1,6 @@
 <template>
     <div>
+
         <div class="filter-header" style="height: auto;overflow:hidden;margin-bottom: 15px;margin-top: 15px;">
             <div class="pull-left" style="width: 600px;">
                 <div style-="height:30px;width:100%">
@@ -71,7 +72,7 @@
       var data =
         {
           table_lotterys: [1, 0, 0, 0],
-          type: 'ssc',//默认要的彩种数据
+          type: 'pk10',//默认要的彩种数据
           list: [],
           page: 1,
           hasNext: false,
@@ -129,13 +130,13 @@
           });
 
         },
-        get_sum: function (arr) {
-          var sum = 0;
-          for (let i = 0; i < arr.length; i++) {
-            sum += Number(arr[i]);
-          }
-          return sum;
-        },
+        // get_sum: function (arr) {
+        //   var sum = 0;
+        //   for (let i = 0; i < arr.length; i++) {
+        //     sum += Number(arr[i]);
+        //   }
+        //   return sum;
+        // },
         returnColor: function (num) {
           let className = '';
           num = parseInt(num);
@@ -155,7 +156,49 @@
           return className;
 
         },
+        //获取pk10的数据
+          get_pk10_history(date)
+          {
+              let url = ``;
+              if(date)
+              {
+                  url = `${this.global.config.API}pk10/history/lottery?per_page=300&range=${date}`;
+              }
+              else
+              {
+                  url = `${this.global.config.API}pk10/history/lottery?per_page=300`;
+              }
+              this.isShow = false;
+              this.$http.get(url).then(function(res)
+              {
+                  if(res.data.status == 200)
+                  {
+                      let data = res.data.data;
+                      this.list = data.list;
+                      this.hasPrev = data.hasPrev;
+                      this.hasNext = data.hasNext;
+                      this.sum = data.sum;
+                      this.pageNum = data.pageNum;
+                      this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                      this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                      this.page = data.curPage;
+                  }
 
+              })
+          },
+          get_data_by_date()
+          {
+              this.get_pk10_history(this.value1);
+          },
+          get_sum:function(arr)
+          {
+              var sum = 0;
+              for(let i = 0;i <arr.length;i++)
+              {
+                  sum += Number(arr[i]);
+              }
+              return sum;
+          },
 
       },
     created: function () {

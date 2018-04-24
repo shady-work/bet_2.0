@@ -1,5 +1,41 @@
 <template>
     <div>
+        <div class="filter-header" style="height: auto;overflow:hidden;margin-bottom: 15px;margin-top: 15px;">
+            <div class="pull-left" style="width: 600px;">
+                <div style-="height:30px;width:100%">
+                    <el-form ref="form">
+                        <el-form-item label="车号分布">
+                            <el-checkbox-group v-model="type">
+                                <el-checkbox label="0" name="type" v-bind:value="0"></el-checkbox>
+                                <el-checkbox label="1" name="type" v-bind:value="1"></el-checkbox>
+                                <el-checkbox label="2" name="type"></el-checkbox>
+                                <el-checkbox label="3" name="type"></el-checkbox>
+                                <el-checkbox label="4" name="type"></el-checkbox>
+                                <el-checkbox label="5" name="type"></el-checkbox>
+                                <el-checkbox label="6" name="type"></el-checkbox>
+                                <el-checkbox label="7" name="type"></el-checkbox>
+                                <el-checkbox label="8" name="type"></el-checkbox>
+                                <el-checkbox label="9" name="type"></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+            <div class="block" style="float:right; ">
+                <el-date-picker
+                        v-model="value1"
+                        align="right"
+                        type="date"
+                        format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd"
+                        placeholder="指定日期"
+                        :picker-options="pickerOptions1">
+                </el-date-picker>
+
+                <el-button type="success  ml10" @click="get_data_by_date()">查询</el-button>
+            </div>
+        </div>
+        <div class="clear"></div>
         <table border="1">
             <tr>
                 <td>期数/时间</td>
@@ -10,10 +46,10 @@
             </tr>
             <tr v-for="v in list">
                 <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time}}</span></p></td>
-                <td >
+                <td style="padding-left:110px;">
                     <span v-for="val in v.details.ball_0" :class="returnColor(val)" class="open-code">{{val}}</span>
                 </td>
-                <td><span :class="returnColor(v.details.ball_1[0])" class="open-code" style="margin-left:5px;">{{v.details.ball_1[0]}}</span></td>
+                <td style="padding-left:45px;"><span :class="returnColor(v.details.ball_1[0])" class="open-code" style="margin-left:10px;">{{v.details.ball_1[0]}}</span></td>
                 <td>{{v.details.ball_2[0]}}</td>
                 <td>{{v.details.ball_2[1]}}</td>
                 <td>{{v.details.ball_2[2]}}</td>
@@ -35,7 +71,7 @@
             var data =
                 {
                     table_lotterys:[1,0,0,0],
-                    type:'ssc',//默认要的彩种数据
+                    type:'cake',//默认要的彩种数据
                     list:[],
                     page :1,
                     hasNext:false,
@@ -46,6 +82,13 @@
                     pageNum:0,
                     isShow:false,
                     details:[],
+                    value1: '',
+                    pickerOptions1: {
+                        disabledDate(time) {
+                            return time.getTime() > Date.now();
+                        },
+                    },
+                    type:[],
 
                 };
             return data;
@@ -114,6 +157,40 @@
                         sum += Number(arr[i]);
                     }
                     return sum;
+                },
+                //获取加拿大历史数据
+                get_cake_history(date)
+                {
+                    let url = ``;
+                    if(date)
+                    {
+                        url = `${this.global.config.API}cake/history/lottery?per_page=300&range=${date}`;
+                    }
+                    else
+                    {
+                        url = `${this.global.config.API}cake/history/lottery?per_page=300`;
+                    }
+                    this.isShow = false;
+                    this.$http.get(url).then(function(res)
+                    {
+                        if(res.data.status == 200)
+                        {
+                            let data = res.data.data;
+                            this.list = data.list;
+                            this.hasPrev = data.hasPrev;
+                            this.hasNext = data.hasNext;
+                            this.sum = data.sum;
+                            this.pageNum = data.pageNum;
+                            this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
+                            this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
+                            this.page = data.curPage;
+                        }
+
+                    })
+                },
+                get_data_by_date()
+                {
+                    this.get_cake_history(this.value1);
                 },
                 returnColor:function(num)
                 {
@@ -275,5 +352,7 @@
         -moz-border-radius: 50%;
         border-radius: 50%;
     }
-
+    table{
+        width:1000px;
+    }
 </style>

@@ -95,6 +95,7 @@ export default {
           let url = `${this.global.config.API}cake/lastLty`;
           this.$http.get(url).then(function(response){
             let data = response.data;
+            console.log(response.data);
               this.details = data.details;
               this.money = data.unclear_money;
             this.open_codes = data.details.ball_0;
@@ -127,7 +128,7 @@ export default {
             {
               that.mins = '00';
               that.seconds = that.open_time;
-               that.seconds = that.seconds>9?that.seconds:("0" + that.seconds);
+              that.seconds = that.seconds>9?that.seconds:("0" + that.seconds);
               that.tips = "离开盘还有";
               if(that.open_time <= 0 )
               {
