@@ -176,7 +176,6 @@ export default
         var orderData_2 = [];
         this.$http.get(url).then(function(res)
         {
-          console.log(res.data);
           if(res.data.status == 200)
           {
             let data = res.data.data;
@@ -195,12 +194,9 @@ export default
      //取消订单
      cancelOrder(order_id)
      {
-        // console.log(order_id);
-        // return;
-        this.$http.delete(`${this.global.config.API}ssc/order`,{body:{ids:[order_id]}})
+        this.$http.delete(`${this.global.config.API}${this.type}/order`,{body:{ids:[order_id]}})
           .then(function(res)
           {
-            console.log(res.data);
              if(res.data.status == 200)
              {
                 if(res.data.data.success.indexOf(order_id.toString()) != -1)
