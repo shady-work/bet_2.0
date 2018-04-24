@@ -268,7 +268,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center>
-      <div v-html="bet_html" @click="fuckyou($event)" ></div>
+      <div v-html="bet_html" @click="delete_it($event)" ></div>
       <span slot="footer" class="dialog-footer">
             <el-button @click="centerDialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="do_bet()">确 定</el-button>
@@ -347,7 +347,7 @@
              },
              ball_5_half_str:["大","小","单","双"],
              dragon_and_tiger:[1.9000,1.9000,1.9000,1.9000,1.9000,1.9000,1.9000],
-             dragon_and_tiger_str:["总和单","总和双","总和大","总和小","龙","虎","和"],
+             dragon_and_tiger_str:["总和大","总和小","总和单","总和双","龙","虎","和"],
              single_ball_1_5:
              {
                ball_1_digit:[1,1,1,1,1,1,1,1,1,1],
@@ -657,24 +657,53 @@
             let html = '';
             for(let i = 0; i<this.bets.length;i++){
                var index = this.dicrationaries.indexOf(this.bets[i].content);
-               html += "<p style='text-indent:15px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money   
-               + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + i +'>删除</button></p>';
+               html += "<div style='text-indent:15px;margin-top: 5px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money
+               + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + this.bets[i].content +'>删除</button></div>';
               sumMoney += parseInt(this.bets[i].money);
             }
-            html += "<p style='text-align:center;'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</p>';;
+            html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
             this.centerDialogVisible = true;
             this.bet_html = html;
             return;
 
 
         },
-        fuckyou(event){
+      //删除某个下注选择
+        delete_it(event)
+        {
 
           if(event.target.innerHTML == '删除')
           {
-            console.log(event.target.className);
             //删除这个下注项
-            delete this.bets[event.target.className];
+            for(let i = 0 ; i<this.bets.length;i++)
+            {
+               if(this.bets[i].content == event.target.className)
+               {
+                 this.bets.splice(i, 1);
+               }
+            }
+
+            //移除这个html元素
+            let line = event.target.parentNode;
+            let bigDaddy = line.parentNode;
+            bigDaddy.removeChild(line);
+
+            //重写统计
+            let len = this.bets.length;//几条
+            //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
+            if(len <1)
+            {
+              this.centerDialogVisible = false;
+              this.$message.error('请重新选择下注内容');
+              this.clear_bet();
+
+            }
+            let totalMoney = 0;//总金额
+            for(let i = 0;i<len;i++)
+            {
+              totalMoney += this.bets[i].money;
+            }
+            document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
           }
         },
         //两面盘下注方法1
@@ -1254,4 +1283,10 @@
   }
 
 
+</style>
+<style>
+  .el-dialog--center .el-dialog__body
+  {
+    padding-bottom: 15px;
+  }
 </style>
