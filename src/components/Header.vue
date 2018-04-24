@@ -36,7 +36,7 @@
       </a>
 
 
-      <a href="/#/open_history" class="nav-top">
+      <a href="/#/open_history/ssc" class="nav-top">
             <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
       </a>

@@ -98,7 +98,22 @@ export default new Router(
                                 path:'ssc',
                                 name:'ssc_opencodes_history',
                                 component:ssc_opencodes_history,
-                              }
+                              },
+                              {
+                                path:'pk10',
+                                name:'pk10_opencodes_history',
+                                component:pk10_opencodes_history,
+                              },
+                              {
+                                path:'cake',
+                                name:'cake_opencodes_history',
+                                component:cake_opencodes_history,
+                              },
+                              {
+                                path:'egg',
+                                name:'egg_opencodes_history',
+                                component:egg_opencodes_history,
+                              },
                             ],
                         },
                         {

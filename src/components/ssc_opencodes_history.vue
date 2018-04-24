@@ -22,22 +22,8 @@
                        </el-form-item>
                        </el-form>
                    </div>
-
-                   <div style-="height:30px;width:100%">
-                       <el-form ref="form"  >
-                           <el-form-item label="位置分布">
-                               <el-checkbox-group v-model="type2">
-                                   <el-checkbox label="第一球" name="type"  ></el-checkbox>
-                                   <el-checkbox label="第二球" name="type"></el-checkbox>
-                                   <el-checkbox label="第三球" name="type"></el-checkbox>
-                                   <el-checkbox label="第四球" name="type"></el-checkbox>
-                                   <el-checkbox label="第五球" name="type"></el-checkbox>
-                               </el-checkbox-group>
-                           </el-form-item>
-                       </el-form>
-                   </div>
                </div>
-                <div class="block" style="float:right; ">
+               <div class="block" style="float:right; ">
                     <el-date-picker
                             v-model="value1"
                             align="right"
@@ -48,11 +34,11 @@
                             :picker-options="pickerOptions1">
                     </el-date-picker>
 
-                    <el-button type="success  ml10" >查询</el-button>
+                    <el-button type="success  ml10" @click="get_data_by_date()" >查询</el-button>
                 </div>
            </div>
             <div class="clear"></div>
-            <table border="1" v-show="true">
+            <table border="1" v-show="list.length > 1">
                 <tr  class="color-red">
                     <td style="width: 200px;">期号/时间</td>
                     <td style="width: 200px;">
@@ -89,6 +75,7 @@
                     <td>{{v.details.end_3[0]}}</td>
                 </tr>
             </table>
+
     </div>
 </template>
 
@@ -112,11 +99,19 @@
     },//end data
     methods:{
       //获取cqssc的历史数据
-      get_ssc_history()
+      get_ssc_history(date)
       {
-
+        let url = ``;
+          if(date)
+          {
+            url = `${this.global.config.API}ssc/history/lottery?per_page=300&range=${date}`;
+          }
+          else
+          {
+            url = `${this.global.config.API}ssc/history/lottery?per_page=300`;
+          }
           this.isShow = false;
-          this.$http.get(`${this.global.config.API}ssc/history/lottery?per_page=300`).then(function(res)
+          this.$http.get(url).then(function(res)
           {
             if(res.data.status == 200)
             {
@@ -133,6 +128,10 @@
 
           })
       },//end get_ssc_history
+      get_data_by_date()
+      {
+        this.get_ssc_history(this.value1);
+      },
       get_sum:function(arr)
       {
         var sum = 0;
@@ -201,14 +200,10 @@
     {
         "type":function(n,o)
         {
-          this.isFilter = true;
-          this.color();
-        },
-        "type2":function(n,o)
-        {
 
-          this.color();
+
         },
+
     }
   }
 </script>
@@ -225,7 +220,6 @@ table {
     border: 1px solid #e5e5e5;
     color: #000;
     font-size: 14px;
-    height: 485px;
 }
 
 td > span {
@@ -295,5 +289,9 @@ td > span {
     .el-checkbox-group
     {
         text-align: left;
+    }
+    .el-checkbox+.el-checkbox
+    {
+        margin-left:25px;
     }
 </style>
