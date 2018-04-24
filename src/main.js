@@ -81,11 +81,37 @@ router.beforeEach(function(to, from, next)
    //判断是要去哪个路由，如果在路由文件中没有，则跳转到根目录
    if(!to.name)
    {
-     Vm.$router.push('/');
+     Vm.$router.push('/home');
      next();
    }
   else
    {
+
+     switch(to.name)
+     {
+       case "Cqssc":
+         Vm.$children[0].$children[0].$children[1].navArray = [1,0,0,0,0,0,0];
+         break;
+       case "pk10":
+         Vm.$children[0].$children[0].$children[1].navArray = [0,1,0,0,0,0,0];
+         break;
+       case 'Cakeno28':
+         Vm.$children[0].$children[0].$children[1].navArray = [0,0,1,0,0,0,0];
+         break;
+       case "pcegg":
+         Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,1,0,0,0];
+         break;
+       case "football":
+         Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,1,0,0];
+         break;
+       case "man_online":
+         Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,0,1,0];
+         break;
+       default:
+         Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,0,0,0];
+         break;
+     }
+
      next();
    }
 

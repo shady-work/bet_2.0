@@ -11,35 +11,34 @@
                 <div class="xy-left">
 
                     <div class="xy-list">
-                        <a @click="isShow=[1,0,0,0,0];" :class="isShow[0]?'active':''">重庆时时彩</a>
-                        <a @click="isShow=[0,1,0,0,0];" :class="isShow[1]?'active':''">重北京赛车pk10</a>
-                        <a @click="isShow=[0,0,1,0,0];" :class="isShow[2]?'active':''">加拿大28</a>
-                        <a @click="isShow=[0,0,0,1,0];" :class="isShow[3]?'active':''">pc蛋蛋</a>
+                        <a @click="change_lty(0,'ssc')" :class="isShow[0]?'active':''">重庆时时彩</a>
+                        <a @click="change_lty(1,'pk10')" :class="isShow[1]?'active':''">北京赛车pk10</a>
+                        <a @click="change_lty(2,'cake')" :class="isShow[2]?'active':''">加拿大28</a>
+                        <a @click="change_lty(3,'egg')" :class="isShow[3]?'active':''">pc蛋蛋</a>
                     </div>
                 </div>
 
 
                 <div class="xy-right">
                     <div class="xy-right-top">
-                        <a v-for="(v,k) in handicaps" :class="tableArray[k]?'active':''" >{{return_upper(v.ratewin_name)}}盘</a>
-
+                        <a v-for="(v,k) in handicaps" :class="tableArray[k]?'active':''"  @click="tab_pan(v.ratewin_name,k)">{{return_upper(v.ratewin_name)}}盘</a>
                     </div>
 
                     <div class="rules  text-left" v-show="isShow[0]">
                        <table>
                            <tr class="color-red">
                                <td width="60" style="text-align:left;padding-left:15px;">玩法</td>
-                               <td width="60" style="text-align:right;padding-right:15px;">单注投注最高金额</td>
                                <td width="60" style="text-align:right;padding-right:15px;">单注投注最低金额</td>
+                               <td width="60" style="text-align:right;padding-right:15px;">单注投注最高金额</td>
                                <td width="60" style="text-align:right;padding-right:15px;">单期投注最高金额</td>
-                               <td width="60" style="text-align:right;padding-right:15px;">赔率</td>
+
                            </tr>
                            <tr v-for="(v,k) in data">
                                <td style="text-align:left;padding-left:15px;">{{v.play}}</td>
-                               <td style="text-align:right;padding-right:15px;">{{v.one_bet_max}}</td>
                                <td style="text-align:right;padding-right:15px;">{{v.one_bet_min}}</td>
                                <td style="text-align:right;padding-right:15px;">{{v.one_bet_win}}</td>
-                               <td style="text-align:right;padding-right:15px;">{{v.odds}}</td>
+                               <td style="text-align:right;padding-right:15px;">{{v.one_bet_max}}</td>
+
                            </tr>
                        </table>
                     </div>
@@ -51,14 +50,14 @@
                                 <td width="60" style="text-align:right;padding-right:15px;">单注投注最高金额</td>
                                 <td width="60" style="text-align:right;padding-right:15px;">单注投注最低金额</td>
                                 <td width="60" style="text-align:right;padding-right:15px;">单期投注最高金额</td>
-                                <td width="60" style="text-align:right;padding-right:15px;">赔率</td>
+
                             </tr>
                             <tr v-for="(v,k) in data">
                                 <td style="text-align:left;padding-left:15px;">{{v.play}}</td>
                                 <td style="text-align:right;padding-right:15px;">{{v.one_bet_max}}</td>
                                 <td style="text-align:right;padding-right:15px;">{{v.one_bet_min}}</td>
                                 <td style="text-align:right;padding-right:15px;">{{v.one_bet_win}}</td>
-                                <td style="text-align:right;padding-right:15px;">{{v.odds}}</td>
+
                             </tr>
                         </table>
                     </div>
@@ -148,63 +147,63 @@ export default
                    one_bet_max:130000,
                    one_bet_min:1,
                    one_bet_win:260000,
-                   odds:1.99,
+
                },
                {
                    play:"冠亚大",
                    one_bet_max:130000,
                    one_bet_min:1,
                    one_bet_win:260000,
-                   odds:2.2,
+
                },
                {
                    play:"冠亚小",
                    one_bet_max:130000,
                    one_bet_min:1,
                    one_bet_win:260000,
-                   odds:1.79,
+
                },
                {
                    play:"冠亚单",
                    one_bet_max:130000,
                    one_bet_min:1,
                    one_bet_win:260000,
-                   odds:1.79,
+
                },
                {
                    play:"冠亚双",
                    one_bet_max:130000,
                    one_bet_min:1,
                    one_bet_win:260000,
-                   odds:2.2,
+
                },
                {
                    play:"名次(1~10位)",
                    one_bet_max:10050,
                    one_bet_min:1,
                    one_bet_win:100500,
-                   odds:9.95,
+
                },
                {
                    play:"3、19",
                    one_bet_max:2234,
                    one_bet_min:1,
                    one_bet_win:2234,
-                   odds:44.775,
+
                },
                {
                    play:"4、18",
                    one_bet_max:2234,
                    one_bet_min:1,
                    one_bet_win:2234,
-                   odds:44.775,
+
                },
                {
                    play:"5、17",
                    one_bet_max:4466,
                    one_bet_min:1,
                    one_bet_win:4466,
-                   odds:22.387,
+
                },
            ],
        };
@@ -215,7 +214,7 @@ export default
        //获取用户有哪些盘口
        get_users_handicaps()
        {
-           this.$http.get(`${this.global.config.API}ssc/pans`)
+           this.$http.get(`${this.global.config.API}${this.which_lty}/pans`)
                .then(function(res)
                {
                    this.handicaps = [];
@@ -226,12 +225,96 @@ export default
                            this.handicaps.push(res.data.data.ratelist[i]);
                        }
                    }
+                   this.get_user_bet_rules(this.handicaps[0].ratewin_name);
                });
        },
+
+       change_lty(idx,type)
+       {
+         this.isShow = [0,0,0,0,0,0];
+         this.isShow[idx] = 1;
+         switch (type)
+         {
+           case "ssc":
+             this.which_lty = 'ssc';
+             this.get_users_handicaps();
+             this.tableArray=[1,0];
+           case 'pk10':
+             this.which_lty = 'pk10';
+             this.get_users_handicaps();
+             this.tableArray=[1,0];
+
+         }
+       },
+       //返回大写字母
        return_upper:function(str)
        {
            return str.toUpperCase();
        },
+       //获取用户拥有的第一个盘的下注限制
+       get_user_bet_rules(pan)
+       {
+         this.$http.get(`${this.global.config.API}${this.which_lty}/odds/0?pan=${pan}`).then(function(res)
+         {
+           if(res.data.status ==200)
+           {
+                let data = res.data.data.odds;
+                this.data[0].play = "第一球";
+                this.data[0].one_bet_max = data.ball_1_digit.bet_limit.expect_limit;
+                this.data[0].one_bet_min = data.ball_1_digit.bet_limit.order_limit_min;
+                this.data[0].one_bet_win = data.ball_1_digit.bet_limit.order_limit_max;
+
+                this.data[1].play = "第二球";
+                this.data[1].one_bet_max = data.ball_2_digit.bet_limit.expect_limit;
+                this.data[1].one_bet_min = data.ball_2_digit.bet_limit.order_limit_min;
+                this.data[1].one_bet_win = data.ball_2_digit.bet_limit.order_limit_max;
+
+                this.data[2].play = "第三球";
+                this.data[2].one_bet_max = data.ball_3_digit.bet_limit.expect_limit;
+                this.data[2].one_bet_min = data.ball_3_digit.bet_limit.order_limit_min;
+                this.data[2].one_bet_win = data.ball_3_digit.bet_limit.order_limit_max;
+
+
+                this.data[3].play = "第四球";
+                this.data[3].one_bet_max = data.ball_4_digit.bet_limit.expect_limit;
+                this.data[3].one_bet_min = data.ball_4_digit.bet_limit.order_limit_min;
+                this.data[3].one_bet_win = data.ball_4_digit.bet_limit.order_limit_max;
+
+                this.data[4].play = "第五球";
+                this.data[4].one_bet_max = data.ball_5_digit.bet_limit.expect_limit;
+                this.data[4].one_bet_min = data.ball_5_digit.bet_limit.order_limit_min;
+                this.data[4].one_bet_win = data.ball_5_digit.bet_limit.order_limit_max;
+
+                this.data[5].play = "总和";
+                this.data[5].one_bet_max = data.dragon_and_tiger.bet_limit.expect_limit;
+                this.data[5].one_bet_min = data.dragon_and_tiger.bet_limit.order_limit_min;
+                this.data[5].one_bet_win = data.dragon_and_tiger.bet_limit.order_limit_max;
+
+                this.data[6].play = "前三";
+                this.data[6].one_bet_max = data.front_3.bet_limit.expect_limit;
+                this.data[6].one_bet_min = data.front_3.bet_limit.order_limit_min;
+                this.data[6].one_bet_win = data.front_3.bet_limit.order_limit_max;
+
+                this.data[7].play = "中三";
+                this.data[7].one_bet_max = data.medium_3.bet_limit.expect_limit;
+                this.data[7].one_bet_min = data.medium_3.bet_limit.order_limit_min;
+                this.data[7].one_bet_win = data.medium_3.bet_limit.order_limit_max;
+
+                this.data[8].play = "后三";
+                this.data[8].one_bet_max = data.end_3.bet_limit.expect_limit;
+                this.data[8].one_bet_min = data.end_3.bet_limit.order_limit_min;
+                this.data[8].one_bet_win = data.end_3.bet_limit.order_limit_max;
+           }
+         });
+       },
+       //切换盘口
+        tab_pan(pan,k)
+        {
+            this.get_user_bet_rules(pan);
+            this.tableArray = [0,0,0,0,0,0,0,0,0];
+            this.tableArray[k] = 1;
+        }
+
    },
    created()
    {
@@ -329,7 +412,7 @@ export default
        float: left;
        box-sizing: border-box;
        background: #fff;
-       border-right: 1px solid gray;
+       /*border-right: 1px solid gray;*/
    }
 
    .xy-list>a

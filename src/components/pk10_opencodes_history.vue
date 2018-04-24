@@ -129,7 +129,7 @@
           });
 
         },
-       
+
         returnColor: function (num) {
           let className = '';
           num = parseInt(num);
