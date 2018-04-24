@@ -338,6 +338,7 @@
           }
 
         },
+        //获取赔率
         get_odds: function (which_handicap = null)
         {
           if(which_handicap || this.which_handicap)
@@ -439,9 +440,9 @@
           }
 
         },
+        //清除下注内容
         clear_bet: function ()
         {
-          //clear all bet action
 
           //recover bet money
           this.bet_content =
@@ -456,7 +457,7 @@
           //clear bets
           this.bets = [];
         },
-
+        //确认下注
         comfire_bet: function ()
         {
           //过滤掉相同的对象
@@ -729,7 +730,7 @@
 
         },
         /**
-         * 获取cqssc未结算的清单
+         * 获取egg未结算的清单
          */
         get_ssc_unclear:function()
         {
@@ -743,8 +744,11 @@
             let list  = data.list;
             for(let i = 0; i<list.length;i++)
             {
-              let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
-              this.orderData.push(html);
+              if(list[i].status != -1)
+              {
+                let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
+                this.orderData.push(html);
+              }
             }
             //设置全局的未结算清单
             this.$set(this.$store.state,'unclear',this.orderData);

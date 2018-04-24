@@ -18,10 +18,9 @@
                 </div>
                 <div class="left">
                    <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style="color:white;text-decoration:underline;cursor:pointer;"  @click="turn()">快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style="color:white;text-decoration:underline;cursor:pointer" @click="history_codes()">历史记录</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span color="color-white;">未结金额:{{money}}</span>&nbsp;&nbsp;&nbsp;
-
+                       <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
+                       <a class="my-a" @click="history_codes()">历史记录</a>
+                       <a class="my-a" @click="turn()" >快速下注</a>
                     </p>
                     <div class="balls">
                         <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
@@ -31,7 +30,7 @@
                         <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
                         <span class="bg-none color-white">=</span>
                         <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
-                        <p class="color-white pull-left open-details">总和:{{details.ball_1[0]}},{{details.ball_2[0]}},{{details.ball_2[1]}},{{details.ball_2[2]}},{{details.ball_2[3]}}丨波色:{{details.ball_3[0]}}</p>
+                        <p class="color-white pull-right open-details">总和:{{details.ball_1[0]}},{{details.ball_2[0]}},{{details.ball_2[1]}},{{details.ball_2[2]}},{{details.ball_2[3]}}丨波色:{{details.ball_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -96,7 +95,6 @@ export default {
             let data = response.data;
               this.details = data.details;
               this.money = data.unclear_money;
-            // console.log(response.data);
             this.open_codes = data.details.ball_0;
             this.last_expect = data.expect;
           });
@@ -198,7 +196,7 @@ export default {
             window.sessionStorage.which_lty = 'pcegg';
         },
         history_codes:function () {
-            this.$router.push('/egg_opencodes_history');
+          this.$router.push('/open_history/egg');
 
         }
     },//end methods
@@ -239,6 +237,7 @@ export default {
   padding-top: 10px;
 }
 .left {
+    width: 680px;
     height: 100%;
     float: left;
     margin-left: 13px;
@@ -297,6 +296,7 @@ export default {
 }
 .balls
 {
+    width: 100%;
   float: left;
   margin-top:5px;
 }
@@ -327,6 +327,10 @@ export default {
 .open-details
 {
     line-height: 40px;;
+}
+.my-a
+{
+    color:white;text-decoration:underline;cursor:pointer;float:right;margin-right:15px;
 }
 
 </style>

@@ -1150,8 +1150,10 @@
             let list  = data.list;
             for(let i = 0; i<list.length;i++)
             {
-              let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
-              this.orderData.push(html);
+              if(list[i].status != -1) {
+                let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
+                this.orderData.push(html);
+              }
             }
             //设置全局的未结算清单
             this.$set(this.$store.state,'unclear',this.orderData);

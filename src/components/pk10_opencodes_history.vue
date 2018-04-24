@@ -113,7 +113,6 @@
           this.isShow = false;
           this.$http.get(url).then(function (res) {
             if (res.data.status == 200) {
-              console.log(res.data);
               let data = res.data.data;
               this.list = data.list;
               this.hasPrev = data.hasPrev;
@@ -130,13 +129,7 @@
           });
 
         },
-        // get_sum: function (arr) {
-        //   var sum = 0;
-        //   for (let i = 0; i < arr.length; i++) {
-        //     sum += Number(arr[i]);
-        //   }
-        //   return sum;
-        // },
+       
         returnColor: function (num) {
           let className = '';
           num = parseInt(num);

@@ -16,14 +16,14 @@
                     </div>
                 </div>
                 <div class="left">
-                    <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期 &nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style="color:white;text-decoration:underline;cursor:pointer;" @click="turn()" >快速下注</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a style="color:white;text-decoration:underline;cursor:pointer;" @click="history_codes()">历史记录</a>&nbsp;&nbsp;
-                        <span color="color-white;">未结金额:{{money}}</span>
+                    <p class="color-white" > 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期
+                        <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
+                        <a class="my-a" @click="history_codes()">历史记录</a>
+                        <a class="my-a" @click="turn()" >快速下注</a>
                     </p>
                     <div class="balls">
                         <span v-for="v in lastOpenCode">{{v}}</span>
-                        <p class="color-white pull-left open-details">总和:{{parseInt(lastOpenCode[0])+parseInt(lastOpenCode[1])+parseInt(lastOpenCode[2])+parseInt(lastOpenCode[3])+parseInt(lastOpenCode[4])}},{{details.dragon_and_tiger[1]|number1}},{{details.dragon_and_tiger[0]|number1}}丨龙虎:{{details.dragon_and_tiger[2]}}丨前三:{{details.front_3[0]}}丨中三:{{details.medium_3[0]}}丨后三:{{details.end_3[0]}}</p>
+                        <p class="color-white pull-right open-details">总和:{{parseInt(lastOpenCode[0])+parseInt(lastOpenCode[1])+parseInt(lastOpenCode[2])+parseInt(lastOpenCode[3])+parseInt(lastOpenCode[4])}},{{details.dragon_and_tiger[1]|number1}},{{details.dragon_and_tiger[0]|number1}}丨龙虎:{{details.dragon_and_tiger[2]}}丨前三:{{details.front_3[0]}}丨中三:{{details.medium_3[0]}}丨后三:{{details.end_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -208,7 +208,7 @@ export default {
         },
         //历史记录跳转
         history_codes:function () {
-            this.$router.push('/ssc_opencodes_history');
+          this.$router.push('/open_history/ssc');
         },
 
 
@@ -264,7 +264,7 @@ export default {
 }
 
 .left {
-  /* width: 380px; */
+   width: 680px;
   height: 100%;
   float: left;
   margin-left: 13px;
@@ -388,6 +388,10 @@ export default {
 {
     line-height: 40px;;
 }
+    .my-a
+    {
+        color:white;text-decoration:underline;cursor:pointer;float:right;margin-right:15px;
+    }
 
 
 </style>
