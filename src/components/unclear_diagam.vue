@@ -36,6 +36,7 @@
                                 <td>当时赔率</td>
                                 <td style="text-align:right;padding-right:10px;">下注金额</td>
                                 <td style="text-align:right;padding-right:10px;">预赢金额</td>
+                                <td>操作</td>
                             </tr>
                             <tr v-for="v in data">
                                 <td>{{v.create_time}}</td>
@@ -45,6 +46,8 @@
                                 <td>{{v.rate}}</td>
                                 <td style="text-align:right;padding-right:10px;" >{{v.money|money_digit}}</td>
                                 <td style="text-align:right;padding-right:10px;">{{v.win}}</td>
+                                <td v-if="v.status != -1"><el-button type="warning" size="small" @click="cancelOrder(v.id)">取消订单</el-button></td>
+                                <td v-if="v.status == -1"><el-button type="info" size="small" disabled>已取消</el-button></td>
                             </tr>
                         </table>
                         <div class="page-xy">
@@ -173,7 +176,9 @@ export default
         var orderData_2 = [];
         this.$http.get(url).then(function(res)
         {
-           if(res.data.status == 403) return false;
+          console.log(res.data);
+          if(res.data.status == 200)
+          {
             let data = res.data.data;
             this.data  = data.list;
             this.hasPrev = data.hasPrev;
@@ -183,9 +188,37 @@ export default
             this.prevPageUrl = this.hasPrev?data.prevPageUrl:'';
             this.nextPageUrl = this.hasNext?data.nextPageUrl:'';
             this.page = data.curPage;
+          }
 
         });
-
+     },
+     //取消订单
+     cancelOrder(order_id)
+     {
+        // console.log(order_id);
+        // return;
+        this.$http.delete(`${this.global.config.API}ssc/order`,{body:{ids:[order_id]}})
+          .then(function(res)
+          {
+            console.log(res.data);
+             if(res.data.status == 200)
+             {
+                if(res.data.data.success.indexOf(order_id.toString()) != -1)
+                {
+                  this.$message({
+                    message:'取消成功',
+                    center:true,
+                    type:"success"
+                  });
+                }
+                else
+                {
+                  this.$message.error('发生了未知的错误，请稍后重试');
+                }
+                //重新加载数据
+               this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0`);
+             }
+          })
      },
 
    },
