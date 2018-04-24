@@ -258,7 +258,7 @@ export default
         color: #000;
         padding:8px 0;
         position: absolute;
-        bottom:-36px;
+        bottom:-48px;
         left:355px;
     }
     .page-xy>span
@@ -271,6 +271,8 @@ export default
         width:1080px;
         margin-left:10px;
         margin-top:5px;
+        padding-bottom: 50px;
+        background: #fff;
     }
     .xy-header
     {
@@ -307,7 +309,7 @@ export default
     .xy-left
     {
         width: 185px;
-        height: 590px;
+        /*height: 590px;*/
         float: left;
         box-sizing: border-box;
         background: #fff;
@@ -337,7 +339,7 @@ export default
     }
     .xy-right
     {
-        height: 590px;
+        /*height: 590px;*/
         width:895px;
         background: #fff;
         float: left;

@@ -800,7 +800,6 @@ export default
     }
     .xy-right
     {
-
         width:895px;
         background: #fff;
         float: left;

@@ -377,7 +377,7 @@
       :visible.sync="centerDialogVisible"
       width="30%"
       center>
-      <div v-html="bet_html"></div>
+      <div v-html="bet_html" @click="delete_it($event)"></div>
       <span slot="footer" class="dialog-footer">
     <el-button @click="centerDialogVisible = false">取 消</el-button>
     <el-button type="primary" @click="do_bet()">确 定</el-button>
@@ -922,6 +922,44 @@
         //更新视图层
         this.bets.single_ball.ball_1_digit.reverse().reverse();
       },
+      //删除订单
+      delete_it(event)
+      {
+
+        if(event.target.innerHTML == '删除')
+        {
+          //删除这个下注项
+          for(let i = 0 ; i<this.bet_content.length;i++)
+          {
+            if(this.bet_content[i].content == event.target.className)
+            {
+              this.bet_content.splice(i, 1);
+            }
+          }
+
+          //移除这个html元素
+          let line = event.target.parentNode;
+          let bigDaddy = line.parentNode;
+          bigDaddy.removeChild(line);
+
+          //重写统计
+          let len = this.bet_content.length;//几条
+          //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
+          if(len <1)
+          {
+            this.centerDialogVisible = false;
+            this.$message.error('请重新选择下注内容');
+            this.clear_bet();
+
+          }
+          let totalMoney = 0;//总金额
+          for(let i = 0;i<len;i++)
+          {
+            totalMoney += this.bet_content[i].money;
+          }
+          document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
+        }
+      },
       /**
        * 用户确认下注
        */
@@ -943,11 +981,15 @@
 
         //拼接字符串
         let html = '';
+        let sumMoney = 0;
         for(let i = 0; i<this.bet_content.length;i++)
         {
           var index = this.dicrationaries.indexOf(this.bet_content[i].content);
-          html += this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money  +   '</br>';
+          html +=           "<div style='text-indent:15px;margin-top: 5px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money
+            + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + this.bet_content[i].content +'>删除</button></div>';
+          sumMoney += parseInt(this.bet_content[i].money);
         }
+        html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bet_content.length + '条,' + sumMoney + "￥" +   '</div>';
         this.centerDialogVisible = true;
         this.bet_html = html;
         return;
