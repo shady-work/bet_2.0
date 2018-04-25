@@ -7,7 +7,7 @@ export default
     config:
     {
         API:"http://lty-main.com/",
-        // API:"/",
+          //API:"/",
     },
     log:function(content)
     {

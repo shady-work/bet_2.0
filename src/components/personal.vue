@@ -14,7 +14,7 @@
                     <div class="xy-list">
                         <a @click="isShow=[1,0,0,0,0];" :class="isShow[0]?'active':''">登入记录</a>
                         <a @click="isShow=[0,1,0,0,0];" :class="isShow[1]?'active':''">修改登入密码</a>
-                        <a @click="isShow=[0,0,1,0,0];" :class="isShow[2]?'active':''">我的银行卡</a>
+                        <!--<a @click="isShow=[0,0,1,0,0];" :class="isShow[2]?'active':''">我的银行卡</a>-->
 
                     </div>
                 </div>

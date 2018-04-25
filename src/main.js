@@ -87,6 +87,7 @@ router.beforeEach(function(to, from, next)
   else
    {
 
+
      switch(to.name)
      {
        case "Cqssc":
@@ -106,6 +107,8 @@ router.beforeEach(function(to, from, next)
          break;
        case "man_online":
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,0,1,0];
+         break;
+       case "Index":
          break;
        default:
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,0,0,0];

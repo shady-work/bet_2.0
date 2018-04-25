@@ -195,3 +195,8 @@ a:hover{
 {
     font-weight:700;
 }
+
+.el-checkbox__label
+{
+  padding-left: 2px;
+}
