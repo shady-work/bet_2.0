@@ -20,6 +20,18 @@
                         </el-form-item>
                     </el-form>
                 </div>
+
+                <div style-="height:30px;width:100%">
+                    <el-form ref="form">
+                        <el-form-item label="车道分布">
+                            <el-checkbox-group v-model="type2">
+                                <el-checkbox label="1" name="type"></el-checkbox>
+                                <el-checkbox label="2" name="type"></el-checkbox>
+                                <el-checkbox label="3" name="type"></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                    </el-form>
+                </div>
             </div>
             <div class="block" style="float:right; ">
                 <el-date-picker
@@ -44,10 +56,10 @@
                 <td>波色</td>
 
             </tr>
-            <tr v-for="v in list">
+            <tr v-for="(v,k) in list">
                 <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time}}</span></p></td>
                 <td style="padding-left:110px;">
-                    <span v-for="val in v.details.ball_0" :class="returnColor(val)" class="open-code">{{val}}</span>
+                    <span v-for="(val,key) in v.details.ball_0" :class="isLight(data[k]['codes' + (key+1)].islight,data[k]['codes' + (key+1)].no_,val)" class="open-code">{{val}}</span>
                 </td>
                 <td style="padding-left:45px;"><span :class="returnColor(v.details.ball_1[0])" class="open-code" style="margin-left:10px;">{{v.details.ball_1[0]}}</span></td>
                 <td>{{v.details.ball_2[0]}}</td>
@@ -71,7 +83,6 @@
             var data =
                 {
                     table_lotterys:[1,0,0,0],
-                    type:'cake',//默认要的彩种数据
                     list:[],
                     page :1,
                     hasNext:false,
@@ -89,6 +100,8 @@
                         },
                     },
                     type:[],
+                    type2:[],
+                  data:[],
 
                 };
             return data;
@@ -104,22 +117,6 @@
         methods:
             {
 
-                close: function () {
-                    this.$parent.showArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-                    this.type = 'ssc';
-                    this.table_lotterys = [1,0,0,0];
-                },
-                cancel: function (event) {
-                    var e = event || window.event;
-                    e.cancelBubble = true;
-                },
-                tab_lottery:function(idx,str)
-                {
-                    this.table_lotterys = [0,0,0,0];
-                    this.table_lotterys[idx] = 1;
-                    this.type = str;
-                    this.list = this.get_codes(`${this.global.config.API}${this.type}/history/lottery`);
-                },
                 /**
                  * 获取开奖号码
                  * @param url
@@ -134,6 +131,16 @@
                             console.log(res.data);
                             let data = res.data.data;
                             this.list = data.list;
+                              for(let i = 0; i<this.list.length;i++)
+                              {
+                                this.data.push(
+                                  {
+                                    codes1:{ num:this.list[i].details.ball_0[0],islight:false,no_:"1"},
+                                    codes2:{ num:this.list[i].details.ball_0[1],islight:false,no_:"2"},
+                                    codes3:{ num:this.list[i].details.ball_0[2],islight:false,no_:"3"},
+
+                                  })
+                              }
                             this.hasPrev = data.hasPrev;
                             this.hasNext = data.hasNext;
                             this.sum = data.sum;
@@ -149,6 +156,59 @@
                     });
 
                 },
+              isLight(isLight,no,val)
+              {
+                val = val.toString();
+                //如果没有筛选条件，全亮
+                if(this.type.length <1 && this.type2.length < 1)
+                {
+                  return this.returnColor(val);
+                }
+                else
+                {
+                  //有筛选条件的时候
+                  if(this.type2.length>0)
+                  {
+                    //如果选了车道的话，就第几道车道有亮
+                    if(this.type2.indexOf(no) != -1)
+                    {
+                      //如果第一个筛选条件也有话
+                      if(this.type.length > 0)
+                      {
+                        if(this.type.indexOf(val) != -1)
+                        {
+                          return this.returnColor(val);
+                        }
+                        else
+                        {
+                          return '';
+                        }
+                      }
+                      else
+                      {
+                        return this.returnColor(val);
+                      }
+
+
+                    }
+                    else
+                    {
+                      return '';
+                    }
+                  }
+                  else
+                  {
+                    if(this.type.indexOf(val) != -1)
+                    {
+                      return this.returnColor(val);
+                    }
+                    else
+                    {
+                      return '';
+                    }
+                  }
+                }
+              },
                 get_sum:function(arr)
                 {
                     var sum = 0;
@@ -314,22 +374,23 @@
         float: left;
         width: 25px;
         height: 25px;
-        background: url('../assets/img/ball.png');
+        /*background: url('../assets/img/ball.png');*/
         background-size: cover;
         margin-left:13px;
         margin-right: 2px;
-        /*color: #5e6061;*/
+
         line-height: 25px;
         font-size: 18px;
         font-weight: 700;
         text-align: center;
-        color:white;
+        color:gray;
     }
     .bg-red{
         background: #9c464d!important;
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
+        color: #fff;
     }
 
     .bg-green{
@@ -337,6 +398,7 @@
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
+        color: #fff;
     }
 
 
@@ -345,12 +407,14 @@
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
+        color: #fff;
     }
     .bg-white{
         background: #9f9f9f !important;
         -webkit-border-radius: 50%;
         -moz-border-radius: 50%;
         border-radius: 50%;
+        color: #fff;
     }
     table{
         width:1000px;

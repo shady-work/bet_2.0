@@ -7,8 +7,7 @@
                     <el-form ref="form">
                         <el-form-item label="车号分布">
                             <el-checkbox-group v-model="type">
-                                <el-checkbox label="0" name="type" v-bind:value="0"></el-checkbox>
-                                <el-checkbox label="1" name="type" v-bind:value="1"></el-checkbox>
+                                <el-checkbox label="1" name="type"></el-checkbox>
                                 <el-checkbox label="2" name="type"></el-checkbox>
                                 <el-checkbox label="3" name="type"></el-checkbox>
                                 <el-checkbox label="4" name="type"></el-checkbox>
@@ -17,6 +16,23 @@
                                 <el-checkbox label="7" name="type"></el-checkbox>
                                 <el-checkbox label="8" name="type"></el-checkbox>
                                 <el-checkbox label="9" name="type"></el-checkbox>
+                                <el-checkbox label="10" name="type"></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                    </el-form>
+                    <el-form ref="form">
+                        <el-form-item label="名次分布">
+                            <el-checkbox-group v-model="type2">
+                                <el-checkbox label="1" name="type"></el-checkbox>
+                                <el-checkbox label="2" name="type"></el-checkbox>
+                                <el-checkbox label="3" name="type"></el-checkbox>
+                                <el-checkbox label="4" name="type"></el-checkbox>
+                                <el-checkbox label="5" name="type"></el-checkbox>
+                                <el-checkbox label="6" name="type"></el-checkbox>
+                                <el-checkbox label="7" name="type"></el-checkbox>
+                                <el-checkbox label="8" name="type"></el-checkbox>
+                                <el-checkbox label="9" name="type"></el-checkbox>
+                                <el-checkbox label="10" name="type"></el-checkbox>
                             </el-checkbox-group>
                         </el-form-item>
                     </el-form>
@@ -44,10 +60,10 @@
                 <td colspan="3">冠亚军和</td>
                 <td colspan="5">1~5龙虎</td>
             </tr>
-            <tr v-for="v in list">
+            <tr v-for="(v,k) in list">
                 <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time}}</span></p></td>
                 <td width="360">
-                    <span v-for="val in v.open_codes" :class="'hao'+(val/10*10)" class="open-code">{{val/10*10}}</span>
+                    <span v-for="(val,key) in v.open_codes"  :class="isLight(data[k]['codes' + (key+1)].islight,data[k]['codes' + (key+1)].no_,(val/10*10))" class="open-code">{{val/10*10}}</span>
                 </td>
                 <td>{{v.details.sum[0]}}</td>
                 <td v-if="v.details.sum[2]=='大'" class="color-red">{{v.details.sum[2]}}</td>
@@ -72,7 +88,6 @@
       var data =
         {
           table_lotterys: [1, 0, 0, 0],
-          type: 'pk10',//默认要的彩种数据
           list: [],
           page: 1,
           hasNext: false,
@@ -90,6 +105,8 @@
             },
           },
           type:[],
+          type2:[],
+          data:[],
 
         };
       return data;
@@ -115,6 +132,22 @@
             if (res.data.status == 200) {
               let data = res.data.data;
               this.list = data.list;
+              for(let i = 0; i<this.list.length;i++)
+              {
+                this.data.push(
+                  {
+                    codes1:{ num:this.list[i].open_codes[0],islight:false,no_:"1"},
+                    codes2:{ num:this.list[i].open_codes[1],islight:false,no_:"2"},
+                    codes3:{ num:this.list[i].open_codes[2],islight:false,no_:"3"},
+                    codes4:{ num:this.list[i].open_codes[3],islight:false,no_:"4"},
+                    codes5:{ num:this.list[i].open_codes[4],islight:false,no_:"5"},
+                    codes6:{ num:this.list[i].open_codes[5],islight:false,no_:"6"},
+                    codes7:{ num:this.list[i].open_codes[6],islight:false,no_:"7"},
+                    codes8:{ num:this.list[i].open_codes[7],islight:false,no_:"8"},
+                    codes9:{ num:this.list[i].open_codes[8],islight:false,no_:"9"},
+                   codes10:{ num:this.list[i].open_codes[9],islight:false,no_:"10"},
+                  })
+              }
               this.hasPrev = data.hasPrev;
               this.hasNext = data.hasNext;
               this.sum = data.sum;
@@ -130,24 +163,58 @@
 
         },
 
-        returnColor: function (num) {
-          let className = '';
-          num = parseInt(num);
-          if (num % 3 == 0) {
-            className = 'bg-red';
+        isLight(isLight,no,val)
+        {
+          val = val.toString();
+          //如果没有筛选条件，全亮
+          if(this.type.length <1 && this.type2.length < 1)
+          {
+            return 'hao'+val;
           }
-          if (num % 3 == 1) {
-            className = 'bg-green';
-          }
-          if (num % 3 == 2) {
-            className = 'bg-blue';
-          }
+          else
+          {
+            //有筛选条件的时候
+            if(this.type2.length>0)
+            {
+              //如果选了车道的话，就第几道车道有亮
+              if(this.type2.indexOf(no) != -1)
+              {
+                //如果第一个筛选条件也有话
+                if(this.type.length > 0)
+                {
+                  if(this.type.indexOf(val) != -1)
+                  {
+                    return 'hao' + val;
+                  }
+                  else
+                  {
+                    return '';
+                  }
+                }
+                else
+                {
+                  return 'hao' + val;
+                }
 
-          if (num == 0 || num == 13 || num == 14 || num == 27) {
-            className = 'bg-white';
-          }
-          return className;
 
+              }
+              else
+              {
+                return '';
+              }
+            }
+            else
+            {
+              if(this.type.indexOf(val) != -1)
+              {
+                return 'hao' + val;
+              }
+              else
+              {
+                return '';
+              }
+            }
+          }
         },
         //获取pk10的数据
           get_pk10_history(date)
@@ -210,6 +277,14 @@
           if (n === false) {
             this.$router.push(window.sessionStorage.which_lty);
           }
+        },
+        "type":function(n,o)
+        {
+          // console.log(n);
+        },
+        "type2":function(n,o)
+        {
+          // console.log(n);
         }
       }
   }
@@ -226,7 +301,7 @@
         float: left;
         width: 25px;
         height: 25px;
-        background: url('../assets/img/ball.png');
+        /*background: url('../assets/img/ball.png');*/
         background-size: cover;
         margin-left: 8px;
         margin-right: 2px;
@@ -235,9 +310,12 @@
         font-size: 18px;
         font-weight: 700;
         text-align: center;
-        color: white;
+        color: gray;
     }
-
+    .hao1,.hao2,.hao3,.hao4,.hao5,.hao6,.hao7,.hao8,.hao9,.hao10
+    {
+        color: #fff;
+    }
     .hao1 {
         background: #959612;
     }

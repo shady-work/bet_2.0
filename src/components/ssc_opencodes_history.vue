@@ -6,20 +6,34 @@
                <div class="pull-left" style="width: 600px;">
                    <div style-="height:30px;width:100%">
                        <el-form ref="form"  >
-                       <el-form-item label="车号分布" >
-                           <el-checkbox-group v-model="type">
-                               <el-checkbox label="0" name="type" v-bind:value="0"></el-checkbox>
-                               <el-checkbox label="1" name="type" v-bind:value="1"></el-checkbox>
-                               <el-checkbox label="2" name="type"></el-checkbox>
-                               <el-checkbox label="3" name="type"></el-checkbox>
-                               <el-checkbox label="4" name="type"></el-checkbox>
-                               <el-checkbox label="5" name="type"></el-checkbox>
-                               <el-checkbox label="6" name="type"></el-checkbox>
-                               <el-checkbox label="7" name="type"></el-checkbox>
-                               <el-checkbox label="8" name="type"></el-checkbox>
-                               <el-checkbox label="9" name="type"></el-checkbox>
-                           </el-checkbox-group>
-                       </el-form-item>
+                           <el-form-item label="车号分布" >
+                               <el-checkbox-group v-model="type">
+                                   <el-checkbox label="0" name="type" v-bind:value="0"></el-checkbox>
+                                   <el-checkbox label="1" name="type" v-bind:value="1"></el-checkbox>
+                                   <el-checkbox label="2" name="type"></el-checkbox>
+                                   <el-checkbox label="3" name="type"></el-checkbox>
+                                   <el-checkbox label="4" name="type"></el-checkbox>
+                                   <el-checkbox label="5" name="type"></el-checkbox>
+                                   <el-checkbox label="6" name="type"></el-checkbox>
+                                   <el-checkbox label="7" name="type"></el-checkbox>
+                                   <el-checkbox label="8" name="type"></el-checkbox>
+                                   <el-checkbox label="9" name="type"></el-checkbox>
+                               </el-checkbox-group>
+                           </el-form-item>
+                       </el-form>
+                   </div>
+
+                   <div style-="height:30px;width:100%">
+                       <el-form ref="form"  >
+                           <el-form-item label="位置分布" >
+                               <el-checkbox-group v-model="type2">
+                                   <el-checkbox label="1" name="type" ></el-checkbox>
+                                   <el-checkbox label="2" name="type" ></el-checkbox>
+                                   <el-checkbox label="3" name="type" ></el-checkbox>
+                                   <el-checkbox label="4" name="type" ></el-checkbox>
+                                   <el-checkbox label="5" name="type" ></el-checkbox>
+                               </el-checkbox-group>
+                           </el-form-item>
                        </el-form>
                    </div>
                </div>
@@ -50,15 +64,15 @@
                     <td>中三</td>
                     <td>后三</td>
                 </tr >
-                <tr v-for="v in list" >
+                <tr v-for="(v,k) in list" >
                     <td>
                         <p>{{v.expect}} &nbsp; <span style="color: gray;">{{v.opentime|get_time}}</span></p></td>
                     <td>
-                        <span :class="color(v.open_codes[0],0)?('hao'+v.open_codes[0]):''" class="open-code">{{v.open_codes[0]}}</span>
-                        <span :class="color(v.open_codes[1],1)?('hao'+v.open_codes[1]):''" class="open-code">{{v.open_codes[1]}}</span>
-                        <span :class="color(v.open_codes[2],2)?('hao'+v.open_codes[2]):''" class="open-code">{{v.open_codes[2]}}</span>
-                        <span :class="color(v.open_codes[3],3)?('hao'+v.open_codes[3]):''" class="open-code">{{v.open_codes[3]}}</span>
-                        <span :class="color(v.open_codes[4],4)?('hao'+v.open_codes[4]):''" class="open-code">{{v.open_codes[4]}}</span>
+                        <span  class="open-code" :class="isLight(data[k].codes1.islight,data[k].codes1.no_,data[k].codes1.num)" >{{data[k].codes1.num}}</span>
+                        <span  class="open-code" :class="isLight(data[k].codes2.islight,data[k].codes2.no_,data[k].codes2.num)" >{{data[k].codes2.num}}</span>
+                        <span  class="open-code" :class="isLight(data[k].codes3.islight,data[k].codes3.no_,data[k].codes3.num)" >{{data[k].codes3.num}}</span>
+                        <span  class="open-code" :class="isLight(data[k].codes4.islight,data[k].codes4.no_,data[k].codes4.num)" >{{data[k].codes4.num}}</span>
+                        <span  class="open-code" :class="isLight(data[k].codes5.islight,data[k].codes5.no_,data[k].codes5.num)" >{{data[k].codes5.num}}</span>
                     </td>
                     <td>{{get_sum(v.open_codes)}}</td>
                     <td v-if="v.details.dragon_and_tiger[1] == '总和单'" style="color:red;">{{v.details.dragon_and_tiger[1]|delete_str}}</td>
@@ -92,9 +106,10 @@
             return time.getTime() > Date.now();
           },
         },
-        type:[1],//选择的号码
+        type:[],//选择的号码
         type2:[],//选择的号码
         isFilter:false,//是否筛选
+        data:[],
       }
     },//end data
     methods:{
@@ -117,6 +132,17 @@
             {
               let data = res.data.data;
               this.list = data.list;
+              for(let i = 0; i<this.list.length;i++)
+              {
+                this.data.push(
+                {
+                   codes1:{ num:this.list[i].open_codes[0],islight:false,no_:"1"},
+                   codes2:{ num:this.list[i].open_codes[1],islight:false,no_:"2"},
+                   codes3:{ num:this.list[i].open_codes[2],islight:false,no_:"3"},
+                   codes4:{ num:this.list[i].open_codes[3],islight:false,no_:"4"},
+                   codes5:{ num:this.list[i].open_codes[4],islight:false,no_:"5"},
+                })
+              }
               this.hasPrev = data.hasPrev;
               this.hasNext = data.hasNext;
               this.sum = data.sum;
@@ -141,46 +167,63 @@
         }
         return sum;
       },
-      color(v,k)
+      isLight(isLight,no,val)
       {
-         //当没有选球的时候
-        if(this.type2.length < 1 )
-        {
-          if(this.type.indexOf(v) != -1)
-          {
-            return true;
-          }
-          else
-          {
-            return false;
-          }
-        }
-        else
-        {
+          //如果没有筛选条件，全亮
+         if(this.type.length <1 && this.type2.length < 1)
+         {
+            return 'hao'+val;
+         }
+         else
+         {
+           //有筛选条件的时候
+           if(this.type2.length>0)
+           {
+               //如果选了车道的话，就第几道车道有亮
+               if(this.type2.indexOf(no) != -1)
+               {
+                 //如果第一个筛选条件也有话
+                 if(this.type.length > 0)
+                 {
+                   if(this.type.indexOf(val) != -1)
+                   {
+                     return 'hao' + val;
+                   }
+                   else
+                   {
+                     return '';
+                   }
+                 }
+                 else
+                 {
+                   return 'hao' + val;
+                 }
 
-          //有选择球的时候
-          let array = ['第一球','第二球','第三球','第四球','第五球'];
-          for(let i = 0;i<this.type2.length;i++)
-          {
-             if(array.indexOf(this.type2[i]) != -1)
+
+               }
+               else
+               {
+                 return '';
+               }
+           }
+           else
+           {
+             if(this.type.indexOf(val) != -1)
              {
-                if(array.indexOf(this.type2[i]) == k)
-                {
-                  return true;
-                }
-                else
-                {
-                  return false;
-                }
+               return 'hao' + val;
              }
-          }
-        }
+             else
+             {
+               return '';
+             }
+           }
+         }
       },
-
     },//end methods
 
     created(){
       this.get_ssc_history();
+
     },//end created
     //过滤器
     filters:{
@@ -203,6 +246,10 @@
 
 
         },
+      "type2":function(n,o)
+      {
+
+      }
 
     }
   }
