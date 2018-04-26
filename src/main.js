@@ -121,6 +121,10 @@ router.beforeEach(function(to, from, next)
 });
 
 
+//导入覆盖element_ui的css
+import './assets/css/coverElement.css';
+
+
 
 
 

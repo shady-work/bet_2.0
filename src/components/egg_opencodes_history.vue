@@ -121,7 +121,7 @@
          * 获取开奖号码
          * @param url
          */
-        get_codes:function(url = `${this.global.config.API}egg/history/lottery`)
+        get_codes:function(url = `${this.global.config.API}egg/history/lottery?per_page=300`)
         {
           this.isShow = false;
           this.$http.get(url).then(function(res)
@@ -286,7 +286,7 @@
           else
           {
 
-            this.$http.get("http://lty-main.com" + this.prevPageUrl)
+            this.$http.get(this.prevPageUrl)
               .then(function(res)
               {
                 if(res.data.status == 200)

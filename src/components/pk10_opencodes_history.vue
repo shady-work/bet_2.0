@@ -126,7 +126,7 @@
          * 获取开奖号码
          * @param url
          */
-        get_codes: function (url = `${this.global.config.API}pk10/history/lottery`) {
+        get_codes: function (url = `${this.global.config.API}pk10/history/lottery?per_page=300`) {
           this.isShow = false;
           this.$http.get(url).then(function (res) {
             if (res.data.status == 200) {

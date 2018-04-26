@@ -41,6 +41,7 @@
          {
            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
            {
+             console.log(response.data);
              if(response.data.status == 200)
              {
                let  data = response.data.data.user;
@@ -48,7 +49,7 @@
                this.$store.state.nickname = data.nickname;//昵称
                this.$store.state.cash_money = data.money.cash_money;//现金额度
                this.$store.state.credit_money = data.money.credit_money;//信用额度
-               this.$store.state.win_lost_today = data.yk;//信用额度
+               this.$store.state.win_lost_today = data.yk;//盈亏
              }
              else
              {

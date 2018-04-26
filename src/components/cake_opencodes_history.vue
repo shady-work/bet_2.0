@@ -121,14 +121,13 @@
                  * 获取开奖号码
                  * @param url
                  */
-                get_codes:function(url = `${this.global.config.API}cake/history/lottery`)
+                get_codes:function(url = `${this.global.config.API}cake/history/lottery?per_page=300`)
                 {
                     this.isShow = false;
                     this.$http.get(url).then(function(res)
                     {
                         if(res.data.status == 200)
                         {
-                            console.log(res.data);
                             let data = res.data.data;
                             this.list = data.list;
                               for(let i = 0; i<this.list.length;i++)
@@ -286,7 +285,7 @@
                     else
                     {
 
-                        this.$http.get("http://lty-main.com" + this.prevPageUrl)
+                        this.$http.get(this.prevPageUrl)
                             .then(function(res)
                             {
                                 if(res.data.status == 200)
@@ -317,7 +316,7 @@
                     }
                     else
                     {
-                        this.$http.get("http://lty-main.com" + this.nextPageUrl)
+                        this.$http.get(this.nextPageUrl)
                             .then(function(res){
                                 if(res.data.status == 200)
                                 {

@@ -1,0 +1,16 @@
+.el-checkbox__label
+{
+  padding-left: 2px;
+}
+.el-form-item
+{
+  margin-bottom: -5px;
+}
+.el-checkbox-group
+{
+  text-align: left;
+}
+.el-checkbox+.el-checkbox
+{
+  margin-left:25px;
+}

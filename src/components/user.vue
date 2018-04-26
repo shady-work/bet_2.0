@@ -9,7 +9,7 @@
                 <!--快彩额度:<span class="color-red">10000</span>-->
             </p>
             <p class="kuaicai">
-                <span>可用额度:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{$store.state.cash_money}}</span>
+                <span>可用额度:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{get_sum($store.state.cash_money,$store.state.credit_money)}}</span>
             </p>
             <p class="kuaicai" >
                 <span>今日盈亏:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{$store.state.win_lost_today}}</span>
@@ -35,7 +35,11 @@ export default
       parseIn:function(money)
       {
          return parseInt(money)
-      }
+      },
+       get_sum:function(v1,v2)
+       {
+         return Number(v1)+Number(v2);
+       }
    },
    created:function()
    {
