@@ -366,6 +366,10 @@
              ball_3_str:['豹子','顺子','顺子','半顺','杂六']
           },
           bets:[],//下注内容的集合
+
+          //纯赔率列表
+          all_odds:
+          [],
           dicrationaries:[
             'ball_1_half__K','ball_1_half__L','ball_1_half__M','ball_1_half__N',
             'dragon_and_tiger__A','dragon_and_tiger__B','dragon_and_tiger__C','dragon_and_tiger__D','dragon_and_tiger__E','dragon_and_tiger__F','dragon_and_tiger__G',
@@ -424,743 +428,31 @@
           orderData:[],//未结算数据
           tips:'距离本期封盘还有',
 
+
+           dec_limit:
+           {
+             //7里面找
+             ball_1_digit:{},
+             ball_2_digit:{},
+             ball_3_digit:{},
+             ball_4_digit:{},
+             ball_5_digit:{},
+             //6页面找
+             ball_1_half:{},
+             ball_2_half:{},
+             ball_3_half:{},
+             ball_4_half:{},
+             ball_5_half:{},
+             dragon_and_tiger:{},
+             //1页面找
+             front_3:{},
+             medium_3:{},
+             end_3:{},
+           },
+
       };
       return my_data;
     },
-    methods:
-    {
-        /**
-         * 选择玩法
-         * @param idx
-         */
-        showType: function (idx)
-        {
-          this.showArray_cqssc = [0, 0, 0, 0, 0, 0, 0];
-          this.showArray_cqssc[idx] = 1;
-          //清空数据
-          this.bets = [];
-          //重置ui  每个tab就可以下注当前的，不可以两个tab同时下
-          this.bet_content =
-          {
-              ball_1_half:['','','',''],
-              ball_2_half:['','','',''],
-              ball_3_half:['','','',''],
-              ball_4_half:['','','',''],
-              ball_5_half:['','','',''],
-              dragon_and_tiger:['','','','','','',''],
-              single_ball_1_5:
-                {
-                  ball_1_digit:['','','','','','','','','',''],
-                  ball_2_digit:['','','','','','','','','',''],
-                  ball_3_digit:['','','','','','','','','',''],
-                  ball_4_digit:['','','','','','','','','',''],
-                  ball_5_digit:['','','','','','','','','',''],
-                },
-              ball_3:
-                {
-                  front3:['','','',''],
-                  medium3:['','','',''],
-                  end3:['','','',''],
-                },
-          };
-          //更新视图层
-          this.bet_content.ball_1_half.reverse().reverse();
-        },
-        /**
-         * 历史开奖的tab
-         * @param idx
-         */
-        showTables: function (idx)
-        {
-          this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-          this.history_tables[idx] = 1;
-        },
-        /**
-         * close history tab
-         */
-        close_history: function ()
-        {
-
-          for (let i = 0; i < this.history_tables.length; i++) {
-            if (this.history_tables[i]) {
-              this.history_flag = i
-            }
-          }
-
-          $(".history-close").slideUp();
-          $(".history-list").slideUp();
-          $(".history-table").slideUp();
-          this.history_str = "展开";
-        },
-        /**
-         * show history_tab
-         */
-        showHistory: function ()
-        {
-          if (this.history_str == "展开") {
-            $(".history-close").slideDown();
-            $(".history-list").eq(this.history_flag).slideDown();
-            $(".history-table").slideDown();
-            this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-            this.history_tables[this.history_flag] = 1;
-            this.history_str = "收起";
-          }
-          else {
-            this.close_history();
-          }
-        },
-
-        /**
-         * 获取最新一期的开奖数据
-         */
-        get_last_code: function ()
-        {
-          this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
-          //获取到最新一期的数据
-          let data = res.data;
-          this.lastOpenCode = data.opencode;
-          this.lastExpect = `${data.expect}`;
-          });
-        },
-        /**
-         * 获取赔率
-         */
-        get_odds:function(which_handicap = null){
-          //获取两面盘的赔率
-          if(which_handicap || this.which_handicap)
-          {
-            this.$http.get(`${this.global.config.API}ssc/odds/6?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
-            {
-              if(response.data.status == 403) return false;
-              let data = response.data.data;
-              let odds = data.odds;
-              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
-              let Alphabet = ['K','L','M','N'];
-              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
-                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
-                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
-                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
-                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
-                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
-              }
-              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
-              this.odds.double_aspect.ball_1_half.reverse().reverse();
-              Alphabet = ['A','B','C','D','E','F','G'];
-              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
-                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
-              }
-            });
-
-            //获取单球1-5的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/7?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
-            {
-              if(response.data.status == 403) return false;
-              let data = response.data.data.odds;
-              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
-              for(let i=0;i<Alphabet.length;i++) {
-                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
-              }
-              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
-            });
-
-            //获取第一球的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/1?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
-            {
-              if(response.data.status == 403) return false;
-              let Alphabet = ['A','B','C','D','E'];
-              for(let i=0;i<this.odds.ball_3.front3.length;i++){
-                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
-                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
-                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
-              }
-
-            });
-          }
-          else
-          {
-            this.$http.get(`${this.global.config.API}ssc/odds/6`).then(function(response){
-              if(response.data.status == 403) return false;
-              let data = response.data.data;
-              let odds = data.odds;
-              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
-              let Alphabet = ['K','L','M','N'];
-              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
-                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
-                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
-                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
-                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
-                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
-              }
-              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
-              this.odds.double_aspect.ball_1_half.reverse().reverse();
-              Alphabet = ['A','B','C','D','E','F','G'];
-              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
-                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
-              }
-            });
-
-            //获取单球1-5的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/7`).then(function(response) {
-              if(response.data.status == 403) return false;
-              let data = response.data.data.odds;
-              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
-              for(let i=0;i<Alphabet.length;i++) {
-                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
-              }
-              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
-            });
-
-            //获取第一球的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/1`).then(function(response){
-              if(response.data.status == 403) return false;
-              let Alphabet = ['A','B','C','D','E'];
-              for(let i=0;i<this.odds.ball_3.front3.length;i++){
-                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
-                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
-                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
-              }
-
-            });
-          }
-
-
-        },
-        /**
-         * 确认下注
-         */
-        comfire_content:function()
-        {
-
-            //过滤掉相同的对象
-            this.filter_same();
-            //当用户没有选择下注内容的时候要提示用户选择
-            if(this.bets.length < 1)
-            {
-              this.$message(
-              {
-                dangerouslyUseHTMLString: true,
-                message: '请选择下注内容后再提交',
-                center: true,
-                type: 'warning'
-              });
-              return 0;
-            }
-            let sumMoney = 0;
-            let html = '';
-            for(let i = 0; i<this.bets.length;i++){
-               var index = this.dicrationaries.indexOf(this.bets[i].content);
-               html += "<div style='text-indent:15px;margin-top: 5px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money
-               + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + this.bets[i].content +'>删除</button></div>';
-              sumMoney += parseInt(this.bets[i].money);
-            }
-            html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
-            this.centerDialogVisible = true;
-            this.bet_html = html;
-            return;
-
-
-        },
-      //删除某个下注选择
-        delete_it(event)
-        {
-
-          if(event.target.innerHTML == '删除')
-          {
-            //删除这个下注项
-            for(let i = 0 ; i<this.bets.length;i++)
-            {
-               if(this.bets[i].content == event.target.className)
-               {
-                 this.bets.splice(i, 1);
-               }
-            }
-
-            //移除这个html元素
-            let line = event.target.parentNode;
-            let bigDaddy = line.parentNode;
-            bigDaddy.removeChild(line);
-
-            //重写统计
-            let len = this.bets.length;//几条
-            //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
-            if(len <1)
-            {
-              this.centerDialogVisible = false;
-              this.$message.error('请重新选择下注内容');
-              this.clear_bet();
-
-            }
-            let totalMoney = 0;//总金额
-            for(let i = 0;i<len;i++)
-            {
-              totalMoney += this.bets[i].money;
-            }
-            document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
-          }
-        },
-        //两面盘下注方法1
-        double_1:function(key,index)
-        {
-            if(this.bet_content[key][index] != "")
-            {
-                return false;
-            }
-            let keys = ['K','L','M','N'];//组织数组
-            this.bet_content[key][index] = this.fast_money;//改变下注金额
-            this.bet_content[key].reverse().reverse();//触发视图层改变
-            this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
-        },
-        //两面盘下注方法1 在用户更改下注金钱时触发的函数
-        double_1_change(key,index)
-        {
-            let keys = ['K','L','M','N'];//组织数组
-            this.bet_content[key].reverse().reverse();//触发视图层改变
-            this.bets.push({content:key + '__' + keys[index],money:this.bet_content[key][index]});//添加到下注内容区
-        },
-
-        //两面盘下注方法2
-        double_2:function (index) {
-          let keys = ['A','B','C','D','E','F','G'];//组织数组
-          let key  = 'dragon_and_tiger';//组织数组
-          if(this.bet_content[key][index] != "")
-          {
-            return false;
-          }
-          this.bet_content[key][index] = this.fast_money;//改变下注金额
-          this.bet_content[key].reverse().reverse();//触发视图层改变
-          this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
-
-        },
-        //两面盘下注方法2 在用户更改下注金钱时触发的函数
-        double_2_change:function (index) {
-
-            let keys = ['A','B','C','D','E','F','G'];//组织数组
-            let key  = 'dragon_and_tiger';//组织数组
-            this.bet_content[key].reverse().reverse();//触发视图层改变
-            this.bets.push({content:key + '__' + keys[index],money:this.bet_content[key][index]});//添加到下注内容区
-
-        },
-        //单球的下注
-        single_ball_1:function (k,index) {
-
-          let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
-          let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
-          let key  = keys[k];//组织数组
-          if(this.bet_content.single_ball_1_5[key][index] != "")
-          {
-            return false;
-          }
-          this.bet_content.single_ball_1_5[key][index] = this.fast_money;//改变下注金额
-          this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
-          this.bets.push({content:key + '__' + Alphabet[index],money:this.fast_money});//添加到下注内容区
-
-        },
-        //单球的下注 在用户改变下注金额的时候触发的函数
-        single_ball_1_change(k,index)
-        {
-            let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
-            let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
-            let key  = keys[k];//组织数组
-            this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
-            this.bets.push({content:key + '__' + Alphabet[index],money: this.bet_content.single_ball_1_5[key][index]});//添加到下注内容区
-        },
-
-
-        //1-5球的下注
-        ball_1_5:function (k,i,type) {
-            if(type == 'tm')
-            {
-              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
-              let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
-              let key  = keys[k];//组织数组
-              if(this.bet_content.single_ball_1_5[key][i] != "")
-              {
-                    return false;
-              }
-              this.bet_content.single_ball_1_5[key][i] = this.fast_money;//改变下注金额
-              this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
-              this.bets.push({content:key + '__' + Alphabet[i],money:this.fast_money});//添加到下注内容区
-            }
-            else if (type == 'lm')
-            {
-              let arr = ['ball_1_half','ball_2_half','ball_3_half','ball_4_half','ball_5_half'];//组织数组
-              let keys = ['K','L','M','N'];//组织数组
-              let key = arr[k];
-              if(this.bet_content[key][i] != "")
-              {
-                 return false;
-              }
-              this.bet_content[key][i] = this.fast_money;//改变下注金额
-              this.bet_content[key].reverse().reverse();//触发视图层改变
-              this.bets.push({content:key + '__' + keys[i],money:this.fast_money});//添加到下注内容区
-            }
-            else if(type == 'he')
-            {
-              let keys = ['A','B','C','D','E','F','G'];//组织数组
-              let key  = 'dragon_and_tiger';//组织数组
-              if(this.bet_content[key][i] != "")
-              {
-                    return false;
-              }
-              this.bet_content[key][i] = this.fast_money;//改变下注金额
-              this.bet_content[key].reverse().reverse();//触发视图层改变
-              this.bets.push({content:key + '__' + keys[i],money:this.fast_money});//添加到下注内容区
-            }
-            else if(type == 'qzhs')
-            {
-              let keys = ['A','B','C','D','E'];
-              if(this.bet_content.ball_3[k][i] != "")
-              {
-                    return false;
-              }
-              this.bet_content.ball_3[k][i] = this.fast_money;//改变下注金额
-              this.bet_content.ball_3[k].reverse().reverse();//触发视图层改变
-
-              if(k=='front3')
-              {
-                this.bets.push({content:'front_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
-              }
-              if(k=='medium3')
-              {
-
-                this.bets.push({content:'medium_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
-              }
-              if(k=='end3')
-              {
-                this.bets.push({content:'end_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
-              }
-              let x = {content:'medium_3' + '__' + keys[i],money:this.fast_money};
-
-
-              return
-            }
-            else
-            {
-              alert('????');
-            }
-        },
-
-
-        //1-5球的下注 在用户改变下注金额的时候触发的函数
-        ball_1_5_change:function (k,i,type) {
-            if(type == 'tm')
-            {
-                let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
-                let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
-                let key  = keys[k];//组织数组
-                this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
-                this.bets.push({content:key + '__' + Alphabet[i],money:this.bet_content.single_ball_1_5[key][i]});//添加到下注内容区
-            }
-            else if (type == 'lm')
-            {
-                let arr = ['ball_1_half','ball_2_half','ball_3_half','ball_4_half','ball_5_half'];//组织数组
-                let keys = ['K','L','M','N'];//组织数组
-                let key = arr[k];
-                this.bet_content[key].reverse().reverse();//触发视图层改变
-                this.bets.push({content:key + '__' + keys[i],money:this.bet_content[key][i]});//添加到下注内容区
-            }
-            else if(type == 'he')
-            {
-                let keys = ['A','B','C','D','E','F','G'];//组织数组
-                let key  = 'dragon_and_tiger';//组织数组
-                this.bet_content[key].reverse().reverse();//触发视图层改变
-                this.bets.push({content:key + '__' + keys[i],money:this.bet_content[key][i]});//添加到下注内容区
-            }
-            else if(type == 'qzhs')
-            {
-
-//                console.log(this.bet_content.ball_3[k][i]);
-                let keys = ['A','B','C','D','E'];
-                if(k=='front3')
-                {
-                    this.bets.push({content:'front_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
-                }
-                if(k=='medium3')
-                {
-                    this.bets.push({content:'medium_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
-                }
-                if(k=='end3')
-                {
-                    this.bets.push({content:'end_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
-                }
-                return
-            }
-            else
-            {
-                alert('????');
-            }
-        },
-        /**
-         * 清除下注内容{清空数据,重置ui}
-         */
-        clear_bet:function () {
-          //清空数据
-          this.bets = [];
-          //重置ui
-          this.bet_content =
-          {
-            ball_1_half:['','','',''],
-              ball_2_half:['','','',''],
-              ball_3_half:['','','',''],
-              ball_4_half:['','','',''],
-              ball_5_half:['','','',''],
-              dragon_and_tiger:['','','','','','',''],
-              single_ball_1_5:
-              {
-                ball_1_digit:['','','','','','','','','',''],
-                ball_2_digit:['','','','','','','','','',''],
-                ball_3_digit:['','','','','','','','','',''],
-                ball_4_digit:['','','','','','','','','',''],
-                ball_5_digit:['','','','','','','','','',''],
-              },
-              ball_3:
-              {
-                front3:['','','',''],
-                  medium3:['','','',''],
-                end3:['','','',''],
-              },
-          };
-          //更新视图层
-          this.bet_content.ball_1_half.reverse().reverse();
-
-        },
-
-        /**
-         * 过滤掉相同的数组
-         */
-        filter_same:function ()
-        {
-             for(let i = 0; i < this.bets.length;i++)
-             {
-                let key =  this.bets[i].content;
-                var flag = false;
-                for(let j = i+1;j<this.bets.length;j++)
-                {
-                    if(key == this.bets[j].content)
-                    {
-                        this.bets.splice(i,1);
-                        flag = true;
-                        break;
-                    }
-                }
-                if(!this.bets[i].money)
-                {
-                    this.bets.splice(i,1);
-                    flag = true;
-                }
-                if(flag)
-                {
-                   this.filter_same();
-                   break;
-                }
-             }
-
-        },
-
-        /**
-         *提交下注！！！
-         */
-        do_bet:function ()
-        {
-
-           this.centerDialogVisible = false;
-           this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
-              if(res.data.status == 200)
-              {
-                 //清除下注内容
-                this.clear_bet();
-                 //从服务器上获取余额
-                this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
-                {
-                  let  data = response.data.data.user;
-                  this.$set(this.$store.state,'cash_money',data.money.cash_money)
-                });
-
-                //提示下注成功
-                this.$message(
-                {
-                  dangerouslyUseHTMLString: true,
-                  message: res.data.msg,
-                  center: true,
-                  type: 'success'
-                });
-                //设置未结算清单
-                this.get_ssc_unclear();
-              }
-              else
-              {
-                this.$message.error(res.data.msg);
-              }
-
-           });
-        },
-        /**
-         * 获取重庆时时彩的时间和期数
-         */
-        get_time:function ()
-        {
-          this.$http.get(`${this.global.config.API}ssc/time`).then(function(res){
-             //console.log(res.data);
-             let data = res.data;
-             this.sales_ = data.saleNum;//已卖期数
-             this.end_time = data.endtime;//这期的封盘时间
-             this.open_time = data.opentime;//下期的开盘时间
-             this.thisExpect = data.expect;//这期下注期数
-             this.count_down();
-          });
-        },
-        /**
-         * 倒计时
-         */
-        count_down:function ()
-        {
-           var that  = this;
-           //封盘倒计时
-           this.timeId2 = setInterval(function(){
-             if(that.end_time <= 0)
-             {
-               that.mins = '00';
-               that.seconds = Math.abs(that.open_time);
-               that.tips = "离开盘还有";
-               if(that.end_time == 0)
-               {
-                 that.thisExpect = parseInt(that.thisExpect) + 1;
-               }
-               if(that.open_time <= 0 )
-               {
-                 if(that.open_time < -100)
-                 {
-                   that.mins = "--";
-                   that.seconds = "--";
-                   that.tips = '请等待开盘';
-                 }
-                 if(that.open_time == 0)
-                 {
-                   //清除定时器
-                   clearInterval(that.timeId2);
-                   //重新获取时间
-                   that.get_time();
-                   //获取未结算的订单
-                   that.get_ssc_unclear();
-                   that.tips = "距离本期封盘还有";
-                 }
-                 else
-                 {
-                   that.open_time++
-                 }
-                 return;
-               }
-             }
-             else
-             {
-               let mins = Math.floor(that.end_time/60);
-               mins = '0' + mins;
-               that.mins = mins;
-               let seconds = Math.abs(Math.floor(that.end_time%60));
-               seconds  = seconds>9?seconds:('0'+seconds);
-               that.seconds = seconds;
-             }
-
-             that.end_time--;
-             that.open_time--;
-           },1000);
-           //开盘倒计时
-        },
-
-        /**
-         * 获取历史开奖
-         */
-        get_history:function()
-        {
-            let url = `${this.global.config.API}ssc/history/lottery?per_page=10`;
-            this.history_codes = [];
-            this.$http.get(url).then(function(res){
-              let data = res.data.data;
-              this.curPage = data.curPage;
-              this.hasNext = data.hasNext;
-              this.hasPrev = data.hasPrev;
-              this.history_list = data.list;
-              for(let i = 0; i<this.history_list.length;i++)
-              {
-                   let expect = this.history_list[i].expect;
-                   this.history_expects.push(expect);
-                   let codes = this.history_list[i].opencode.split(',');
-                   this.history_codes.push(codes);
-              }
-              this.history_codes.reverse().reverse();
-            });
-        },
-        /**
-         * 设置下注金额
-         */
-        setBetMoney:function(money)
-        {
-           this.fast_money = money;
-        },
-
-        /**
-         * 查看用户可选盘口
-         */
-        get_users_handicaps:function()
-        {
-           this.$http.get(`${this.global.config.API}ssc/pans`)
-             .then(function(res)
-             {
-
-               this.handicaps = [];
-               if(res.data.status == 200)
-               {
-                 for(let i = 0 ; i <res.data.data.ratelist.length;i++)
-                 {
-                   this.handicaps.push(res.data.data.ratelist[i]);
-                   this.which_handicap = res.data.data.ratelist[0].ratewin_name;
-                   this.fanshui = res.data.data.ratelist[0].fs;
-                 }
-               }
-             });
-        },
-        return_percent:function(str)
-        {
-          return str;
-        },
-        return_upper:function(str)
-        {
-         return str.toUpperCase();
-        },
-        /**
-         * 获取cqssc未结算的清单
-         */
-        get_ssc_unclear:function()
-        {
-
-          //获取cqssc未结算的数据
-          this.$http.get(`${this.global.config.API}ssc/history/clear/0`).then(function(res)
-          {
-            if(res.data.status == 403) return false;
-            this.orderData = [];
-            let data = res.data.data;
-            let list  = data.list;
-            for(let i = 0; i<list.length;i++)
-            {
-              if(list[i].status != -1) {
-                let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
-                this.orderData.push(html);
-              }
-            }
-            //设置全局的未结算清单
-            this.$set(this.$store.state,'unclear',this.orderData);
-          });
-        },
-    },
-
     created: function ()
     {
 
@@ -1216,6 +508,7 @@
 
 
     },
+
     /**
      * 离开这个路由时触发的函数，摧毁定时器
      */
@@ -1266,8 +559,890 @@
             that.get_last_code();
           },10000);
         }
+      },
+
+      "dec_limit":function(n)
+      {
+        console.log(n);
       }
-    }
+    },
+    methods:
+      {
+        /**
+         * 选择玩法
+         * @param idx
+         */
+        showType: function (idx)
+        {
+          this.showArray_cqssc = [0, 0, 0, 0, 0, 0, 0];
+          this.showArray_cqssc[idx] = 1;
+          //清空数据
+          this.bets = [];
+          //重置ui  每个tab就可以下注当前的，不可以两个tab同时下
+          this.bet_content =
+            {
+              ball_1_half:['','','',''],
+              ball_2_half:['','','',''],
+              ball_3_half:['','','',''],
+              ball_4_half:['','','',''],
+              ball_5_half:['','','',''],
+              dragon_and_tiger:['','','','','','',''],
+              single_ball_1_5:
+                {
+                  ball_1_digit:['','','','','','','','','',''],
+                  ball_2_digit:['','','','','','','','','',''],
+                  ball_3_digit:['','','','','','','','','',''],
+                  ball_4_digit:['','','','','','','','','',''],
+                  ball_5_digit:['','','','','','','','','',''],
+                },
+              ball_3:
+                {
+                  front3:['','','',''],
+                  medium3:['','','',''],
+                  end3:['','','',''],
+                },
+            };
+          //更新视图层
+          this.bet_content.ball_1_half.reverse().reverse();
+        },
+        /**
+         * 历史开奖的tab
+         * @param idx
+         */
+        showTables: function (idx)
+        {
+          this.history_tables = [0, 0, 0, 0, 0, 0, 0];
+          this.history_tables[idx] = 1;
+        },
+        /**
+         * close history tab
+         */
+        close_history: function ()
+        {
+
+          for (let i = 0; i < this.history_tables.length; i++) {
+            if (this.history_tables[i]) {
+              this.history_flag = i
+            }
+          }
+
+          $(".history-close").slideUp();
+          $(".history-list").slideUp();
+          $(".history-table").slideUp();
+          this.history_str = "展开";
+        },
+        /**
+         * show history_tab
+         */
+        showHistory: function ()
+        {
+          if (this.history_str == "展开") {
+            $(".history-close").slideDown();
+            $(".history-list").eq(this.history_flag).slideDown();
+            $(".history-table").slideDown();
+            this.history_tables = [0, 0, 0, 0, 0, 0, 0];
+            this.history_tables[this.history_flag] = 1;
+            this.history_str = "收起";
+          }
+          else {
+            this.close_history();
+          }
+        },
+
+        /**
+         * 获取最新一期的开奖数据
+         */
+        get_last_code: function ()
+        {
+          this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
+            //获取到最新一期的数据
+            let data = res.data;
+            this.lastOpenCode = data.opencode;
+            this.lastExpect = `${data.expect}`;
+          });
+        },
+        /**
+         * 获取赔率
+         */
+        get_odds:function(which_handicap = null){
+          //获取两面盘的赔率
+          if(which_handicap || this.which_handicap)
+          {
+            this.$http.get(`${this.global.config.API}ssc/odds/6?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
+            {
+              if(response.data.status == 403) return false;
+              let data = response.data.data;
+              let odds = data.odds;
+              // console.log(odds);
+              //获取趺背数据
+              this.dec_limit.ball_1_half = odds.ball_1_half.dec_odds;
+              this.dec_limit.ball_2_half = odds.ball_2_half.dec_odds;
+              this.dec_limit.ball_3_half = odds.ball_3_half.dec_odds;
+              this.dec_limit.ball_4_half = odds.ball_4_half.dec_odds;
+              this.dec_limit.ball_5_half = odds.ball_5_half.dec_odds;
+              this.dec_limit.dragon_and_tiger = odds.dragon_and_tiger.dec_odds;
+              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
+              let Alphabet = ['K','L','M','N'];
+              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
+                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
+                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
+                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
+                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
+                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
+                //全部赔率
+                this.all_odds[i] = data.odds.ball_1_half[Alphabet[i]];
+                this.all_odds[(i+11)] = data.odds.ball_2_half[Alphabet[i]];
+                this.all_odds[(i+15)] = data.odds.ball_3_half[Alphabet[i]];
+                this.all_odds[(i+19)] = data.odds.ball_4_half[Alphabet[i]];
+                this.all_odds[(i+23)] = data.odds.ball_5_half[Alphabet[i]];
+
+              }
+
+              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
+              this.odds.double_aspect.ball_1_half.reverse().reverse();
+              Alphabet = ['A','B','C','D','E','F','G'];
+              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
+                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
+                this.all_odds[(i+4)] =          data.odds.dragon_and_tiger[Alphabet[i]];
+              }
+
+            });
+
+            //获取单球1-5的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/7?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
+            {
+              if(response.data.status == 403) return false;
+              let data = response.data.data.odds;
+              //获取趺背数据
+              this.dec_limit.ball_1_digit = data.ball_1_digit.dec_odds;
+              this.dec_limit.ball_2_digit = data.ball_2_digit.dec_odds;
+              this.dec_limit.ball_3_digit = data.ball_3_digit.dec_odds;
+              this.dec_limit.ball_4_digit = data.ball_4_digit.dec_odds;
+              this.dec_limit.ball_5_digit = data.ball_5_digit.dec_odds;
+              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
+              for(let i=0;i<Alphabet.length;i++) {
+                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
+                this.all_odds[(i+27)] = data.ball_1_digit[Alphabet[i]];
+                this.all_odds[(i+37)] = data.ball_2_digit[Alphabet[i]];
+                this.all_odds[(i+47)] = data.ball_3_digit[Alphabet[i]];
+                this.all_odds[(i+57)] = data.ball_4_digit[Alphabet[i]];
+                this.all_odds[(i+67)] = data.ball_5_digit[Alphabet[i]];
+              }
+              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
+            });
+
+            //获取第一球的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/1?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
+            {
+
+              if(response.data.status == 403) return false;
+              this.dec_limit.end_3 = response.data.data.odds.end_3.dec_odds;
+              this.dec_limit.front_3 = response.data.data.odds.front_3.dec_odds;
+              this.dec_limit.medium_3 = response.data.data.odds.medium_3.dec_odds;
+              let Alphabet = ['A','B','C','D','E'];
+              for(let i=0;i<this.odds.ball_3.front3.length;i++){
+                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
+                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
+                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
+                this.all_odds[(i+77)] = response.data.data.odds.front_3[Alphabet[i]];
+                this.all_odds[(i+82)] = response.data.data.odds.medium_3[Alphabet[i]];
+                this.all_odds[(i+87)] = response.data.data.odds.end_3[Alphabet[i]];
+              }
+
+            });
+          }
+/*          else
+          {
+            this.$http.get(`${this.global.config.API}ssc/odds/6`).then(function(response){
+              if(response.data.status == 403) return false;
+              let data = response.data.data;
+              let odds = data.odds;
+              //获取趺背数据
+              this.dec_limit.ball_1_half = odds.ball_1_half.dec_odds;
+              this.dec_limit.ball_2_half = odds.ball_2_half.dec_odds;
+              this.dec_limit.ball_3_half = odds.ball_3_half.dec_odds;
+              this.dec_limit.ball_4_half = odds.ball_4_half.dec_odds;
+              this.dec_limit.ball_5_half = odds.ball_5_half.dec_odds;
+              this.dec_limit.dragon_and_tiger = odds.dragon_and_tiger.dec_odds;
+              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
+              let Alphabet = ['K','L','M','N'];
+              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
+                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
+                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
+                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
+                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
+                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
+                //全部赔率
+                this.all_odds[i] = data.odds.ball_1_half[Alphabet[i]];
+                this.all_odds[(i+11)] = data.odds.ball_2_half[Alphabet[i]];
+                this.all_odds[(i+15)] = data.odds.ball_3_half[Alphabet[i]];
+                this.all_odds[(i+19)] = data.odds.ball_4_half[Alphabet[i]];
+                this.all_odds[(i+23)] = data.odds.ball_5_half[Alphabet[i]];
+              }
+              this.all_odds[0] = data.odds.ball_1_half['K'];
+              this.all_odds[1] = data.odds.ball_1_half['L'];
+              this.all_odds[2] = data.odds.ball_1_half['M'];
+              this.all_odds[3] = data.odds.ball_1_half['N'];
+              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
+              this.odds.double_aspect.ball_1_half.reverse().reverse();
+              Alphabet = ['A','B','C','D','E','F','G'];
+              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
+                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
+                this.all_odds[(i+4)] =          data.odds.dragon_and_tiger[Alphabet[i]];
+              }
+            });
+
+            //获取单球1-5的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/7`).then(function(response) {
+              if(response.data.status == 403) return false;
+              let data = response.data.data.odds;
+              //获取趺背数据
+              this.dec_limit.ball_1_digit = data.ball_1_digit.dec_odds;
+              this.dec_limit.ball_2_digit = data.ball_2_digit.dec_odds;
+              this.dec_limit.ball_3_digit = data.ball_3_digit.dec_odds;
+              this.dec_limit.ball_4_digit = data.ball_4_digit.dec_odds;
+              this.dec_limit.ball_5_digit = data.ball_5_digit.dec_odds;
+              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
+              for(let i=0;i<Alphabet.length;i++) {
+                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
+                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
+                this.all_odds[(i+27)] = data.ball_1_digit[Alphabet[i]];
+                this.all_odds[(i+37)] = data.ball_2_digit[Alphabet[i]];
+                this.all_odds[(i+47)] = data.ball_3_digit[Alphabet[i]];
+                this.all_odds[(i+57)] = data.ball_4_digit[Alphabet[i]];
+                this.all_odds[(i+67)] = data.ball_5_digit[Alphabet[i]];
+              }
+              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
+            });
+
+            //获取第一球的赔率
+            this.$http.get(`${this.global.config.API}ssc/odds/1`).then(function(response)
+            {
+              //获取趺背数据
+              this.dec_limit.end_3 = response.data.data.odds.end_3.dec_odds;
+              this.dec_limit.front_3 = response.data.data.odds.front_3.dec_odds;
+              this.dec_limit.medium_3 = response.data.data.odds.medium_3.dec_odds;
+              if(response.data.status == 403) return false;
+              let Alphabet = ['A','B','C','D','E'];
+              for(let i=0;i<this.odds.ball_3.front3.length;i++){
+                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
+                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
+                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
+                this.all_odds[(i+77)] = response.data.data.odds.front_3[Alphabet[i]];
+                this.all_odds[(i+87)] = response.data.data.odds.medium_3[Alphabet[i]];
+                this.all_odds[(i+92)] = response.data.data.odds.end_3[Alphabet[i]];
+              }
+
+            });
+          }*/
+
+
+        },
+        /**
+         * 确认下注
+         */
+        comfire_content:function()
+        {
+          //过滤掉相同的对象
+          this.filter_same();
+          //当用户没有选择下注内容的时候要提示用户选择
+          if(this.bets.length < 1)
+          {
+            this.$message(
+              {
+                dangerouslyUseHTMLString: true,
+                message: '请选择下注内容后再提交',
+                center: true,
+                type: 'warning'
+              });
+            return 0;
+          }
+          let sumMoney = 0;
+          let html = '';
+
+
+
+          for(let i = 0; i<this.bets.length;i++)
+          {
+            let str = '';
+            var index = this.dicrationaries.indexOf(this.bets[i].content);
+
+            if(this.is_dec(this.bets[i].content,this.bets[i].money))
+            {
+              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+              str += `赔率:` + `${odds}`
+            }
+            else
+            {
+              str += `赔率:` + `${this.all_odds[index]}`
+            }
+
+            html +=
+              "<div style='text-indent:15px;margin-top:5px;'>"
+              + this.dicrationaries_2[index]
+              +  '  @ ￥'
+              +  this.bets[i].money
+              +  '<button  class=' + this.bets[i].content + '   attr=\'my-btn-1\'' + '>删除</button>'
+              +  `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
+              + '</div>';
+            sumMoney += parseInt(this.bets[i].money);
+          }
+          html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
+          this.centerDialogVisible = true;
+          this.bet_html = html;
+          return;
+
+
+        },
+        //是否趺背，趺多少
+        is_dec:function(content,money)
+        {
+          let returnData = null;
+          let patterns =
+          {
+              pattern1 : 'dragon_and_tiger',
+              pattern2 : 'front_3',
+              pattern3 : 'medium_3',
+              pattern4 : 'end_3',
+              pattern5 : 'ball_1_digit',
+              pattern6 : 'ball_2_digit',
+              pattern7 : 'ball_3_digit',
+              pattern8 : 'ball_4_digit',
+              pattern9 : 'ball_5_digit',
+              pattern10 : 'ball_1_half',
+              pattern11 : 'ball_2_half',
+              pattern12 : 'ball_3_half',
+              pattern13 : 'ball_4_half',
+              pattern14 : 'ball_5_half',
+          };
+          let flag = false;
+          let index = 0;
+          for(let i = 1 ; i<15;i++)
+          {
+            if(content.match(patterns['pattern' + i]))
+            {
+              flag = true;
+              index = i;
+              break;
+            }
+          }
+          if(flag)
+          {
+            let data = this.dec_limit[patterns['pattern' + index]];
+            for(let i = 0 ; i<data.length;i++)
+            {
+                if(money>=data[i].limit)
+                {
+                  returnData = data[i].dec_odds;
+                }
+            }
+          }
+          return returnData;
+
+         },
+
+
+
+        //删除某个下注选择
+        delete_it(event)
+        {
+
+          if(event.target.innerHTML == '删除')
+          {
+            //删除这个下注项
+            for(let i = 0 ; i<this.bets.length;i++)
+            {
+              if(this.bets[i].content == event.target.className)
+              {
+                this.bets.splice(i, 1);
+              }
+            }
+
+            //移除这个html元素
+            let line = event.target.parentNode;
+            let bigDaddy = line.parentNode;
+            bigDaddy.removeChild(line);
+
+            //重写统计
+            let len = this.bets.length;//几条
+            //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
+            if(len <1)
+            {
+              this.centerDialogVisible = false;
+              this.$message.error('请重新选择下注内容');
+              this.clear_bet();
+
+            }
+            let totalMoney = 0;//总金额
+            for(let i = 0;i<len;i++)
+            {
+              totalMoney += this.bets[i].money;
+            }
+            document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
+          }
+        },
+        //两面盘下注方法1
+        double_1:function(key,index)
+        {
+          if(this.bet_content[key][index] != "")
+          {
+            return false;
+          }
+          let keys = ['K','L','M','N'];//组织数组
+          this.bet_content[key][index] = this.fast_money;//改变下注金额
+          this.bet_content[key].reverse().reverse();//触发视图层改变
+          this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
+        },
+        //两面盘下注方法1 在用户更改下注金钱时触发的函数
+        double_1_change(key,index)
+        {
+          let keys = ['K','L','M','N'];//组织数组
+          this.bet_content[key].reverse().reverse();//触发视图层改变
+          this.bets.push({content:key + '__' + keys[index],money:this.bet_content[key][index]});//添加到下注内容区
+        },
+
+        //两面盘下注方法2
+        double_2:function (index) {
+          let keys = ['A','B','C','D','E','F','G'];//组织数组
+          let key  = 'dragon_and_tiger';//组织数组
+          if(this.bet_content[key][index] != "")
+          {
+            return false;
+          }
+          this.bet_content[key][index] = this.fast_money;//改变下注金额
+          this.bet_content[key].reverse().reverse();//触发视图层改变
+          this.bets.push({content:key + '__' + keys[index],money:this.fast_money});//添加到下注内容区
+
+        },
+        //两面盘下注方法2 在用户更改下注金钱时触发的函数
+        double_2_change:function (index) {
+
+          let keys = ['A','B','C','D','E','F','G'];//组织数组
+          let key  = 'dragon_and_tiger';//组织数组
+          this.bet_content[key].reverse().reverse();//触发视图层改变
+          this.bets.push({content:key + '__' + keys[index],money:this.bet_content[key][index]});//添加到下注内容区
+
+        },
+        //单球的下注
+        single_ball_1:function (k,index) {
+
+          let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
+          let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
+          let key  = keys[k];//组织数组
+          if(this.bet_content.single_ball_1_5[key][index] != "")
+          {
+            return false;
+          }
+          this.bet_content.single_ball_1_5[key][index] = this.fast_money;//改变下注金额
+          this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
+          this.bets.push({content:key + '__' + Alphabet[index],money:this.fast_money});//添加到下注内容区
+
+        },
+        //单球的下注 在用户改变下注金额的时候触发的函数
+        single_ball_1_change(k,index)
+        {
+          let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
+          let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
+          let key  = keys[k];//组织数组
+          this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
+          this.bets.push({content:key + '__' + Alphabet[index],money: this.bet_content.single_ball_1_5[key][index]});//添加到下注内容区
+        },
+
+
+        //1-5球的下注
+        ball_1_5:function (k,i,type) {
+          if(type == 'tm')
+          {
+            let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
+            let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
+            let key  = keys[k];//组织数组
+            if(this.bet_content.single_ball_1_5[key][i] != "")
+            {
+              return false;
+            }
+            this.bet_content.single_ball_1_5[key][i] = this.fast_money;//改变下注金额
+            this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + Alphabet[i],money:this.fast_money});//添加到下注内容区
+          }
+          else if (type == 'lm')
+          {
+            let arr = ['ball_1_half','ball_2_half','ball_3_half','ball_4_half','ball_5_half'];//组织数组
+            let keys = ['K','L','M','N'];//组织数组
+            let key = arr[k];
+            if(this.bet_content[key][i] != "")
+            {
+              return false;
+            }
+            this.bet_content[key][i] = this.fast_money;//改变下注金额
+            this.bet_content[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+          }
+          else if(type == 'he')
+          {
+            let keys = ['A','B','C','D','E','F','G'];//组织数组
+            let key  = 'dragon_and_tiger';//组织数组
+            if(this.bet_content[key][i] != "")
+            {
+              return false;
+            }
+            this.bet_content[key][i] = this.fast_money;//改变下注金额
+            this.bet_content[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+          }
+          else if(type == 'qzhs')
+          {
+            let keys = ['A','B','C','D','E'];
+            if(this.bet_content.ball_3[k][i] != "")
+            {
+              return false;
+            }
+            this.bet_content.ball_3[k][i] = this.fast_money;//改变下注金额
+            this.bet_content.ball_3[k].reverse().reverse();//触发视图层改变
+
+            if(k=='front3')
+            {
+              this.bets.push({content:'front_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+            }
+            if(k=='medium3')
+            {
+
+              this.bets.push({content:'medium_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+            }
+            if(k=='end3')
+            {
+              this.bets.push({content:'end_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
+            }
+            let x = {content:'medium_3' + '__' + keys[i],money:this.fast_money};
+
+
+            return
+          }
+          else
+          {
+            alert('????');
+          }
+        },
+
+
+        //1-5球的下注 在用户改变下注金额的时候触发的函数
+        ball_1_5_change:function (k,i,type) {
+          if(type == 'tm')
+          {
+            let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];//组织数组  ball_1_digit
+            let keys = ['ball_1_digit','ball_2_digit','ball_3_digit','ball_4_digit','ball_5_digit'];
+            let key  = keys[k];//组织数组
+            this.bet_content.single_ball_1_5[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + Alphabet[i],money:this.bet_content.single_ball_1_5[key][i]});//添加到下注内容区
+          }
+          else if (type == 'lm')
+          {
+            let arr = ['ball_1_half','ball_2_half','ball_3_half','ball_4_half','ball_5_half'];//组织数组
+            let keys = ['K','L','M','N'];//组织数组
+            let key = arr[k];
+            this.bet_content[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + keys[i],money:this.bet_content[key][i]});//添加到下注内容区
+          }
+          else if(type == 'he')
+          {
+            let keys = ['A','B','C','D','E','F','G'];//组织数组
+            let key  = 'dragon_and_tiger';//组织数组
+            this.bet_content[key].reverse().reverse();//触发视图层改变
+            this.bets.push({content:key + '__' + keys[i],money:this.bet_content[key][i]});//添加到下注内容区
+          }
+          else if(type == 'qzhs')
+          {
+
+//                console.log(this.bet_content.ball_3[k][i]);
+            let keys = ['A','B','C','D','E'];
+            if(k=='front3')
+            {
+              this.bets.push({content:'front_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
+            }
+            if(k=='medium3')
+            {
+              this.bets.push({content:'medium_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
+            }
+            if(k=='end3')
+            {
+              this.bets.push({content:'end_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
+            }
+            return
+          }
+          else
+          {
+            alert('????');
+          }
+        },
+        /**
+         * 清除下注内容{清空数据,重置ui}
+         */
+        clear_bet:function ()
+        {
+          //清空数据
+          this.bets = [];
+          //重置ui
+          this.bet_content =
+            {
+              ball_1_half:['','','',''],
+              ball_2_half:['','','',''],
+              ball_3_half:['','','',''],
+              ball_4_half:['','','',''],
+              ball_5_half:['','','',''],
+              dragon_and_tiger:['','','','','','',''],
+              single_ball_1_5:
+                {
+                  ball_1_digit:['','','','','','','','','',''],
+                  ball_2_digit:['','','','','','','','','',''],
+                  ball_3_digit:['','','','','','','','','',''],
+                  ball_4_digit:['','','','','','','','','',''],
+                  ball_5_digit:['','','','','','','','','',''],
+                },
+              ball_3:
+                {
+                  front3:['','','',''],
+                  medium3:['','','',''],
+                  end3:['','','',''],
+                },
+            };
+          //更新视图层
+          this.bet_content.ball_1_half.reverse().reverse();
+
+        },
+
+        /**
+         * 过滤掉相同的数组
+         */
+        filter_same:function ()
+        {
+          for(let i = 0; i < this.bets.length;i++)
+          {
+            let key =  this.bets[i].content;
+            var flag = false;
+            for(let j = i+1;j<this.bets.length;j++)
+            {
+              if(key == this.bets[j].content)
+              {
+                this.bets.splice(i,1);
+                flag = true;
+                break;
+              }
+            }
+            if(!this.bets[i].money)
+            {
+              this.bets.splice(i,1);
+              flag = true;
+            }
+            if(flag)
+            {
+              this.filter_same();
+              break;
+            }
+          }
+
+        },
+
+        /**
+         *提交下注！！！
+         */
+        do_bet:function ()
+        {
+
+          this.centerDialogVisible = false;
+          this.$http.post(`${this.global.config.API}ssc/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
+            if(res.data.status == 200)
+            {
+              //清除下注内容
+              this.clear_bet();
+              //从服务器上获取余额
+              this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+              {
+                let  data = response.data.data.user;
+                this.$set(this.$store.state,'cash_money',data.money.cash_money)
+              });
+
+              //提示下注成功
+              this.$message(
+                {
+                  dangerouslyUseHTMLString: true,
+                  message: res.data.msg,
+                  center: true,
+                  type: 'success'
+                });
+              //设置未结算清单
+              this.get_ssc_unclear();
+            }
+            else
+            {
+              this.$message.error(res.data.msg);
+            }
+
+          });
+        },
+        /**
+         * 获取重庆时时彩的时间和期数
+         */
+        get_time:function ()
+        {
+          this.$http.get(`${this.global.config.API}ssc/time`).then(function(res){
+            //console.log(res.data);
+            let data = res.data;
+            this.sales_ = data.saleNum;//已卖期数
+            this.end_time = data.endtime;//这期的封盘时间
+            this.open_time = data.opentime;//下期的开盘时间
+            this.thisExpect = data.expect;//这期下注期数
+            this.count_down();
+          });
+        },
+        /**
+         * 倒计时
+         */
+        count_down:function ()
+        {
+          var that  = this;
+          //封盘倒计时
+          this.timeId2 = setInterval(function(){
+            if(that.end_time <= 0)
+            {
+              that.mins = '00';
+              that.seconds = Math.abs(that.open_time);
+              that.tips = "离开盘还有";
+              if(that.end_time == 0)
+              {
+                that.thisExpect = parseInt(that.thisExpect) + 1;
+              }
+              if(that.open_time <= 0 )
+              {
+                if(that.open_time < -100)
+                {
+                  that.mins = "--";
+                  that.seconds = "--";
+                  that.tips = '请等待开盘';
+                }
+                if(that.open_time == 0)
+                {
+                  //清除定时器
+                  clearInterval(that.timeId2);
+                  //重新获取时间
+                  that.get_time();
+                  //获取未结算的订单
+                  that.get_ssc_unclear();
+                  that.tips = "距离本期封盘还有";
+                }
+                else
+                {
+                  that.open_time++
+                }
+                return;
+              }
+            }
+            else
+            {
+              let mins = Math.floor(that.end_time/60);
+              mins = '0' + mins;
+              that.mins = mins;
+              let seconds = Math.abs(Math.floor(that.end_time%60));
+              seconds  = seconds>9?seconds:('0'+seconds);
+              that.seconds = seconds;
+            }
+
+            that.end_time--;
+            that.open_time--;
+          },1000);
+          //开盘倒计时
+        },
+
+        /**
+         * 获取历史开奖
+         */
+        get_history:function()
+        {
+          let url = `${this.global.config.API}ssc/history/lottery?per_page=10`;
+          this.history_codes = [];
+          this.$http.get(url).then(function(res){
+            let data = res.data.data;
+            this.curPage = data.curPage;
+            this.hasNext = data.hasNext;
+            this.hasPrev = data.hasPrev;
+            this.history_list = data.list;
+            for(let i = 0; i<this.history_list.length;i++)
+            {
+              let expect = this.history_list[i].expect;
+              this.history_expects.push(expect);
+              let codes = this.history_list[i].opencode.split(',');
+              this.history_codes.push(codes);
+            }
+            this.history_codes.reverse().reverse();
+          });
+        },
+        /**
+         * 设置下注金额
+         */
+        setBetMoney:function(money)
+        {
+          this.fast_money = money;
+        },
+
+        /**
+         * 查看用户可选盘口
+         */
+        get_users_handicaps:function()
+        {
+          this.$http.get(`${this.global.config.API}ssc/pans`)
+            .then(function(res)
+            {
+
+              this.handicaps = [];
+              if(res.data.status == 200)
+              {
+                for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+                {
+                  this.handicaps.push(res.data.data.ratelist[i]);
+                  this.which_handicap = res.data.data.ratelist[0].ratewin_name;
+                  this.fanshui = res.data.data.ratelist[0].fs;
+                }
+              }
+            });
+        },
+        return_percent:function(str)
+        {
+          return str;
+        },
+        return_upper:function(str)
+        {
+          return str.toUpperCase();
+        },
+        /**
+         * 获取cqssc未结算的清单
+         */
+        get_ssc_unclear:function()
+        {
+
+          //获取cqssc未结算的数据
+          this.$http.get(`${this.global.config.API}ssc/history/clear/0`).then(function(res)
+          {
+            if(res.data.status == 403) return false;
+            this.orderData = [];
+            let data = res.data.data;
+            let list  = data.list;
+            for(let i = 0; i<list.length;i++)
+            {
+              if(list[i].status != -1) {
+                let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
+                this.orderData.push(html);
+              }
+            }
+            //设置全局的未结算清单
+            this.$set(this.$store.state,'unclear',this.orderData);
+          });
+        },
+      }
   }
 </script>
 
@@ -1285,10 +1460,27 @@
   }
 
 
+  button[attr='my-btn-1']
+  {
+   float:right;
+    margin-right:12px;
+    color:#fff;
+    background:#f56c6c;
+    border: 1px solid #dcdfe6;padding:3px;
+  }
+
 </style>
 <style>
   .el-dialog--center .el-dialog__body
   {
     padding-bottom: 15px;
+  }
+  button[attr='my-btn-1']
+  {
+    float:right;
+    margin-right:12px;
+    color:#fff;
+    background:#f56c6c;
+    border: 1px solid #dcdfe6;padding:3px;
   }
 </style>

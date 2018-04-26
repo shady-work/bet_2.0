@@ -87,7 +87,7 @@
           <div class="bet-chooses-top">
 
             <div v-for="(v,k,index) in odds.double_aspect"  :class="(index==0 || index==5)?'first-ball mt0':'first-ball'">
-                <div v-for="(val,key,idx) in double_aspect_a" v-if="v[val] != 0.0000" class="first-ball-details text-0">
+                <div v-for="(val,key,idx) in double_aspect_a" v-if="parseIn(v[val])" class="first-ball-details text-0">
                    <span class="he22 ">{{double_aspect_c[key]}}</span>
                   <span class="he22 color-red f700" style="margin-left:3px;">{{v[val]}}</span>
                   <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)" @change="bet_db_change(index,key)" style="margin-top:5px;width:43px;height:17px;margin-left:14px;">
@@ -489,6 +489,8 @@
             sum_half:['','','',''],
           },
           bet_content:[],//下注内容的集合
+          //纯赔率列表
+          all_odds:[],
           //参照表1
           dicrationaries:[
             //两面
@@ -603,6 +605,35 @@
 
 
           isClose:false,//是否闭盘
+          //趺背的数据
+          dec_limit:
+            {
+              //1里面找
+              ball_1_digit:{},
+              ball_2_digit:{},
+              ball_3_digit:{},
+              ball_4_digit:{},
+              ball_5_digit:{},
+              ball_6_digit:{},
+              ball_7_digit:{},
+              ball_8_digit:{},
+              ball_9_digit:{},
+              ball_10_digit:{},
+              //6页面找
+              ball_1_half:{},
+              ball_2_half:{},
+              ball_3_half:{},
+              ball_4_half:{},
+              ball_5_half:{},
+              ball_6_half:{},
+              ball_7_half:{},
+              ball_8_half:{},
+              ball_9_half:{},
+              ball_10_half:{},
+              //1页面找
+              sum_half:{},
+              sum_digit:{},
+            },
 
 
         };
@@ -610,6 +641,10 @@
     },
     methods:
     {
+      parseIn(v)
+      {
+        return parseInt(v);
+      },
       showType: function (idx)
       {
         this.showArray_cqssc = [0, 0, 0, 0, 0, 0, 0];
@@ -738,27 +773,91 @@
         {
           this.$http.get(`${this.global.config.API}pk10/odds/1?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(res)
           {
-            var data = res.data.data.odds;
+            let data = res.data.data.odds;
             this.odds.single_ball = data;
+            let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
+            for(let i=0;i<Alphabet.length;i++)
+            {
+              this.dec_limit['ball_'+ (i+1) +'_digit'] = data['ball_'+ (i+1) +'_digit'].dec_odds;
+              this.all_odds[(i+50)] = data['ball_1_digit'][Alphabet[i]];
+              this.all_odds[(i+60)] = data['ball_2_digit'][Alphabet[i]];
+              this.all_odds[(i+70)] = data['ball_3_digit'][Alphabet[i]];
+              this.all_odds[(i+80)] = data['ball_4_digit'][Alphabet[i]];
+              this.all_odds[(i+90)] = data['ball_5_digit'][Alphabet[i]];
+              this.all_odds[(i+100)] = data['ball_5_digit'][Alphabet[i]];
+              this.all_odds[(i+110)] = data['ball_6_digit'][Alphabet[i]];
+              this.all_odds[(i+120)] = data['ball_7_digit'][Alphabet[i]];
+              this.all_odds[(i+130)] = data['ball_8_digit'][Alphabet[i]];
+              this.all_odds[(i+140)] = data['ball_9_digit'][Alphabet[i]];
+            }
+
           });
           this.$http.get(`${this.global.config.API}pk10/odds/2?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(res)
           {
-            var data = res.data.data.odds;
+            let data = res.data.data.odds;
             this.odds.double_aspect = data;
+            let Alphabet = ['K','L','M','N','O','P'];
+            this.dec_limit['ball_7_half'] = data['ball_7_half'].dec_odds;
+            this.dec_limit['ball_8_half'] = data['ball_8_half'].dec_odds;
+            this.dec_limit['ball_9_half'] = data['ball_9_half'].dec_odds;
+            this.dec_limit['ball_10_half'] = data['ball_10_half'].dec_odds;
+            for(let i=0;i<Alphabet.length;i++)
+            {
+              this.dec_limit['ball_'+ (i+1) +'_half'] = data['ball_'+ (i+1) +'_half'].dec_odds;
+              if(Alphabet[i] == 'O' || Alphabet[i] == 'P')
+              {
+                this.all_odds[i]    = data['ball_1_half'][Alphabet[i]];
+                this.all_odds[i+6]  = data['ball_2_half'][Alphabet[i]];
+                this.all_odds[i+12] = data['ball_3_half'][Alphabet[i]];
+                this.all_odds[i+18] = data['ball_4_half'][Alphabet[i]];
+                this.all_odds[i+24] = data['ball_5_half'][Alphabet[i]];
+              }
+              else
+              {
+                this.all_odds[i]    = data['ball_1_half'][Alphabet[i]];
+                this.all_odds[i+6]  = data['ball_2_half'][Alphabet[i]];
+                this.all_odds[i+12] = data['ball_3_half'][Alphabet[i]];
+                this.all_odds[i+18] = data['ball_4_half'][Alphabet[i]];
+                this.all_odds[i+24] = data['ball_5_half'][Alphabet[i]];
+                this.all_odds[i+30] = data['ball_5_half'][Alphabet[i]];
+                this.all_odds[i+36] = data['ball_6_half'][Alphabet[i]];
+                this.all_odds[i+42] = data['ball_7_half'][Alphabet[i]];
+                this.all_odds[i+48] = data['ball_8_half'][Alphabet[i]];
+                this.all_odds[i+54] = data['ball_9_half'][Alphabet[i]];
+              }
+
+            }
 
           });
           this.$http.get(`${this.global.config.API}pk10/odds/3?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(res)
           {
-            var data = res.data.data.odds;
+            let data = res.data.data.odds;
             this.odds.sum_digit = data.sum_digit;
             this.odds.sum_half = data.sum_half;
+            this.dec_limit.sum_digit = data.sum_digit.dec_odds;
+            this.dec_limit.sum_half = data.sum_half.dec_odds;
+            let Alphabet1 = ['A','B','C','D'];
+            for(let i=0;i<Alphabet1.length;i++)
+            {
+                this.all_odds[i+150] = data['sum_half'][Alphabet1[i]];
+            }
+            let Alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q'];
+            for(let i=0;i<Alphabet.length;i++)
+            {
+              this.all_odds[i+154] = data['sum_digit'][Alphabet[i]];
+            }
           });
         }
-        else
+       /* else
         {
           this.$http.get(`${this.global.config.API}pk10/odds/1`).then(function(res){
             var data = res.data.data.odds;
             this.odds.single_ball = data;
+            for(let i=1;i<11;i++)
+            {
+              this.dec_limit['ball_'+ i +'_digit'] = data['ball_'+ i +'_digit'].dec_odds
+            }
+
           });
           this.$http.get(`${this.global.config.API}pk10/odds/2`).then(function(res){
             var data = res.data.data.odds;
@@ -769,9 +868,8 @@
             var data = res.data.data.odds;
             this.odds.sum_digit = data.sum_digit;
             this.odds.sum_half = data.sum_half;
-
           });
-        }
+        }*/
 
       },
       //两面盘点击下注1
@@ -967,6 +1065,7 @@
       {
         //过滤掉相同的对象
         this.filter_same();
+
         //当用户没有选择下注内容的时候要提示用户选择
         if(this.bet_content.length < 1){
           this.$message(
@@ -978,15 +1077,32 @@
             });
           return 0;
         }
-
         //拼接字符串
         let html = '';
         let sumMoney = 0;
+
         for(let i = 0; i<this.bet_content.length;i++)
         {
-          var index = this.dicrationaries.indexOf(this.bet_content[i].content);
-          html +=           "<div style='text-indent:15px;margin-top: 5px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bet_content[i].money
-            + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + this.bet_content[i].content +'>删除</button></div>';
+          let index = this.dicrationaries.indexOf(this.bet_content[i].content);
+          let str = '';
+
+          if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))
+          {
+            let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
+            str += `赔率:` + `${odds}`;
+          }
+          else
+          {
+            str += `赔率:` + `${this.all_odds[index]}`;
+          }
+
+          html += "<div style='text-indent:15px;margin-top: 5px;'>"
+          + this.dicrationaries_2[index]
+          +  '  @ ￥'
+          +  this.bet_content[i].money
+          + '<button  class=' + this.bet_content[i].content + '   attr=\'my-btn-1\''  +'>删除</button>'
+          +   `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
+          +'</div>';
           sumMoney += parseInt(this.bet_content[i].money);
         }
         html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bet_content.length + '条,' + sumMoney + "￥" +   '</div>';
@@ -994,6 +1110,65 @@
         this.bet_html = html;
         return;
 
+
+      },
+      is_dec:function(content,money)
+      {
+        let returnData = null;
+        let patterns =
+          {
+            pattern1 :  'ball_1_digit',
+            pattern2 :  'ball_2_digit',
+            pattern3 :  'ball_3_digit',
+            pattern4 :  'ball_4_digit',
+            pattern5 :  'ball_5_digit',
+            pattern6 :  'ball_6_digit',
+            pattern7 :  'ball_7_digit',
+            pattern8 :  'ball_8_digit',
+            pattern9 :  'ball_9_digit',
+            pattern10 : 'ball_10_digit',
+
+            pattern11 : 'ball_1_half',
+            pattern12 : 'ball_2_half',
+            pattern13 : 'ball_3_half',
+            pattern14 : 'ball_4_half',
+            pattern15 : 'ball_5_half',
+            pattern16 : 'ball_6_half',
+            pattern17 : 'ball_7_half',
+            pattern18 : 'ball_8_half',
+            pattern19 : 'ball_9_half',
+            pattern20 : 'ball_10_half',
+
+
+            pattern20 : 'sum_half',
+            pattern21 : 'sum_digit',
+
+
+
+          };
+        let flag = false;
+        let index = 0;
+        for(let i = 1 ; i<22;i++)
+        {
+          if(content.match(patterns['pattern' + i]))
+          {
+            flag = true;
+            index = i;
+            break;
+          }
+        }
+        if(flag)
+        {
+          let data = this.dec_limit[patterns['pattern' + index]];
+          for(let i = 0 ; i<data.length;i++)
+          {
+            if(money>=data[i].limit)
+            {
+              returnData = data[i].dec_odds;
+            }
+          }
+        }
+        return returnData;
 
       },
       /**
@@ -1276,5 +1451,15 @@
   .first-ball-details > span
   {
     float: left;
+  }
+</style>
+<style>
+  button[attr='my-btn-1']
+  {
+    float:right;
+    margin-right:12px;
+    color:#fff;
+    background:#f56c6c;
+    border: 1px solid #dcdfe6;padding:3px;
   }
 </style>

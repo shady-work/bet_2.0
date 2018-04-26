@@ -41,7 +41,6 @@
          {
            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
            {
-             console.log(response.data);
              if(response.data.status == 200)
              {
                let  data = response.data.data.user;
