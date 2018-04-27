@@ -11,10 +11,10 @@
                 <div class="xy-left">
 
                     <div class="xy-list">
-                        <a @click="change_lty(0,'ssc')" :class="isShow[0]?'active':''">重庆时时彩</a>
-                        <a @click="change_lty(1,'pk10')" :class="isShow[1]?'active':''">北京赛车pk10</a>
-                        <a @click="change_lty(2,'cake')" :class="isShow[2]?'active':''">加拿大28</a>
-                        <a @click="change_lty(3,'egg')" :class="isShow[3]?'active':''">pc蛋蛋</a>
+                        <a @click="change_lty(0,'ssc')" :class="isShow[0]?'active':''"  v-show="isShow1('cqssc')">重庆时时彩</a>
+                        <a @click="change_lty(1,'pk10')" :class="isShow[1]?'active':''" v-show="isShow1('bjpk10')">北京赛车pk10</a>
+                        <a @click="change_lty(2,'cake')" :class="isShow[2]?'active':''" v-show="isShow1('cakeno')">加拿大28</a>
+                        <a @click="change_lty(3,'egg')" :class="isShow[3]?'active':''"  v-show="isShow1('pcegg')">pc蛋蛋</a>
                     </div>
                 </div>
 
@@ -66,11 +66,25 @@ export default
            which_lty:'ssc',//默认是ssc
            handicaps:[],//盘口们
            data:[{},{},{},{},{},{},{},{},{},{},{},{},{}],
+           vaild_lotteries:[],//用户拥有哪些彩种
        };
        return data;
    },
    methods:
    {
+
+        isShow1:function(str)
+        {
+            let numb = this.vaild_lotteries.indexOf(str);
+            if(numb == -1)
+            {
+             return false;
+            }
+            else
+            {
+                return true;
+            }
+        },
        //获取用户有哪些盘口
        get_users_handicaps()
        {
@@ -334,46 +348,55 @@ export default
          }
        });
      },
-     //egg
-     get_user_bet_rules_egg(pan)
-     {
-       this.$http.get(`${this.global.config.API}${this.which_lty}/odds/0?pan=${pan}`).then(function(res)
-       {
-         if(res.data.status ==200)
+         //egg
+         get_user_bet_rules_egg(pan)
          {
-           let data = res.data.data.odds;
-           this.data = [];
-           this.data.push({
-             play : "特码",
-             one_bet_max:data.ball_1.bet_limit.expect_limit,
-             one_bet_min:data.ball_1.bet_limit.order_limit_min,
-             one_bet_win:data.ball_1.bet_limit.order_limit_max,
-           });
+           this.$http.get(`${this.global.config.API}${this.which_lty}/odds/0?pan=${pan}`).then(function(res)
+           {
+             if(res.data.status ==200)
+             {
+               let data = res.data.data.odds;
+               this.data = [];
+               this.data.push({
+                 play : "特码",
+                 one_bet_max:data.ball_1.bet_limit.expect_limit,
+                 one_bet_min:data.ball_1.bet_limit.order_limit_min,
+                 one_bet_win:data.ball_1.bet_limit.order_limit_max,
+               });
 
-           this.data.push({
-             play : "多面",
-             one_bet_max:data.ball_2.bet_limit.expect_limit,
-             one_bet_min:data.ball_2.bet_limit.order_limit_min,
-             one_bet_win:data.ball_2.bet_limit.order_limit_max,
-           });
+               this.data.push({
+                 play : "多面",
+                 one_bet_max:data.ball_2.bet_limit.expect_limit,
+                 one_bet_min:data.ball_2.bet_limit.order_limit_min,
+                 one_bet_win:data.ball_2.bet_limit.order_limit_max,
+               });
 
-           this.data.push({
-             play : "波色",
-             one_bet_max:data.ball_3.bet_limit.expect_limit,
-             one_bet_min:data.ball_3.bet_limit.order_limit_min,
-             one_bet_win:data.ball_3.bet_limit.order_limit_max,
-           });
+               this.data.push({
+                 play : "波色",
+                 one_bet_max:data.ball_3.bet_limit.expect_limit,
+                 one_bet_min:data.ball_3.bet_limit.order_limit_min,
+                 one_bet_win:data.ball_3.bet_limit.order_limit_max,
+               });
 
-           this.data.push({
-             play : "豹子",
-             one_bet_max:data.ball_4.bet_limit.expect_limit,
-             one_bet_min:data.ball_4.bet_limit.order_limit_min,
-             one_bet_win:data.ball_4.bet_limit.order_limit_max,
+               this.data.push({
+                 play : "豹子",
+                 one_bet_max:data.ball_4.bet_limit.expect_limit,
+                 one_bet_min:data.ball_4.bet_limit.order_limit_min,
+                 one_bet_win:data.ball_4.bet_limit.order_limit_max,
+               });
+             }
            });
-         }
-       });
-     },
-
+         },
+     //获取用户有哪些彩种
+         get_lotteries()
+         {
+           //获取用户有哪些彩种
+           this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+           {
+             let  data = response.data.data.user;
+             this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+           });
+         },
        //切换盘口
         tab_pan(pan,k)
         {
@@ -382,13 +405,15 @@ export default
           if(this.which_lty == 'cake') this.get_user_bet_rules_cake(pan);
             this.tableArray = [0,0,0,0,0,0,0,0,0];
             this.tableArray[k] = 1;
-        }
+        },
+
 
    },
    created()
    {
        this.$store.state.isShowSecond = true;
        this.get_users_handicaps();
+       this.get_lotteries();
    },
     watch:
     {
