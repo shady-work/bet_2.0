@@ -171,10 +171,10 @@
     <!-- 右边的历史记录 -->
     <div id="history">
       <div class="history-header" @click="showHistory">
-        长龙排行 <span class="pull-right pointer">{{history_str}}</span>
+        历史记录 <span class="pull-right pointer">{{history_str}}</span>
       </div>
       <div class="history-table">
-        <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙-出</a>
+        <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
         <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
       </div>
       <div class="history-list" v-show="history_tables[1]">

@@ -197,6 +197,7 @@ export default {
             {
                 this.$http.get(`${this.global.config.API}pk10/lastLty`).then(function(res){
                     var data = res.data;
+                    console.log(res.data);
                     this.details = data.details;
                     this.money = data.unclear_money;
                     // console.log(res.data);

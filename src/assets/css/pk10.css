@@ -348,11 +348,12 @@
      }
       .history-table > a
       {
+          width: 100px;
           float: left;
           height: 30px;
           font-size: 14px;
           line-height: 30px;
-          margin-left: 15px;
+          margin-left: 18px;
           margin-top: 5px;
           border-radius: 3px;
           color: #000;

@@ -231,20 +231,17 @@
     <!-- 右边的历史记录 -->
     <div id="history">
       <div class="history-header" @click="showHistory">
-        长龙排行 <span class="pull-right pointer" >{{history_str}}</span>
+        历史记录 <span class="pull-right pointer" >{{history_str}}</span>
       </div>
       <div class="history-table">
-        <a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
-        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙-出</a>
-        <a @click="showTables(2)" :class="history_tables[2]?'active':''">历史开奖</a>
+        <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
+        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a><a @click="showTables(2)" :class="history_tables[2]?'active':''" >历史开奖</a>
       </div>
 
-      <div class="history-list" v-show="history_tables[0]">
 
-      </div>
 
       <div class="history-list" v-show="history_tables[1]">
-
+        <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
@@ -301,7 +298,7 @@
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
           mins:'00',
           seconds:'00',
-          history_tables: [0, 0, 1],
+          history_tables: [0, 1, 0],
           history_flag: 0,
           history_str: "收起",
           lastOpenCode: [1, 1, 1, 1, 1],          //最后一期开奖号码
@@ -311,6 +308,7 @@
           fast_money:10,//快速下注初始值
           end_time:60,//倒计时
           open_time:60,//开奖时间
+          data:[],
           //下注金额的集合
           bet_content:{
             ball_1_half:['','','',''],
@@ -477,6 +475,8 @@
             this.get_history();
             // 6 获取未结算清单
             this.get_ssc_unclear();
+            // 7.获取长龙出数据
+            this.get_londDragon_data();
           }
           else
           {
@@ -611,9 +611,20 @@
          */
         showTables: function (idx)
         {
+
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
           this.history_tables[idx] = 1;
         },
+        //长龙出的数据
+          get_londDragon_data()
+          {
+              this.$http.get(this.global.config.API + 'ssc/longDragon', {}).then(function (res) {
+
+                  this.data = res.data.data;
+
+
+              });
+          },
         /**
          * close history tab
          */
