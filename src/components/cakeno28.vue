@@ -4,31 +4,31 @@
     <div class="head">
       <div class="details">
         <img src="../assets/img/icon_jnd28.png" class="logo-tubiao" alt="">
-          <div class="left">
-              <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期</p>
-              <div class="balls">
-                  <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
-                  <span class="bg-none color-white">+</span>
-                  <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
-                  <span class="bg-none color-white">+</span>
-                  <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
-                  <span class="bg-none color-white">=</span>
-                  <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
-                  <div class="clear"></div>
-              </div>
+        <div class="left">
+          <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期</p>
+          <div class="balls">
+            <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+            <span class="bg-none color-white">+</span>
+            <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+            <span class="bg-none color-white">+</span>
+            <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+            <span class="bg-none color-white">=</span>
+            <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+            <div class="clear"></div>
           </div>
-          <div class="right">
-              <div class="right-left">
-                  <p style="color:#209F16;">第{{this_expect}}期</p>
-                  <p>{{tips}}</p>
-              </div>
-              <div class="right-right">
-                  <span class="fen">{{mins}}</span>
-                  <span>分</span>
-                  <span class="fen">{{seconds}}</span>
-                  <span >秒</span>
-              </div>
+        </div>
+        <div class="right">
+          <div class="right-left">
+            <p style="color:#209F16;">第{{this_expect}}期</p>
+            <p>{{tips}}</p>
           </div>
+          <div class="right-right">
+            <span class="fen">{{mins}}</span>
+            <span>分</span>
+            <span class="fen">{{seconds}}</span>
+            <span >秒</span>
+          </div>
+        </div>
         <div class="clear"></div>
       </div>
 
@@ -40,18 +40,18 @@
       <form action="">
         <div class="bet-content-table">
           <a class="color-white active">
-            加拿大28
+            PC蛋蛋
             <span></span>
           </a>
         </div>
 
         <div class="bet-content-input">
-            <div class="pan">
-                <label>盘口</label>
-                <select v-model="which_handicap">
-                    <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-                </select>
-            </div>
+          <div class="pan">
+            <label>盘口</label>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
+            </select>
+          </div>
           <div class="fast-bet">
             快速下注金额
             <input type="text" class="fast-bet-input" v-model="fast_money">
@@ -139,12 +139,12 @@
 
 
         <div class="bet-content-input mt5">
-            <div class="pan">
-                <label>盘口</label>
-                <select v-model="which_handicap">
-                    <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-                </select>
-            </div>
+          <div class="pan">
+            <label>盘口</label>
+            <select v-model="which_handicap">
+              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
+            </select>
+          </div>
           <div class="fast-bet">
             快速下注金额
             <input type="text" class="fast-bet-input" v-model="fast_money">
@@ -209,10 +209,10 @@
 
     <!--下注提示框-->
     <el-dialog
-      title="确认下注"
-      :visible.sync="centerDialogVisible"
-      width="30%"
-      center>
+            title="确认下注"
+            :visible.sync="centerDialogVisible"
+            width="30%"
+            center>
       <div v-html="bet_html" @click="delete_it($event)"></div>
       <span slot="footer" class="dialog-footer">
     <el-button @click="centerDialogVisible = false">取 消</el-button>
@@ -261,18 +261,18 @@
               special: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
             },
           bets: [],
-          dicrationaries:
-            [   'ball_1__e1','ball_1__e2','ball_1__e3','ball_1__e4','ball_1__e5','ball_1__e6',
-              'ball_1__e7','ball_1__e8','ball_1__e9','ball_1__e10','ball_1__e11','ball_1__e12',
-              'ball_1__e13','ball_1__e14','ball_1__e15','ball_1__e16','ball_1__e17','ball_1__e18',
-              'ball_1__e19','ball_1__e20','ball_1__e21','ball_1__e22','ball_1__e23',
-              'ball_1__e24','ball_1__e25','ball_1__e26','ball_1__e27','ball_1__e28',
+          dicrationaries:[
+            'ball_1__e1','ball_1__e2','ball_1__e3','ball_1__e4','ball_1__e5','ball_1__e6',
+            'ball_1__e7','ball_1__e8','ball_1__e9','ball_1__e10','ball_1__e11','ball_1__e12',
+            'ball_1__e13','ball_1__e14','ball_1__e15','ball_1__e16','ball_1__e17','ball_1__e18',
+            'ball_1__e19','ball_1__e20','ball_1__e21','ball_1__e22','ball_1__e23',
+            'ball_1__e24','ball_1__e25','ball_1__e26','ball_1__e27','ball_1__e28',
 
-              'ball_2__e1','ball_2__e2','ball_2__e3','ball_2__e4','ball_2__e5','ball_2__e6',
-              'ball_2__e7','ball_2__e8','ball_2__e9','ball_2__e10','ball_4__e1',
+            'ball_2__e1','ball_2__e2','ball_2__e3','ball_2__e4','ball_2__e5','ball_2__e6',
+            'ball_2__e7','ball_2__e8','ball_2__e9','ball_2__e10','ball_4__e1',
 
-              'ball_3__e1','ball_3__e2','ball_3__e3',
-            ],
+            'ball_3__e1','ball_3__e2','ball_3__e3',
+          ],
           dicrationaries_2:
             [
               '特码-0','特码-1','特码-2','特码-3','特码-4','特码-5','特码-6','特码-7','特码-8','特码-9',
@@ -283,27 +283,36 @@
 
               '波色-红波','波色-绿波','波色-蓝波',
             ],
-            timeId:0,
-            timeId2:1,
-            timeId3:2,
-            history_codes:[],
+          timeId:0,
+          timeId2:1,
+          timeId3:2,
+          history_codes:[],
 
-            //查看用户可选的盘口
-            handicaps:[],
-            //当前是哪个盘口
-            which_handicap:'',
+          //查看用户可选的盘口
+          handicaps:[],
+          //当前是哪个盘口
+          which_handicap:'',
 
-            vaild_lotteries:[],//  用户拥有哪些彩种
-            fanshui:'',
-            orderData:[],//未结算数据
-            tips:'距离本期封盘还有',
+          vaild_lotteries:[],//  用户拥有哪些彩种
+          fanshui:'',
+          orderData:[],//未结算数据
+          tips:'距离本期封盘还有',
+          dec_limit:
+            {
+              ball_1:{},
+              ball_2:{},
+              ball_3:{},
+              ball_4:{},
+              ball_5:{},
+            },
+          all_odds:[],
 
         };
       return my_data;
     },
 
     methods:
-    {
+      {
         showType: function (idx)
         {
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
@@ -338,7 +347,7 @@
           }
 
         },
-
+        //获取赔率
         get_odds: function (which_handicap = null)
         {
           if(which_handicap || this.which_handicap)
@@ -354,49 +363,62 @@
                 color_str: ['红波', '绿波', '蓝波'],
                 special: [],
               };
+              this.dec_limit.ball_1 = odds.ball_1.dec_odds;
+              this.dec_limit.ball_2 = odds.ball_2.dec_odds;
+              this.dec_limit.ball_3 = odds.ball_3.dec_odds;
+              this.dec_limit.ball_4 = odds.ball_4.dec_odds;
+              this.dec_limit.ball_5 = odds.ball_5.dec_odds;
               for (let i = 0; i < 30; i++) {
-                if (data.odds.ball_2['e' + i]) {
+                if (data.odds.ball_2['e' + i])
+                {
                   this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
+                  this.all_odds[i+28] = data.odds.ball_2['e' + i];
                 }
-                if (data.odds.ball_1['e' + i]) {
+                if (data.odds.ball_1['e' + i])
+                {
                   this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
+                  this.all_odds[i] = data.odds.ball_1['e' + i];
                 }
-                if (data.odds.ball_3['e' + i]) {
+                if (data.odds.ball_3['e' + i])
+                {
                   this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
+                  this.all_odds[i+39] = data.odds.ball_3['e' + i];
                 }
               }
               this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
+              this.all_odds[38] = data.odds.ball_4['e1'];
+              this.all_odds.splice(0,1);
             });
           }
-          else
-          {
-            //获取两面盘的赔率
-            this.$http.get(`${this.global.config.API}cake/odds`).then(function (response) {
-            let data = response.data.data;
-            let odds = data.odds;
-            this.odds = {
-              mixture: [],
-              mixture_str: ['大', '小', '单', '双', '大单', '大双', '小单', '小双', '极大', '极小', '豹子'],
-              color: [],
-              color_str: ['红波', '绿波', '蓝波'],
-              special: [],
-            };
-            for (let i = 0; i < 30; i++) {
-              if (data.odds.ball_2['e' + i]) {
-                this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
-              }
-              if (data.odds.ball_1['e' + i]) {
-                this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
-              }
-              if (data.odds.ball_3['e' + i]) {
-                this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
-              }
-            }
-            this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
-
-
-          });
-          }
+          // else
+          // {
+          //   //获取两面盘的赔率
+          //   this.$http.get(`${this.global.config.API}cake/odds`).then(function (response) {
+          //     let data = response.data.data;
+          //     let odds = data.odds;
+          //     this.odds = {
+          //       mixture: [],
+          //       mixture_str: ['大', '小', '单', '双', '大单', '大双', '小单', '小双', '极大', '极小', '豹子'],
+          //       color: [],
+          //       color_str: ['红波', '绿波', '蓝波'],
+          //       special: [],
+          //     };
+          //     for (let i = 0; i < 30; i++) {
+          //       if (data.odds.ball_2['e' + i]) {
+          //         this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
+          //       }
+          //       if (data.odds.ball_1['e' + i]) {
+          //         this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
+          //       }
+          //       if (data.odds.ball_3['e' + i]) {
+          //         this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
+          //       }
+          //     }
+          //     this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
+          //
+          //
+          //   });
+          // }
 
         },
         //**选择一个下注
@@ -440,9 +462,9 @@
           }
 
         },
+        //清除下注内容
         clear_bet: function ()
         {
-          //clear all bet action
 
           //recover bet money
           this.bet_content =
@@ -457,72 +479,126 @@
           //clear bets
           this.bets = [];
         },
-
+        //确认下注
         comfire_bet: function ()
         {
           //过滤掉相同的对象
           this.filter_same();
           //当用户没有选择下注内容的时候要提示用户选择
-          if (this.bets.length < 1) {
+          if (this.bets.length < 1)
+          {
             this.$message(
-            {
-            dangerouslyUseHTMLString: true,
-            message: '请选择下注内容后再提交',
-            center: true,
-            type: 'warning'
-          });
+              {
+                dangerouslyUseHTMLString: true,
+                message: '请选择下注内容后再提交',
+                center: true,
+                type: 'warning'
+              });
             return 0;
           }
           let sumMoney = 0;
           let html = '';
-            for(let i = 0; i<this.bets.length;i++){
-                var index = this.dicrationaries.indexOf(this.bets[i].content);
-                html += "<div style='text-indent:15px;margin-top: 5px;'>"  + this.dicrationaries_2[index] +  '  @ ￥' +  this.bets[i].money
-                    + '<button style="float:right;margin-right:12px;color:#fff;background:#f56c6c;border: 1px solid #dcdfe6;padding:3px;" class=' + this.bets[i].content +'>删除</button></div>';
-                sumMoney += parseInt(this.bets[i].money);
+          // console.log(this.all_odds);
+          for(let i = 0; i<this.bets.length;i++)
+          {
+            let str = '';
+            var index = this.dicrationaries.indexOf(this.bets[i].content);
+            if(this.is_dec(this.bets[i].content,this.bets[i].money))
+            {
+              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+              str += `赔率:` + `${odds}`
             }
-            html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
+            else
+            {
+              str += `赔率:` + `${this.all_odds[index]}`
+            }
+            html +=
+              "<div style='text-indent:15px;margin-top: 5px;'>"
+              + this.dicrationaries_2[index]
+              +  '  @ ￥' +  this.bets[i].money
+              +  '<button  class=' + this.bets[i].content + '   attr=\'my-btn-1\'' + '>删除</button>'
+              +  `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
+            sumMoney += parseInt(this.bets[i].money);
+          }
+          html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
           this.centerDialogVisible = true;
           this.bet_html = html;
           return;
+        },
+        //是否趺背，趺多少
+        is_dec:function(content,money)
+        {
+          let returnData = null;
+          let patterns =
+            {
+              pattern1 : 'ball_1',
+              pattern2 : 'ball_2',
+              pattern3 : 'ball_3',
+              pattern4 : 'ball_4',
+
+            };
+          let flag = false;
+          let index = 0;
+          for(let i = 1 ; i<15;i++)
+          {
+            if(content.match(patterns['pattern' + i]))
+            {
+              flag = true;
+              index = i;
+              break;
+            }
+          }
+          if(flag)
+          {
+            let data = this.dec_limit[patterns['pattern' + index]];
+            for(let i = 0 ; i<data.length;i++)
+            {
+              if(money>=data[i].limit)
+              {
+                returnData = data[i].dec_odds;
+              }
+            }
+          }
+          return returnData;
+
         },
         //删除某个下注选择
         delete_it(event)
         {
 
-            if(event.target.innerHTML == '删除')
+          if(event.target.innerHTML == '删除')
+          {
+            //删除这个下注项
+            for(let i = 0 ; i<this.bets.length;i++)
             {
-                //删除这个下注项
-                for(let i = 0 ; i<this.bets.length;i++)
-                {
-                    if(this.bets[i].content == event.target.className)
-                    {
-                        this.bets.splice(i, 1);
-                    }
-                }
-
-                //移除这个html元素
-                let line = event.target.parentNode;
-                let bigDaddy = line.parentNode;
-                bigDaddy.removeChild(line);
-
-                //重写统计
-                let len = this.bets.length;//几条
-                //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
-                if(len <1)
-                {
-                    this.centerDialogVisible = false;
-                    this.$message.error('请重新选择下注内容');
-                    this.clear_bet();
-
-                }
-                let totalMoney = 0;//总金额
-                for(let i = 0;i<len;i++)
-                {
-                    totalMoney += this.bets[i].money;
-                }
-                document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
+              if(this.bets[i].content == event.target.className)
+              {
+                this.bets.splice(i, 1);
+              }
             }
+
+            //移除这个html元素
+            let line = event.target.parentNode;
+            let bigDaddy = line.parentNode;
+            bigDaddy.removeChild(line);
+
+            //重写统计
+            let len = this.bets.length;//几条
+            //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
+            if(len <1)
+            {
+              this.centerDialogVisible = false;
+              this.$message.error('请重新选择下注内容');
+              this.clear_bet();
+
+            }
+            let totalMoney = 0;//总金额
+            for(let i = 0;i<len;i++)
+            {
+              totalMoney += this.bets[i].money;
+            }
+            document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
+          }
         },
         /**
          * 过滤掉相同的数组
@@ -569,12 +645,12 @@
               this.get_ssc_unclear();
               //提示下注成功
               this.$message(
-              {
-                dangerouslyUseHTMLString: true,
-                message: res.data.msg,
-                center: true,
-                type: 'success'
-              });
+                {
+                  dangerouslyUseHTMLString: true,
+                  message: res.data.msg,
+                  center: true,
+                  type: 'success'
+                });
             }
             else
             {
@@ -593,13 +669,9 @@
             let data = response.data;
             this.open_codes = data.details.ball_0;
             this.last_expect = data.expect;
-
           });
-
-
-
         },
-
+        //获取下注时间
         get_time : function()
         {
           let url2 = `${this.global.config.API}cake/time`;
@@ -615,6 +687,7 @@
             this.count_down()
           });
         },
+        //倒计时
         count_down:function ()
         {
           var that  = this;
@@ -733,7 +806,7 @@
 
         },
         /**
-         * 获取cqssc未结算的清单
+         * 获取egg未结算的清单
          */
         get_ssc_unclear:function()
         {
@@ -747,7 +820,8 @@
             let list  = data.list;
             for(let i = 0; i<list.length;i++)
             {
-              if(list[i].status != -1) {
+              if(list[i].status != -1)
+              {
                 let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
                 this.orderData.push(html);
               }
@@ -758,7 +832,7 @@
         },
 
 
-    },
+      },
     created : function ()
     {
       if (window.sessionStorage.isLogin != "ok")
@@ -811,7 +885,7 @@
       clearInterval(this.timeId3);
     },
     watch:
-    {
+      {
         /**
          *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
          * @param n
@@ -849,12 +923,22 @@
             },10000);
           }
         }
-    }//end of watch Object
+      }//end of watch Object
   }
 </script>
 
 
 <style scoped>
   @import url('../assets/css/cakeno28.css');
+</style>
+<style>
+  button[attr='my-btn-1']
+  {
+    float:right;
+    margin-right:12px;
+    color:#fff;
+    background:#f56c6c;
+    border: 1px solid #dcdfe6;padding:3px;
+  }
 </style>
 
