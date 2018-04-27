@@ -177,7 +177,6 @@
                 <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
                 <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
             </div>
-
             <div class="history-list" v-show="history_tables[1]">
                 <p v-for="(v,k) in long_dragon" class="text-left"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
             </div>
@@ -221,7 +220,7 @@
 
 <script>
   export default {
-    name: "pcegg",
+    name: "Cakeno28",
     data() {
       var my_data =
         {
@@ -257,17 +256,17 @@
             },
           bets: [],
           dicrationaries:[
-              'ball_1__e1','ball_1__e2','ball_1__e3','ball_1__e4','ball_1__e5','ball_1__e6',
-              'ball_1__e7','ball_1__e8','ball_1__e9','ball_1__e10','ball_1__e11','ball_1__e12',
-              'ball_1__e13','ball_1__e14','ball_1__e15','ball_1__e16','ball_1__e17','ball_1__e18',
-              'ball_1__e19','ball_1__e20','ball_1__e21','ball_1__e22','ball_1__e23',
-              'ball_1__e24','ball_1__e25','ball_1__e26','ball_1__e27','ball_1__e28',
+            'ball_1__e1','ball_1__e2','ball_1__e3','ball_1__e4','ball_1__e5','ball_1__e6',
+            'ball_1__e7','ball_1__e8','ball_1__e9','ball_1__e10','ball_1__e11','ball_1__e12',
+            'ball_1__e13','ball_1__e14','ball_1__e15','ball_1__e16','ball_1__e17','ball_1__e18',
+            'ball_1__e19','ball_1__e20','ball_1__e21','ball_1__e22','ball_1__e23',
+            'ball_1__e24','ball_1__e25','ball_1__e26','ball_1__e27','ball_1__e28',
 
-              'ball_2__e1','ball_2__e2','ball_2__e3','ball_2__e4','ball_2__e5','ball_2__e6',
-              'ball_2__e7','ball_2__e8','ball_2__e9','ball_2__e10','ball_4__e1',
+            'ball_2__e1','ball_2__e2','ball_2__e3','ball_2__e4','ball_2__e5','ball_2__e6',
+            'ball_2__e7','ball_2__e8','ball_2__e9','ball_2__e10','ball_4__e1',
 
-              'ball_3__e1','ball_3__e2','ball_3__e3',
-            ],
+            'ball_3__e1','ball_3__e2','ball_3__e3',
+          ],
           dicrationaries_2:
             [
               '特码-0','特码-1','特码-2','特码-3','特码-4','特码-5','特码-6','特码-7','特码-8','特码-9',
@@ -293,13 +292,13 @@
           orderData:[],//未结算数据
           tips:'距离本期封盘还有',
           dec_limit:
-          {
-            ball_1:{},
-            ball_2:{},
-            ball_3:{},
-            ball_4:{},
-            ball_5:{},
-          },
+            {
+              ball_1:{},
+              ball_2:{},
+              ball_3:{},
+              ball_4:{},
+              ball_5:{},
+            },
           all_odds:[],
           long_dragon:[],
 
@@ -343,7 +342,7 @@
         {
           if(which_handicap || this.which_handicap)
           {
-            this.$http.get(`${this.global.config.API}egg/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response)
+            this.$http.get(`${this.global.config.API}cake/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response)
             {
               let data = response.data.data;
               let odds = data.odds;
@@ -359,32 +358,46 @@
               this.dec_limit.ball_3 = odds.ball_3.dec_odds;
               this.dec_limit.ball_4 = odds.ball_4.dec_odds;
               this.dec_limit.ball_5 = odds.ball_5.dec_odds;
-              for (let i = 0; i < 30; i++) {
+              for (let i = 0; i < 30; i++)
+              {
                 if (data.odds.ball_2['e' + i])
                 {
                   this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
-                  this.all_odds[i+28] = data.odds.ball_2['e' + i];
+                  if(data.odds.ball_2['e' + i] && data.odds.ball_2['e' + i] != '0.0000')
+                  {
+                    this.all_odds[i+27] = data.odds.ball_2['e' + i];
+                  }
+
+
                 }
                 if (data.odds.ball_1['e' + i])
                 {
                   this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
-                  this.all_odds[i] = data.odds.ball_1['e' + i];
+                  if(data.odds.ball_1['e' + i] && data.odds.ball_1['e' + i] != '0.0000')
+                  {
+                    this.all_odds[i-1] = data.odds.ball_1['e' + i];
+                  }
+
                 }
                 if (data.odds.ball_3['e' + i])
                 {
                   this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
-                  this.all_odds[i+39] = data.odds.ball_3['e' + i];
+                  if(data.odds.ball_3['e' + i] && data.odds.ball_3['e' + i] != '0.0000')
+                  {
+                    this.all_odds[i+38] = data.odds.ball_3['e' + i];
+                  }
                 }
               }
-              this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
+              this.odds.mixture[10] = data.odds.ball_4['e1'];//混合的赔率添加豹子
               this.all_odds[38] = data.odds.ball_4['e1'];
-              this.all_odds.splice(0,1);
+              //console.log(data.odds.ball_4['e1']);
+              //this.all_odds.splice(0,1);
             });
           }
           // else
           // {
           //   //获取两面盘的赔率
-          //   this.$http.get(`${this.global.config.API}egg/odds`).then(function (response) {
+          //   this.$http.get(`${this.global.config.API}cake/odds`).then(function (response) {
           //     let data = response.data.data;
           //     let odds = data.odds;
           //     this.odds = {
@@ -487,29 +500,30 @@
               });
             return 0;
           }
+
           let sumMoney = 0;
           let html = '';
-         // console.log(this.all_odds);
           for(let i = 0; i<this.bets.length;i++)
           {
             let str = '';
             var index = this.dicrationaries.indexOf(this.bets[i].content);
-           /* if(this.is_dec(this.bets[i].content,this.bets[i].money))
-            {
-                let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-                str += `赔率:` + `${odds}`
-            }
-            else
-            {*/
-                str += `赔率:` + `${this.all_odds[index]}`
-            //}
-              html +=
+            // if(this.is_dec(this.bets[i].content,this.bets[i].money))
+            // {
+            //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+            //   str += `赔率:` + `${odds}`
+            // }
+            // else
+            // {
+            str += `赔率:` + `${this.all_odds[index]}`;
+            // }
+
+            html +=
               "<div style='text-indent:15px;margin-top: 5px;'>"
               + this.dicrationaries_2[index]
               +  '  @ ￥' +  this.bets[i].money
               +  '<button  class=' + this.bets[i].content + '   attr=\'my-btn-1\'' + '>删除</button>'
               +  `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
-              sumMoney += parseInt(this.bets[i].money);
+            sumMoney += parseInt(this.bets[i].money);
           }
           html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
           this.centerDialogVisible = true;
@@ -553,44 +567,44 @@
           return returnData;
 
         },
-      //删除某个下注选择
-      delete_it(event)
-      {
+        //删除某个下注选择
+        delete_it(event)
+        {
 
           if(event.target.innerHTML == '删除')
           {
-              //删除这个下注项
-              for(let i = 0 ; i<this.bets.length;i++)
+            //删除这个下注项
+            for(let i = 0 ; i<this.bets.length;i++)
+            {
+              if(this.bets[i].content == event.target.className)
               {
-                  if(this.bets[i].content == event.target.className)
-                  {
-                      this.bets.splice(i, 1);
-                  }
+                this.bets.splice(i, 1);
               }
+            }
 
-              //移除这个html元素
-              let line = event.target.parentNode;
-              let bigDaddy = line.parentNode;
-              bigDaddy.removeChild(line);
+            //移除这个html元素
+            let line = event.target.parentNode;
+            let bigDaddy = line.parentNode;
+            bigDaddy.removeChild(line);
 
-              //重写统计
-              let len = this.bets.length;//几条
-              //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
-              if(len <1)
-              {
-                  this.centerDialogVisible = false;
-                  this.$message.error('请重新选择下注内容');
-                  this.clear_bet();
+            //重写统计
+            let len = this.bets.length;//几条
+            //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
+            if(len <1)
+            {
+              this.centerDialogVisible = false;
+              this.$message.error('请重新选择下注内容');
+              this.clear_bet();
 
-              }
-              let totalMoney = 0;//总金额
-              for(let i = 0;i<len;i++)
-              {
-                  totalMoney += this.bets[i].money;
-              }
-              document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
+            }
+            let totalMoney = 0;//总金额
+            for(let i = 0;i<len;i++)
+            {
+              totalMoney += this.bets[i].money;
+            }
+            document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
           }
-      },
+        },
         /**
          * 过滤掉相同的数组
          */
@@ -621,7 +635,7 @@
         do_bet:function ()
         {
           this.centerDialogVisible = false;
-          this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
+          this.$http.post(`${this.global.config.API}cake/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
             if(res.data.status == 200)
             {
               //清除下注内容
@@ -655,7 +669,7 @@
         //get_open_code
         get_last_code:function()
         {
-          let url = `${this.global.config.API}egg/lastLty`;
+          let url = `${this.global.config.API}cake/lastLty`;
           this.$http.get(url).then(function(response){
             let data = response.data;
             this.open_codes = data.details.ball_0;
@@ -665,7 +679,7 @@
         //获取下注时间
         get_time : function()
         {
-          let url2 = `${this.global.config.API}egg/time`;
+          let url2 = `${this.global.config.API}cake/time`;
           this.$http.get(url2).then(function(response){
             let data = response.data;
             this.end_time = data.endtime;
@@ -735,7 +749,7 @@
         },
         get_codes_history:function()
         {
-          this.$http.get(`${this.global.config.API}egg/history/lottery?per_page=10&page=1`)
+          this.$http.get(`${this.global.config.API}cake/history/lottery?per_page=10&page=1`)
             .then(function(res)
             {
               if(res.data.status == 200)
@@ -749,7 +763,7 @@
          */
         get_users_handicaps:function()
         {
-          this.$http.get(`${this.global.config.API}egg/pans`)
+          this.$http.get(`${this.global.config.API}cake/pans`)
             .then(function(res)
             {
               this.handicaps = [];
@@ -803,7 +817,7 @@
         {
 
           //获取cqssc未结算的数据
-          this.$http.get(`${this.global.config.API}egg/history/clear/0`).then(function(res)
+          this.$http.get(`${this.global.config.API}cake/history/clear/0`).then(function(res)
           {
             if(res.data.status == 403) return false;
             this.orderData = [];
@@ -824,7 +838,7 @@
         //获取长龙出的数据
         get_londDragon_data()
         {
-          this.$http.get(`${this.global.config.API}egg/longDragon`)
+          this.$http.get(`${this.global.config.API}cake/longDragon`)
             .then(function(res)
             {
 

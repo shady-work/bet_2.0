@@ -40,7 +40,7 @@
       <form action="">
         <div class="bet-content-table">
           <a class="color-white active">
-            PC蛋蛋
+            加拿大28
             <span></span>
           </a>
         </div>
@@ -358,26 +358,40 @@
               this.dec_limit.ball_3 = odds.ball_3.dec_odds;
               this.dec_limit.ball_4 = odds.ball_4.dec_odds;
               this.dec_limit.ball_5 = odds.ball_5.dec_odds;
-              for (let i = 0; i < 30; i++) {
+              for (let i = 0; i < 30; i++)
+              {
                 if (data.odds.ball_2['e' + i])
                 {
                   this.odds.mixture.push(data.odds.ball_2['e' + i]);//混合的赔率
-                  this.all_odds[i+28] = data.odds.ball_2['e' + i];
+                  if(data.odds.ball_2['e' + i] && data.odds.ball_2['e' + i] != '0.0000')
+                  {
+                    this.all_odds[i+27] = data.odds.ball_2['e' + i];
+                  }
+
+
                 }
                 if (data.odds.ball_1['e' + i])
                 {
                   this.odds.special.push(data.odds.ball_1['e' + i]);//特码的赔率
-                  this.all_odds[i] = data.odds.ball_1['e' + i];
+                  if(data.odds.ball_1['e' + i] && data.odds.ball_1['e' + i] != '0.0000')
+                  {
+                    this.all_odds[i-1] = data.odds.ball_1['e' + i];
+                  }
+
                 }
                 if (data.odds.ball_3['e' + i])
                 {
                   this.odds.color.push(data.odds.ball_3['e' + i]);//波色的赔率
-                  this.all_odds[i+39] = data.odds.ball_3['e' + i];
+                  if(data.odds.ball_3['e' + i] && data.odds.ball_3['e' + i] != '0.0000')
+                  {
+                    this.all_odds[i+38] = data.odds.ball_3['e' + i];
+                  }
                 }
               }
-              this.odds.mixture[10] = data.odds.ball_4['e1']//混合的赔率添加豹子
+              this.odds.mixture[10] = data.odds.ball_4['e1'];//混合的赔率添加豹子
               this.all_odds[38] = data.odds.ball_4['e1'];
-              this.all_odds.splice(0,1);
+              //console.log(data.odds.ball_4['e1']);
+              //this.all_odds.splice(0,1);
             });
           }
           // else
@@ -486,9 +500,9 @@
               });
             return 0;
           }
+
           let sumMoney = 0;
           let html = '';
-          // console.log(this.all_odds);
           for(let i = 0; i<this.bets.length;i++)
           {
             let str = '';
@@ -500,8 +514,9 @@
             // }
             // else
             // {
-              str += `赔率:` + `${this.all_odds[index]}`
-            //}
+                 str += `赔率:` + `${this.all_odds[index]}`;
+            // }
+
             html +=
               "<div style='text-indent:15px;margin-top: 5px;'>"
               + this.dicrationaries_2[index]

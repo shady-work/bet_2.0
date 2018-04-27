@@ -662,7 +662,6 @@
             this.$http.get(this.global.config.API + 'pk10/longDragon', {}).then(function (res) {
 
                 this.data = res.data.data;
-                console.log(res.data);
 
             });
         },
@@ -809,29 +808,21 @@
             this.dec_limit['ball_10_half'] = data['ball_10_half'].dec_odds;
             for(let i=0;i<Alphabet.length;i++)
             {
-              this.dec_limit['ball_'+ (i+1) +'_half'] = data['ball_'+ (i+1) +'_half'].dec_odds;
-              if(Alphabet[i] == 'O' || Alphabet[i] == 'P')
-              {
+                this.dec_limit['ball_'+ (i+1) +'_half'] = data['ball_'+ (i+1) +'_half'].dec_odds;
                 this.all_odds[i]    = data['ball_1_half'][Alphabet[i]];
                 this.all_odds[i+6]  = data['ball_2_half'][Alphabet[i]];
                 this.all_odds[i+12] = data['ball_3_half'][Alphabet[i]];
                 this.all_odds[i+18] = data['ball_4_half'][Alphabet[i]];
                 this.all_odds[i+24] = data['ball_5_half'][Alphabet[i]];
-              }
-              else
-              {
-                this.all_odds[i]    = data['ball_1_half'][Alphabet[i]];
-                this.all_odds[i+6]  = data['ball_2_half'][Alphabet[i]];
-                this.all_odds[i+12] = data['ball_3_half'][Alphabet[i]];
-                this.all_odds[i+18] = data['ball_4_half'][Alphabet[i]];
-                this.all_odds[i+24] = data['ball_5_half'][Alphabet[i]];
-                this.all_odds[i+30] = data['ball_5_half'][Alphabet[i]];
-                this.all_odds[i+36] = data['ball_6_half'][Alphabet[i]];
-                this.all_odds[i+42] = data['ball_7_half'][Alphabet[i]];
-                this.all_odds[i+48] = data['ball_8_half'][Alphabet[i]];
-                this.all_odds[i+54] = data['ball_9_half'][Alphabet[i]];
-              }
-
+            }
+            let Alphabet1 = ['K','L','M','N'];
+            for(let i=0;i<Alphabet1.length;i++)
+            {
+              this.all_odds[i+30] = data['ball_6_half'][Alphabet[i]];
+              this.all_odds[i+34] = data['ball_7_half'][Alphabet[i]];
+              this.all_odds[i+38] = data['ball_8_half'][Alphabet[i]];
+              this.all_odds[i+42] = data['ball_9_half'][Alphabet[i]];
+              this.all_odds[i+46] = data['ball_10_half'][Alphabet[i]];
             }
 
           });
@@ -1073,7 +1064,8 @@
         this.filter_same();
 
         //当用户没有选择下注内容的时候要提示用户选择
-        if(this.bet_content.length < 1){
+        if(this.bet_content.length < 1)
+        {
           this.$message(
             {
               dangerouslyUseHTMLString: true,
@@ -1100,6 +1092,7 @@
           // else
           // {
             str += `赔率:` + `${this.all_odds[index]}`;
+
           //}
 
           html += "<div style='text-indent:15px;margin-top: 5px;'>"
@@ -1107,7 +1100,7 @@
           +  '  @ ￥'
           +  this.bet_content[i].money
           + '<button  class=' + this.bet_content[i].content + '   attr=\'my-btn-1\''  +'>删除</button>'
-          +   `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
+          +   `<span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
           +'</div>';
           sumMoney += parseInt(this.bet_content[i].money);
         }
