@@ -235,7 +235,8 @@
       </div>
       <div class="history-table">
         <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
-        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a><a @click="showTables(2)" :class="history_tables[2]?'active':''" >历史开奖</a>
+        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
+        <a @click="showTables(2)" :class="history_tables[2]?'active':''" >历史开奖</a>
       </div>
 
 
@@ -361,7 +362,7 @@
                medium3:[1,2,3,4,5],
                end3:[1,2,3,4,5],
              },
-             ball_3_str:['豹子','顺子','顺子','半顺','杂六']
+             ball_3_str:['豹子','对子','顺子','半顺','杂六']
           },
           bets:[],//下注内容的集合
 
@@ -631,12 +632,7 @@
         close_history: function ()
         {
 
-          for (let i = 0; i < this.history_tables.length; i++) {
-            if (this.history_tables[i]) {
-              this.history_flag = i
-            }
-          }
-
+          this.history_tables = [0, 0, 0, 0, 0, 0, 0];
           $(".history-close").slideUp();
           $(".history-list").slideUp();
           $(".history-table").slideUp();
@@ -652,10 +648,11 @@
             $(".history-list").eq(this.history_flag).slideDown();
             $(".history-table").slideDown();
             this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-            this.history_tables[this.history_flag] = 1;
+            this.history_tables[1] =1  ;
             this.history_str = "收起";
           }
-          else {
+          else
+            {
             this.close_history();
           }
         },
@@ -885,15 +882,15 @@
             let str = '';
             var index = this.dicrationaries.indexOf(this.bets[i].content);
 
-            if(this.is_dec(this.bets[i].content,this.bets[i].money))
-            {
-              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-              str += `赔率:` + `${odds}`
-            }
-            else
-            {
+            // if(this.is_dec(this.bets[i].content,this.bets[i].money))
+            // {
+            //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+            //   str += `赔率:` + `${odds}`
+            // }
+            // else
+            // {
               str += `赔率:` + `${this.all_odds[index]}`
-            }
+            // }
 
             html +=
               "<div style='text-indent:15px;margin-top:5px;'>"

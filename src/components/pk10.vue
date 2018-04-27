@@ -669,11 +669,7 @@
       close_history: function ()
       {
 
-        for (let i = 0; i < this.history_tables.length; i++) {
-          if (this.history_tables[i]) {
-            this.history_flag = i
-          }
-        }
+        this.history_tables = [0, 0, 0, 0, 0, 0, 0];
 
         $(".history-close").slideUp();
         $(".history-list").slideUp();
@@ -687,7 +683,7 @@
           $(".history-list").eq(this.history_flag).slideDown();
           $(".history-table").slideDown();
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-          this.history_tables[this.history_flag] = 1;
+          this.history_tables[1] = 1;
           this.history_str = "收起";
         }
         else
@@ -1096,15 +1092,15 @@
           let index = this.dicrationaries.indexOf(this.bet_content[i].content);
           let str = '';
 
-          if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))
-          {
-            let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
-            str += `赔率:` + `${odds}`;
-          }
-          else
-          {
+          // if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))
+          // {
+          //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
+          //   str += `赔率:` + `${odds}`;
+          // }
+          // else
+          // {
             str += `赔率:` + `${this.all_odds[index]}`;
-          }
+          //}
 
           html += "<div style='text-indent:15px;margin-top: 5px;'>"
           + this.dicrationaries_2[index]
