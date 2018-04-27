@@ -507,15 +507,15 @@
           {
             let str = '';
             var index = this.dicrationaries.indexOf(this.bets[i].content);
-            // if(this.is_dec(this.bets[i].content,this.bets[i].money))
-            // {
-            //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-            //   str += `赔率:` + `${odds}`
-            // }
-            // else
-            // {
-            str += `赔率:` + `${this.all_odds[index]}`;
-            // }
+            if(this.is_dec(this.bets[i].content,this.bets[i].money))
+            {
+              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+              str += `赔率:` + `${odds}`
+            }
+            else
+            {
+                str += `赔率:` + `${this.all_odds[index]}`;
+            }
 
             html +=
               "<div style='text-indent:15px;margin-top: 5px;'>"
