@@ -342,7 +342,7 @@
         {
           if(which_handicap || this.which_handicap)
           {
-            this.$http.get(`${this.global.config.API}cake/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response)
+            this.$http.get(`${this.global.config.API}egg/odds?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function (response)
             {
               let data = response.data.data;
               let odds = data.odds;
@@ -397,7 +397,7 @@
           // else
           // {
           //   //获取两面盘的赔率
-          //   this.$http.get(`${this.global.config.API}cake/odds`).then(function (response) {
+          //   this.$http.get(`${this.global.config.API}egg/odds`).then(function (response) {
           //     let data = response.data.data;
           //     let odds = data.odds;
           //     this.odds = {
@@ -635,7 +635,7 @@
         do_bet:function ()
         {
           this.centerDialogVisible = false;
-          this.$http.post(`${this.global.config.API}cake/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
+          this.$http.post(`${this.global.config.API}egg/order`,{bets:this.bets,odds_table:this.which_handicap}).then(function(res){
             if(res.data.status == 200)
             {
               //清除下注内容
@@ -669,7 +669,7 @@
         //get_open_code
         get_last_code:function()
         {
-          let url = `${this.global.config.API}cake/lastLty`;
+          let url = `${this.global.config.API}egg/lastLty`;
           this.$http.get(url).then(function(response){
             let data = response.data;
             this.open_codes = data.details.ball_0;
@@ -679,7 +679,7 @@
         //获取下注时间
         get_time : function()
         {
-          let url2 = `${this.global.config.API}cake/time`;
+          let url2 = `${this.global.config.API}egg/time`;
           this.$http.get(url2).then(function(response){
             let data = response.data;
             this.end_time = data.endtime;
@@ -749,7 +749,7 @@
         },
         get_codes_history:function()
         {
-          this.$http.get(`${this.global.config.API}cake/history/lottery?per_page=10&page=1`)
+          this.$http.get(`${this.global.config.API}egg/history/lottery?per_page=10&page=1`)
             .then(function(res)
             {
               if(res.data.status == 200)
@@ -763,7 +763,7 @@
          */
         get_users_handicaps:function()
         {
-          this.$http.get(`${this.global.config.API}cake/pans`)
+          this.$http.get(`${this.global.config.API}egg/pans`)
             .then(function(res)
             {
               this.handicaps = [];
@@ -817,7 +817,7 @@
         {
 
           //获取cqssc未结算的数据
-          this.$http.get(`${this.global.config.API}cake/history/clear/0`).then(function(res)
+          this.$http.get(`${this.global.config.API}egg/history/clear/0`).then(function(res)
           {
             if(res.data.status == 403) return false;
             this.orderData = [];
@@ -838,7 +838,7 @@
         //获取长龙出的数据
         get_londDragon_data()
         {
-          this.$http.get(`${this.global.config.API}cake/longDragon`)
+          this.$http.get(`${this.global.config.API}egg/longDragon`)
             .then(function(res)
             {
 
