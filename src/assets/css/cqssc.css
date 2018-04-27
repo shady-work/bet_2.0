@@ -98,7 +98,7 @@
 .balls > span {
   display: block;
   float: left;
-  background: url("../img/ball.png");
+  /*background: url("../img/ball.png");*/
   height: 40px;
   width: 40px;
   background-size: cover;
@@ -107,6 +107,8 @@
   margin-right: 15px;
   font-size: 26px;
   font-weight: 700;
+  color: #fff;
+ border-radius: 50%;
 }
 
 
@@ -420,7 +422,7 @@
   display: block;
   width: 22px !important;
   height: 22px !important;
-  background: url('../img/ball.png');
+  /*background: url('../img/ball.png');*/
   background-size: cover;
   float: left;
   border-radius: 50%;
@@ -493,3 +495,44 @@
   margin-right: 3px;
 }
 
+.hhao1
+{
+  background: #959612;
+}
+.hhao2
+{
+  background: #0060ff;
+}
+.hhao3
+{
+  background: #4d4d4d;
+}
+.hhao4
+{
+  background: #ff7300;
+}
+.hhao5
+{
+  background: #00adad;
+}
+.hhao6
+{
+  background:#5200ff;
+}
+.hhao7
+{
+  background: #666666;
+}
+.hhao8
+{
+  /*background: #ff0000;*/
+  background:#9300ffe8;
+}
+.hhao9
+{
+  background:#760000;
+}
+.hhao0
+{
+  background:#167301;
+}

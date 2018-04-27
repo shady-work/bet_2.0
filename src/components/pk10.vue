@@ -1084,16 +1084,16 @@
           let index = this.dicrationaries.indexOf(this.bet_content[i].content);
           let str = '';
 
-          if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))
-          {
-            let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
-            str += `赔率:` + `${odds}`;
-          }
-          else
-          {
+          // if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))
+          // {
+          //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
+          //   str += `赔率:` + `${odds}`;
+          // }
+          // else
+          // {
             str += `赔率:` + `${this.all_odds[index]}`;
 
-          }
+          // }
 
           html += "<div style='text-indent:15px;margin-top: 5px;'>"
           + this.dicrationaries_2[index]

@@ -7,7 +7,7 @@
         <div class="left">
           <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期</p>
             <div class="balls">
-                <span v-for="v in lastOpenCode">{{v}}</span>
+                <span v-for="v in lastOpenCode" :class="'hhao'+v">{{v}}</span>
                 <div class="clear"></div>
             </div>
         </div>
@@ -121,7 +121,7 @@
 
             <div v-for="(v,k,index) in odds.single_ball_1_5" :class="index==0?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,idx) in v" class="first-ball-details text-9">
-                <span class="hao0">{{key}}</span>
+                <span class="hao0 color-white" :class="'hhao'+key">{{key}}</span>
                 <span class="he22 color-red f700" style="text-indent:5px;">{{val}}</span>
                 <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)" style="margin-left:5px;margin-top:2px;">
                 <div class="clear"></div>
@@ -145,7 +145,7 @@
                 {{v}}
               </div>
               <div v-for="(item,index) in odds.single_ball_1_5['ball_'+(k+1)+'_digit']" class="long-bet-content">
-                <span class="hao0 ml10 mt5">{{index}}</span>
+                <span class="hao0 ml10 mt5" :class="'hhao'+index" style="color: white">{{index}}</span>
                 <span class="he22 color-red f700" style="text-indent:5px;margin-top:5px;margin-left:5px;">{{item}}</span>
                 <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')" style="margin-top:5px;width:45px;height:17px;margin-left:5px;">
                 <div class="clear"></div>
@@ -882,15 +882,15 @@
             let str = '';
             var index = this.dicrationaries.indexOf(this.bets[i].content);
 
-            if(this.is_dec(this.bets[i].content,this.bets[i].money))
-            {
-              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-              str += `赔率:` + `${odds}`
-            }
-            else
-            {
+            // if(this.is_dec(this.bets[i].content,this.bets[i].money))
+            // {
+            //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+            //   str += `赔率:` + `${odds}`
+            // }
+            // else
+            // {
               str += `赔率:` + `${this.all_odds[index]}`
-             }
+             // }
 
             html +=
               "<div style='text-indent:15px;margin-top:5px;'>"
@@ -1490,5 +1490,35 @@
     color:#fff;
     background:#f56c6c;
     border: 1px solid #dcdfe6;padding:3px;
+  }
+  .hao0{
+    background:#24C500;
+  }
+  .hao1{
+    background:#760000;
+  }
+  .hao2{
+    background:#FF0000;
+  }
+  .hao3{
+    background: #C4C4EA;
+  }
+  .hao4{
+    background:#5200ff;
+  }
+  .hao5{
+    background:#82FFFF;
+  }
+  .hao6{
+    background:#FF7200;
+  }
+  .hao7{
+    background:#4A4A4A;
+  }
+  .hao8{
+    background:#008AFF;
+  }
+  .hao9{
+    background: #e3ee66;
   }
 </style>

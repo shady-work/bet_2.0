@@ -209,10 +209,12 @@ export default
                 }
                 else
                 {
-                  this.$message.error('发生了未知的错误，请稍后重试');
+                  this.$message.error(res.data.data.msg.msg);
                 }
                 //重新加载数据
                this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0`);
+             }else{
+                 this.$message.error(res.data.msg);
              }
           })
      },

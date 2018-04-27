@@ -22,7 +22,7 @@
                         <a class="my-a" @click="turn()" >快速下注</a>
                     </p>
                     <div class="balls">
-                        <span v-for="v in lastOpenCode">{{v}}</span>
+                        <span v-for="v in lastOpenCode" :class="'hhao'+v">{{v}}</span>
                         <p class="color-white pull-right open-details">总和:{{parseInt(lastOpenCode[0])+parseInt(lastOpenCode[1])+parseInt(lastOpenCode[2])+parseInt(lastOpenCode[3])+parseInt(lastOpenCode[4])}},{{details.dragon_and_tiger[1]|number1}},{{details.dragon_and_tiger[0]|number1}}丨龙虎:{{details.dragon_and_tiger[2]}}丨前三:{{details.front_3[0]}}丨中三:{{details.medium_3[0]}}丨后三:{{details.end_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
@@ -332,7 +332,7 @@ export default {
 .balls > span {
   display: block;
   float: left;
-  background: url("../assets/img/ball.png");
+  /*background: url("../assets/img/ball.png");*/
   height: 40px;
   width: 40px;
   background-size: cover;
@@ -341,6 +341,8 @@ export default {
   margin-right: 15px;
   font-size: 26px;
   font-weight: 700;
+    border-radius: 50%;
+    color: #fff;
 }
 
 
@@ -393,5 +395,45 @@ export default {
         color:white;text-decoration:underline;cursor:pointer;float:right;margin-right:15px;
     }
 
-
+ .hhao1
+ {
+     background: #959612;
+ }
+ .hhao2
+ {
+     background: #0060ff;
+ }
+ .hhao3
+ {
+     background: #4d4d4d;
+ }
+ .hhao4
+ {
+     background: #ff7300;
+ }
+ .hhao5
+ {
+     background: #00adad;
+ }
+ .hhao6
+ {
+     background:#5200ff;
+ }
+ .hhao7
+ {
+     background: #666666;
+ }
+ .hhao8
+ {
+     /*background: #ff0000;*/
+     background:#9300ffe8;
+ }
+ .hhao9
+ {
+     background:#760000;
+ }
+ .hhao0
+ {
+     background:#167301;
+ }
 </style>
