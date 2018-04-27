@@ -336,12 +336,13 @@
   height: 30px;
   font-size: 14px;
   line-height: 30px;
-  margin-left: 24px;
+  margin-left: 10px;
   margin-top: 5px;
   border-radius: 3px;
   color: #000;
   cursor: pointer;
   padding: 1px;
+  width: 100px;
 }
 
 .history-table > .active {
@@ -361,11 +362,12 @@
   width: 100%;
   color: #000;
   box-sizing: border-box;
-  height: 20px;
+  height: 30px;
   line-height: 20px;
   font-size: 14px;
   padding: 2px 15px;
   margin-top: 10px;
+  border-bottom: 1px dashed gray;
 
 }
 

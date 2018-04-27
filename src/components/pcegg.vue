@@ -174,17 +174,12 @@
                 长龙排行 <span class="pull-right pointer">{{history_str}}</span>
             </div>
             <div class="history-table">
-                <a @click="showType(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
                 <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙-出</a>
                 <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
             </div>
 
-            <div class="history-list" v-show="history_tables[0]">
-
-            </div>
-
             <div class="history-list" v-show="history_tables[1]">
-
+                <p v-for="(v,k) in long_dragon" class="text-left"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
             </div>
 
             <div class="history-list" v-show="history_tables[2]">
@@ -233,7 +228,7 @@
           centerDialogVisible:false,
           bet_html:'',
           showArray_cqssc: [1],
-          history_tables: [0, 0, 1],
+          history_tables: [0, 1, 0],
           history_flag: 0,
           history_str: "收起",
           last_expect:111111,
@@ -306,6 +301,7 @@
             ball_5:{},
           },
           all_odds:[],
+          long_dragon:[],
 
         };
       return my_data;
@@ -562,44 +558,44 @@
           return returnData;
 
         },
-          //删除某个下注选择
-          delete_it(event)
+      //删除某个下注选择
+      delete_it(event)
+      {
+
+          if(event.target.innerHTML == '删除')
           {
-
-              if(event.target.innerHTML == '删除')
+              //删除这个下注项
+              for(let i = 0 ; i<this.bets.length;i++)
               {
-                  //删除这个下注项
-                  for(let i = 0 ; i<this.bets.length;i++)
+                  if(this.bets[i].content == event.target.className)
                   {
-                      if(this.bets[i].content == event.target.className)
-                      {
-                          this.bets.splice(i, 1);
-                      }
+                      this.bets.splice(i, 1);
                   }
-
-                  //移除这个html元素
-                  let line = event.target.parentNode;
-                  let bigDaddy = line.parentNode;
-                  bigDaddy.removeChild(line);
-
-                  //重写统计
-                  let len = this.bets.length;//几条
-                  //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
-                  if(len <1)
-                  {
-                      this.centerDialogVisible = false;
-                      this.$message.error('请重新选择下注内容');
-                      this.clear_bet();
-
-                  }
-                  let totalMoney = 0;//总金额
-                  for(let i = 0;i<len;i++)
-                  {
-                      totalMoney += this.bets[i].money;
-                  }
-                  document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
               }
-          },
+
+              //移除这个html元素
+              let line = event.target.parentNode;
+              let bigDaddy = line.parentNode;
+              bigDaddy.removeChild(line);
+
+              //重写统计
+              let len = this.bets.length;//几条
+              //当this.bets没有内容时，提示用户选择下注内容,并清空下注内容
+              if(len <1)
+              {
+                  this.centerDialogVisible = false;
+                  this.$message.error('请重新选择下注内容');
+                  this.clear_bet();
+
+              }
+              let totalMoney = 0;//总金额
+              for(let i = 0;i<len;i++)
+              {
+                  totalMoney += this.bets[i].money;
+              }
+              document.getElementById('sum').innerHTML = `共${len}条,${totalMoney}￥`;
+          }
+      },
         /**
          * 过滤掉相同的数组
          */
@@ -830,6 +826,19 @@
             this.$set(this.$store.state,'unclear',this.orderData);
           });
         },
+        //获取长龙出的数据
+        get_londDragon_data()
+        {
+          this.$http.get(`${this.global.config.API}egg/longDragon`)
+            .then(function(res)
+            {
+
+              if(res.data.status == 200)
+              {
+                this.long_dragon = res.data.data;
+              }
+            })
+        },
 
 
       },
@@ -851,8 +860,9 @@
             this.get_last_code();
             this.get_time();
             this.get_codes_history();
-            this.get_users_handicaps()
+            this.get_users_handicaps();
             this.get_ssc_unclear();
+            this.get_londDragon_data();
           }
           else
           {

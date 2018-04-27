@@ -174,17 +174,11 @@
         长龙排行 <span class="pull-right pointer">{{history_str}}</span>
       </div>
       <div class="history-table">
-        <a @click="showType(0)" :class="history_tables[0]?'active':''">长龙-不出</a>
         <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙-出</a>
         <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
       </div>
-
-      <div class="history-list" v-show="history_tables[0]">
-
-      </div>
-
       <div class="history-list" v-show="history_tables[1]">
-
+        <p v-for="(v,k) in long_dragon" class="text-left"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
@@ -233,7 +227,7 @@
           centerDialogVisible:false,
           bet_html:'',
           showArray_cqssc: [1],
-          history_tables: [0, 0, 1],
+          history_tables: [0, 1, 0],
           history_flag: 0,
           history_str: "收起",
           last_expect:111111,
@@ -306,6 +300,7 @@
               ball_5:{},
             },
           all_odds:[],
+          long_dragon:[],
 
         };
       return my_data;
@@ -830,6 +825,19 @@
             this.$set(this.$store.state,'unclear',this.orderData);
           });
         },
+        //获取长龙出的数据
+        get_londDragon_data()
+        {
+          this.$http.get(`${this.global.config.API}cake/longDragon`)
+            .then(function(res)
+            {
+
+              if(res.data.status == 200)
+              {
+                this.long_dragon = res.data.data;
+              }
+            })
+        },
 
 
       },
@@ -851,8 +859,9 @@
             this.get_last_code();
             this.get_time();
             this.get_codes_history();
-            this.get_users_handicaps()
+            this.get_users_handicaps();
             this.get_ssc_unclear();
+            this.get_londDragon_data();
           }
           else
           {
