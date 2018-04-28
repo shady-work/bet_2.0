@@ -481,13 +481,16 @@
 {
   height: 21px;
   width: 21px;
-  background: url('../img/ball.png');
+  /*background: url('../img/ball.png');*/
   background-size: cover;
-  font-size: 18px;
-  color: #545454;
+  color: #fff;
+  font-size: 16px;
   font-weight: 700;
   margin-left: 5px;
   margin-right: 5px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
 }
 
 .history-balls > .code-fh {
@@ -536,3 +539,4 @@
 {
   background:#167301;
 }
+

@@ -184,7 +184,7 @@
             <div v-for="(item,index) in odds.ball_3" :class="index=='front3'?'first-ball mt0':'first-ball'" style="width:29%;">
               <div v-for="(i,idx) in item" class="first-ball-details">
                 <span>{{odds.ball_3_str[idx]}}</span>
-                <span class="he22 color-red f700">{{i}}</span>
+                <span class="he22 color-red f700" style="width: 100px;">{{i}}</span>
                 <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')">
                 <div class="clear"></div>
               </div>
@@ -242,13 +242,13 @@
 
 
       <div class="history-list" v-show="history_tables[1]">
-        <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
+        <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
       </div>
 
       <div class="history-list" v-show="history_tables[2]">
         <div v-for="(v,k) in history_expects" class="history-balls">
           <span>{{v}}</span>
-          <span v-for="(val,key) in history_codes[k]" class="code-ball">{{val}}</span>
+          <span v-for="(val,key) in history_codes[k]" class="code-ball" :class="'hhao' + val">{{val}}</span>
         </div>
       </div>
       <div class="history-close ">
@@ -328,9 +328,9 @@
             },
             ball_3:
             {
-              front3:['','','',''],
-              medium3:['','','',''],
-              end3:['','','',''],
+              front3:['','','','',''],
+              medium3:['','','','',''],
+              end3:['','','','',''],
             },
           },
           //赔率的集合
@@ -662,7 +662,8 @@
          */
         get_last_code: function ()
         {
-          this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res) {
+          this.$http.get(this.global.config.API + 'ssc/lastLty', {}).then(function (res)
+          {
             //获取到最新一期的数据
             let data = res.data;
             this.lastOpenCode = data.opencode;
@@ -678,40 +679,43 @@
           {
             this.$http.get(`${this.global.config.API}ssc/odds/6?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
             {
-              if(response.data.status == 403) return false;
-              let data = response.data.data;
-              let odds = data.odds;
-              // console.log(odds);
-              //获取趺背数据
-              this.dec_limit.ball_1_half = odds.ball_1_half.dec_odds;
-              this.dec_limit.ball_2_half = odds.ball_2_half.dec_odds;
-              this.dec_limit.ball_3_half = odds.ball_3_half.dec_odds;
-              this.dec_limit.ball_4_half = odds.ball_4_half.dec_odds;
-              this.dec_limit.ball_5_half = odds.ball_5_half.dec_odds;
-              this.dec_limit.dragon_and_tiger = odds.dragon_and_tiger.dec_odds;
-              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
-              let Alphabet = ['K','L','M','N'];
-              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
-                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
-                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
-                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
-                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
-                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
-                //全部赔率
-                this.all_odds[i] = data.odds.ball_1_half[Alphabet[i]];
-                this.all_odds[(i+11)] = data.odds.ball_2_half[Alphabet[i]];
-                this.all_odds[(i+15)] = data.odds.ball_3_half[Alphabet[i]];
-                this.all_odds[(i+19)] = data.odds.ball_4_half[Alphabet[i]];
-                this.all_odds[(i+23)] = data.odds.ball_5_half[Alphabet[i]];
+              if(response.data.status == 200)
+              {
+                let data = response.data.data;
+                let odds = data.odds;
+                // console.log(odds);
+                //获取趺背数据
+                this.dec_limit.ball_1_half = odds.ball_1_half.dec_odds;
+                this.dec_limit.ball_2_half = odds.ball_2_half.dec_odds;
+                this.dec_limit.ball_3_half = odds.ball_3_half.dec_odds;
+                this.dec_limit.ball_4_half = odds.ball_4_half.dec_odds;
+                this.dec_limit.ball_5_half = odds.ball_5_half.dec_odds;
+                this.dec_limit.dragon_and_tiger = odds.dragon_and_tiger.dec_odds;
+                let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
+                let Alphabet = ['K','L','M','N'];
+                for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++)
+                {
+                  this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
+                  this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
+                  this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
+                  this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
+                  this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
+                  //全部赔率
+                  this.all_odds[i] = data.odds.ball_1_half[Alphabet[i]];
+                  this.all_odds[(i+11)] = data.odds.ball_2_half[Alphabet[i]];
+                  this.all_odds[(i+15)] = data.odds.ball_3_half[Alphabet[i]];
+                  this.all_odds[(i+19)] = data.odds.ball_4_half[Alphabet[i]];
+                  this.all_odds[(i+23)] = data.odds.ball_5_half[Alphabet[i]];
 
-              }
-
-              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
-              this.odds.double_aspect.ball_1_half.reverse().reverse();
-              Alphabet = ['A','B','C','D','E','F','G'];
-              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
-                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
-                this.all_odds[(i+4)] =          data.odds.dragon_and_tiger[Alphabet[i]];
+                }
+                //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
+                this.odds.double_aspect.ball_1_half.reverse().reverse();
+                Alphabet = ['A','B','C','D','E','F','G'];
+                for(let i = 0;i<this.odds.dragon_and_tiger.length;i++)
+                {
+                  this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
+                  this.all_odds[(i+4)] =          data.odds.dragon_and_tiger[Alphabet[i]];
+                }
               }
 
             });
@@ -719,139 +723,53 @@
             //获取单球1-5的赔率
             this.$http.get(`${this.global.config.API}ssc/odds/7?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
             {
-              if(response.data.status == 403) return false;
-              let data = response.data.data.odds;
-              //获取趺背数据
-              this.dec_limit.ball_1_digit = data.ball_1_digit.dec_odds;
-              this.dec_limit.ball_2_digit = data.ball_2_digit.dec_odds;
-              this.dec_limit.ball_3_digit = data.ball_3_digit.dec_odds;
-              this.dec_limit.ball_4_digit = data.ball_4_digit.dec_odds;
-              this.dec_limit.ball_5_digit = data.ball_5_digit.dec_odds;
-              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
-              for(let i=0;i<Alphabet.length;i++) {
-                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
-                this.all_odds[(i+27)] = data.ball_1_digit[Alphabet[i]];
-                this.all_odds[(i+37)] = data.ball_2_digit[Alphabet[i]];
-                this.all_odds[(i+47)] = data.ball_3_digit[Alphabet[i]];
-                this.all_odds[(i+57)] = data.ball_4_digit[Alphabet[i]];
-                this.all_odds[(i+67)] = data.ball_5_digit[Alphabet[i]];
+              if(response.data.status == 200)
+              {
+                let data = response.data.data.odds;
+                //获取趺背数据
+                this.dec_limit.ball_1_digit = data.ball_1_digit.dec_odds;
+                this.dec_limit.ball_2_digit = data.ball_2_digit.dec_odds;
+                this.dec_limit.ball_3_digit = data.ball_3_digit.dec_odds;
+                this.dec_limit.ball_4_digit = data.ball_4_digit.dec_odds;
+                this.dec_limit.ball_5_digit = data.ball_5_digit.dec_odds;
+                let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
+                for(let i=0;i<Alphabet.length;i++) {
+                  this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
+                  this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
+                  this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
+                  this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
+                  this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
+                  this.all_odds[(i+27)] = data.ball_1_digit[Alphabet[i]];
+                  this.all_odds[(i+37)] = data.ball_2_digit[Alphabet[i]];
+                  this.all_odds[(i+47)] = data.ball_3_digit[Alphabet[i]];
+                  this.all_odds[(i+57)] = data.ball_4_digit[Alphabet[i]];
+                  this.all_odds[(i+67)] = data.ball_5_digit[Alphabet[i]];
+                }
+                this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
               }
-              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
             });
 
             //获取第一球的赔率
             this.$http.get(`${this.global.config.API}ssc/odds/1?pan=${which_handicap?which_handicap:this.which_handicap}`).then(function(response)
             {
-
-              if(response.data.status == 403) return false;
-              this.dec_limit.end_3 = response.data.data.odds.end_3.dec_odds;
-              this.dec_limit.front_3 = response.data.data.odds.front_3.dec_odds;
-              this.dec_limit.medium_3 = response.data.data.odds.medium_3.dec_odds;
-              let Alphabet = ['A','B','C','D','E'];
-              for(let i=0;i<this.odds.ball_3.front3.length;i++){
-                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
-                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
-                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
-                this.all_odds[(i+77)] = response.data.data.odds.front_3[Alphabet[i]];
-                this.all_odds[(i+82)] = response.data.data.odds.medium_3[Alphabet[i]];
-                this.all_odds[(i+87)] = response.data.data.odds.end_3[Alphabet[i]];
+              if(response.data.status == 200)
+              {
+                this.dec_limit.end_3 = response.data.data.odds.end_3.dec_odds;
+                this.dec_limit.front_3 = response.data.data.odds.front_3.dec_odds;
+                this.dec_limit.medium_3 = response.data.data.odds.medium_3.dec_odds;
+                let Alphabet = ['A','B','C','D','E'];
+                for(let i=0;i<this.odds.ball_3.front3.length;i++){
+                  this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
+                  this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
+                  this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
+                  this.all_odds[(i+77)] = response.data.data.odds.front_3[Alphabet[i]];
+                  this.all_odds[(i+82)] = response.data.data.odds.medium_3[Alphabet[i]];
+                  this.all_odds[(i+87)] = response.data.data.odds.end_3[Alphabet[i]];
+                }
               }
 
             });
           }
-/*          else
-          {
-            this.$http.get(`${this.global.config.API}ssc/odds/6`).then(function(response){
-              if(response.data.status == 403) return false;
-              let data = response.data.data;
-              let odds = data.odds;
-              //获取趺背数据
-              this.dec_limit.ball_1_half = odds.ball_1_half.dec_odds;
-              this.dec_limit.ball_2_half = odds.ball_2_half.dec_odds;
-              this.dec_limit.ball_3_half = odds.ball_3_half.dec_odds;
-              this.dec_limit.ball_4_half = odds.ball_4_half.dec_odds;
-              this.dec_limit.ball_5_half = odds.ball_5_half.dec_odds;
-              this.dec_limit.dragon_and_tiger = odds.dragon_and_tiger.dec_odds;
-              let bet_area = Object.keys(odds);//["ball_1_half", "ball_2_half", "ball_3_half", "ball_4_half", "ball_5_half", "dragon_and_tiger"]
-              let Alphabet = ['K','L','M','N'];
-              for(let i = 0;i<this.odds.double_aspect.ball_1_half.length;i++) {
-                this.odds.double_aspect.ball_1_half[i] = data.odds.ball_1_half[Alphabet[i]];
-                this.odds.double_aspect.ball_2_half[i] = data.odds.ball_2_half[Alphabet[i]];
-                this.odds.double_aspect.ball_3_half[i] = data.odds.ball_3_half[Alphabet[i]];
-                this.odds.double_aspect.ball_4_half[i] = data.odds.ball_4_half[Alphabet[i]];
-                this.odds.double_aspect.ball_5_half[i] = data.odds.ball_5_half[Alphabet[i]];
-                //全部赔率
-                this.all_odds[i] = data.odds.ball_1_half[Alphabet[i]];
-                this.all_odds[(i+11)] = data.odds.ball_2_half[Alphabet[i]];
-                this.all_odds[(i+15)] = data.odds.ball_3_half[Alphabet[i]];
-                this.all_odds[(i+19)] = data.odds.ball_4_half[Alphabet[i]];
-                this.all_odds[(i+23)] = data.odds.ball_5_half[Alphabet[i]];
-              }
-              this.all_odds[0] = data.odds.ball_1_half['K'];
-              this.all_odds[1] = data.odds.ball_1_half['L'];
-              this.all_odds[2] = data.odds.ball_1_half['M'];
-              this.all_odds[3] = data.odds.ball_1_half['N'];
-              //由于直接给vue的data赋值，不会触发视图层更新，所以使用reverser来更新视图层
-              this.odds.double_aspect.ball_1_half.reverse().reverse();
-              Alphabet = ['A','B','C','D','E','F','G'];
-              for(let i = 0;i<this.odds.dragon_and_tiger.length;i++) {
-                this.odds.dragon_and_tiger[i] = data.odds.dragon_and_tiger[Alphabet[i]];
-                this.all_odds[(i+4)] =          data.odds.dragon_and_tiger[Alphabet[i]];
-              }
-            });
-
-            //获取单球1-5的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/7`).then(function(response) {
-              if(response.data.status == 403) return false;
-              let data = response.data.data.odds;
-              //获取趺背数据
-              this.dec_limit.ball_1_digit = data.ball_1_digit.dec_odds;
-              this.dec_limit.ball_2_digit = data.ball_2_digit.dec_odds;
-              this.dec_limit.ball_3_digit = data.ball_3_digit.dec_odds;
-              this.dec_limit.ball_4_digit = data.ball_4_digit.dec_odds;
-              this.dec_limit.ball_5_digit = data.ball_5_digit.dec_odds;
-              let Alphabet = ['A','B','C','D','E','F','G','H','I','J'];
-              for(let i=0;i<Alphabet.length;i++) {
-                this.odds.single_ball_1_5.ball_1_digit[i] = data.ball_1_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_2_digit[i] = data.ball_2_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_3_digit[i] = data.ball_3_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_4_digit[i] = data.ball_4_digit[Alphabet[i]];
-                this.odds.single_ball_1_5.ball_5_digit[i] = data.ball_5_digit[Alphabet[i]];
-                this.all_odds[(i+27)] = data.ball_1_digit[Alphabet[i]];
-                this.all_odds[(i+37)] = data.ball_2_digit[Alphabet[i]];
-                this.all_odds[(i+47)] = data.ball_3_digit[Alphabet[i]];
-                this.all_odds[(i+57)] = data.ball_4_digit[Alphabet[i]];
-                this.all_odds[(i+67)] = data.ball_5_digit[Alphabet[i]];
-              }
-              this.odds.single_ball_1_5.ball_1_digit.reverse().reverse();
-            });
-
-            //获取第一球的赔率
-            this.$http.get(`${this.global.config.API}ssc/odds/1`).then(function(response)
-            {
-              //获取趺背数据
-              this.dec_limit.end_3 = response.data.data.odds.end_3.dec_odds;
-              this.dec_limit.front_3 = response.data.data.odds.front_3.dec_odds;
-              this.dec_limit.medium_3 = response.data.data.odds.medium_3.dec_odds;
-              if(response.data.status == 403) return false;
-              let Alphabet = ['A','B','C','D','E'];
-              for(let i=0;i<this.odds.ball_3.front3.length;i++){
-                this.odds.ball_3.front3[i] = response.data.data.odds.front_3[Alphabet[i]];
-                this.odds.ball_3.medium3[i] = response.data.data.odds.medium_3[Alphabet[i]];
-                this.odds.ball_3.end3[i] = response.data.data.odds.end_3[Alphabet[i]];
-                this.all_odds[(i+77)] = response.data.data.odds.front_3[Alphabet[i]];
-                this.all_odds[(i+87)] = response.data.data.odds.medium_3[Alphabet[i]];
-                this.all_odds[(i+92)] = response.data.data.odds.end_3[Alphabet[i]];
-              }
-
-            });
-          }*/
-
-
         },
         /**
          * 确认下注
@@ -872,38 +790,46 @@
               });
             return 0;
           }
+
+          /*开始拼接数据*/
+
+          //下注总金额
           let sumMoney = 0;
-          let html = '';
-
-
-
+          //下注显示框的html
+          let html = `<table class="bet-table"><tr><td>注单明细</td><td>赔率</td><td>下注金额</td><td>操作</td></tr>`;
+          //将this.bets的内容转化成html显示在页面的弹框上
           for(let i = 0; i<this.bets.length;i++)
           {
+            //赔率
             let str = '';
+            //下注内容的下标，对应可以找到下注内容的中文，和赔率
             var index = this.dicrationaries.indexOf(this.bets[i].content);
+            //是否趺倍，子盘才有的趺倍
+            if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
+            {
+              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+              str += `${odds}`;
+            }
+            else
+            {
+              str += `${this.all_odds[index]}`;
+            }
 
-            // if(this.is_dec(this.bets[i].content,this.bets[i].money))
-            // {
-            //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-            //   str += `赔率:` + `${odds}`
-            // }
-            // else
-            // {
-              str += `赔率:` + `${this.all_odds[index]}`
-             // }
-
-            html +=
-              "<div style='text-indent:15px;margin-top:5px;'>"
-              + this.dicrationaries_2[index]
-              +  '  @ ￥'
-              +  this.bets[i].money
-              +  '<button  class=' + this.bets[i].content + '   attr=\'my-btn-1\'' + '>删除</button>'
-              +  `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
-              + '</div>';
+            //组织成html页面
+            html += `<tr>
+                        <td>${this.dicrationaries_2[index]}</td>
+                        <td class="color-red">${str}</td>
+                        <td>${this.bets[i].money}</td>
+                        <td><button  class='${this.bets[i].content}' attr='my-btn-1'>删除</button></td>
+                     </tr>`;
+            //算下注的总金额
             sumMoney += parseInt(this.bets[i].money);
           }
+          html +=   `</table>`;
           html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
+          //显示弹框
           this.centerDialogVisible = true;
+          //将html转化成vue的属性，显示在页面中
           this.bet_html = html;
           return;
 
@@ -974,7 +900,7 @@
             }
 
             //移除这个html元素
-            let line = event.target.parentNode;
+            let line = event.target.parentNode.parentNode;
             let bigDaddy = line.parentNode;
             bigDaddy.removeChild(line);
 
@@ -1107,10 +1033,11 @@
           else if(type == 'qzhs')
           {
             let keys = ['A','B','C','D','E'];
-            if(this.bet_content.ball_3[k][i] != "")
+            if(this.bet_content.ball_3[k][i])
             {
               return false;
             }
+
             this.bet_content.ball_3[k][i] = this.fast_money;//改变下注金额
             this.bet_content.ball_3[k].reverse().reverse();//触发视图层改变
 
@@ -1127,15 +1054,10 @@
             {
               this.bets.push({content:'end_3' + '__' + keys[i],money:this.fast_money});//添加到下注内容区
             }
-            let x = {content:'medium_3' + '__' + keys[i],money:this.fast_money};
-
 
             return
           }
-          else
-          {
-            alert('????');
-          }
+
         },
 
 
@@ -1166,8 +1088,6 @@
           }
           else if(type == 'qzhs')
           {
-
-//                console.log(this.bet_content.ball_3[k][i]);
             let keys = ['A','B','C','D','E'];
             if(k=='front3')
             {
@@ -1182,10 +1102,6 @@
               this.bets.push({content:'end_3' + '__' + keys[i],money:this.bet_content.ball_3[k][i]});//添加到下注内容区
             }
             return
-          }
-          else
-          {
-            alert('????');
           }
         },
         /**
@@ -1214,9 +1130,9 @@
                 },
               ball_3:
                 {
-                  front3:['','','',''],
-                  medium3:['','','',''],
-                  end3:['','','',''],
+                  front3:['','','','',''],
+                  medium3:['','','','',''],
+                  end3:['','','','',''],
                 },
             };
           //更新视图层
@@ -1375,9 +1291,6 @@
           this.history_codes = [];
           this.$http.get(url).then(function(res){
             let data = res.data.data;
-            this.curPage = data.curPage;
-            this.hasNext = data.hasNext;
-            this.hasPrev = data.hasPrev;
             this.history_list = data.list;
             for(let i = 0; i<this.history_list.length;i++)
             {
@@ -1485,7 +1398,6 @@
   }
   button[attr='my-btn-1']
   {
-    float:right;
     margin-right:12px;
     color:#fff;
     background:#f56c6c;
@@ -1520,5 +1432,16 @@
   }
   .hao9{
     background: #e3ee66;
+  }
+  .bet-table
+  {
+    width: 100%;
+    text-align:center;
+  }
+  .bet-table td
+  {
+    padding:8px;
+    border: 1px solid #e5e5e5;
+    text-align:center;
   }
 </style>

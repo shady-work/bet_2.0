@@ -378,7 +378,6 @@
         background-size: cover;
         margin-left:13px;
         margin-right: 2px;
-
         line-height: 25px;
         font-size: 18px;
         font-weight: 700;
