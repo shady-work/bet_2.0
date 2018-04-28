@@ -1033,7 +1033,7 @@
           }
 
           //移除这个html元素
-          let line = event.target.parentNode;
+          let line = event.target.parentNode.parentNode;
           let bigDaddy = line.parentNode;
           bigDaddy.removeChild(line);
 
@@ -1075,36 +1075,40 @@
             });
           return 0;
         }
-        //拼接字符串
-        let html = '';
+        /*开始拼接数据*/
+        let html = `<table class="bet-table"><tr><td>注单明细</td><td>赔率</td><td>下注金额</td><td>操作</td></tr>`;
+        //下注总金额
         let sumMoney = 0;
-
+        //将this.bet_content的内容转化成html显示在页面的弹框上
         for(let i = 0; i<this.bet_content.length;i++)
         {
+          //下注内容的下标，对应可以找到下注内容的中文，和赔率
           let index = this.dicrationaries.indexOf(this.bet_content[i].content);
+          //赔率
           let str = '';
 
-          // if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))
-          // {
-          //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
-          //   str += `赔率:` + `${odds}`;
-          // }
-          // else
-          // {
-            str += `赔率:` + `${this.all_odds[index]}`;
+          if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money) && this.$store.state.son_off)
+          {
+            let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
+            str += `${odds}`;
+          }
+          else
+          {
+            str += `${this.all_odds[index]}`;
+          }
 
-          // }
 
-          html += "<div style='text-indent:15px;margin-top: 5px;'>"
-          + this.dicrationaries_2[index]
-          +  '  @ ￥'
-          +  this.bet_content[i].money
-          + '<button  class=' + this.bet_content[i].content + '   attr=\'my-btn-1\''  +'>删除</button>'
-          +   `<span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
-          +'</div>';
+          //组织成html页面
+          html += `<tr>
+                        <td>${this.dicrationaries_2[index]}</td>
+                        <td class="color-red">${str}</td>
+                        <td>${this.bet_content[i].money}</td>
+                        <td><button  class='${this.bet_content[i].content}' attr='my-btn-1'>删除</button></td>
+                     </tr>`;
           sumMoney += parseInt(this.bet_content[i].money);
         }
-        html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bet_content.length + '条,' + sumMoney + "￥" +   '</div>';
+        html +=   `</table>`;
+        html += `<div style='text-align:center;margin-top:15px;' id='sum' >共 <span style="color:blue;font-weight:700;">${this.bet_content.length}</span> 条 <span style="color:blue;font-weight:700;">${sumMoney}</span>￥</div>`;
         this.centerDialogVisible = true;
         this.bet_html = html;
         return;
@@ -1456,10 +1460,21 @@
 <style>
   button[attr='my-btn-1']
   {
-    float:right;
-    margin-right:12px;
+
+    margin-right:5px;
     color:#fff;
     background:#f56c6c;
     border: 1px solid #dcdfe6;padding:3px;
+  }
+  .bet-table
+  {
+      width: 100%;
+      text-align:center;
+  }
+  .bet-table td
+  {
+      padding:8px;
+      border: 1px solid #e5e5e5;
+      text-align:center;
   }
 </style>

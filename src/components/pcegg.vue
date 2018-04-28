@@ -501,31 +501,40 @@
             return 0;
           }
 
+          /*开始拼接数据*/
+
+          //下注总金额
           let sumMoney = 0;
-          let html = '';
+          //下注显示框的html
+          let html = `<table class="bet-table"><tr><td>注单明细</td><td>赔率</td><td>下注金额</td><td>操作</td></tr>`;
+
+          //将this.bets的内容转化成html显示在页面的弹框上
           for(let i = 0; i<this.bets.length;i++)
           {
             let str = '';
             var index = this.dicrationaries.indexOf(this.bets[i].content);
-            // if(this.is_dec(this.bets[i].content,this.bets[i].money))
-            // {
-            //   let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-            //   str += `赔率:` + `${odds}`
-            // }
-            // else
-            // {
-                str += `赔率:` + `${this.all_odds[index]}`;
-            // }
+            if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
+            {
+              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+              str += `${odds}`
+            }
+            else
+            {
+              str += `${this.all_odds[index]}`;
+            }
 
-            html +=
-              "<div style='text-indent:15px;margin-top: 5px;'>"
-              + this.dicrationaries_2[index]
-              +  '  @ ￥' +  this.bets[i].money
-              +  '<button  class=' + this.bets[i].content + '   attr=\'my-btn-1\'' + '>删除</button>'
-              +  `   <span style=color:red;text-indent:5px;float:right;padding-right:5px;>${str}</span>`
+            //组织成html页面
+            html += `<tr>
+                        <td>${this.dicrationaries_2[index]}</td>
+                        <td class="color-red">${str}</td>
+                        <td>${this.bets[i].money}</td>
+                        <td><button  class='${this.bets[i].content}' attr='my-btn-1'>删除</button></td>
+                     </tr>`;
+            //算下注的总金额
             sumMoney += parseInt(this.bets[i].money);
           }
-          html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
+          html +=   `</table>`;
+          html += `<div style='text-align:center;margin-top:15px;' id='sum' >共 <span style="color:blue;font-weight:700;">${this.bets.length}</span> 条 <span style="color:blue;font-weight:700;">${sumMoney}</span>￥</div>`;
           this.centerDialogVisible = true;
           this.bet_html = html;
           return;
@@ -583,7 +592,7 @@
             }
 
             //移除这个html元素
-            let line = event.target.parentNode;
+            let line = event.target.parentNode.parentNode;
             let bigDaddy = line.parentNode;
             bigDaddy.removeChild(line);
 
@@ -958,6 +967,17 @@
         color:#fff;
         background:#f56c6c;
         border: 1px solid #dcdfe6;padding:3px;
+    }
+    .bet-table
+    {
+        width: 100%;
+        text-align:center;
+    }
+    .bet-table td
+    {
+        padding:8px;
+        border: 1px solid #e5e5e5;
+        text-align:center;
     }
 </style>
 
