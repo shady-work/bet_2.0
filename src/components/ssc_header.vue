@@ -256,7 +256,7 @@ export default {
   width: 1080px;
   float: left;
   height: 86px;
-  margin-top: 5px;
+  margin-top: 1px;
   background: #ea4c4c;
   margin-left: 5px;
   box-sizing: border-box;

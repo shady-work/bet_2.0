@@ -185,7 +185,7 @@
 
   #history
   {
-    margin-top:5px;
+    margin-top:1px;
     margin-left:10px;
     padding-bottom:15px;
     background: #fff;

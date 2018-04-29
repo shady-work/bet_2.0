@@ -230,6 +230,7 @@ $(function()
         margin-top: 2px;
         margin-bottom:10px;
     }
+
     .lottery
     {
         display:block;

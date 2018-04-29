@@ -1087,7 +1087,7 @@
           //赔率
           let str = '';
 
-          if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money) && this.$store.state.son_off)
+         /* if(this.is_dec(this.bet_content[i].content,this.bet_content[i].money) && this.$store.state.son_off)
           {
             let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bet_content[i].content,this.bet_content[i].money))).toFixed(4);
             str += `${odds}`;
@@ -1095,8 +1095,8 @@
           else
           {
             str += `${this.all_odds[index]}`;
-          }
-
+          }*/
+          str += `${this.all_odds[index]}`;
 
           //组织成html页面
           html += `<tr>

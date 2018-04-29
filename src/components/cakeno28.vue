@@ -513,7 +513,7 @@
           {
             let str = '';
             var index = this.dicrationaries.indexOf(this.bets[i].content);
-            if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
+            /*if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
             {
               let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
               str += `${odds}`
@@ -521,8 +521,8 @@
             else
             {
                 str += `${this.all_odds[index]}`;
-            }
-
+            }*/
+            str += `${this.all_odds[index]}`;
             //组织成html页面
             html += `<tr>
                         <td>${this.dicrationaries_2[index]}</td>

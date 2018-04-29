@@ -320,7 +320,7 @@ export default
       width:1080px;
       height: 445px;
       margin-left: 10px;
-      margin-top:5px;
+      margin-top:1px;
     }
     .xy-header
     {

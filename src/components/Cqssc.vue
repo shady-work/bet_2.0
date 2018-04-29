@@ -805,7 +805,7 @@
             //下注内容的下标，对应可以找到下注内容的中文，和赔率
             var index = this.dicrationaries.indexOf(this.bets[i].content);
             //是否趺倍，子盘才有的趺倍
-            if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
+           /* if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
             {
               let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
               str += `${odds}`;
@@ -813,8 +813,8 @@
             else
             {
               str += `${this.all_odds[index]}`;
-            }
-
+            }*/
+            str += `${this.all_odds[index]}`;
             //组织成html页面
             html += `<tr>
                         <td>${this.dicrationaries_2[index]}</td>
