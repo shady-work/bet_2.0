@@ -1,18 +1,22 @@
 <template>
     <div id="user">
+        <p class="mt5 color-white text-left ml10" style="text-indent: 15px;">{{$store.state.nickname}}</p>
         <div class="left">
+
             <span class="fa fa-user-circle-o"></span>
-            <p>{{$store.state.nickname}}</p>
         </div>
         <div class="right">
             <p class="kuaicai">
                 <!--快彩额度:<span class="color-red">10000</span>-->
             </p>
             <p class="kuaicai">
-                <span>可用额度:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{get_sum($store.state.cash_money,$store.state.credit_money)}}</span>
+                <span>可用额度:</span> <span class="pull-right" style="text-align: right;margin-right:10px;">{{get_sum($store.state.cash_money,$store.state.credit_money)|money_digit}}</span>
             </p>
             <p class="kuaicai" >
-                <span>今日盈亏:</span> <span class="pull-right" style="text-align: right;margin-right:20px;">{{$store.state.win_lost_today}}</span>
+                <span>今日盈亏:</span> <span class="pull-right" style="text-align: right;margin-right:10px;">{{$store.state.win_lost_today|money_digit}}</span>
+            </p>
+            <p class="kuaicai" >
+                <span>今日返水:</span> <span class="pull-right" style="text-align: right;margin-right:10px;">{{$store.state.return_present|money_digit}}</span>
             </p>
         </div>
         <div class="clear"></div>
@@ -45,6 +49,11 @@ export default
    {
        //获取用户的昵称
    },
+   filters:{
+    money_digit:function(value){
+      return Number(value).toFixed(2);
+    }
+   },
 
 }
 </script>
@@ -60,7 +69,7 @@ export default
     .left
     {
         float: left;
-        width: 75px;
+        width: 90px;
         height: 100px;
 
     }
@@ -70,8 +79,8 @@ export default
         width: 50px;
         height:50px;
         margin:0 auto;
-        margin-top: 10px;
-        font-size: 45px;
+        margin-top: 18px;
+        font-size: 53px;
         color:#e5e5e5;
 
     }
@@ -84,13 +93,12 @@ export default
     .right
     {
         float: left;
-        width: 155px;
+        width: 140px;
         text-align:left;
         text-indent:5px;
         color:#f3f3f3;
-        font-size: 14px;
         box-sizing: border-box;
-        padding-top: 10px;
+        font-size: 12px;
     }
     .kuaicai
     {

@@ -8,7 +8,7 @@
                 <ul class="tabs">
                     <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
                     <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
-                    <p style="text-align:left;line-height:30px;" v-for="(v,k) in history">当前可提款金额为:<b>{{$store.state.cash_money>0?$store.state.cash_money:0}}</b></p>
+                    <p style="text-align:left;line-height:30px;" >当前可提款金额为:<b>{{$store.state.cash_money>0?$store.state.cash_money:0}}</b></p>
                 </ul>
 
                 <!--银行卡提现-->
@@ -189,7 +189,7 @@
         {
             money:this.offline_topup.money,
             con:'支付宝提现',
-            tp_mark:'存款账号：' + this.bank_topup.store_number + "<br>" + "存款户名：" + this.offline_topup.offline_name,
+            tp_mark:'存款账号：' + this.offline_topup.store_number + "<br>" + "存款户名：" + this.offline_topup.offline_name,
         }).then(function(res)
         {
          if(res.data.status == 200)
@@ -200,12 +200,13 @@
                type:'success',
                center:true,
              });
+           this.get_history();
          }
          else
          {
            this.$message(
              {
-               message:'提现失败，请联系管理员，或稍后再试。',
+               message:res.data.msg,
                type:'warning',
                center:true,
              });
@@ -246,7 +247,7 @@
                   type:'success',
                   center:true,
                 });
-              window.location.reload();
+              this.get_history();//重新加载提现的数据
             }
             else
             {

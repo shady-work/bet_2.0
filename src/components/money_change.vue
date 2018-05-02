@@ -167,7 +167,16 @@ export default
               }, {
               value: '4',
               label: '中奖'
-              }, ],
+              }, {
+            value: '5',
+            label: '返水'
+          }, {
+            value: '6',
+            label: '流水'
+          },{
+            value: '7',
+            label: '退款'
+          },  ],
           filter_type:"0",//选择类型
 
        };
@@ -216,7 +225,7 @@ export default
         else
         {
 
-         this.$http.get(this.prevPageUrl)
+         this.$http.get('http://lty-main.com'+this.prevPageUrl)
            .then(function(res)
            {
              if(res.data.status == 200)
@@ -245,7 +254,7 @@ export default
          }
          else
          {
-           this.$http.get(this.nextPageUrl)
+           this.$http.get('http://lty-main.com'+this.nextPageUrl)
              .then(function(res){
                if(res.data.status == 200)
                {

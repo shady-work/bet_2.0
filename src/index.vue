@@ -91,6 +91,7 @@
                 this.$store.state.cash_money = data.money.cash_money;//现金额度
                 this.$store.state.credit_money = data.money.credit_money;//信用额度
                 this.$store.state.win_lost_today = data.yk;//信用额度
+                this.$store.state.return_present = data.fs;//信用额度
               });
               //跳转到cqssc
               this.$router.push('home');

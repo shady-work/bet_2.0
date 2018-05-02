@@ -313,7 +313,7 @@
                         else {
                             this.$message(
                                 {
-                                    message: '充值失败，请联系管理员，或稍后再试。~',
+                                    message: res.data.msg,
                                     type: 'warning',
                                     center: true,
                                 });
@@ -366,7 +366,7 @@
                             else {
                                 this.$message(
                                     {
-                                        message: '充值失败，请联系管理员，或稍后再试。',
+                                        message: res.data.msg,
                                         type: 'warning',
                                         center: true,
                                     });
@@ -387,7 +387,7 @@
 
                         this.$message(
                             {
-                                message: '银行名不对',
+                                message: '银行名不对，银行名是2位-10位的中文',
                                 type: 'warning',
                                 center: true,
                             });
@@ -397,7 +397,7 @@
 
                         this.$message(
                             {
-                                message: '转账户名不对',
+                                message: '转账户名不对，账户名是2-6位的中文',
                                 type: 'warning',
                                 center: true,
                             });
@@ -406,7 +406,7 @@
                     if (!pattern2.test(parseInt(this.bank_topup.bank_number))) {
                         this.$message(
                             {
-                                message: '卡名不对',
+                                message: '卡号不对，卡号为16-20位之间的数据',
                                 type: 'warning',
                                 center: true,
                             });

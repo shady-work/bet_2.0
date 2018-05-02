@@ -547,7 +547,7 @@ export default
             if(idx == 2)
             {
                 //获取本日的统计报表
-
+              this.is_coustom_date = false;
                 let date  = new Date();
                 let month = date.getMonth() + 1;
                 let day   = date.getDate();
@@ -569,7 +569,7 @@ export default
                     str = "星期六";
                 }
                 let dateStr =  str + '/' + month + "-" + day;
-                this.get_details(dateStr,dateStr);
+                this.get_details(month + "-" + day,dateStr);
             }
             if(idx == 4)
             {

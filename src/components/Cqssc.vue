@@ -805,16 +805,23 @@
             //下注内容的下标，对应可以找到下注内容的中文，和赔率
             var index = this.dicrationaries.indexOf(this.bets[i].content);
             //是否趺倍，子盘才有的趺倍
-           /* if(this.is_dec(this.bets[i].content,this.bets[i].money) && this.$store.state.son_off)
+            if(this.$store.state.son_off)
             {
-              let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
-              str += `${odds}`;
+              if(this.is_dec(this.bets[i].content,this.bets[i].money))
+              {
+                let odds = (Number(this.all_odds[index]) - Number(this.is_dec(this.bets[i].content,this.bets[i].money))).toFixed(4);
+                str += `${odds}`;
+              }
+              else
+              {
+                str += `${this.all_odds[index]}`;
+              }
             }
             else
             {
               str += `${this.all_odds[index]}`;
-            }*/
-            str += `${this.all_odds[index]}`;
+            }
+
             //组织成html页面
             html += `<tr>
                         <td>${this.dicrationaries_2[index]}</td>
@@ -826,7 +833,8 @@
             sumMoney += parseInt(this.bets[i].money);
           }
           html +=   `</table>`;
-          html += "<div style='text-align:center;' id='sum'>"  + '共' + this.bets.length + '条,' + sumMoney + "￥" +   '</div>';
+          html += `<div style='text-align:center;margin-top:15px;' id='sum' >共 <span style="color:blue;font-weight:700;">${this.bets.length}</span> 条 <span style="color:blue;font-weight:700;">${sumMoney}</span>￥</div>`;
+
           //显示弹框
           this.centerDialogVisible = true;
           //将html转化成vue的属性，显示在页面中
@@ -1197,7 +1205,8 @@
                   dangerouslyUseHTMLString: true,
                   message: res.data.msg,
                   center: true,
-                  type: 'success'
+                  type: 'success',
+                  duration:1500,
                 });
               //设置未结算清单
               this.get_ssc_unclear();

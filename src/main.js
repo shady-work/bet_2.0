@@ -41,6 +41,7 @@ var store = new vuex.Store(
         cash_money:0,         //余额
         unclear:[],//未结算清单  用于侧边栏
         win_lost_today:0,//今日盈亏
+        return_present:0,//今日返水
         isShowSecond:false,//是否显示每个彩种下面的第二级view
         son_off:false,//是否开启子盘 false,不开启，true，开启子盘;
     },
