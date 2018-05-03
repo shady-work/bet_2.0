@@ -38,6 +38,12 @@
         <!-- 下注内容区 -->
         <div id="bet-content">
             <form action="">
+                <div class="pan">
+                    <label style="color:#fff;">盘口</label>
+                    <select v-model="which_handicap">
+                        <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>
+                    </select>
+                </div>
                 <div class="bet-content-table">
                     <a class="color-white active">
                         PC蛋蛋
@@ -46,12 +52,12 @@
                 </div>
 
                 <div class="bet-content-input">
-                    <div class="pan">
-                        <label>盘口</label>
-                        <select v-model="which_handicap">
-                            <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-                        </select>
-                    </div>
+                    <!--<div class="pan">-->
+                        <!--<label>盘口</label>-->
+                        <!--<select v-model="which_handicap">-->
+                            <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
                     <div class="fast-bet">
                         快速下注金额
                         <input type="text" class="fast-bet-input" v-model="fast_money">
@@ -65,7 +71,7 @@
                         <a @click="setBetMoney(1000)">1000</a>
                         <a @click="clear_bet()" class="pull-right chongtian">重填</a>
                         <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-                        <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
+                        <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -139,12 +145,12 @@
 
 
                 <div class="bet-content-input mt5">
-                    <div class="pan">
-                        <label>盘口</label>
-                        <select v-model="which_handicap">
-                            <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>
-                        </select>
-                    </div>
+                    <!--<div class="pan">-->
+                        <!--<label>盘口</label>-->
+                        <!--<select v-model="which_handicap">-->
+                            <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
                     <div class="fast-bet">
                         快速下注金额
                         <input type="text" class="fast-bet-input" v-model="fast_money">
@@ -158,7 +164,7 @@
                         <a @click="setBetMoney(1000)">1000</a>
                         <a @click="clear_bet()" class="pull-right chongtian">重填</a>
                         <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-                        <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>
+                        <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
                     </div>
                     <div class="clear"></div>
                 </div>
