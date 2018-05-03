@@ -123,6 +123,7 @@
 
 .pan select {
   border-radius: 3px;
+    height: 25px;
 }
 
 .count-down {
@@ -220,7 +221,7 @@
   float: left;
   height: 40px;
   overflow: hidden;
-  width: 524px;
+  width: 470px;
 }
 
 .bet-btns > a {

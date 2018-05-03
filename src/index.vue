@@ -11,6 +11,13 @@
      </div>
      <div class="clear"></div>
     <!-- 底部的滚动条 -->
+   <!--  <div id="scroll">
+         <marquee behavior="" direction="">
+             Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。
+             Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。
+             Node.js 的包管理器 npm，是全球最大的开源库生态系统。
+         </marquee>
+     </div>-->
    </div>
 </template>
 
@@ -161,4 +168,16 @@
     background: #f5f5f5;
     overflow-x: hidden;
   }
+    #scroll
+    {
+        position: fixed;
+        bottom: 0;
+        left: 300px;
+        width: 800px;
+        height: 50px;
+        box-sizing: border-box;
+        text-indent: 15px;
+        color: #000;
+        
+    }
 </style>
