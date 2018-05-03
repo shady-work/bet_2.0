@@ -661,8 +661,6 @@
                 let  data = response.data.data.user;
                 this.$set(this.$store.state,'cash_money',data.money.cash_money)
               });
-              //获取全局的未结算清单
-              this.get_ssc_unclear();
               //提示下注成功
               this.$message(
                 {
@@ -672,6 +670,12 @@
                   type: 'success',
                   duration:1500,
                 });
+              //获取全局的未结算清单
+              this.get_ssc_unclear();
+              //显示未结算的数据
+              this.$store.state.isShowUnclear = true;
+              //显示egg的数据
+              this.$store.state.which_lottery = 'egg';
             }
             else
             {
@@ -841,14 +845,11 @@
             let list  = data.list;
             for(let i = 0; i<list.length;i++)
             {
-              if(list[i].status != -1)
-              {
-                let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
-                this.orderData.push(html);
-              }
+                this.orderData.push(list[i]);
             }
             //设置全局的未结算清单
             this.$set(this.$store.state,'unclear',this.orderData);
+
           });
         },
         //获取长龙出的数据

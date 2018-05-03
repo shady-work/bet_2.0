@@ -1215,6 +1215,10 @@
                 });
               //设置未结算清单
               this.get_ssc_unclear();
+              //显示未结算的数据
+              this.$store.state.isShowUnclear = true;
+              //显示ssc的数据
+              this.$store.state.which_lottery = 'ssc';
             }
             else
             {
@@ -1368,13 +1372,12 @@
             let list  = data.list;
             for(let i = 0; i<list.length;i++)
             {
-              if(list[i].status != -1) {
-                let html = `${list[i].lty_name} ${list[i].expect}  <p>${list[i].mark_a}  ${list[i].mark_b} ￥${parseInt(list[i].money)}</p>`;
-                this.orderData.push(html);
-              }
+
+                this.orderData.push(list[i]);
             }
             //设置全局的未结算清单
             this.$set(this.$store.state,'unclear',this.orderData);
+
           });
         },
       }

@@ -50,27 +50,11 @@
         </div>
 
 
-        <!--近期下注列表-->
-        <div class="recent-bet" @click="toggleDiv(recent)">
-            <img src="../assets/img/list_more.png" alt="">
-            <p class="color-white">近期下注</p>
-            <p class="color-white">{{recent.str}}</p>
-        </div>
 
-        <!--近期下注内容-->
-        <div class="recent-content text-left" v-show="recent.flag" style="height: 400px;">
-            <div class="list-recent" v-for="v in $store.state.unclear" v-html="v"></div>
-        </div>
 
-       <!--开奖网站参考-->
-        <!--<div class="recent-bet" @click="toggleDiv(website)">
-            <img src="../assets/img/network.png" alt="">
-            <p class="color-white">开奖网站参考</p>
-            <p class="color-white">{{website.str}}</p>
-        </div>
-        <div class="recent-content text-left" v-show="website.flag">
 
-        </div>-->
+
+
     </div>
 </template>
 
@@ -230,7 +214,6 @@ $(function()
         margin-top: 2px;
         margin-bottom:10px;
     }
-
     .lottery
     {
         display:block;

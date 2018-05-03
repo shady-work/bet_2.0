@@ -14,7 +14,29 @@
 {
   margin-left:25px;
 }
-..el-dialog__body
+.el-dialog__body
 {
   line-height:28px;
 }
+
+.el-tabs__header
+{
+    margin:0;
+}
+.el-tabs__nav-wrap
+{
+    margin-bottom: 5px;
+}
+.el-tabs__nav-scroll
+{
+    width: 100%;
+}
+.el-tabs__active-bar
+{
+    left: 12px;
+}
+.el-tabs__nav
+{
+    float: none;
+}
+
