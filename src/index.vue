@@ -1,15 +1,121 @@
+<style>
+    body
+    {
+        background: #ea4c4c;
+    }
+    #center
+    {
+        float: left;
+        min-width: 1100px;
+        height: 100%;
+        background: #f5f5f5;
+        overflow-x: hidden;
+        min-height: 1000px;
+    }
+    #scroll
+    {
+        position: fixed;
+        bottom: 0;
+        left: 230px;
+        min-width: 1200px;
+        height: 29px;
+        box-sizing: border-box;
+        text-indent: 0;
+        color: #000;
+        width: 85%;
+
+    }
+    #notice
+    {
+        width: 30px;
+        height: 100%;
+        min-height: 600px;
+        box-sizing: border-box;
+        position:fixed;
+        right:0;
+        top:0;
+        padding-top: 78px;
+        background: #e83a36;
+    }
+    .notice
+    {
+        width: 100%;
+        height: 30px;
+        display: block;
+        background: rgba(100,50,50,0.5);
+        line-height: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+        margin-bottom: 15px;
+    }
+    .recenter-bet
+    {
+        width: 30px;
+        height: 30px;
+        display: block;
+        background: rgba(100,50,50,0.5);
+        line-height: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        margin-bottom: 15px;
+        position: relative;
+        /*position: fixed;
+        right: 0;
+        bottom:0;*/
+    }
+    .bet-list
+    {
+        position: absolute;
+        width: 400px;
+        left: -400px;
+        top: -44px;
+        padding-bottom: 10px;
+        background: #fff;
+        box-sizing: border-box;
+        z-index: 10;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+
+    }
+    .bet-list td
+    {
+        padding: 3px;
+        border: 1px solid #e5e5e5;
+    }
+    #bottom
+    {
+        min-width: 1400px;
+        width: 100%;
+        min-height: 800px;
+    }
+</style>
 <template>
    <div id="index">
      <!-- 头部 -->
      <my-header></my-header>
-     <!-- 左边的信息 -->
-     <left-nav></left-nav>
-     <!-- 中间下注区 -->
 
-     <div id="center">
-        <router-view/>
+
+    <div id="bottom">
+
+        <!-- 左边的信息 -->
+        <left-nav></left-nav>
+
+        <!-- 中间下注区 -->
+        <div id="center">
+
+            <router-view/>
+            <div class="clear"></div>
+        </div>
+
         <div class="clear"></div>
-     </div>
+
+    </div>
+
+
+
      <div class="clear"></div>
     <!-- 底部的滚动条 -->
      <div id="scroll">
@@ -322,94 +428,4 @@
   }
 </script>
 
-<style>
-  body
-  {
-    background: #ea4c4c;
-  }
-  #center
-  {
-    position:absolute;
-    top: 78px;
-    left: 230px;
-    float: left;
-    min-width: 1200px;
-    width: 90%;
-    height: 100%;
-    background: #f5f5f5;
-    overflow-x: hidden;
-  }
-    #scroll
-    {
-        position: fixed;
-        bottom: 0;
-        left: 230px;
-        min-width: 1200px;
-        height: 29px;
-        box-sizing: border-box;
-        text-indent: 0;
-        color: #000;
-        width: 85%;
-        
-    }
-    #notice
-    {
-        width: 30px;
-        height: 100%;
-        min-height: 600px;
-        box-sizing: border-box;
-        position:fixed;
-        right:0;
-        top:0;
-        padding-top: 78px;
-        background: #e83a36;
-    }
-    .notice
-    {
-        width: 100%;
-        height: 30px;
-        display: block;
-        background: rgba(100,50,50,0.5);
-        line-height: 30px;
-        font-size: 16px;
-        cursor: pointer;
-        position: relative;
-        margin-bottom: 15px;
-    }
-    .recenter-bet
-    {
-        width: 30px;
-        height: 30px;
-        display: block;
-        background: rgba(100,50,50,0.5);
-        line-height: 30px;
-        font-size: 16px;
-        cursor: pointer;
-        margin-bottom: 15px;
-        position: relative;
-        /*position: fixed;
-        right: 0;
-        bottom:0;*/
-    }
-    .bet-list
-    {
-        position: absolute;
-        width: 400px;
-        left: -400px;
-        top: -44px;
-        padding-bottom: 10px;
-        background: #fff;
-        box-sizing: border-box;
-        z-index: 10;
-        border: 1px solid #e5e5e5;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
 
-    }
-    .bet-list td
-    {
-        padding: 3px;
-        border: 1px solid #e5e5e5;
-    }
-</style>

@@ -187,11 +187,21 @@ export default
 
 $(function()
 {
+    //浏览器的高度
     let browserHeight = $(window).height();
+    //浏览器的宽度
+    let browserWidth = $(window).width();
+
+    //头部的高度
     let headerHeight  = 78;
+    //左边的菜单的高度
     $("#left-nav").height(browserHeight - headerHeight);
-    //$("#center").height(browserHeight - headerHeight + 80);
-    $('.recent-content').height($("#left-nav").height() - 381);
+
+    //设置中间区域的大小
+     $("#center").width(browserWidth - 240);
+
+     $('#bottom').width(browserWidth);
+
 
 });
 
