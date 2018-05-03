@@ -225,7 +225,7 @@ export default
         else
         {
 
-         this.$http.get('http://lty-main.com'+this.prevPageUrl)
+         this.$http.get(this.prevPageUrl)
            .then(function(res)
            {
              if(res.data.status == 200)
@@ -254,7 +254,7 @@ export default
          }
          else
          {
-           this.$http.get('http://lty-main.com'+this.nextPageUrl)
+           this.$http.get(this.nextPageUrl)
              .then(function(res){
                if(res.data.status == 200)
                {

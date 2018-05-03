@@ -1,94 +1,157 @@
 <template>
     <div id="recharge">
         <div class="recharge" v-show="!isShowTable">
-
-            <div class="right">
+            <div class="top">
                 <ul class="tabs">
-                    <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
-                    <li @click="choose_one(1)" :class="isActive[1]?'active':''">线下</li>
-                    <li @click="choose_one(2)" :class="isActive[2]?'active':''">第三方</li>
+                    <li @click="choose_one(0)" :class="isActive[0]?'active':''">充值线路一[银行存款]</li>
+                    <li @click="choose_one(1)" :class="isActive[1]?'active':''">充值线路二[线下]</li>
+                    <li @click="choose_one(2)" :class="isActive[2]?'active':''">充值线路三[第三方]</li>
+                    <li @click="choose_one(3)" :class="isActive[3]?'active':''">充值线路四</li>
+                    <li @click="choose_one(4)" :class="isActive[4]?'active':''">充值线路五</li>
+                    <li @click="choose_one(5)" :class="isActive[5]?'active':''">充值线路六</li>
+                    <!--<li @click="choose_one(2)" :class="isActive[2]?'active':''">充值线路七</li>-->
                 </ul>
-                <!--<p style="width:900px;height:1px;background:black;margin-top:17px;overflow:hidden;z-index:999;"></p>-->
-                <div class="right-left">
-                    <ul>
-                        <li v-for="(v,k) in articles" @click="get_an_article(v.id,k)" v-if="v.type == condition"
-                            :class="isActive2[k]?'active':''">
-                            {{v.title}}
-                        </li>
-                    </ul>
-                </div>
-
-                <!--银行卡充值-->
-                <div class="right-right" v-show="condition==0">
-                    <h2 class="mt5">请填写您的汇款信息</h2>
-                    <div class="input-my">
-                        <p>银行名称</p>
-                        <input type="text" v-model="bank_topup.bank_name" placeholder="请输入您汇款时使用的银行卡归属银行">
-                    </div>
-
-                    <div class="input-my">
-                        <p>存款姓名</p>
-                        <input type="text" v-model="bank_topup.store_name" placeholder="请输入您汇款时使用的银行卡的户名">
-                    </div>
-
-                    <div class="input-my">
-                        <p>存款账号</p>
-                        <input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">
-                    </div>
-
-                    <div class="input-my">
-                        <p>存款金额</p>
-                        <input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
-                    </div>
-
-                    <button class="submit-btn" @click="submit_bank()">提交</button>
-                </div>
-
-                <!--线下充值-->
-                <div class="right-right" v-show="condition==1">
-                    <h2 class="mt5">请填写您的汇款信息</h2>
-                    <div class="input-my">
-                        <span>账号姓名</span>
-                        <input type="text" v-model="offline_topup.offline_name" placeholder="微信昵称/支付宝户名">
-                    </div>
-
-                    <div class="input-my">
-                        <span>存款账号</span>
-                        <input type="text" v-model="offline_topup.store_number" placeholder="微信号/支付宝账号">
-                    </div>
-
-                    <div class="input-my">
-                        <span>存款金额</span>
-                        <input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">
-                    </div>
-
-                    <button class="submit-btn" @click="submit_offline()">提交</button>
-                </div>
-
-                <div class="right-right" v-show="condition==2">
-                    <img src="../assets/img/erweima2.jpg" alt="" style="width: 300px;margin-top: 15px;">
-                </div>
-
-
             </div>
 
-            <div class="left" style="margin-top:67px;">
-                <h2 class="title">充值帮助
-                </h2>
-                <p class="context">
-                    尊敬的客户，您好！
-                    本站充值分为三种：
-                    银行转账，线下转账（支付宝，微信），第三方。<br>
-                    （1）银行转账：请手动转账到对应的本站的收款银行，并且将您的转账信息填写到左侧；<br>
-                    （2）线下转账（支付宝，微信）：请手动转账到对应的本站的收款账号，并且将您的转账信息填写到左侧；<br>
-                    （3）第三方：点击右侧第三方支付，并按照提示进行；<br>
-                    （4）<a @click="isShowTable = true;"
-                              style="font-size:18px;cursor: pointer;text-decoration:underline">(充值记录)</a>
 
-                </p>
-                <!--要显示的充值内容-->
-                <div class="article-context mt5"  v-html="content"></div>
+            <div class="bottom" style="margin-top:0px;">
+
+                <div class="left">
+
+                    <h2 class="title" style="font-size:30px;font-weight:300;">收款信息
+                    </h2>
+                    <!--信息-->
+                    <div class="context" v-show="isActive[0]">
+                         <div class="context-top">
+
+                                <span >开户银行:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;中国工商银行</span><br>
+                                 <span>银行卡号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;618586552487845</span><br>
+                                 <span>收款名称:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;王某某</span><br>
+                         </div>
+
+                          <div class="context-bottom" style="margin-top:50px;">
+                              <p style="padding-left:20px;">操作说明:</p>
+                              <p style="margin-top:20px;padding-left:20px;text-indent:30px;">请使用实时到账方式转账,如果柜员机因中国银行法规,在柜员机转账后24小时内可操作取消转账操作,所以审核到账时间会在24小时内确认到账后才会充值成功</p>
+                          </div>
+                    </div>
+                    <!--第三方收款信息-->
+                    <div class="context" v-show="isActive[2]">
+                        <div class="context-top">
+                            <img src="../assets/img/erweima2.jpg" alt="" style="width:200px;margin-top: 15px;margin-left:80px;" v-show="isActive[2]">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right" style="margin-left:10px;width:630px;">
+                    <h2 class="title" style="font-size:30px;font-weight:300;">付款信息
+                    </h2>
+                    <div class="context">
+                        <!--银行卡充值-->
+                        <div class="context-top " style="width:500px;" >
+                            <form action="" v-show="isActive[0]">
+                                <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路一[银行存款]<br></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">订单编号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li-username-20180503-123456789</p>
+                                <p style="margin-bottom:30px;margin-left:80px;">充值金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.money"></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">付款银行:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.bank_name"></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">银行卡号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.bank_number"></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">开户姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.store_name"></p>
+                                <button style="width:300px;height:40px;margin-left:165px;" @click="submit_bank()">我已完成打款,确认提交</button>
+                                <!--<p style="margin-bottom:30px;margin-left:80px;">打款时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"></p>-->
+                            </form>
+                        </div>
+                        <!--线下充值-->
+                        <div class="context-top " style="width:500px;">
+                            <form action=""  v-show="isActive[1]">
+                                <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路二[线下]<br></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">订单编号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li-username-20180503-123456789</p>
+                                <p style="margin-bottom:30px;margin-left:80px;">账号姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.offline_name" placeholder="微信昵称/支付宝户名"></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">存款账号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.store_number" placeholder="微信号/支付宝账号"></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">存款金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额"></p>
+                                <button style="width:300px;height:40px;margin-left:165px;" @click="submit_offline()">我已完成打款,确认提交</button>
+                            </form>
+                        </div>
+                        <!--第三方-->
+                        <div class="context-top " style="width:500px;">
+                            <form action=""  v-show="isActive[2]">
+                                <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路三[第三方]<br></p>
+                                <p style="margin-bottom:30px;margin-left:80px;">订单编号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li-username-20180503-123456789</p>
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+
+
+                <!--<div class="left">-->
+                    <!--<div class="right-left">-->
+                        <!--<ul>-->
+                            <!--<li v-for="(v,k) in articles" @click="get_an_article(v.id,k)" v-if="v.type == condition"-->
+                                <!--:class="isActive2[k]?'active':''">-->
+                                <!--{{v.title}}-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;银行卡充值&ndash;&gt;-->
+                    <!--<div class="right-right" v-show="condition==0">-->
+                        <!--<h2 class="mt5">请填写您的汇款信息</h2>-->
+                        <!--<div class="input-my">-->
+                            <!--<p>银行名称</p>-->
+                            <!--<input type="text" v-model="bank_topup.bank_name" placeholder="请输入您汇款时使用的银行卡归属银行">-->
+                        <!--</div>-->
+
+                        <!--<div class="input-my">-->
+                            <!--<p>存款姓名</p>-->
+                            <!--<input type="text" v-model="bank_topup.store_name" placeholder="请输入您汇款时使用的银行卡的户名">-->
+                        <!--</div>-->
+
+                        <!--<div class="input-my">-->
+                            <!--<p>存款账号</p>-->
+                            <!--<input type="text" v-model="bank_topup.bank_number" placeholder="请输入您汇款时使用的银行卡卡号">-->
+                        <!--</div>-->
+
+                        <!--<div class="input-my">-->
+                            <!--<p>存款金额</p>-->
+                            <!--<input type="text" v-model="bank_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">-->
+                        <!--</div>-->
+
+                        <!--<button class="submit-btn" @click="submit_bank()">提交</button>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;线下充值&ndash;&gt;-->
+                    <!--<div class="right-right" v-show="condition==1">-->
+                        <!--<h2 class="mt5">请填写您的汇款信息</h2>-->
+                        <!--<div class="input-my">-->
+                            <!--<span>账号姓名</span>-->
+                            <!--<input type="text" v-model="offline_topup.offline_name" placeholder="微信昵称/支付宝户名">-->
+                        <!--</div>-->
+
+                        <!--<div class="input-my">-->
+                            <!--<span>存款账号</span>-->
+                            <!--<input type="text" v-model="offline_topup.store_number" placeholder="微信号/支付宝账号">-->
+                        <!--</div>-->
+
+                        <!--<div class="input-my">-->
+                            <!--<span>存款金额</span>-->
+                            <!--<input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额（10-50000000）">-->
+                        <!--</div>-->
+
+                        <!--<button class="submit-btn" @click="submit_offline()">提交</button>-->
+                    <!--</div>-->
+
+                    <!--<div class="right-right" v-show="condition==2">-->
+                        <!--<img src="../assets/img/erweima2.jpg" alt="" style="width: 300px;margin-top: 15px;">-->
+                    <!--</div>-->
+
+
+                <!--</div>-->
             </div>
+
+
+
 
 
         </div>
@@ -158,7 +221,7 @@
                 offline: [],//线下的文章
                 content: '',//文章内容
                 condition: 0,//  筛选条件
-                isActive: [1, 0, 0],//是否选中此类型的充值方式
+                isActive: [1, 0, 0,0,0,0],//是否选中此类型的充值方式
                 isActive2: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],//是否选中这篇文章
                 bank_topup:
                     {
@@ -530,14 +593,16 @@
 <style scoped>
 
     #recharge {
+        width: 1080px;
         overflow: hidden;
     }
 
     .left, .right {
+        border: 1px solid gray;
         height: 700px;
-        width: 300px;
-        margin-left: 25px;
-        margin-top: 15px;
+        width:370px;
+        margin-left:35px;
+        margin-top: 45px;
         float: left;
         color: #000;
         -webkit-box-sizing: border-box;
@@ -550,41 +615,56 @@
     .title {
         margin-top: 15px;
         font-size: 16px;
+        font-weight:700;
     }
 
     .context {
-        text-indent: 8px;
+        width: 300px;
         line-height: 20px;
         text-align: left;
-        margin-top: 5px;
+        margin-top:40px;
     }
-
+    .context>p{
+        width:300px;
+       margin-left: 30px;
+    }
+    .context>.context-top>span{
+        display: inline-block;
+        margin-bottom:30px;
+        padding-left:20px;
+    }
     .right {
-        width: 600px;
+        width:600px;
     }
-
+    .bottom>.right>form>p{
+        margin-bottom:20px;
+    }
     .tabs {
-        width: 550px;
-        margin: 0 auto;
+
+
         height: 45px;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
+        margin-top:30px;
+        margin-left:30px;
+        /*border-bottom: 1px dashed gray;*/
     }
 
     .tabs > li {
         float: left;
         line-height: 45px;
         text-align: center;
-        width: 32.33333%;
+        width:165px;
         font-size: 16px;
         font-weight: 700;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         border: 1px solid gray;
-        margin-left: 1px;
+        margin-left:5px;
         cursor: pointer;
+        margin-top:5px;
     }
 
     .right-left {
@@ -694,4 +774,5 @@
     .page-xy > span {
         cursor: pointer;
     }
+
 </style>

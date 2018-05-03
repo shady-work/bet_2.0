@@ -68,7 +68,7 @@
                             <td>时间</td>
                             <td style="text-align:left;padding-left:5px;">下注内容</td>
                             <td style="text-align:right;padding-right:10px;">下注金额</td>
-                            <td >中奖结果</td>
+                            <td >状态</td>
                         </tr>
                         <tr v-for="v in details_data">
                             <td style="border:1px solid #e5e5e5;box-sizing: border-box">{{v.lty_name}}</td>
@@ -78,8 +78,12 @@
                             <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:left;padding-left:10px;">{{v.mark_a}}{{v.mark_b}}({{v.rate}})</td>
                             <td style="border:1px solid #e5e5e5;box-sizing: border-box;text-align:right;padding-right:10px;">{{v.money|money_digit}}</td>
                             <!--<td style="text-align:center;" v-show="v.open_ret==1">{{v.open_ret==1?'中奖':'未中'}}</td>-->
-                            <td v-if="v.open_ret == 1" style="color: #00ae00;font-weight: 700;">中奖</td>
-                            <td v-if="v.open_ret == 0" style="color: gray;">未中</td>
+                            <td v-if="v.status == -1" style="color: #eec48f;">已取消</td>
+                            <td v-else>
+                                <b v-if="v.open_ret == 1" style="color: #00ae00;font-weight: 700;">中奖</b>
+                                <b v-if="v.open_ret == 0" style="color: gray;">未中</b>
+                                <b v-if="v.open_ret != 1 && v.open_ret != 0" style="color: gray;">未开</b>
+                            </td>
                         </tr>
                     </table>
 
