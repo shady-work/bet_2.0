@@ -24,6 +24,37 @@
                   <span >秒</span>
               </div>
           </div>
+        <!-- 右边的历史记录 -->
+        <div id="history" style="margin-left: 15px;margin-top:35px;">
+          <div class="history-header" @click="showHistory">
+            历史记录 <span class="pull-right pointer">{{history_str}}</span>
+          </div>
+          <div class="history-table">
+            <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
+            <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
+            <a @click="showTables(2)" :class="history_tables[2]?'active':''">历史开奖</a>
+          </div>
+
+
+
+          <div class="history-list" v-show="history_tables[1]">
+            <!--长龙出-->
+            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
+          </div>
+
+          <div class="history-list" v-show="history_tables[2]">
+            <div class="history-balls" v-for="v in history_codes">
+              <p class="text-left">{{v.expect}}</p>
+              <span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>
+            </div>
+          </div>
+
+          <div class="history-close ">
+            <a @click="close_history()" class="pointer">
+              关闭
+            </a>
+          </div>
+        </div>
         <div class="clear"></div>
       </div>
 
@@ -343,37 +374,7 @@
       </form>
     </div>
 
-    <!-- 右边的历史记录 -->
-    <div id="history">
-      <div class="history-header" @click="showHistory">
-        历史记录 <span class="pull-right pointer">{{history_str}}</span>
-      </div>
-      <div class="history-table">
-        <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
-        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-        <a @click="showTables(2)" :class="history_tables[2]?'active':''">历史开奖</a>
-      </div>
 
-
-
-      <div class="history-list" v-show="history_tables[1]">
-          <!--长龙出-->
-        <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
-      </div>
-
-      <div class="history-list" v-show="history_tables[2]">
-        <div class="history-balls" v-for="v in history_codes">
-          <p class="text-left">{{v.expect}}</p>
-          <span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>
-        </div>
-      </div>
-
-      <div class="history-close ">
-        <a @click="close_history()" class="pointer">
-          关闭
-        </a>
-      </div>
-    </div>
 
 
     <!--下注提示框-->

@@ -29,6 +29,38 @@
                         <span >秒</span>
                     </div>
                 </div>
+                <!-- 右边的历史记录 -->
+                <div id="history" style="margin-left:60px;margin-top:40px;">
+                    <div class="history-header" @click="showHistory">
+                        历史记录 <span class="pull-right pointer">{{history_str}}</span>
+                    </div>
+                    <div class="history-table">
+                        <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
+                        <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
+                    </div>
+                    <div class="history-list" v-show="history_tables[1]">
+                        <p v-for="(v,k) in long_dragon" class="text-left"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
+                    </div>
+
+                    <div class="history-list" v-show="history_tables[2]">
+                        <div class="history-balls" v-for="v in history_codes">
+                            <span>{{v.expect}}</span>
+                            <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
+                            <span class="code-fh">+</span>
+                            <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
+                            <span class="code-fh">+</span>
+                            <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
+                            <span class="code-fh">=</span>
+                            <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="history-close ">
+                        <a @click="close_history()" class="pointer">
+                            关闭
+                        </a>
+                    </div>
+                </div   style="margin-left:60px;margin-top:40px;">
+
                 <div class="clear"></div>
             </div>
 
@@ -174,37 +206,6 @@
 
         </div>
 
-        <!-- 右边的历史记录 -->
-        <div id="history">
-            <div class="history-header" @click="showHistory">
-                历史记录 <span class="pull-right pointer">{{history_str}}</span>
-            </div>
-            <div class="history-table">
-                <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-                <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
-            </div>
-            <div class="history-list" v-show="history_tables[1]">
-                <p v-for="(v,k) in long_dragon" class="text-left"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
-            </div>
-
-            <div class="history-list" v-show="history_tables[2]">
-                <div class="history-balls" v-for="v in history_codes">
-                    <span>{{v.expect}}</span>
-                    <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
-                    <span class="code-fh">+</span>
-                    <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
-                    <span class="code-fh">+</span>
-                    <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
-                    <span class="code-fh">=</span>
-                    <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
-                </div>
-            </div>
-            <div class="history-close ">
-                <a @click="close_history()" class="pointer">
-                    关闭
-                </a>
-            </div>
-        </div>
 
 
         <!--下注提示框-->

@@ -6,9 +6,9 @@ export default
 {
     config:
     {
-          //API:"http://lty-main.com/",
+          API:"http://lty-main.com/",
           //API:"http://lty-sub.com/",
-            API:"/",
+          //   API:"/",
     },
     log:function(content)
     {

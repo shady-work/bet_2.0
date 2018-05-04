@@ -287,9 +287,9 @@
 }
 
 .history-header {
-  background: #e63636;
+  /*background: #e63636;*/
   height: 40px;
-  border-left: 1px solid rgba(200, 200, 200, 0.5);
+  /*border-left: 1px solid rgba(200, 200, 200, 0.5);*/
   box-sizing: border-box;
   line-height: 40px;
   text-align: left;
