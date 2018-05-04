@@ -24,18 +24,20 @@
             </div>
         </div>
         <!-- 右边的历史记录 -->
-        <div id="history">
+        <div id="history" style="margin-left: 15px;margin-top:35px;">
+          <div class="history-header" @click="showHistory">
+            历史记录 <span class="pull-right pointer" >{{history_str}}</span>
+          </div>
           <div class="history-table">
+            <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
             <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
             <a @click="showTables(2)" :class="history_tables[2]?'active':''" >历史开奖</a>
           </div>
 
-          <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
-            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;">
-                <span>{{v.name}}</span>
-                <span class="pull-right mr10">{{v.num}}期</span>
-            </p>
-              <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
+
+
+          <div class="history-list" v-show="history_tables[1]">
+            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
           </div>
 
           <div class="history-list" v-show="history_tables[2]">
@@ -44,7 +46,11 @@
               <span v-for="(val,key) in history_codes[k]" class="code-ball" :class="'hhao' + val">{{val}}</span>
             </div>
           </div>
-
+          <div class="history-close ">
+            <a @click="close_history()" class="pointer">
+              关闭
+            </a>
+          </div>
         </div >
         <div class="clear"></div>
       </div>
@@ -54,7 +60,7 @@
 
     <!-- 下注内容区 -->
     <div id="bet-content">
-      <form action="" >
+      <form action="" style="width:1080px;">
         <div class="bet-content-table" >
           <div class="pan">
             <label style="color:#fff;">盘口</label>
@@ -112,8 +118,7 @@
             <a @click="setBetMoney(500)">500</a>
             <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet">重填</a>
-            <a  v-if="!open_state"  @click="comfire_content" :plain="true" class="pull-right tijiao" >提交</a>
-            <a  v-if="open_state" :plain="true" class="pull-right tijiao" style="cursor: not-allowed">已封盘</a>
+            <a @click="comfire_content" :plain="true" class="pull-right tijiao">提交</a>
 
           </div>
           <div class="clear"></div>
@@ -124,8 +129,8 @@
           <div class="bet-chooses-top">
             <div v-for="(v,k,index) in  odds.double_aspect"  :class="index==0?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,ind) in v" class="first-ball-details text-0">
-                <span class="he22 padding3 w50">{{odds.ball_5_half_str[key]}}</span>
-                <span class="he22 padding3 color-red f700 w50" >{{val}}</span>
+                <span class="he22 padding3">{{odds.ball_5_half_str[key]}}</span>
+                <span class="he22 padding3 color-red f700" >{{val}}</span>
                 <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1_change(k,key)" style="padding:1px;">
                 <div class="clear"></div>
               </div>
@@ -156,9 +161,9 @@
 
             <div v-for="(v,k,index) in odds.single_ball_1_5" :class="index==0?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,idx) in v" class="first-ball-details text-9">
-                <span class="hao0 color-white w50 ml10" :class="'hhao'+key">{{key}}</span>
-                <span class=" color-red f700 w50 ml5" style="text-indent:5px;height: 30px;line-height: 30px;">{{val}}</span>
-                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)" style="margin-left:3px;margin-top:7px;width: 50px;">
+                <span class="hao0 color-white" :class="'hhao'+key">{{key}}</span>
+                <span class="he22 color-red f700" style="text-indent:5px;">{{val}}</span>
+                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)" style="margin-left:5px;margin-top:2px;">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -180,16 +185,16 @@
                 {{v}}
               </div>
               <div v-for="(item,index) in odds.single_ball_1_5['ball_'+(k+1)+'_digit']" class="long-bet-content">
-                <span class="hao0 ml10 mt5 w50" :class="'hhao'+index" style="color: white">{{index}}</span>
-                <span class=" color-red f700 w50" style="text-indent:5px;margin-top:5px;margin-left:5px;">{{item}}</span>
-                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')" style="margin-top:10px;width:65px;height:17px;margin-left:5px;">
+                <span class="hao0 ml10 mt5" :class="'hhao'+index" style="color: white">{{index}}</span>
+                <span class="he22 color-red f700" style="text-indent:5px;margin-top:5px;margin-left:5px;">{{item}}</span>
+                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')" style="margin-top:5px;width:45px;height:17px;margin-left:5px;">
                 <div class="clear"></div>
               </div>
 
               <div class="clear"></div>
             </div>
             <!--大小单双-->
-            <div   class="long-bet" style="height:55px;">
+            <div   class="long-bet" style="height:auto;">
               <div class="first-ball-top">
                 {{v}}
               </div>
@@ -216,11 +221,11 @@
             </div>
 
 
-            <div v-for="(item,index) in odds.ball_3" :class="index=='front3'?'first-ball mt0':'first-ball'" style="width: 31%;margin-left:16px;" >
+            <div v-for="(item,index) in odds.ball_3" :class="index=='front3'?'first-ball mt0':'first-ball'" style="width:29%;">
               <div v-for="(i,idx) in item" class="first-ball-details">
-                <span class="ml10">{{odds.ball_3_str[idx]}}</span>
+                <span>{{odds.ball_3_str[idx]}}</span>
                 <span class="he22 color-red f700" style="width: 100px;">{{i}}</span>
-                <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')" style="width: 60px;">
+                <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top" v-if="index=='front3'">
@@ -255,7 +260,6 @@
             <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
             <a  class="pull-right chongtian" @click="clear_bet" >重填</a>
             <a  class="pull-right tijiao" @click="comfire_content" >提交</a>
-            <a  v-if="open_state" :plain="true" class="pull-right tijiao" style="cursor: not-allowed">已封盘</a>
             <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
           </div>
           <div class="clear"></div>
@@ -307,7 +311,7 @@
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
           mins:'00',
           seconds:'00',
-          history_tables: [0, 0, 0],
+          history_tables: [0, 1, 0],
           history_flag: 0,
           history_str: "收起",
           lastOpenCode: [1, 1, 1, 1, 1],          //最后一期开奖号码
@@ -319,8 +323,7 @@
           open_time:60,//开奖时间
           data:[],
           //下注金额的集合
-          bet_content:
-          {
+          bet_content:{
             ball_1_half:['','','',''],
             ball_2_half:['','','',''],
             ball_3_half:['','','',''],
@@ -378,8 +381,7 @@
           //纯赔率列表
           all_odds:
           [],
-          dicrationaries:
-            [
+          dicrationaries:[
             'ball_1_half__K','ball_1_half__L','ball_1_half__M','ball_1_half__N',
             'dragon_and_tiger__A','dragon_and_tiger__B','dragon_and_tiger__C','dragon_and_tiger__D','dragon_and_tiger__E','dragon_and_tiger__F','dragon_and_tiger__G',
             'ball_2_half__K','ball_2_half__L','ball_2_half__M','ball_2_half__N',
@@ -395,8 +397,7 @@
             'medium_3__A','medium_3__B','medium_3__C','medium_3__D','medium_3__E',
             'end_3__A','end_3__B','end_3__C','end_3__D','end_3__E',
           ],
-          dicrationaries_2:
-          [
+          dicrationaries_2:[
             '第一球大','第一球小','第一球单','第一球双',
             '总和-单','总和-双','总和-大','总和-小','总和-龙','总和-虎','总和-和',
             '第二球大','第二球小','第二球单','第二球双',
@@ -460,7 +461,7 @@
              end_3:{},
            },
 
-           open_state:false,//是否开盘,true是开盘,false是封盘了
+           open_state:false,//是否开盘;
 
       };
       return my_data;
@@ -626,17 +627,8 @@
         showTables: function (idx)
         {
 
-         if(idx == 1)
-         {
-           this.history_tables[1] = !this.history_tables[1];
-           this.history_tables[2] = 0;
-         }
-          if(idx == 2)
-          {
-            this.history_tables[2] = !this.history_tables[2];
-            this.history_tables[1] = 0;
-          }
-
+          this.history_tables = [0, 0, 0, 0, 0, 0, 0];
+          this.history_tables[idx] = 1;
         },
         //长龙出的数据
           get_londDragon_data()
@@ -657,6 +649,7 @@
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
           $(".history-close").slideUp();
           $(".history-list").slideUp();
+          $(".history-table").slideUp();
           this.history_str = "展开";
         },
         /**
@@ -664,8 +657,7 @@
          */
         showHistory: function ()
         {
-          if (this.history_str == "展开")
-          {
+          if (this.history_str == "展开") {
             $(".history-close").slideDown();
             $(".history-list").eq(this.history_flag).slideDown();
             $(".history-table").slideDown();
@@ -674,7 +666,7 @@
             this.history_str = "收起";
           }
           else
-          {
+            {
             this.close_history();
           }
         },

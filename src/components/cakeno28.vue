@@ -30,16 +30,20 @@
           </div>
         </div>
         <!-- 右边的历史记录 -->
-        <div id="history" style="margin-left:60px;margin-top:40px;">
-          <div class="history-header" @click="showHistory">
-            历史记录 <span class="pull-right pointer">{{history_str}}</span>
-          </div>
+        <div id="history">
+          <!--<div class="history-header" @click="showHistory">-->
+            <!--历史记录 <span class="pull-right pointer">{{history_str}}</span>-->
+          <!--</div>-->
           <div class="history-table">
             <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-            <a @click="showType(2)" :class="history_tables[2]?'active':''">历史开奖</a>
+            <a @click="showType(2)" :class="history_tables[2]?'active':''">今日开奖</a>
           </div>
-          <div class="history-list" v-show="history_tables[1]">
-            <p v-for="(v,k) in long_dragon" class="text-left"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
+          <div class="history-list" v-show="history_tables[1]" style="width:280px;">
+            <p v-for="(v,k) in long_dragon" class="text-left">
+              <span>{{v.name}}</span>
+              <span class="pull-right mr10">{{v.num}}期</span>
+            </p>
+            <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
           </div>
 
           <div class="history-list" v-show="history_tables[2]">
@@ -53,12 +57,14 @@
               <span class="code-fh">=</span>
               <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
             </div>
+            <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
           </div>
-          <div class="history-close ">
-            <a @click="close_history()" class="pointer">
-              关闭
-            </a>
-          </div>
+
+          <!--<div class="history-close ">-->
+            <!--<a @click="close_history()" class="pointer">-->
+              <!--关闭-->
+            <!--</a>-->
+          <!--</div>-->
         </div>
         <div class="clear"></div>
       </div>
@@ -68,7 +74,7 @@
 
     <!-- 下注内容区 -->
     <div id="bet-content">
-      <form action="" style="width: 1050px;">
+      <form action="" >
         <div class="pan">
           <label style="color: #fff;">盘口</label>
           <select v-model="which_handicap">
@@ -82,30 +88,30 @@
           </a>
         </div>
 
-        <div class="bet-content-input">
-          <!--<div class="pan">-->
-            <!--<label>盘口</label>-->
-            <!--<select v-model="which_handicap">-->
-              <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-            <!--</select>-->
+        <!--<div class="bet-content-input">-->
+          <!--&lt;!&ndash;<div class="pan">&ndash;&gt;-->
+            <!--&lt;!&ndash;<label>盘口</label>&ndash;&gt;-->
+            <!--&lt;!&ndash;<select v-model="which_handicap">&ndash;&gt;-->
+              <!--&lt;!&ndash;<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>&ndash;&gt;-->
+            <!--&lt;!&ndash;</select>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<div class="fast-bet">-->
+            <!--快速下注金额-->
+            <!--<input type="text" class="fast-bet-input" v-model="fast_money">-->
           <!--</div>-->
-          <div class="fast-bet">
-            快速下注金额
-            <input type="text" class="fast-bet-input" v-model="fast_money">
-          </div>
-          <div class="bet-btns">
-            <a @click="setBetMoney(10)">10</a>
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
-            <a @click="clear_bet()" class="pull-right chongtian">重填</a>
-            <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-            <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
-          </div>
-          <div class="clear"></div>
-        </div>
+          <!--&lt;!&ndash;<div class="bet-btns">&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="setBetMoney(10)">10</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="setBetMoney(50)">50</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="setBetMoney(100)">100</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="setBetMoney(200)">200</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="setBetMoney(500)">500</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="setBetMoney(1000)">1000</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="clear_bet()" class="pull-right chongtian">重填</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a @click="comfire_bet" class="pull-right tijiao">提交</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<div class="clear"></div>-->
+        <!--</div>-->
 
 
         <!-- 第一球 -->
@@ -234,7 +240,7 @@
           centerDialogVisible:false,
           bet_html:'',
           showArray_cqssc: [1],
-          history_tables: [0, 1, 0],
+          history_tables: [0, 0, 0],
           history_flag: 0,
           history_str: "收起",
           last_expect:111111,
@@ -317,8 +323,18 @@
       {
         showType: function (idx)
         {
-          this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-          this.history_tables[idx] = 1;
+          // this.history_tables = [0, 0, 0, 0, 0, 0, 0];
+          // this.history_tables[idx] = 1;
+            if(idx == 1)
+            {
+                this.history_tables[1] = !this.history_tables[1];
+                this.history_tables[2] = 0;
+            }
+            if(idx == 2)
+            {
+                this.history_tables[2] = !this.history_tables[2];
+                this.history_tables[1] = 0;
+            }
         },
         close_history: function ()
         {

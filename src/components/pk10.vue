@@ -25,21 +25,26 @@
               </div>
           </div>
         <!-- 右边的历史记录 -->
-        <div id="history" style="margin-left: 15px;margin-top:35px;">
-          <div class="history-header" @click="showHistory">
-            历史记录 <span class="pull-right pointer">{{history_str}}</span>
-          </div>
+        <div id="history" >
+          <!--<div class="history-header" @click="showHistory">-->
+            <!--历史记录 <span class="pull-right pointer">{{history_str}}</span>-->
+          <!--</div>-->
           <div class="history-table">
             <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
             <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-            <a @click="showTables(2)" :class="history_tables[2]?'active':''">历史开奖</a>
+            <a @click="showTables(2)" :class="history_tables[2]?'active':''">今日开奖</a>
           </div>
 
 
 
-          <div class="history-list" v-show="history_tables[1]">
+          <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
             <!--长龙出-->
-            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
+            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black">
+              <span>{{v.name}}</span>
+              <span class="pull-right mr10">{{v.num}}期</span>
+            </p>
+            <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
+
           </div>
 
           <div class="history-list" v-show="history_tables[2]">
@@ -47,13 +52,14 @@
               <p class="text-left">{{v.expect}}</p>
               <span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>
             </div>
+            <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
           </div>
 
-          <div class="history-close ">
-            <a @click="close_history()" class="pointer">
-              关闭
-            </a>
-          </div>
+          <!--<div class="history-close ">-->
+            <!--<a @click="close_history()" class="pointer">-->
+              <!--关闭-->
+            <!--</a>-->
+          <!--</div>-->
         </div>
         <div class="clear"></div>
       </div>
@@ -67,7 +73,7 @@
 
     <!-- 下注内容区 -->
     <div id="bet-content">
-      <form action="" style="width: 1050px;">
+      <form action="">
         <div class="bet-content-table">
           <div class="pan">
             <label style="color: #fff;">盘口</label>
@@ -126,8 +132,8 @@
             <div v-for="(v,k,index) in odds.double_aspect"  :class="(index==0 || index==5)?'first-ball mt0':'first-ball'">
                 <div v-for="(val,key,idx) in double_aspect_a" v-if="parseIn(v[val])" class="first-ball-details text-0">
                    <span class="he22 ">{{double_aspect_c[key]}}</span>
-                  <span class="he22 color-red f700" style="margin-left:3px;">{{v[val]}}</span>
-                  <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)" @change="bet_db_change(index,key)" style="margin-top:5px;width:43px;height:17px;margin-left:14px;">
+                  <span class="he22 color-red f700" style="margin-left:15px;">{{v[val]}}</span>
+                  <input type="text" class="innnn" v-model="bets.double_aspect['ball_'+ (index+1) +'_half'][key]" @click="bet_db(index,key)" @change="bet_db_change(index,key)" style="margin-top:5px;width:50px;height:17px;margin-left:20px;">
                   <div class="clear"></div>
                 </div>
                 <div class="first-ball-top">
@@ -162,7 +168,7 @@
                 <input type="text" class="innnn" v-model="bets.single_ball['ball_'+ (index+1) +'_digit'][key]"
                        @click="single_ball_1_10(k,key)"
                        @change="single_ball_1_10_change(k,key)"
-                       style="margin-top:5px;width:43px;height:17px;margin-left:14px;">
+                       style="margin-top:5px;width:50px;height:17px;margin-left:15px;">
                 <div class="clear"></div>
               </div>
               <div class="first-ball-top">
@@ -409,7 +415,7 @@
           centerDialogVisible:false,
           bet_html:'',
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
-          history_tables: [0, 1, 0],
+          history_tables: [0, 0, 0],
           history_flag: 0,
           history_str: "收起",
           mins: '00',        //倒计时 分钟
@@ -660,8 +666,18 @@
       },
       showTables: function (idx)
       {
-        this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-        this.history_tables[idx] = 1;
+        // this.history_tables = [0, 0, 0, 0, 0, 0, 0];
+        // this.history_tables[idx] = 1;
+          if(idx == 1)
+          {
+              this.history_tables[1] = !this.history_tables[1];
+              this.history_tables[2] = 0;
+          }
+          if(idx == 2)
+          {
+              this.history_tables[2] = !this.history_tables[2];
+              this.history_tables[1] = 0;
+          }
       },
         //长龙出的数据
         get_londDragon_data()

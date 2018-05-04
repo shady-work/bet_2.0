@@ -3,7 +3,8 @@
   <div id="header">
     <!-- 上面的选择 -->
     <div class="a-waps">
-      <img src="" alt="" id="logo">
+      <div id="logo"><img src="" alt="" ></div>
+      <div id="list">
       <a href="/#/home" class="nav-top">
         <i class="fa  fa-th-list"></i>
         <p>开奖中心</p>
@@ -71,7 +72,7 @@
         <i class="fa fa-sign-out"></i>
           <p>安全退出</p>
       </a>
-
+      </div>
 
     </div>
 
