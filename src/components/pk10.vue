@@ -67,7 +67,7 @@
 
     <!-- 下注内容区 -->
     <div id="bet-content">
-      <form action="">
+      <form action="" style="width: 1050px;">
         <div class="bet-content-table">
           <div class="pan">
             <label style="color: #fff;">盘口</label>

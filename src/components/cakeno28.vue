@@ -68,7 +68,7 @@
 
     <!-- 下注内容区 -->
     <div id="bet-content">
-      <form action="">
+      <form action="" style="width: 1050px;">
         <div class="pan">
           <label style="color: #fff;">盘口</label>
           <select v-model="which_handicap">

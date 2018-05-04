@@ -60,8 +60,8 @@
 
     <!-- 下注内容区 -->
     <div id="bet-content">
-      <form action="">
-        <div class="bet-content-table">
+      <form action="" style="width:1080px;">
+        <div class="bet-content-table" >
           <div class="pan">
             <label style="color:#fff;">盘口</label>
             <select v-model="which_handicap">
