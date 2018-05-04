@@ -222,8 +222,9 @@
 .bet-btns {
   float: left;
   height: 40px;
-  overflow: hidden;
   width: 915px;
+  position:relative;
+
 }
 
 .bet-btns > a {
@@ -369,15 +370,15 @@
 }
 
 .history-list {
-  width: 500px;
-  border-left: 1px solid rgba(200, 200, 200, 0.5);
+  width: 700px;
   box-sizing: border-box;
   background: #fff;
   position: absolute;
   right:0;
   top:21px ;
   z-index: 5;
-    padding-bottom: 15px;
+  padding-bottom: 10px;
+  border: 2px solid #d6d6d6;
 
 }
 
@@ -401,7 +402,16 @@
   box-sizing: border-box;
   overflow: hidden;
 }
-
+.history-tables-ssc
+{
+    width: 100%;
+    font-size: 12px;
+}
+.history-tables-ssc td
+{
+    padding: 3px;
+    border: 1px solid #e5e5e5;
+}
 .history-close > a {
   display: block;
   height: 30px;
@@ -475,7 +485,7 @@
   margin-left: 10px;
 }
 
-.history-balls > .code-ball
+.code-ball
 {
   height: 21px;
   width: 21px;
@@ -489,6 +499,7 @@
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
+    float: left;
 }
 
 .history-balls > .code-fh {

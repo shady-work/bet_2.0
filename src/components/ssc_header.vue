@@ -175,9 +175,7 @@ export default {
             this.details = data.details;
             this.money = data.unclear_money;
             // console.log(res.data);
-            
             this.lastOpenCode = data.opencode;
-
             this.lastExpect = `${data.expect}`;
           });
         },

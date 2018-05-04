@@ -5,26 +5,26 @@
         <div class="lottery-list">
             <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'" v-show="isShow('cqssc')">
                 <img src="../assets/img/icon_ssc.png" alt="">
-                <p class="color-white">重庆时时彩</p>
-                <p class="color-white">开盘中，未结：80</p>
+                <p class="color-white" style="font-size: 14px;">重庆时时彩</p>
+                <p class="color-white">{{ssc.tips}}</p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(1)" :class="navArray[1]?'lottery active':'lottery'" v-show="isShow('bjpk10')">
                 <img src="../assets/img/icon_bjpk.png" alt="">
                 <p class="color-white">北京赛车</p>
-                <p class="color-white">开盘中，未结：80</p>
+                <p class="color-white">{{pk10.tips}}</p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(2)" :class="navArray[2]?'lottery active':'lottery'" v-show="isShow('cakeno')">
                 <img src="../assets/img/icon_jnd28.png" alt="">
                 <p class="color-white">加拿大28</p>
-                <p class="color-white">开盘中，未结：80</p>
+                <p class="color-white">{{cake.tips}}</p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(3)" :class="navArray[3]?'lottery active':'lottery'" v-show="isShow('pcegg')">
                 <img src="../assets/img/icon_lhc.png" alt="">
                 <p class="color-white">PC蛋蛋&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                <p class="color-white">开盘中，未结：80</p>
+                <p class="color-white">{{egg.tips}}</p>
                 <div class="clear"></div>
             </a>
 
@@ -64,33 +64,54 @@
     {
       let data =
         {
-          recent:
-            {
-              str:"-",
-              flag:true,
-            },
-          website:
-            {
-              str:"+",
-              flag:false,
-            },
           navArray:[1,0,0,0,0,0],
           unclear:[],//未结算的清单
           vaild_lotteries:[],//  用户拥有哪些彩种
+          ssc:
+          {
+            end_time :'',
+            open_time:'', //时时彩的开盘时间
+            expect:'',
+            tips:'加载中',  //提示语
+            unclearMoney:'',//ssc的未结算金额
+            timeId2:'',//ssc的倒计时
+          },
+          pk10:
+            {
+              end_time :'',
+              open_time:'', //时时彩的开盘时间
+              expect:'',
+              tips:'加载中',  //提示语
+              unclearMoney:'',//ssc的未结算金额
+              timeId2:'',//ssc的倒计时
+            },
+          cake:
+            {
+              end_time :'',
+              open_time:'', //时时彩的开盘时间
+              expect:'',
+              tips:'加载中',  //提示语
+              unclearMoney:'',//ssc的未结算金额
+              timeId2:'',//ssc的倒计时
+            },egg:
+            {
+              end_time :'',
+              open_time:'', //时时彩的开盘时间
+              expect:'',
+              tips:'加载中',  //提示语
+              unclearMoney:'',//ssc的未结算金额
+              timeId2:'',//ssc的倒计时
+            }
         };
       return data;
     },
-    components:
+      components:
       {
         'user':User,
       },
-    methods:
+      methods:
       {
-        toggleDiv:function(arg)
-        {
-          arg.str  = arg.str=="+"?"-":"+";
-          arg.flag = !arg.flag;
-        },
+
         turn:function(idx)
         {
           this.navArray =  [0,0,0,0,0,0];
@@ -131,6 +152,7 @@
               break;
           }
         },
+        //是否显示彩种
         isShow:function(str)
         {
           let numb = this.vaild_lotteries.indexOf(str);
@@ -143,6 +165,210 @@
             return true;
           }
         },
+        /**
+         * 获取重庆时时彩的时间和期数
+         */
+        get_time_ssc:function ()
+        {
+          this.$http.get(`${this.global.config.API}ssc/time`).then(function(res){
+            let data = res.data;
+            this.ssc.end_time = data.endtime;//这期的封盘时间
+            this.ssc.open_time = data.opentime;//下期的开盘时间
+            this.ssc.expect = data.expect;
+            this.count_down_ssc();
+          });
+        },
+        /**@augments 倒计时 */
+        count_down_ssc:function ()
+        {
+          let that  = this;
+          //封盘倒计时
+          this.ssc.timeId2 = setInterval(function(){
+            if(that.ssc.end_time <= 0)
+            {
+              that.ssc.tips = "已停止下注,正在开奖";
+              if(that.ssc.open_time <= 0 )
+              {
+                if(that.ssc.open_time < -100)
+                {
+                  that.ssc.tips = '请等待开盘';
+                }
+                if(that.ssc.open_time == 0)
+                {
+                  //清除定时器
+                  clearInterval(that.ssc.timeId2);
+                  //重新获取时间
+                  that.get_time_ssc();
+                  that.ssc.tips = "开盘中";
+                }
+                else
+                {
+                  that.ssc.open_time++;
+                }
+                return;
+              }
+            }
+            else
+            {
+              that.ssc.tips ="第" + that.ssc.expect + "期";
+            }
+            that.ssc.end_time--;
+            that.ssc.open_time--;
+          },1000);
+        },
+
+
+        get_time_pk10:function ()
+        {
+          this.$http.get(`${this.global.config.API}pk10/time`).then(function(res){
+            let data = res.data;
+            this.pk10.end_time = data.endtime;//这期的封盘时间
+            this.pk10.open_time = data.opentime;//下期的开盘时间
+            this.pk10.expect = data.expect;
+            this.count_down_pk10();
+          });
+        },
+        /**@augments 倒计时 */
+        count_down_pk10:function ()
+        {
+          let that  = this;
+          //封盘倒计时
+          this.pk10.timeId2 = setInterval(function(){
+            if(that.pk10.end_time <= 0)
+            {
+              that.pk10.tips = "已停止下注,正在开奖";
+              if(that.pk10.open_time <= 0 )
+              {
+                if(that.pk10.open_time < -100)
+                {
+                  that.pk10.tips = '请等待开盘';
+                }
+                if(that.pk10.open_time == 0)
+                {
+                  //清除定时器
+                  clearInterval(that.pk10.timeId2);
+                  //重新获取时间
+                  that.get_time_pk10();
+                  that.pk10.tips = "开盘中";
+                }
+                else
+                {
+                  that.pk10.open_time++;
+                }
+                return;
+              }
+            }
+            else
+            {
+              that.pk10.tips ="第" + that.pk10.expect + "期";
+            }
+            that.pk10.end_time--;
+            that.pk10.open_time--;
+          },1000);
+        },
+
+
+        get_time_cake:function ()
+        {
+          this.$http.get(`${this.global.config.API}cake/time`).then(function(res){
+            let data = res.data;
+            this.cake.end_time = data.endtime;//这期的封盘时间
+            this.cake.open_time = data.opentime;//下期的开盘时间
+            this.cake.expect = data.expect;
+            this.count_down_cake();
+          });
+        },
+        /**@augments 倒计时 */
+        count_down_cake:function ()
+        {
+          let that  = this;
+          //封盘倒计时
+          this.cake.timeId2 = setInterval(function(){
+            if(that.cake.end_time <= 0)
+            {
+              that.cake.tips = "已停止下注,正在开奖";
+              if(that.cake.open_time <= 0 )
+              {
+                if(that.cake.open_time < -100)
+                {
+                  that.cake.tips = '请等待开盘';
+                }
+                if(that.cake.open_time == 0)
+                {
+                  //清除定时器
+                  clearInterval(that.cake.timeId2);
+                  //重新获取时间
+                  that.get_time_cake();
+                  that.cake.tips = "开盘中";
+                }
+                else
+                {
+                  that.cake.open_time++;
+                }
+                return;
+              }
+            }
+            else
+            {
+              that.cake.tips ="第" + that.cake.expect + "期";
+            }
+            that.cake.end_time--;
+            that.cake.open_time--;
+          },1000);
+        },
+
+
+        get_time_egg:function ()
+        {
+          this.$http.get(`${this.global.config.API}egg/time`).then(function(res){
+            let data = res.data;
+            this.egg.end_time = data.endtime;//这期的封盘时间
+            this.egg.open_time = data.opentime;//下期的开盘时间
+            this.egg.expect = data.expect;
+            this.count_down_egg();
+          });
+        },
+        /**@augments 倒计时 */
+        count_down_egg:function ()
+        {
+          let that  = this;
+          //封盘倒计时
+          this.egg.timeId2 = setInterval(function(){
+            if(that.egg.end_time <= 0)
+            {
+              that.egg.tips = "已停止下注,正在开奖";
+              if(that.egg.open_time <= 0 )
+              {
+                if(that.egg.open_time < -100)
+                {
+                  that.egg.tips = '请等待开盘';
+                }
+                if(that.egg.open_time == 0)
+                {
+                  //清除定时器
+                  clearInterval(that.egg.timeId2);
+                  //重新获取时间
+                  that.get_time_egg();
+                  that.egg.tips = "开盘中";
+                }
+                else
+                {
+                  that.egg.open_time++;
+                }
+                return;
+              }
+            }
+            else
+            {
+              that.egg.tips ="第" + that.egg.expect + "期";
+            }
+            that.egg.end_time--;
+            that.egg.open_time--;
+          },1000);
+        },
+
+
+
 
       },
     created:function ()
@@ -153,8 +379,6 @@
       {
         //默认是index ==>cqssc的彩种、
         window.sessionStorage.which_lty = 'cqssc';
-
-
 
         if(window.sessionStorage.index)
         {
@@ -168,6 +392,23 @@
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
         });
         //window.sessionStorage.index
+
+
+        //各个彩种的倒计时
+        clearInterval(this.ssc.timeId2);
+        this.get_time_ssc();
+
+        //各个彩种的倒计时
+        clearInterval(this.pk10.timeId2);
+        this.get_time_pk10();
+
+        //各个彩种的倒计时
+        clearInterval(this.cake.timeId2);
+        this.get_time_cake();
+
+        //各个彩种的倒计时
+        clearInterval(this.egg.timeId2);
+        this.get_time_egg();
       }
 
     }
@@ -216,12 +457,10 @@
     }
     .lottery>p
     {
-        /*float: left;*/
-        height: 25px;
-        line-height: 27px;
-        /*margin-left: 15px;*/
+        height: 20px;
+        line-height: 36px;
         text-align: left;
-        text-indent:10px;
+        text-indent:14px;
         font-size: 12px;
 
     }

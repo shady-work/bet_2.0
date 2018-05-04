@@ -1,295 +1,330 @@
 <template>
-  <div id="cqssc">
-    <!-- 期数 时间 开奖号码 -->
-    <div class="head">
-      <div class="details">
-        <img src="../assets/img/icon_ssc.png" class="logo-tubiao" alt="">
-        <div class="left">
-          <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期</p>
-            <div class="balls">
-                <span v-for="v in lastOpenCode" :class="'hhao'+v">{{v}}</span>
+    <div id="cqssc">
+        <!-- 期数 时间 开奖号码 -->
+        <div class="head">
+            <div class="details">
+                <img src="../assets/img/icon_ssc.png" class="logo-tubiao" alt="">
+                <div class="left">
+                    <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期</p>
+                    <div class="balls">
+                        <span v-for="v in lastOpenCode" :class="'hhao'+v">{{v}}</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="right-left">
+                        <p style="color:#209F16;">第{{thisExpect}}期</p>
+                        <p>{{tips}}</p>
+                    </div>
+                    <div class="right-right">
+                        <span class="fen">{{mins}}</span>
+                        <span>分</span>
+                        <span class="fen">{{seconds}}</span>
+                        <span >秒</span>
+                    </div>
+                </div>
+                <!-- 右边的历史记录 -->
+                <div id="history">
+                    <div class="history-table">
+                        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
+                        <a @click="showTables(2)" :class="history_tables[2]?'active':''"  style="margin-right:15px;">今日开奖</a>
+                    </div>
+
+                    <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
+                        <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;">
+                            <span>{{v.name}}</span>
+                            <span class="pull-right mr10">{{v.num}}期</span>
+                        </p>
+                        <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
+                    </div>
+
+                    <div class="history-list" v-show="history_tables[2]">
+                        <table class="history-tables-ssc">
+                            <tr>
+                                <td >期号/时间</td>
+                                <td width="160"><p>开奖号码</p></td>
+                                <td colspan="3">总和</td>
+                                <td>龙虎</td>
+                                <td>前三</td>
+                                <td>中三</td>
+                                <td>后三</td>
+                            </tr>
+                            <tr v-for="(val,key) in history_list">
+                                <td>{{val.expect}}{{val.opentime|get_time2}}</td>
+                                <td>
+                                    <!--<span v-for="(va,k) val.open_codes" class="code-ball" :class="'hhao' + va">{{va}}</span>-->
+                                    <span v-for="v in val.open_codes" class="code-ball" :class="'hhao' + v">{{v}}</span>
+                                </td>
+                                <td>{{get_sum(val.open_codes)}}</td>
+                                <td v-if="val.details.dragon_and_tiger[1] == '总和单'" style="color:red;">{{val.details.dragon_and_tiger[1]|delete_str}}</td>
+                                <td v-else >{{val.details.dragon_and_tiger[1]|delete_str}}</td>
+                                <td v-if="val.details.dragon_and_tiger[0] == '总和大'"  style="color: red;">{{val.details.dragon_and_tiger[0]|delete_str}}</td>
+                                <td v-else  >{{val.details.dragon_and_tiger[0]|delete_str}}</td>
+                                <td :class="val.details.dragon_and_tiger[2] == '龙'?'color-red':''">{{val.details.dragon_and_tiger[2]}}</td>
+                                <td>{{val.details.front_3[0]}}</td>
+                                <td>{{val.details.medium_3[0]}}</td>
+                                <td>{{val.details.end_3[0]}}</td>
+                            </tr>
+                        </table>
+                        <!--<div v-for="(v,k) in history_expects" class="history-balls">
+                          <span>{{v}}</span>
+                          <span v-for="(val,key) in history_codes[k]" class="code-ball" :class="'hhao' + val">{{val}}</span>
+                        </div>-->
+                        <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
+                    </div>
+
+                </div >
                 <div class="clear"></div>
-            </div>
-        </div>
-        <div class="right">
-            <div class="right-left">
-                <p style="color:#209F16;">第{{thisExpect}}期</p>
-                <p>{{tips}}</p>
-            </div>
-            <div class="right-right">
-                <span class="fen">{{mins}}</span>
-                <span>分</span>
-                <span class="fen">{{seconds}}</span>
-                <span >秒</span>
-            </div>
-        </div>
-        <!-- 右边的历史记录 -->
-        <div id="history" style="margin-left: 15px;margin-top:35px;">
-          <div class="history-header" @click="showHistory">
-            历史记录 <span class="pull-right pointer" >{{history_str}}</span>
-          </div>
-          <div class="history-table">
-            <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
-            <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-            <a @click="showTables(2)" :class="history_tables[2]?'active':''" >历史开奖</a>
-          </div>
-
-
-
-          <div class="history-list" v-show="history_tables[1]">
-            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;"><span>{{v.name}}</span>  <span class="pull-right mr10">{{v.num}}期</span></p>
-          </div>
-
-          <div class="history-list" v-show="history_tables[2]">
-            <div v-for="(v,k) in history_expects" class="history-balls">
-              <span>{{v}}</span>
-              <span v-for="(val,key) in history_codes[k]" class="code-ball" :class="'hhao' + val">{{val}}</span>
-            </div>
-          </div>
-          <div class="history-close ">
-            <a @click="close_history()" class="pointer">
-              关闭
-            </a>
-          </div>
-        </div >
-        <div class="clear"></div>
-      </div>
-
-      <div class="clear"></div>
-    </div>
-
-    <!-- 下注内容区 -->
-    <div id="bet-content">
-      <form action="" style="width:1080px;">
-        <div class="bet-content-table" >
-          <div class="pan">
-            <label style="color:#fff;">盘口</label>
-            <select v-model="which_handicap">
-              <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>
-            </select>
-          </div>
-          <a :class="showArray_cqssc[0]?'color-white active':'color-white'" @click="showType(0)">
-            两面盘
-            <span></span>
-          </a>
-          <a :class="showArray_cqssc[1]?'color-white active':'color-white'" @click="showType(1)">
-            单球1-5
-            <span></span>
-          </a>
-          <a :class="showArray_cqssc[2]?'color-white active':'color-white'" @click="showType(2)">
-            第一球
-            <span></span>
-          </a>
-          <a :class="showArray_cqssc[3]?'color-white active':'color-white'" @click="showType(3)">
-            第二球
-            <span></span>
-          </a>
-          <a :class="showArray_cqssc[4]?'color-white active':'color-white'" @click="showType(4)">
-            第三球
-            <span></span>
-          </a>
-          <a :class="showArray_cqssc[5]?'color-white active':'color-white'" @click="showType(5)">
-            第四球
-            <span></span>
-          </a>
-          <a :class="showArray_cqssc[6]?'color-white active':'color-white'" @click="showType(6)">
-            第五球
-            <span></span>
-          </a>
-        </div>
-
-        <!--选择下注内容-->
-        <div class="bet-content-input">
-          <!--<div class="pan">-->
-            <!--<label>盘口</label>-->
-            <!--<select v-model="which_handicap">-->
-              <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-            <!--</select>-->
-          <!--</div>-->
-          <div class="fast-bet">
-            快速下注金额
-            <input type="text" class="fast-bet-input" v-model="fast_money">
-          </div>
-          <div class="bet-btns">
-            <a @click="setBetMoney(10)">10</a>
-            <a @click="setBetMoney(50)">50</a>
-            <a @click="setBetMoney(100)">100</a>
-            <a @click="setBetMoney(200)">200</a>
-            <a @click="setBetMoney(500)">500</a>
-            <a @click="setBetMoney(1000)">1000</a>
-            <a  class="pull-right chongtian" @click="clear_bet">重填</a>
-            <a @click="comfire_content" :plain="true" class="pull-right tijiao">提交</a>
-
-          </div>
-          <div class="clear"></div>
-        </div>
-
-        <!-- 两面 -->
-        <div class="bet-chooses" v-show="showArray_cqssc[0]">
-          <div class="bet-chooses-top">
-            <div v-for="(v,k,index) in  odds.double_aspect"  :class="index==0?'first-ball mt0':'first-ball'">
-              <div v-for="(val,key,ind) in v" class="first-ball-details text-0">
-                <span class="he22 padding3">{{odds.ball_5_half_str[key]}}</span>
-                <span class="he22 padding3 color-red f700" >{{val}}</span>
-                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1_change(k,key)" style="padding:1px;">
-                <div class="clear"></div>
-              </div>
-              <div class="first-ball-top">
-                {{odds.single_ball_1_5_str[index]}}
-              </div>
-            </div>
-            <div class="clear"></div>
-
-            <div class="long-bet">
-              <div class="first-ball-top">
-                总和、龙虎
-              </div>
-
-              <div v-for="(v,k) in odds.dragon_and_tiger" class="long-bet-content">
-                <span>{{odds.dragon_and_tiger_str[k]}}</span>
-                <span class="color-red f700">{{v}}</span>
-                <input type="text" v-model="bet_content.dragon_and_tiger[k]" @click="double_2(k)" @change="double_2_change(k)">
-                <div class="clear"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 单球1-5 -->
-        <div class="bet-chooses" v-show="showArray_cqssc[1]">
-          <div class="bet-chooses-top">
-
-            <div v-for="(v,k,index) in odds.single_ball_1_5" :class="index==0?'first-ball mt0':'first-ball'">
-              <div v-for="(val,key,idx) in v" class="first-ball-details text-9">
-                <span class="hao0 color-white" :class="'hhao'+key">{{key}}</span>
-                <span class="he22 color-red f700" style="text-indent:5px;">{{val}}</span>
-                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)" style="margin-left:5px;margin-top:2px;">
-                <div class="clear"></div>
-              </div>
-              <div class="first-ball-top">
-                 {{odds.single_ball_1_5_str[index]}}
-              </div>
             </div>
 
             <div class="clear"></div>
-          </div>
+        </div>
+
+        <!-- 下注内容区 -->
+        <div id="bet-content">
+            <form action="" >
+                <div class="bet-content-table" >
+                    <div class="pan">
+                        <label style="color:#fff;">盘口</label>
+                        <select v-model="which_handicap">
+                            <option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>
+                        </select>
+                    </div>
+                    <a :class="showArray_cqssc[0]?'color-white active':'color-white'" @click="showType(0)">
+                        两面盘
+                        <span></span>
+                    </a>
+                    <a :class="showArray_cqssc[1]?'color-white active':'color-white'" @click="showType(1)">
+                        单球1-5
+                        <span></span>
+                    </a>
+                    <a :class="showArray_cqssc[2]?'color-white active':'color-white'" @click="showType(2)">
+                        第一球
+                        <span></span>
+                    </a>
+                    <a :class="showArray_cqssc[3]?'color-white active':'color-white'" @click="showType(3)">
+                        第二球
+                        <span></span>
+                    </a>
+                    <a :class="showArray_cqssc[4]?'color-white active':'color-white'" @click="showType(4)">
+                        第三球
+                        <span></span>
+                    </a>
+                    <a :class="showArray_cqssc[5]?'color-white active':'color-white'" @click="showType(5)">
+                        第四球
+                        <span></span>
+                    </a>
+                    <a :class="showArray_cqssc[6]?'color-white active':'color-white'" @click="showType(6)">
+                        第五球
+                        <span></span>
+                    </a>
+                </div>
+
+                <!--选择下注内容-->
+                <div class="bet-content-input">
+                    <!--<div class="pan">-->
+                    <!--<label>盘口</label>-->
+                    <!--<select v-model="which_handicap">-->
+                    <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <div class="fast-bet">
+                        快速下注金额
+                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                    </div>
+                    <div class="bet-btns">
+                        <a @click="setBetMoney(10)">10</a>
+                        <a @click="setBetMoney(50)">50</a>
+                        <a @click="setBetMoney(100)">100</a>
+                        <a @click="setBetMoney(200)">200</a>
+                        <a @click="setBetMoney(500)">500</a>
+                        <a @click="setBetMoney(1000)">1000</a>
+                        <a  class="pull-right chongtian" @click="clear_bet">重填</a>
+                        <a  v-if="open_state"  @click="comfire_content" :plain="true" class="pull-right tijiao" >提交</a>
+                        <a  v-if="!open_state" :plain="true" class="pull-right tijiao" style="cursor: not-allowed">已封盘</a>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <!-- 两面 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[0]">
+                    <div class="bet-chooses-top">
+                        <div v-for="(v,k,index) in  odds.double_aspect"  :class="index==0?'first-ball mt0':'first-ball'">
+                            <div v-for="(val,key,ind) in v" class="first-ball-details text-0">
+                                <span class="he22 padding3 w50">{{odds.ball_5_half_str[key]}}</span>
+                                <span class="he22 padding3 color-red f700 w50" >{{val}}</span>
+                                <input type="text" class="innnn padding3" v-model="bet_content['ball_'+ (index+1) +'_half'][key]" @click="double_1(k,key)"  @change="double_1_change(k,key)" style="padding:1px;">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="first-ball-top">
+                                {{odds.single_ball_1_5_str[index]}}
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+
+                        <div class="long-bet">
+                            <div class="first-ball-top">
+                                总和、龙虎
+                            </div>
+
+                            <div v-for="(v,k) in odds.dragon_and_tiger" class="long-bet-content">
+                                <span>{{odds.dragon_and_tiger_str[k]}}</span>
+                                <span class="color-red f700">{{v}}</span>
+                                <input type="text" v-model="bet_content.dragon_and_tiger[k]" @click="double_2(k)" @change="double_2_change(k)">
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 单球1-5 -->
+                <div class="bet-chooses" v-show="showArray_cqssc[1]">
+                    <div class="bet-chooses-top">
+
+                        <div v-for="(v,k,index) in odds.single_ball_1_5" :class="index==0?'first-ball mt0':'first-ball'">
+                            <div v-for="(val,key,idx) in v" class="first-ball-details text-9">
+                                <span class="hao0 color-white w50 ml10" :class="'hhao'+key">{{key}}</span>
+                                <span class=" color-red f700 w50 ml5" style="text-indent:5px;height: 30px;line-height: 30px;">{{val}}</span>
+                                <input type="text" class="innnn" v-model="bet_content.single_ball_1_5['ball_'+ (index+1) +'_digit'][key]"  @click="single_ball_1(index,key)"  @change="single_ball_1_change(index,key)" style="margin-left:3px;margin-top:7px;width: 50px;">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="first-ball-top">
+                                {{odds.single_ball_1_5_str[index]}}
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+
+                <!-- 第一球 -->
+                <div v-for="(v,k) in odds.single_ball_1_5_str"  class="bet-chooses" v-show="showArray_cqssc[(k+2)]">
+                    <div class="bet-chooses-top">
+                        <!--第一球特码-->
+                        <div class="long-bet" style="height:120px;">
+                            <div class="first-ball-top">
+                                {{v}}
+                            </div>
+                            <div v-for="(item,index) in odds.single_ball_1_5['ball_'+(k+1)+'_digit']" class="long-bet-content">
+                                <span class="hao0 ml10 mt5 w50" :class="'hhao'+index" style="color: white">{{index}}</span>
+                                <span class=" color-red f700 w50" style="text-indent:5px;margin-top:5px;margin-left:5px;">{{item}}</span>
+                                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')" style="margin-top:10px;width:65px;height:17px;margin-left:5px;">
+                                <div class="clear"></div>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+                        <!--大小单双-->
+                        <div   class="long-bet" style="height:55px;">
+                            <div class="first-ball-top">
+                                {{v}}
+                            </div>
+                            <div v-for="(item,index) in odds.double_aspect['ball_'+(k+1)+'_half']" class="long-bet-content">
+                                <span>{{odds.ball_5_half_str[index]}}</span>
+                                <span class="he22 color-red f700" style="margin-top:5px;margin-left:-14px;">{{item}}</span>
+                                <input type="text" v-model="bet_content['ball_'+ (k+1) +'_half'][index]" @click="ball_1_5(k,index,'lm')"  @change="ball_1_5_change(k,index,'lm')" style="margin-top:5px;width:45px;heigth:16px;margin-left:11px;">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+                        <div class="long-bet" style="height:auto;">
+                            <div class="first-ball-top">
+                                总和、龙虎
+                            </div>
+                            <div v-for="(item,index) in odds.dragon_and_tiger" class="long-bet-content">
+                                <span>{{odds.dragon_and_tiger_str[index]}}</span>
+                                <span class="he22 color-red f700" style="margin-top:5px;margin-left:-3px;">{{item}}</span>
+                                <input type="text" v-model="bet_content.dragon_and_tiger[index]" @click="ball_1_5(k,index,'he')" @change="ball_1_5_change(k,index,'he')" style="margin-top:5px;width:45px;heigth:16px;margin-left:11px;">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+
+
+                        <div v-for="(item,index) in odds.ball_3" :class="index=='front3'?'first-ball mt0':'first-ball'" style="width: 31%;margin-left:16px;" >
+                            <div v-for="(i,idx) in item" class="first-ball-details">
+                                <span class="ml10">{{odds.ball_3_str[idx]}}</span>
+                                <span class="he22 color-red f700" style="width: 100px;">{{i}}</span>
+                                <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')" style="width: 60px;">
+                                <div class="clear"></div>
+                            </div>
+                            <div class="first-ball-top" v-if="index=='front3'">
+                                前三
+                            </div>
+                            <div class="first-ball-top" v-if="index=='medium3'">
+                                中三
+                            </div>
+                            <div class="first-ball-top" v-if="index=='end3'">
+                                后三
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+
+                <!--选择下注内容-->
+                <div class="bet-content-input mt5">
+                    <!--<div class="pan">-->
+                    <!--<label>盘口</label>-->
+                    <!--<select v-model="which_handicap">-->
+                    <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <div class="fast-bet">
+                        快速下注金额
+                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                    </div>
+                    <div class="bet-btns">
+
+                        <el-button @click="setBetMoney(10)" class="btn-fast">10</el-button>
+                        <el-button @click="setBetMoney(50)" class="btn-fast">50</el-button>
+                        <el-button @click="setBetMoney(100)" class="btn-fast">100</el-button>
+                        <el-button @click="setBetMoney(200)" class="btn-fast">200</el-button>
+                        <el-button @click="setBetMoney(500)" class="btn-fast">500</el-button>
+                        <el-button @click="setBetMoney(1000)" class="btn-fast">1000</el-button>
+                        <el-popover
+                                placement="top"
+                                width="160"
+                        >
+                            <el-button slot="reference" style="height:30px;padding:5px 10px;margin-top: 5px;float:left;margin-left: 15px;">设置快速下注金额</el-button>
+                        </el-popover>
+                        <el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>
+                        <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>
+                        <el-button v-if="!open_state"  class="btn-fast pull-right" >已封盘</el-button>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+            </form>
         </div>
 
 
-        <!-- 第一球 -->
-        <div v-for="(v,k) in odds.single_ball_1_5_str"  class="bet-chooses" v-show="showArray_cqssc[(k+2)]">
-          <div class="bet-chooses-top">
-            <!--第一球特码-->
-            <div class="long-bet" style="height:120px;">
-              <div class="first-ball-top">
-                {{v}}
-              </div>
-              <div v-for="(item,index) in odds.single_ball_1_5['ball_'+(k+1)+'_digit']" class="long-bet-content">
-                <span class="hao0 ml10 mt5" :class="'hhao'+index" style="color: white">{{index}}</span>
-                <span class="he22 color-red f700" style="text-indent:5px;margin-top:5px;margin-left:5px;">{{item}}</span>
-                <input type="text" v-model="bet_content.single_ball_1_5['ball_'+ (k+1) +'_digit'][index]" @click="ball_1_5(k,index,'tm')"    @change="ball_1_5_change(k,index,'tm')" style="margin-top:5px;width:45px;height:17px;margin-left:5px;">
-                <div class="clear"></div>
-              </div>
-
-              <div class="clear"></div>
-            </div>
-            <!--大小单双-->
-            <div   class="long-bet" style="height:auto;">
-              <div class="first-ball-top">
-                {{v}}
-              </div>
-              <div v-for="(item,index) in odds.double_aspect['ball_'+(k+1)+'_half']" class="long-bet-content">
-                <span>{{odds.ball_5_half_str[index]}}</span>
-                <span class="he22 color-red f700" style="margin-top:5px;margin-left:-14px;">{{item}}</span>
-                <input type="text" v-model="bet_content['ball_'+ (k+1) +'_half'][index]" @click="ball_1_5(k,index,'lm')"  @change="ball_1_5_change(k,index,'lm')" style="margin-top:5px;width:45px;heigth:16px;margin-left:11px;">
-                <div class="clear"></div>
-              </div>
-              <div class="clear"></div>
-            </div>
-
-            <div class="long-bet" style="height:auto;">
-              <div class="first-ball-top">
-                总和、龙虎
-              </div>
-              <div v-for="(item,index) in odds.dragon_and_tiger" class="long-bet-content">
-                <span>{{odds.dragon_and_tiger_str[index]}}</span>
-                <span class="he22 color-red f700" style="margin-top:5px;margin-left:-3px;">{{item}}</span>
-                <input type="text" v-model="bet_content.dragon_and_tiger[index]" @click="ball_1_5(k,index,'he')" @change="ball_1_5_change(k,index,'he')" style="margin-top:5px;width:45px;heigth:16px;margin-left:11px;">
-                <div class="clear"></div>
-              </div>
-              <div class="clear"></div>
-            </div>
-
-
-            <div v-for="(item,index) in odds.ball_3" :class="index=='front3'?'first-ball mt0':'first-ball'" style="width:29%;">
-              <div v-for="(i,idx) in item" class="first-ball-details">
-                <span>{{odds.ball_3_str[idx]}}</span>
-                <span class="he22 color-red f700" style="width: 100px;">{{i}}</span>
-                <input type="text" v-model="bet_content.ball_3[index][idx]" @click="ball_1_5(index,idx,'qzhs')" @change="ball_1_5_change(index,idx,'qzhs')">
-                <div class="clear"></div>
-              </div>
-              <div class="first-ball-top" v-if="index=='front3'">
-                前三
-              </div>
-              <div class="first-ball-top" v-if="index=='medium3'">
-                 中三
-              </div>
-              <div class="first-ball-top" v-if="index=='end3'">
-                后三
-              </div>
-            </div>
-
-            <div class="clear"></div>
-          </div>
-        </div>
-
-
-        <!--选择下注内容-->
-        <div class="bet-content-input mt5">
-          <!--<div class="pan">-->
-            <!--<label>盘口</label>-->
-              <!--<select v-model="which_handicap">-->
-                  <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-              <!--</select>-->
-          <!--</div>-->
-          <div class="fast-bet">
-            快速下注金额
-            <input type="text" class="fast-bet-input" v-model="fast_money">
-          </div>
-          <div class="bet-btns">
-            <a @click="setBetMoney(10)">10</a>     <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>
-            <a  class="pull-right chongtian" @click="clear_bet" >重填</a>
-            <a  class="pull-right tijiao" @click="comfire_content" >提交</a>
-            <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
-          </div>
-          <div class="clear"></div>
-        </div>
-
-      </form>
-    </div>
 
 
 
-
-
-    <!--下注提示框-->
-    <el-dialog
-      title="确认下注"
-      :visible.sync="centerDialogVisible"
-      width="30%"
-      center>
-      <div v-html="bet_html" @click="delete_it($event)" ></div>
-      <span slot="footer" class="dialog-footer">
+        <!--下注提示框-->
+        <el-dialog
+                title="确认下注"
+                :visible.sync="centerDialogVisible"
+                width="30%"
+                center>
+            <div v-html="bet_html" @click="delete_it($event)" ></div>
+            <span slot="footer" class="dialog-footer">
             <el-button @click="centerDialogVisible = false">取 消</el-button>
             <el-button type="primary" @click="do_bet()">确 定</el-button>
       </span>
-    </el-dialog>
+        </el-dialog>
 
 
 
 
 
-  </div>
+    </div>
 </template>
 
 
@@ -305,13 +340,13 @@
       let day = time.getDate();
       day = day < 10 ? ("0" + day) : day;
       let my_data =
-      {
+        {
           centerDialogVisible:false,
           bet_html:'',
           showArray_cqssc: [1, 0, 0, 0, 0, 0, 0],
           mins:'00',
           seconds:'00',
-          history_tables: [0, 1, 0],
+          history_tables: [0, 0, 0],
           history_flag: 0,
           history_str: "收起",
           lastOpenCode: [1, 1, 1, 1, 1],          //最后一期开奖号码
@@ -323,96 +358,99 @@
           open_time:60,//开奖时间
           data:[],
           //下注金额的集合
-          bet_content:{
-            ball_1_half:['','','',''],
-            ball_2_half:['','','',''],
-            ball_3_half:['','','',''],
-            ball_4_half:['','','',''],
-            ball_5_half:['','','',''],
-            dragon_and_tiger:['','','','','','',''],
-            single_ball_1_5:
+          bet_content:
             {
-              ball_1_digit:['','','','','','','','','',''],
-              ball_2_digit:['','','','','','','','','',''],
-              ball_3_digit:['','','','','','','','','',''],
-              ball_4_digit:['','','','','','','','','',''],
-              ball_5_digit:['','','','','','','','','',''],
+              ball_1_half:['','','',''],
+              ball_2_half:['','','',''],
+              ball_3_half:['','','',''],
+              ball_4_half:['','','',''],
+              ball_5_half:['','','',''],
+              dragon_and_tiger:['','','','','','',''],
+              single_ball_1_5:
+                {
+                  ball_1_digit:['','','','','','','','','',''],
+                  ball_2_digit:['','','','','','','','','',''],
+                  ball_3_digit:['','','','','','','','','',''],
+                  ball_4_digit:['','','','','','','','','',''],
+                  ball_5_digit:['','','','','','','','','',''],
+                },
+              ball_3:
+                {
+                  front3:['','','','',''],
+                  medium3:['','','','',''],
+                  end3:['','','','',''],
+                },
             },
-            ball_3:
-            {
-              front3:['','','','',''],
-              medium3:['','','','',''],
-              end3:['','','','',''],
-            },
-          },
           //赔率的集合
           odds:
-          {
-             double_aspect:
-             {
-               ball_1_half    :[1.9430,1.9430,1.9430,1.9430],
-               ball_2_half    :[1.9430,1.9430,1.9430,1.9430],
-               ball_3_half    :[1.9430,1.9430,1.9430,1.9430],
-               ball_4_half    :[1.9430,1.9430,1.9430,1.9430],
-               ball_5_half    :[1.9430,1.9430,1.9430,1.9430],
-             },
-             ball_5_half_str:["大","小","单","双"],
-             dragon_and_tiger:[1.9000,1.9000,1.9000,1.9000,1.9000,1.9000,1.9000],
-             dragon_and_tiger_str:["总和大","总和小","总和单","总和双","龙","虎","和"],
-             single_ball_1_5:
-             {
-               ball_1_digit:[1,1,1,1,1,1,1,1,1,1],
-               ball_2_digit:[1,1,1,1,1,1,1,1,1,1],
-               ball_3_digit:[1,1,1,1,1,1,1,1,1,1],
-               ball_4_digit:[1,1,1,1,1,1,1,1,1,1],
-               ball_5_digit:[1,1,1,1,1,1,1,1,1,1],
-             },
-             single_ball_1_5_str:['第一球','第二球','第三球','第四球','第五球'],
-             ball_3:
-             {
-               front3:[1,2,3,4,5],
-               medium3:[1,2,3,4,5],
-               end3:[1,2,3,4,5],
-             },
-             ball_3_str:['豹子','对子','顺子','半顺','杂六']
-          },
+            {
+              double_aspect:
+                {
+                  ball_1_half    :[1.9430,1.9430,1.9430,1.9430],
+                  ball_2_half    :[1.9430,1.9430,1.9430,1.9430],
+                  ball_3_half    :[1.9430,1.9430,1.9430,1.9430],
+                  ball_4_half    :[1.9430,1.9430,1.9430,1.9430],
+                  ball_5_half    :[1.9430,1.9430,1.9430,1.9430],
+                },
+              ball_5_half_str:["大","小","单","双"],
+              dragon_and_tiger:[1.9000,1.9000,1.9000,1.9000,1.9000,1.9000,1.9000],
+              dragon_and_tiger_str:["总和大","总和小","总和单","总和双","龙","虎","和"],
+              single_ball_1_5:
+                {
+                  ball_1_digit:[1,1,1,1,1,1,1,1,1,1],
+                  ball_2_digit:[1,1,1,1,1,1,1,1,1,1],
+                  ball_3_digit:[1,1,1,1,1,1,1,1,1,1],
+                  ball_4_digit:[1,1,1,1,1,1,1,1,1,1],
+                  ball_5_digit:[1,1,1,1,1,1,1,1,1,1],
+                },
+              single_ball_1_5_str:['第一球','第二球','第三球','第四球','第五球'],
+              ball_3:
+                {
+                  front3:[1,2,3,4,5],
+                  medium3:[1,2,3,4,5],
+                  end3:[1,2,3,4,5],
+                },
+              ball_3_str:['豹子','对子','顺子','半顺','杂六']
+            },
           bets:[],//下注内容的集合
 
           //纯赔率列表
           all_odds:
-          [],
-          dicrationaries:[
-            'ball_1_half__K','ball_1_half__L','ball_1_half__M','ball_1_half__N',
-            'dragon_and_tiger__A','dragon_and_tiger__B','dragon_and_tiger__C','dragon_and_tiger__D','dragon_and_tiger__E','dragon_and_tiger__F','dragon_and_tiger__G',
-            'ball_2_half__K','ball_2_half__L','ball_2_half__M','ball_2_half__N',
-            'ball_3_half__K','ball_3_half__L','ball_3_half__M','ball_3_half__N',
-            'ball_4_half__K','ball_4_half__L','ball_4_half__M','ball_4_half__N',
-            'ball_5_half__K','ball_5_half__L','ball_5_half__M','ball_5_half__N',
-            'ball_1_digit__A','ball_1_digit__B','ball_1_digit__C','ball_1_digit__D','ball_1_digit__E','ball_1_digit__F','ball_1_digit__G','ball_1_digit__H','ball_1_digit__I','ball_1_digit__J',
-            'ball_2_digit__A','ball_2_digit__B','ball_2_digit__C','ball_2_digit__D','ball_2_digit__E','ball_2_digit__F','ball_2_digit__G','ball_2_digit__H','ball_2_digit__I','ball_2_digit__J',
-            'ball_3_digit__A','ball_3_digit__B','ball_3_digit__C','ball_3_digit__D','ball_3_digit__E','ball_3_digit__F','ball_3_digit__G','ball_3_digit__H','ball_3_digit__I','ball_3_digit__J',
-            'ball_4_digit__A','ball_4_digit__B','ball_4_digit__C','ball_4_digit__D','ball_4_digit__E','ball_4_digit__F','ball_4_digit__G','ball_4_digit__H','ball_4_digit__I','ball_4_digit__J',
-            'ball_5_digit__A','ball_5_digit__B','ball_5_digit__C','ball_5_digit__D','ball_5_digit__E','ball_5_digit__F','ball_5_digit__G','ball_5_digit__H','ball_5_digit__I','ball_5_digit__J',
-            'front_3__A','front_3__B','front_3__C','front_3__D','front_3__E',
-            'medium_3__A','medium_3__B','medium_3__C','medium_3__D','medium_3__E',
-            'end_3__A','end_3__B','end_3__C','end_3__D','end_3__E',
-          ],
-          dicrationaries_2:[
-            '第一球大','第一球小','第一球单','第一球双',
-            '总和-单','总和-双','总和-大','总和-小','总和-龙','总和-虎','总和-和',
-            '第二球大','第二球小','第二球单','第二球双',
-            '第三球大','第三球小','第三球单','第三球双',
-            '第四球大','第四球小','第四球单','第四球双',
-            '第五球大','第五球小','第五球单','第五球双',
-            '第一球-特码-0','第一球-特码-1','第一球-特码-2','第一球-特码-3','第一球-特码-4','第一球-特码-5','第一球-特码-6','第一球-特码-7','第一球-特码-8','第一球-特码-9',
-            '第二球-特码-0','第二球-特码-1','第二球-特码-2','第二球-特码-3','第二球-特码-4','第二球-特码-5','第二球-特码-6','第二球-特码-7','第二球-特码-8','第二球-特码-9',
-            '第三球-特码-0','第三球-特码-1','第三球-特码-2','第三球-特码-3','第三球-特码-4','第三球-特码-5','第三球-特码-6','第三球-特码-7','第三球-特码-8','第三球-特码-9',
-            '第四球-特码-0','第四球-特码-1','第四球-特码-2','第四球-特码-3','第四球-特码-4','第四球-特码-5','第四球-特码-6','第四球-特码-7','第四球-特码-8','第四球-特码-9',
-            '第五球-特码-0','第五球-特码-1','第五球-特码-2','第五球-特码-3','第五球-特码-4','第五球-特码-5','第五球-特码-6','第五球-特码-7','第五球-特码-8','第五球-特码-9',
-            '前三-豹子','前三-顺子','前三-对子','前三-半顺','前三-杂六',
-            '中三-豹子','中三-顺子','中三-对子','中三-半顺','中三-杂六',
-            '后三-豹子','后三-顺子','后三-对子','后三-半顺','后三-杂六',
-          ],
+            [],
+          dicrationaries:
+            [
+              'ball_1_half__K','ball_1_half__L','ball_1_half__M','ball_1_half__N',
+              'dragon_and_tiger__A','dragon_and_tiger__B','dragon_and_tiger__C','dragon_and_tiger__D','dragon_and_tiger__E','dragon_and_tiger__F','dragon_and_tiger__G',
+              'ball_2_half__K','ball_2_half__L','ball_2_half__M','ball_2_half__N',
+              'ball_3_half__K','ball_3_half__L','ball_3_half__M','ball_3_half__N',
+              'ball_4_half__K','ball_4_half__L','ball_4_half__M','ball_4_half__N',
+              'ball_5_half__K','ball_5_half__L','ball_5_half__M','ball_5_half__N',
+              'ball_1_digit__A','ball_1_digit__B','ball_1_digit__C','ball_1_digit__D','ball_1_digit__E','ball_1_digit__F','ball_1_digit__G','ball_1_digit__H','ball_1_digit__I','ball_1_digit__J',
+              'ball_2_digit__A','ball_2_digit__B','ball_2_digit__C','ball_2_digit__D','ball_2_digit__E','ball_2_digit__F','ball_2_digit__G','ball_2_digit__H','ball_2_digit__I','ball_2_digit__J',
+              'ball_3_digit__A','ball_3_digit__B','ball_3_digit__C','ball_3_digit__D','ball_3_digit__E','ball_3_digit__F','ball_3_digit__G','ball_3_digit__H','ball_3_digit__I','ball_3_digit__J',
+              'ball_4_digit__A','ball_4_digit__B','ball_4_digit__C','ball_4_digit__D','ball_4_digit__E','ball_4_digit__F','ball_4_digit__G','ball_4_digit__H','ball_4_digit__I','ball_4_digit__J',
+              'ball_5_digit__A','ball_5_digit__B','ball_5_digit__C','ball_5_digit__D','ball_5_digit__E','ball_5_digit__F','ball_5_digit__G','ball_5_digit__H','ball_5_digit__I','ball_5_digit__J',
+              'front_3__A','front_3__B','front_3__C','front_3__D','front_3__E',
+              'medium_3__A','medium_3__B','medium_3__C','medium_3__D','medium_3__E',
+              'end_3__A','end_3__B','end_3__C','end_3__D','end_3__E',
+            ],
+          dicrationaries_2:
+            [
+              '第一球大','第一球小','第一球单','第一球双',
+              '总和-单','总和-双','总和-大','总和-小','总和-龙','总和-虎','总和-和',
+              '第二球大','第二球小','第二球单','第二球双',
+              '第三球大','第三球小','第三球单','第三球双',
+              '第四球大','第四球小','第四球单','第四球双',
+              '第五球大','第五球小','第五球单','第五球双',
+              '第一球-特码-0','第一球-特码-1','第一球-特码-2','第一球-特码-3','第一球-特码-4','第一球-特码-5','第一球-特码-6','第一球-特码-7','第一球-特码-8','第一球-特码-9',
+              '第二球-特码-0','第二球-特码-1','第二球-特码-2','第二球-特码-3','第二球-特码-4','第二球-特码-5','第二球-特码-6','第二球-特码-7','第二球-特码-8','第二球-特码-9',
+              '第三球-特码-0','第三球-特码-1','第三球-特码-2','第三球-特码-3','第三球-特码-4','第三球-特码-5','第三球-特码-6','第三球-特码-7','第三球-特码-8','第三球-特码-9',
+              '第四球-特码-0','第四球-特码-1','第四球-特码-2','第四球-特码-3','第四球-特码-4','第四球-特码-5','第四球-特码-6','第四球-特码-7','第四球-特码-8','第四球-特码-9',
+              '第五球-特码-0','第五球-特码-1','第五球-特码-2','第五球-特码-3','第五球-特码-4','第五球-特码-5','第五球-特码-6','第五球-特码-7','第五球-特码-8','第五球-特码-9',
+              '前三-豹子','前三-顺子','前三-对子','前三-半顺','前三-杂六',
+              '中三-豹子','中三-顺子','中三-对子','中三-半顺','中三-杂六',
+              '后三-豹子','后三-顺子','后三-对子','后三-半顺','后三-杂六',
+            ],
 
           curPage:1,//当前页面
           hasNext:true,//是否有下一页
@@ -440,30 +478,30 @@
           tips:'距离本期封盘还有',
 
 
-           dec_limit:
-           {
-             //7里面找
-             ball_1_digit:{},
-             ball_2_digit:{},
-             ball_3_digit:{},
-             ball_4_digit:{},
-             ball_5_digit:{},
-             //6页面找
-             ball_1_half:{},
-             ball_2_half:{},
-             ball_3_half:{},
-             ball_4_half:{},
-             ball_5_half:{},
-             dragon_and_tiger:{},
-             //1页面找
-             front_3:{},
-             medium_3:{},
-             end_3:{},
-           },
+          dec_limit:
+            {
+              //7里面找
+              ball_1_digit:{},
+              ball_2_digit:{},
+              ball_3_digit:{},
+              ball_4_digit:{},
+              ball_5_digit:{},
+              //6页面找
+              ball_1_half:{},
+              ball_2_half:{},
+              ball_3_half:{},
+              ball_4_half:{},
+              ball_5_half:{},
+              dragon_and_tiger:{},
+              //1页面找
+              front_3:{},
+              medium_3:{},
+              end_3:{},
+            },
 
-           open_state:false,//是否开盘;
+          open_state:false,//是否开盘,true是开盘,false是封盘了
 
-      };
+        };
       return my_data;
     },
     created: function ()
@@ -502,7 +540,19 @@
       }
 
     },
+    filters:{
 
+      delete_str(str)
+      {
+        let data = str.replace('总和','');
+        return data;
+      },
+      get_time2(str)
+      {
+        let data = str.substring(10);
+        return data;
+      }
+    },
     mounted: function ()
     {
       //在created之后创建的构子
@@ -529,60 +579,69 @@
      */
     destroyed()
     {
-       clearInterval(this.timeId);
-       clearInterval(this.timeId2);
-       clearInterval(this.timeId3);
+      clearInterval(this.timeId);
+      clearInterval(this.timeId2);
+      clearInterval(this.timeId3);
     },
     /**
      * 监听用户切换盘时 刷新赔率
      */
     watch:
-    {
-      /**
-       *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
-       * @param n
-       * @param o
-       */
-      "which_handicap":function(n,o)
       {
-        this.get_odds(n);
-        for(let i = 0;i<this.handicaps.length;i++)
+        /**
+         *  监听用户选择的盘口，切换盘口时，获取对应盘口的赔率
+         * @param n
+         * @param o
+         */
+        "which_handicap":function(n,o)
         {
-          if(n == this.handicaps[i].ratewin_name)
+          this.get_odds(n);
+          for(let i = 0;i<this.handicaps.length;i++)
           {
-            this.fanshui = this.handicaps[i].fs;
+            if(n == this.handicaps[i].ratewin_name)
+            {
+              this.fanshui = this.handicaps[i].fs;
+            }
           }
-        }
-      },
-      /**
-       * 当open_time<0时，说明已经销售完了，关闭所有请求，
-       * @param n
-       */
-      "open_time":function(n)
-      {
-        if(n<0)
+        },
+        /**
+         * 当open_time<0时，说明已经销售完了，关闭所有请求，
+         * @param n
+         */
+        "open_time":function(n)
         {
-          clearInterval(this.timeId);
-        }else if (n === 0)
-        {
-          clearInterval(this.timeId);
-          var that = this;
-          //获取赔率、最新开奖结果的倒计时 5s一次
-          this.timeId = setInterval(function()
+          if(n<0)
           {
-            that.get_odds();
-            that.get_last_code();
-          },10000);
+            clearInterval(this.timeId);
+          }else if (n === 0)
+          {
+            clearInterval(this.timeId);
+            var that = this;
+            //获取赔率、最新开奖结果的倒计时 5s一次
+            this.timeId = setInterval(function()
+            {
+              that.get_odds();
+              that.get_last_code();
+            },10000);
+          }
+        },
+
+        "dec_limit":function(n)
+        {
+          console.log(n);
         }
       },
-
-      "dec_limit":function(n)
-      {
-        console.log(n);
-      }
-    },
     methods:
       {
+        get_sum:function(arr)
+        {
+          var sum = 0;
+          for(let i = 0;i <arr.length;i++)
+          {
+            sum += Number(arr[i]);
+          }
+          return sum;
+        },
         /**
          * 选择玩法
          * @param idx
@@ -627,19 +686,28 @@
         showTables: function (idx)
         {
 
-          this.history_tables = [0, 0, 0, 0, 0, 0, 0];
-          this.history_tables[idx] = 1;
+          if(idx == 1)
+          {
+            this.history_tables[1] = !this.history_tables[1];
+            this.history_tables[2] = 0;
+          }
+          if(idx == 2)
+          {
+            this.history_tables[2] = !this.history_tables[2];
+            this.history_tables[1] = 0;
+          }
+
         },
         //长龙出的数据
-          get_londDragon_data()
-          {
-              this.$http.get(this.global.config.API + 'ssc/longDragon', {}).then(function (res) {
+        get_londDragon_data()
+        {
+          this.$http.get(this.global.config.API + 'ssc/longDragon', {}).then(function (res) {
 
-                  this.data = res.data.data;
+            this.data = res.data.data;
 
 
-              });
-          },
+          });
+        },
         /**
          * close history tab
          */
@@ -649,7 +717,6 @@
           this.history_tables = [0, 0, 0, 0, 0, 0, 0];
           $(".history-close").slideUp();
           $(".history-list").slideUp();
-          $(".history-table").slideUp();
           this.history_str = "展开";
         },
         /**
@@ -657,7 +724,8 @@
          */
         showHistory: function ()
         {
-          if (this.history_str == "展开") {
+          if (this.history_str == "展开")
+          {
             $(".history-close").slideDown();
             $(".history-list").eq(this.history_flag).slideDown();
             $(".history-table").slideDown();
@@ -666,7 +734,7 @@
             this.history_str = "收起";
           }
           else
-            {
+          {
             this.close_history();
           }
         },
@@ -806,7 +874,7 @@
           }
 
           /*开始拼接数据*/
-          
+
           //下注总金额
           let sumMoney = 0;
           //下注显示框的html
@@ -862,7 +930,7 @@
         {
           let returnData = null;
           let patterns =
-          {
+            {
               pattern1 : 'dragon_and_tiger',
               pattern2 : 'front_3',
               pattern3 : 'medium_3',
@@ -877,7 +945,7 @@
               pattern12 : 'ball_3_half',
               pattern13 : 'ball_4_half',
               pattern14 : 'ball_5_half',
-          };
+            };
           let flag = false;
           let index = 0;
           for(let i = 1 ; i<15;i++)
@@ -894,15 +962,15 @@
             let data = this.dec_limit[patterns['pattern' + index]];
             for(let i = 0 ; i<data.length;i++)
             {
-                if(money>=data[i].limit)
-                {
-                  returnData = data[i].dec_odds;
-                }
+              if(money>=data[i].limit)
+              {
+                returnData = data[i].dec_odds;
+              }
             }
           }
           return returnData;
 
-         },
+        },
 
 
 
@@ -1256,7 +1324,7 @@
          */
         count_down:function ()
         {
-          var that  = this;
+          let that  = this;
           //封盘倒计时
           this.timeId2 = setInterval(function(){
             if(that.end_time <= 0)
@@ -1264,7 +1332,7 @@
               that.mins = '00';
               that.seconds = Math.abs(that.open_time);
               that.tips = "离开盘还有";
-              this.open_state = false;
+              that.open_state = false;
               if(that.end_time == 0)
               {
                 that.thisExpect = parseInt(that.thisExpect) + 1;
@@ -1276,7 +1344,6 @@
                   that.mins = "--";
                   that.seconds = "--";
                   that.tips = '请等待开盘';
-
                 }
                 if(that.open_time == 0)
                 {
@@ -1287,6 +1354,7 @@
                   //获取未结算的订单
                   that.get_ssc_unclear();
                   that.tips = "距离本期封盘还有";
+                  that.open_state = true;
                 }
                 else
                 {
@@ -1303,6 +1371,7 @@
               let seconds = Math.abs(Math.floor(that.end_time%60));
               seconds  = seconds>9?seconds:('0'+seconds);
               that.seconds = seconds;
+              that.open_state = true;
             }
 
             that.end_time--;
@@ -1316,7 +1385,7 @@
          */
         get_history:function()
         {
-          let url = `${this.global.config.API}ssc/history/lottery?per_page=10`;
+          let url = `${this.global.config.API}ssc/history/lottery?range=today`;
           this.history_codes = [];
           this.$http.get(url).then(function(res){
             let data = res.data.data;
@@ -1384,92 +1453,93 @@
             for(let i = 0; i<list.length;i++)
             {
 
-                this.orderData.push(list[i]);
+              this.orderData.push(list[i]);
             }
             //设置全局的未结算清单
             this.$set(this.$store.state,'unclear',this.orderData);
 
           });
         },
-      }
+      },
+
   }
 </script>
 
 
 <style scoped>
-  @import '../assets/css/cqssc.css';
+    @import '../assets/css/cqssc.css';
 
-  .first-ball-details {
-    text-align: left;
-    text-indent: 15px;
-  }
+    .first-ball-details {
+        text-align: left;
+        text-indent: 15px;
+    }
 
-  .first-ball-details > span {
-    float: left;
-  }
+    .first-ball-details > span {
+        float: left;
+    }
 
 
-  button[attr='my-btn-1']
-  {
-   float:right;
-    margin-right:12px;
-    color:#fff;
-    background:#f56c6c;
-    border: 1px solid #dcdfe6;padding:3px;
-  }
+    button[attr='my-btn-1']
+    {
+        float:right;
+        margin-right:12px;
+        color:#fff;
+        background:#f56c6c;
+        border: 1px solid #dcdfe6;padding:3px;
+    }
 
 </style>
 <style>
-  .el-dialog--center .el-dialog__body
-  {
-    padding-bottom: 15px;
-  }
-  button[attr='my-btn-1']
-  {
-    margin-right:12px;
-    color:#fff;
-    background:#f56c6c;
-    border: 1px solid #dcdfe6;padding:3px;
-  }
-  .hao0{
-    background:#24C500;
-  }
-  .hao1{
-    background:#760000;
-  }
-  .hao2{
-    background:#FF0000;
-  }
-  .hao3{
-    background: #C4C4EA;
-  }
-  .hao4{
-    background:#5200ff;
-  }
-  .hao5{
-    background:#82FFFF;
-  }
-  .hao6{
-    background:#FF7200;
-  }
-  .hao7{
-    background:#4A4A4A;
-  }
-  .hao8{
-    background:#008AFF;
-  }
-  .hao9{
-    background: #e3ee66;
-  }
-  .bet-table
-  {
-    width: 100%;
-    text-align:center;
-  }
-  .bet-table td
-  {
-    padding:8px;
-    border: 1px solid #e5e5e5;
-    text-align:center;
-  }
+    .el-dialog--center .el-dialog__body
+    {
+        padding-bottom: 15px;
+    }
+    button[attr='my-btn-1']
+    {
+        margin-right:12px;
+        color:#fff;
+        background:#f56c6c;
+        border: 1px solid #dcdfe6;padding:3px;
+    }
+    .hao0{
+        background:#24C500;
+    }
+    .hao1{
+        background:#760000;
+    }
+    .hao2{
+        background:#FF0000;
+    }
+    .hao3{
+        background: #C4C4EA;
+    }
+    .hao4{
+        background:#5200ff;
+    }
+    .hao5{
+        background:#82FFFF;
+    }
+    .hao6{
+        background:#FF7200;
+    }
+    .hao7{
+        background:#4A4A4A;
+    }
+    .hao8{
+        background:#008AFF;
+    }
+    .hao9{
+        background: #e3ee66;
+    }
+    .bet-table
+    {
+        width: 100%;
+        text-align:center;
+    }
+    .bet-table td
+    {
+        padding:8px;
+        border: 1px solid #e5e5e5;
+        text-align:center;
+    }
 </style>

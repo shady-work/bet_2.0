@@ -81,8 +81,6 @@
 
                     <td v-if="v.details.dragon_and_tiger[0] == '总和大'"  style="color: red;">{{v.details.dragon_and_tiger[0]|delete_str}}</td>
                     <td v-else  >{{v.details.dragon_and_tiger[0]|delete_str}}</td>
-
-
                     <td>{{v.details.dragon_and_tiger[2]}}</td>
                     <td>{{v.details.front_3[0]}}</td>
                     <td>{{v.details.medium_3[0]}}</td>

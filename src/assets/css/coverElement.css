@@ -39,4 +39,11 @@
 {
     float: none;
 }
-
+.btn-fast
+{
+    height:30px;
+    padding:5px 10px;
+    margin-top: 5px;
+    float:left;
+    margin-left: 15px;
+}
