@@ -4,7 +4,7 @@
             <div class="pull-left" style="width: 600px;">
                 <div style-="height:30px;width:100%">
                     <el-form ref="form">
-                        <el-form-item label="车号分布">
+                        <el-form-item label="号码分布">
                             <el-checkbox-group v-model="type">
                                 <el-checkbox label="0" name="type" v-bind:value="0"></el-checkbox>
                                 <el-checkbox label="1" name="type" v-bind:value="1"></el-checkbox>
@@ -23,7 +23,7 @@
 
                 <div style-="height:30px;width:100%">
                     <el-form ref="form">
-                        <el-form-item label="车道分布">
+                        <el-form-item label="位置分布">
                             <el-checkbox-group v-model="type2">
                                 <el-checkbox label="1" name="type"></el-checkbox>
                                 <el-checkbox label="2" name="type"></el-checkbox>

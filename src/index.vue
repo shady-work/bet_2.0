@@ -357,7 +357,7 @@
         {
           this.$http.get(this.global.config.API + 'ifLogin').then(function(res)
           {
-            var data = res.data;
+            let data = res.data;
             if(data.status == 200)
             {
               this.global.log('欢迎回来~');
@@ -387,6 +387,7 @@
         {
           this.$router.push('/');
         }
+
 
       },
       created:function()
@@ -426,6 +427,10 @@
         },
       }
   }
+
+
+
+
 </script>
 
 

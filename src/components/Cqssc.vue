@@ -460,6 +460,8 @@
              end_3:{},
            },
 
+           open_state:false,//是否开盘;
+
       };
       return my_data;
     },
@@ -1261,6 +1263,7 @@
               that.mins = '00';
               that.seconds = Math.abs(that.open_time);
               that.tips = "离开盘还有";
+              this.open_state = false;
               if(that.end_time == 0)
               {
                 that.thisExpect = parseInt(that.thisExpect) + 1;
@@ -1272,6 +1275,7 @@
                   that.mins = "--";
                   that.seconds = "--";
                   that.tips = '请等待开盘';
+
                 }
                 if(that.open_time == 0)
                 {

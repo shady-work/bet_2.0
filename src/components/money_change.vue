@@ -207,6 +207,7 @@ export default
                this.pageNum = res.data.data.chgs.pageNum;
                this.prevPageUrl = this.hasPrev?res.data.data.chgs.prevPageUrl:'';
                this.nextPageUrl = this.hasNext?res.data.data.chgs.nextPageUrl:'';
+               this.page = res.data.data.chgs.curPage;
              }
              else
              {
