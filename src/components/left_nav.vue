@@ -5,47 +5,41 @@
         <div class="lottery-list">
             <a @click="turn(0)" :class="navArray[0]?'lottery active':'lottery'" v-show="isShow('cqssc')">
                 <img src="../assets/img/icon_ssc.png" alt="">
-                <p class="color-white">
-                    重庆时时彩
-                </p>
+                <p class="color-white">重庆时时彩</p>
+                <p class="color-white">开盘中，未结：80</p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(1)" :class="navArray[1]?'lottery active':'lottery'" v-show="isShow('bjpk10')">
                 <img src="../assets/img/icon_bjpk.png" alt="">
-                <p class="color-white">
-                    北京赛车
-                </p>
+                <p class="color-white">北京赛车</p>
+                <p class="color-white">开盘中，未结：80</p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(2)" :class="navArray[2]?'lottery active':'lottery'" v-show="isShow('cakeno')">
                 <img src="../assets/img/icon_jnd28.png" alt="">
-                <p class="color-white">
-                   加拿大28
-                </p>
+                <p class="color-white">加拿大28</p>
+                <p class="color-white">开盘中，未结：80</p>
                 <div class="clear"></div>
             </a>
             <a @click="turn(3)" :class="navArray[3]?'lottery active':'lottery'" v-show="isShow('pcegg')">
                 <img src="../assets/img/icon_lhc.png" alt="">
-                <p class="color-white">
-                    PC蛋蛋
-                </p>
+                <p class="color-white">PC蛋蛋&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <p class="color-white">开盘中，未结：80</p>
                 <div class="clear"></div>
             </a>
 
             <a @click="turn(4)" :class="navArray[4]?'lottery active':'lottery'">
-              <img src="../assets/img/icon_xyft.png" alt="">
-              <p class="color-white">
-                足球竞猜
-              </p>
-              <div class="clear"></div>
+                <img src="../assets/img/icon_xyft.png" alt="">
+                <p class="color-white">足球竞猜</p>
+                <p class="color-white">火热进行中</p>
+                <div class="clear"></div>
             </a>
 
             <a @click="turn(5)" :class="navArray[5]?'lottery active':'lottery'">
-              <img src="../assets/img/girl.jpg" alt="" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
-              <p class="color-white">
-                真人在线
-              </p>
-              <div class="clear"></div>
+                <img src="../assets/img/girl.jpg" alt="" style="-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;">
+                <p class="color-white">真人在线</p>
+                <p class="color-white">火热进行中</p>
+                <div class="clear"></div>
             </a>
         </div>
 
@@ -63,79 +57,79 @@
 
 
 <script>
-import User from './user.vue';
-export default
-{
+  import User from './user.vue';
+  export default
+  {
     data:function()
     {
-        let data =
+      let data =
         {
-            recent:
+          recent:
             {
-                str:"-",
-                flag:true,
+              str:"-",
+              flag:true,
             },
-            website:
+          website:
             {
-                str:"+",
-                flag:false,
+              str:"+",
+              flag:false,
             },
-            navArray:[1,0,0,0,0,0],
-            unclear:[],//未结算的清单
-            vaild_lotteries:[],//  用户拥有哪些彩种
+          navArray:[1,0,0,0,0,0],
+          unclear:[],//未结算的清单
+          vaild_lotteries:[],//  用户拥有哪些彩种
         };
-        return data;
+      return data;
     },
     components:
-    {
-       'user':User,
-    },
+      {
+        'user':User,
+      },
     methods:
-    {
+      {
         toggleDiv:function(arg)
         {
-            arg.str  = arg.str=="+"?"-":"+";
-            arg.flag = !arg.flag;
+          arg.str  = arg.str=="+"?"-":"+";
+          arg.flag = !arg.flag;
         },
         turn:function(idx)
         {
-            this.navArray =  [0,0,0,0,0,0];
-            this.navArray[idx] =  1;
-            switch(idx)
-            {
-                case 0:
-                this.$router.push('/cqssc');
-                window.sessionStorage.index = 0;
-                window.sessionStorage.which_lty = 'cqssc';
-                break;
-                case 1:
-                this.$router.push('/pk10');
-                window.sessionStorage.index = 1;
-                window.sessionStorage.which_lty = 'pk10';
-                break;
-                case 2:
-                this.$router.push('/cakeno28');
-                window.sessionStorage.index = 2;
-                window.sessionStorage.which_lty = 'cakeno28';
-                break;
-                case 3:
-                this.$router.push('/pcegg');
-                window.sessionStorage.index = 3;
-                window.sessionStorage.which_lty = 'pcegg';
-                break;
-                case 4:
-                this.$router.push('football');
-                window.sessionStorage.index = 4;
-                window.sessionStorage.which_lty = 'football';
-                break;
-                case 5:
-                this.$router.push('man_online');
-                window.sessionStorage.index = 5;
-                window.sessionStorage.which_lty = 'man_online';
-                break;
-                default:
-                break;
-            }
+          this.navArray =  [0,0,0,0,0,0];
+          this.navArray[idx] =  1;
+          switch(idx)
+          {
+            case 0:
+              this.$router.push('/cqssc');
+              window.sessionStorage.index = 0;
+              window.sessionStorage.which_lty = 'cqssc';
+              break;
+            case 1:
+              this.$router.push('/pk10');
+              window.sessionStorage.index = 1;
+              window.sessionStorage.which_lty = 'pk10';
+              break;
+            case 2:
+              this.$router.push('/cakeno28');
+              window.sessionStorage.index = 2;
+              window.sessionStorage.which_lty = 'cakeno28';
+              break;
+            case 3:
+              this.$router.push('/pcegg');
+              window.sessionStorage.index = 3;
+              window.sessionStorage.which_lty = 'pcegg';
+              break;
+            case 4:
+              this.$router.push('football');
+              window.sessionStorage.index = 4;
+              window.sessionStorage.which_lty = 'football';
+              break;
+            case 5:
+              this.$router.push('man_online');
+              window.sessionStorage.index = 5;
+              window.sessionStorage.which_lty = 'man_online';
+              break;
+            default:
+              break;
+          }
         },
         isShow:function(str)
         {
@@ -150,11 +144,11 @@ export default
           }
         },
 
-    },
+      },
     created:function ()
     {
-      // console.log(this);
-       //获取全局的未结算清单
+      // console.l  og(this);
+      //获取全局的未结算清单
       if(this.$store.state.isLogin)
       {
         //默认是index ==>cqssc的彩种、
@@ -173,11 +167,11 @@ export default
           let  data = response.data.data.user;
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
         });
-         //window.sessionStorage.index
+        //window.sessionStorage.index
       }
 
     }
-}
+  }
 
 
 
@@ -207,7 +201,7 @@ export default
     {
         display:block;
         width: 100%;
-        height: 42px;
+        height: 52px;
         overflow: hidden;
         cursor:pointer;
     }
@@ -215,17 +209,20 @@ export default
     {
         display:block;
         float: left;
-        height: 30px;
-        width:30px;
+        height: 40px;
+        width:40px;
         margin-left: 25px;
         margin-top: 6px;
     }
     .lottery>p
     {
-        float: left;
-        height: 42px;
-        line-height: 42px;
-        margin-left: 15px;
+        /*float: left;*/
+        height: 25px;
+        line-height: 27px;
+        /*margin-left: 15px;*/
+        text-align: left;
+        text-indent:10px;
+        font-size: 12px;
 
     }
     .active
@@ -278,15 +275,15 @@ export default
     }
     .recent-content>div:first-of-type
     {
-      margin-top: 10px;
+        margin-top: 10px;
     }
     .list-recent
     {
-      width: 100%;
-      margin-bottom: 10px;
-      font-size: 14px;
-      padding-bottom: 6px;
-      border-bottom: 1px solid rgba(200,200,200,0.5);
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 14px;
+        padding-bottom: 6px;
+        border-bottom: 1px solid rgba(200,200,200,0.5);
     }
 
 

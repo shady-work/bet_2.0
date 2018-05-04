@@ -161,7 +161,10 @@ a:hover{
 {
   margin-left:10px;
 }
-
+.ml5
+{
+    margin-left:5px;
+}
 .tijiao,.chongtian
 {
   padding: 5px 10px !important;
@@ -203,4 +206,9 @@ a:hover{
 .el-checkbox__label
 {
   padding-left: 2px;
+}
+
+.w50
+{
+    width: 50px;
 }
