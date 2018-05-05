@@ -116,39 +116,39 @@
 
 
         <!--快速下注-->
-        <div class="bet-content-input mt5">
-              <div class="fast-bet" style="color:#606266;text-indent:8px;">
-                  快速下注金额
-                  <el-input v-model="fast_money" placeholder="请输入内容" class="my-input-elm" style=""></el-input>
-              </div>
-              <div class="bet-btns">
+        <!--<div class="bet-content-input mt5">-->
+              <!--<div class="fast-bet" style="color:#606266;text-indent:8px;">-->
+                  <!--快速下注金额-->
+                  <!--<el-input v-model="fast_money" placeholder="请输入内容" class="my-input-elm" style=""></el-input>-->
+              <!--</div>-->
+              <!--<div class="bet-btns">-->
 
-                  <el-button @click="setBetMoney(fast_bet_money[0])" class="btn-fast" >{{fast_bet_money[0]}}</el-button>
-                  <el-button @click="setBetMoney(fast_bet_money[1])" class="btn-fast">{{fast_bet_money[1]}}</el-button>
-                  <el-button @click="setBetMoney(fast_bet_money[2])" class="btn-fast">{{fast_bet_money[2]}}</el-button>
-                  <el-button @click="setBetMoney(fast_bet_money[3])" class="btn-fast">{{fast_bet_money[3]}}</el-button>
-                  <el-button @click="setBetMoney(fast_bet_money[4])" class="btn-fast">{{fast_bet_money[4]}}</el-button>
-                  <el-button @click="setBetMoney(fast_bet_money[5])" class="btn-fast">{{fast_bet_money[5]}}</el-button>
-                  <!--设置快速下注金额-->
-                  <el-popover
-                          placement="top"
-                          width="50"
-                  >
-                      <el-input v-model="fast_bet_money[0]" placeholder="请输入内容" class="my-input-elm-set" ></el-input>
-                      <el-input v-model="fast_bet_money[1]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
-                      <el-input v-model="fast_bet_money[2]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
-                      <el-input v-model="fast_bet_money[3]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
-                      <el-input v-model="fast_bet_money[4]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
-                      <el-input v-model="fast_bet_money[5]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
-                      <el-button slot="reference" class="set-fast-money">设置快速下注金额</el-button>
-                  </el-popover>
-                  <!--/设置快速下注金额-->
-                  <el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>
-                  <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>
-                  <el-button v-if="!open_state"  class="btn-fast pull-right" disabled >提交</el-button>
-              </div>
-              <div class="clear"></div>
-          </div>
+                  <!--<el-button @click="setBetMoney(fast_bet_money[0])" class="btn-fast" >{{fast_bet_money[0]}}</el-button>-->
+                  <!--<el-button @click="setBetMoney(fast_bet_money[1])" class="btn-fast">{{fast_bet_money[1]}}</el-button>-->
+                  <!--<el-button @click="setBetMoney(fast_bet_money[2])" class="btn-fast">{{fast_bet_money[2]}}</el-button>-->
+                  <!--<el-button @click="setBetMoney(fast_bet_money[3])" class="btn-fast">{{fast_bet_money[3]}}</el-button>-->
+                  <!--<el-button @click="setBetMoney(fast_bet_money[4])" class="btn-fast">{{fast_bet_money[4]}}</el-button>-->
+                  <!--<el-button @click="setBetMoney(fast_bet_money[5])" class="btn-fast">{{fast_bet_money[5]}}</el-button>-->
+                  <!--&lt;!&ndash;设置快速下注金额&ndash;&gt;-->
+                  <!--<el-popover-->
+                          <!--placement="top"-->
+                          <!--width="50"-->
+                  <!--&gt;-->
+                      <!--<el-input v-model="fast_bet_money[0]" placeholder="请输入内容" class="my-input-elm-set" ></el-input>-->
+                      <!--<el-input v-model="fast_bet_money[1]" placeholder="请输入内容" class="my-input-elm-set"></el-input>-->
+                      <!--<el-input v-model="fast_bet_money[2]" placeholder="请输入内容" class="my-input-elm-set"></el-input>-->
+                      <!--<el-input v-model="fast_bet_money[3]" placeholder="请输入内容" class="my-input-elm-set"></el-input>-->
+                      <!--<el-input v-model="fast_bet_money[4]" placeholder="请输入内容" class="my-input-elm-set"></el-input>-->
+                      <!--<el-input v-model="fast_bet_money[5]" placeholder="请输入内容" class="my-input-elm-set"></el-input>-->
+                      <!--<el-button slot="reference" class="set-fast-money">设置快速下注金额</el-button>-->
+                  <!--</el-popover>-->
+                  <!--&lt;!&ndash;/设置快速下注金额&ndash;&gt;-->
+                  <!--<el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>-->
+                  <!--<el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>-->
+                  <!--<el-button v-if="!open_state"  class="btn-fast pull-right" disabled >提交</el-button>-->
+              <!--</div>-->
+              <!--<div class="clear"></div>-->
+          <!--</div>-->
 
 
 

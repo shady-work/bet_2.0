@@ -165,7 +165,7 @@
 
 #bet-content .bet-content-table, .bet-content-input {
   height: 40px;
-  width: 100%;
+  /*width: 100%;*/
   background: #e63636;
 
 }
