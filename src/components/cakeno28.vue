@@ -229,7 +229,7 @@
             </el-popover>
             <!--/设置快速下注金额-->
             <el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>
-            <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>
+            <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_bet">提交</el-button>
             <el-button v-if="!open_state"  class="btn-fast pull-right" disabled >提交</el-button>
           </div>
           <div class="clear"></div>
@@ -817,6 +817,7 @@
               let seconds = Math.floor(that.end_time%60);
               seconds  = seconds>9?seconds:('0'+seconds);
               that.seconds = seconds;
+                that.open_state = true;
             }
 
             that.end_time--;
