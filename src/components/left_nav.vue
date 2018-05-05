@@ -43,7 +43,19 @@
             </a>
         </div>
 
+        <div>
+            <p v-if="isAcceptNotice" style="color:#fff;float: left;margin-left:25px;" >已开启消息通知</p>
+            <p v-else style="color:#909399;float: left;margin-left:25px;" >已关闭消息通知</p>
+            <div>
+                <el-switch
+                        v-model="isAcceptNotice"
+                        active-color="#13ce66"
+                        inactive-color="#909399">
+                </el-switch>
+            </div>
 
+
+        </div>
 
 
 
@@ -67,6 +79,7 @@
           navArray:[1,0,0,0,0,0],
           unclear:[],//未结算的清单
           vaild_lotteries:[],//  用户拥有哪些彩种
+            isAcceptNotice: true,  //是否接受通知的开关 true接受信息  false关闭信息
           ssc:
           {
             end_time :'',
@@ -93,7 +106,8 @@
               tips:'加载中',  //提示语
               unclearMoney:'',//ssc的未结算金额
               timeId2:'',//ssc的倒计时
-            },egg:
+            },
+            egg:
             {
               end_time :'',
               open_time:'', //时时彩的开盘时间
@@ -178,6 +192,7 @@
             this.count_down_ssc();
           });
         },
+
         /**@augments 倒计时 */
         count_down_ssc:function ()
         {
@@ -186,7 +201,7 @@
           this.ssc.timeId2 = setInterval(function(){
             if(that.ssc.end_time <= 0)
             {
-              if(that.pk10.end_time == 0)
+              if(that.ssc.end_time == 0 && that.isAcceptNotice)
               {
                 that.$notify({
                   title: '重庆时时彩',
@@ -208,14 +223,17 @@
                   clearInterval(that.ssc.timeId2);
                   //重新获取时间
                   that.get_time_ssc();
-                  //开盘通知
-                  that.$notify({
-                    title: '重庆时时彩',
-                    message: '重庆时时彩已开盘，准备开奖中。',
-                    type: 'success',
-                    duration:2500,
-                    position:'bottom-left',
-                  });
+                  if(that.isAcceptNotice){
+                      //开盘通知
+                      that.$notify({
+                          title: '重庆时时彩',
+                          message: '重庆时时彩已开盘，准备开奖中。',
+                          type: 'success',
+                          duration:2500,
+                          position:'bottom-left',
+                      });
+                  }
+
                   that.ssc.tips = "开盘中";
                 }
                 else
@@ -253,7 +271,7 @@
           this.pk10.timeId2 = setInterval(function(){
             if(that.pk10.end_time <= 0)
             {
-              if(that.pk10.end_time == 0)
+              if(that.pk10.end_time == 0 && that.isAcceptNotice)
               {
                 that.$notify({
                   title: '北京赛车PK拾',
@@ -275,14 +293,17 @@
                   clearInterval(that.pk10.timeId2);
                   //重新获取时间
                   that.get_time_pk10();
-                    //开盘通知
-                  that.$notify({
-                    title: '北京赛车PK拾',
-                    message: '北京赛车PK拾已开盘，准备开奖中。',
-                    type: 'success',
-                    duration:2500,
-                    position:'bottom-left',
-                  });
+                  if(that.isAcceptNotice){
+                      //开盘通知
+                      that.$notify({
+                          title: '北京赛车PK拾',
+                          message: '北京赛车PK拾已开盘，准备开奖中。',
+                          type: 'success',
+                          duration:2500,
+                          position:'bottom-left',
+                      });
+                  }
+
                   that.pk10.tips = "开盘中";
                 }
                 else
@@ -320,7 +341,7 @@
           this.cake.timeId2 = setInterval(function(){
             if(that.cake.end_time <= 0)
             {
-              if(that.cake.end_time == 0)
+              if(that.cake.end_time == 0 && that.isAcceptNotice)
               {
                 that.$notify({
                   title: '加拿大28',
@@ -342,13 +363,17 @@
                   clearInterval(that.cake.timeId2);
                   //重新获取时间
                   that.get_time_cake();
-                  that.$notify({
-                    title: '加拿大28',
-                    message: '加拿大28已开盘，准备开奖中。',
-                    type: 'success',
-                    duration:2500,
-                    position:'bottom-left',
-                  });
+                  if(that.isAcceptNotice)
+                  {
+                      that.$notify({
+                          title: '加拿大28',
+                          message: '加拿大28已开盘，准备开奖中。',
+                          type: 'success',
+                          duration:2500,
+                          position:'bottom-left',
+                      });
+                  }
+
                   that.cake.tips = "开盘中";
                 }
                 else
@@ -386,7 +411,7 @@
           this.egg.timeId2 = setInterval(function(){
             if(that.egg.end_time <= 0)
             {
-              if(that.egg.end_time == 0)
+              if(that.egg.end_time == 0 && that.isAcceptNotice)
               {
                 that.$notify({
                   title: 'PC蛋蛋',
@@ -408,13 +433,16 @@
                   clearInterval(that.egg.timeId2);
                   //重新获取时间
                   that.get_time_egg();
-                  that.$notify({
-                    title: 'PC蛋蛋',
-                    message: 'PC蛋蛋已开盘，准备开奖中。',
-                    type: 'success',
-                    duration:2500,
-                    position:'bottom-left',
-                  });
+                  if(that.isAcceptNotice){
+                      that.$notify({
+                          title: 'PC蛋蛋',
+                          message: 'PC蛋蛋已开盘，准备开奖中。',
+                          type: 'success',
+                          duration:2500,
+                          position:'bottom-left',
+                      });
+                  }
+
                   that.egg.tips = "开盘中";
                 }
                 else
@@ -477,7 +505,8 @@
         this.get_time_egg();
       }
 
-    }
+    },
+
   }
 
 
