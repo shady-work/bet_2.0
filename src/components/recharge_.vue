@@ -50,7 +50,6 @@
                         <div class="context-top " style="width:500px;" >
                             <form action="" v-show="isActive[0]">
                                 <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路一[银行存款]<br></p>
-                                <p style="margin-bottom:30px;margin-left:80px;">订单编号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li-username-20180503-123456789</p>
                                 <p style="margin-bottom:30px;margin-left:80px;">充值金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.money"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">付款银行:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.bank_name"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">银行卡号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.bank_number"></p>
@@ -63,7 +62,6 @@
                         <div class="context-top " style="width:500px;">
                             <form action=""  v-show="isActive[1]">
                                 <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路二[线下]<br></p>
-                                <p style="margin-bottom:30px;margin-left:80px;">订单编号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li-username-20180503-123456789</p>
                                 <p style="margin-bottom:30px;margin-left:80px;">账号姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.offline_name" placeholder="微信昵称/支付宝户名"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">存款账号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.store_number" placeholder="微信号/支付宝账号"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">存款金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额"></p>
@@ -74,7 +72,6 @@
                         <div class="context-top " style="width:500px;">
                             <form action=""  v-show="isActive[2]">
                                 <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路三[第三方]<br></p>
-                                <p style="margin-bottom:30px;margin-left:80px;">订单编号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;li-username-20180503-123456789</p>
                             </form>
                         </div>
 

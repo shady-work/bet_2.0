@@ -8,7 +8,7 @@
                 <ul class="tabs">
                     <li @click="choose_one(0)" :class="isActive[0]?'active':''">银行</li>
                     <li @click="choose_one(1)" :class="isActive[1]?'active':''">支付宝</li>
-                    <p style="text-align:left;line-height:30px;" >当前可提款金额为:<b>{{$store.state.cash_money>0?$store.state.cash_money:0}}</b></p>
+                    <p style="text-align:left;line-height:30px;" >当前可提款金额为:<b class="color-red">{{$store.state.cash_money>0?$store.state.cash_money:0}}</b></p>
                 </ul>
 
                 <!--银行卡提现-->

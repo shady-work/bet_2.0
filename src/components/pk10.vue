@@ -26,19 +26,12 @@
           </div>
         <!-- 右边的历史记录 -->
         <div id="history" >
-          <!--<div class="history-header" @click="showHistory">-->
-            <!--历史记录 <span class="pull-right pointer">{{history_str}}</span>-->
-          <!--</div>-->
           <div class="history-table">
-            <!--<a @click="showTables(0)" :class="history_tables[0]?'active':''">长龙-不出</a>-->
-            <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
+            <a @click="showTables(1)" :class="history_tables[1]?'active':''" style="margin-right:10px;">长龙排行</a>
             <a @click="showTables(2)" :class="history_tables[2]?'active':''">今日开奖</a>
           </div>
-
-
-
-          <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
             <!--长龙出-->
+          <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
             <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black">
               <span>{{v.name}}</span>
               <span class="pull-right mr10">{{v.num}}期</span>
@@ -48,18 +41,35 @@
           </div>
 
           <div class="history-list" v-show="history_tables[2]">
-            <div class="history-balls" v-for="v in history_codes">
+              <table class="history-tables-ssc">
+                  <tr>
+                      <td>期数/时间</td>
+                      <td width="220">号码</td>
+                      <td colspan="3">冠亚军和</td>
+                      <td colspan="5">1~5龙虎</td>
+                  </tr>
+                 <tr v-for="v in history_codes">
+                     <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>
+                     <td><span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span></td>
+                     <td>{{v.details.sum[0]}}</td>
+                     <td v-if="v.details.sum[2]=='大'" class="color-red">{{v.details.sum[2]}}</td>
+                     <td v-if="v.details.sum[2]=='小'">{{v.details.sum[2]}}</td>
+                     <td>{{v.details.sum[1]}}</td>
+                     <td :class="v.details.ball_1[3]=='龙'?'color-red':''">{{v.details.ball_1[3]}}</td>
+                     <td :class="v.details.ball_2[3]=='龙'?'color-red':''">{{v.details.ball_2[3]}}</td>
+                     <td :class="v.details.ball_3[3]=='龙'?'color-red':''">{{v.details.ball_3[3]}}</td>
+                     <td :class="v.details.ball_4[3]=='龙'?'color-red':''">{{v.details.ball_4[3]}}</td>
+                     <td :class="v.details.ball_5[3]=='龙'?'color-red':''">{{v.details.ball_5[3]}}</td>
+                 </tr>
+              </table>
+            <!--<div class="history-balls" v-for="v in history_codes">
+
               <p class="text-left">{{v.expect}}</p>
               <span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>
-            </div>
+            </div>-->
             <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
           </div>
 
-          <!--<div class="history-close ">-->
-            <!--<a @click="close_history()" class="pointer">-->
-              <!--关闭-->
-            <!--</a>-->
-          <!--</div>-->
         </div>
         <div class="clear"></div>
       </div>
@@ -140,26 +150,6 @@
               <div class="clear"></div>
           </div>
 
-        <!--<div class="bet-content-input">-->
-          <!--&lt;!&ndash;<div class="pan">&ndash;&gt;-->
-            <!--&lt;!&ndash;<label>盘口</label>&ndash;&gt;-->
-            <!--&lt;!&ndash;<select v-model="which_handicap">&ndash;&gt;-->
-              <!--&lt;!&ndash;<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>&ndash;&gt;-->
-            <!--&lt;!&ndash;</select>&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-          <!--<div class="fast-bet">-->
-            <!--快速下注金额-->
-            <!--<input type="text" class="fast-bet-input" v-model="fast_money">-->
-          <!--</div>-->
-          <!--<div class="bet-btns">-->
-            <!--<a @click="setBetMoney(10)">10</a> <a @click="setBetMoney(50)">50</a>            <a @click="setBetMoney(100)">100</a>            <a @click="setBetMoney(200)">200</a>            <a @click="setBetMoney(500)">500</a>            <a @click="setBetMoney(1000)">1000</a>-->
-
-            <!--<a class="pull-right chongtian" @click="clear_bet">重填</a>-->
-            <!--<a @click="comfire_content" class="pull-right tijiao">提交</a>-->
-            <!--&lt;!&ndash;<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>&ndash;&gt;-->
-          <!--</div>-->
-          <!--<div class="clear"></div>-->
-        <!--</div>-->
 
 
         <!-- 两面 -->
@@ -705,6 +695,13 @@
 
         };
       return my_data;
+    },
+    filters: {
+      get_time2: function (str) {
+        let data = str.substring(10);
+        return data;
+      }
+
     },
     methods:
     {
@@ -1344,7 +1341,7 @@
        */
       get_open_history:function()
       {
-         this.$http.get(`${this.global.config.API}pk10/history/lottery?per_page=10&page=1`)
+         this.$http.get(`${this.global.config.API}pk10/history/lottery?range=today`)
            .then(function(res)
            {
               if(res.data.status == 200)

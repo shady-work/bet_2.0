@@ -355,15 +355,10 @@
       .history-table > a
       {
           color: #fff;
-          /*width: 100px;*/
           float:right;
-          /*height: 30px;*/
           font-size: 14px;
-          /*line-height: 30px;*/
-          /*margin-left: 18px;*/
-          /*margin-top: 5px;*/
-          /*border-radius: 3px;*/
           cursor: pointer;
+          margin-right:10px;
 
       }
       .history-table>.active
@@ -373,16 +368,16 @@
       }
       .history-list
       {
-        width:500px;
-        border-left: 1px solid rgba(200, 200, 200, 0.5);
-        box-sizing: border-box;
-        overflow: hidden;
-         z-index:5;
+          width:650px;
+          box-sizing: border-box;
+          overflow: hidden;
+          z-index:5;
           background: #fff;
           position: absolute;
           right:0;
           top:21px ;
-          padding-bottom: 15px;
+          padding-bottom: 10px;
+          border: 2px solid #d6d6d6;
       }
       .history-list>p
       {
@@ -549,7 +544,7 @@
     {
         margin-left: 0px;
     }
-    .history-balls>.code-ball
+    .code-ball
     {
         height: 18px;
         width: 18px;
@@ -560,6 +555,7 @@
         font-weight: 700;
         margin-left:3px;
         line-height: 20px;
+        float: left;
 
     }
     .history-balls>.code-fh
@@ -572,3 +568,14 @@
         height: 20px;
         line-height: 20px;
     }
+
+ .history-tables-ssc
+ {
+     width: 100%;
+     font-size: 12px;
+ }
+ .history-tables-ssc td
+ {
+     padding: 5px;
+     border: 1px solid #e5e5e5;
+ }

@@ -5,7 +5,7 @@
       <div class="details">
         <img src="../assets/img/icon_jnd28.png" class="logo-tubiao" alt="">
         <div class="left">
-          <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期</p>
+          <p class="color-white"> 最新开奖：第{{last_expect}}期，今日剩余{{unsaleNum}}期</p>
           <div class="balls">
             <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
             <span class="bg-none color-white">+</span>
@@ -31,13 +31,11 @@
         </div>
         <!-- 右边的历史记录 -->
         <div id="history">
-          <!--<div class="history-header" @click="showHistory">-->
-            <!--历史记录 <span class="pull-right pointer">{{history_str}}</span>-->
-          <!--</div>-->
           <div class="history-table">
             <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
             <a @click="showType(2)" :class="history_tables[2]?'active':''">今日开奖</a>
           </div>
+            <!--长龙出-->
           <div class="history-list" v-show="history_tables[1]" style="width:280px;">
             <p v-for="(v,k) in long_dragon" class="text-left">
               <span>{{v.name}}</span>
@@ -47,24 +45,34 @@
           </div>
 
           <div class="history-list" v-show="history_tables[2]">
-            <div class="history-balls" v-for="v in history_codes">
-              <span>{{v.expect}}</span>
-              <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
-              <span class="code-fh">+</span>
-              <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
-              <span class="code-fh">+</span>
-              <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
-              <span class="code-fh">=</span>
-              <span :class="returnColor(v.details.ball_1[0]) + ' code-ball'">{{v.details.ball_1[0]}}</span>
-            </div>
+              <table class="history-tables-ssc">
+                  <tr class="color-red">
+                      <td>期数/时间</td>
+                      <td width="94">开奖号码</td>
+                      <td colspan="5">总和</td>
+                      <td>波色</td>
+                  </tr>
+                  <tr v-for="v in history_codes">
+                      <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>
+                      <td>
+                          <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
+                          <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
+                          <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
+                      </td>
+                      <td width="38"><span :class="returnColor(v.details.ball_1[0])" class="code-ball" style="margin-left:10px;">{{v.details.ball_1[0]}}</span></td>
+                      <td>{{v.details.ball_2[0]}}</td>
+                      <td>{{v.details.ball_2[1]}}</td>
+                      <td>{{v.details.ball_2[2]}}</td>
+                      <td>{{v.details.ball_2[3]}}</td>
+                      <td v-if="v.details.ball_3[0]=='红波'" class="color-red">{{v.details.ball_3[0]}}</td>
+                      <td v-if="v.details.ball_3[0]=='蓝波'" style="color:blue">{{v.details.ball_3[0]}}</td>
+                      <td v-if="v.details.ball_3[0]=='绿波'" style="color:green">{{v.details.ball_3[0]}}</td>
+                      <td v-if="v.details.ball_3[0]=='白'" >{{v.details.ball_3[0]}}</td>
+                  </tr>
+              </table>
             <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
           </div>
 
-          <!--<div class="history-close ">-->
-            <!--<a @click="close_history()" class="pointer">-->
-              <!--关闭-->
-            <!--</a>-->
-          <!--</div>-->
         </div>
         <div class="clear"></div>
       </div>
@@ -87,31 +95,6 @@
             <span></span>
           </a>
         </div>
-
-        <!--<div class="bet-content-input">-->
-          <!--&lt;!&ndash;<div class="pan">&ndash;&gt;-->
-            <!--&lt;!&ndash;<label>盘口</label>&ndash;&gt;-->
-            <!--&lt;!&ndash;<select v-model="which_handicap">&ndash;&gt;-->
-              <!--&lt;!&ndash;<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>&ndash;&gt;-->
-            <!--&lt;!&ndash;</select>&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-          <!--<div class="fast-bet">-->
-            <!--快速下注金额-->
-            <!--<input type="text" class="fast-bet-input" v-model="fast_money">-->
-          <!--</div>-->
-          <!--&lt;!&ndash;<div class="bet-btns">&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="setBetMoney(10)">10</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="setBetMoney(50)">50</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="setBetMoney(100)">100</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="setBetMoney(200)">200</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="setBetMoney(500)">500</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="setBetMoney(1000)">1000</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="clear_bet()" class="pull-right chongtian">重填</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;<a @click="comfire_bet" class="pull-right tijiao">提交</a>&ndash;&gt;-->
-            <!--&lt;!&ndash;&lt;!&ndash;<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;</div>&ndash;&gt;-->
-          <!--<div class="clear"></div>-->
-        <!--</div>-->
 
 
         <!-- 第一球 -->
@@ -181,24 +164,6 @@
         </div>
 
 
-        <!--<div class="bet-content-input mt5">-->
-          <!--<div class="fast-bet">-->
-            <!--快速下注金额-->
-            <!--<input type="text" class="fast-bet-input" v-model="fast_money">-->
-          <!--</div>-->
-          <!--<div class="bet-btns">-->
-            <!--<a @click="setBetMoney(10)">10</a>-->
-            <!--<a @click="setBetMoney(50)">50</a>-->
-            <!--<a @click="setBetMoney(100)">100</a>-->
-            <!--<a @click="setBetMoney(200)">200</a>-->
-            <!--<a @click="setBetMoney(500)">500</a>-->
-            <!--<a @click="setBetMoney(1000)">1000</a>-->
-            <!--<a @click="clear_bet()" class="pull-right chongtian">重填</a>-->
-            <!--<a @click="comfire_bet" class="pull-right tijiao">提交</a>-->
-            <!--&lt;!&ndash;<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>&ndash;&gt;-->
-          <!--</div>-->
-          <!--<div class="clear"></div>-->
-        <!--</div>-->
 
         <!--快速下注-->
         <div class="bet-content-input mrt-55">
@@ -351,7 +316,14 @@
         };
       return my_data;
     },
+    filters:{
+      get_time2:function(str)
+      {
+        let data = str.substring(10);
+        return data;
+      }
 
+    },
     methods:
       {
         showType: function (idx)

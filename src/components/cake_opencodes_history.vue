@@ -54,7 +54,6 @@
                 <td>开奖号码</td>
                 <td colspan="5">总和</td>
                 <td>波色</td>
-
             </tr>
             <tr v-for="(v,k) in list">
                 <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time}}</span></p></td>
