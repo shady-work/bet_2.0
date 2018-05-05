@@ -186,7 +186,16 @@
           this.ssc.timeId2 = setInterval(function(){
             if(that.ssc.end_time <= 0)
             {
-              that.ssc.tips = "已停止下注,正在开奖";
+              if(that.pk10.end_time == 0)
+              {
+                that.$notify({
+                  title: '重庆时时彩',
+                  message: '重庆时时彩已封盘，准备开奖中。',
+                  duration:2500,
+                  position:'bottom-left',
+                });
+              }
+              that.ssc.tips = "停止下注,正在开奖";
               if(that.ssc.open_time <= 0 )
               {
                 if(that.ssc.open_time < -100)
@@ -199,6 +208,14 @@
                   clearInterval(that.ssc.timeId2);
                   //重新获取时间
                   that.get_time_ssc();
+                  //开盘通知
+                  that.$notify({
+                    title: '重庆时时彩',
+                    message: '重庆时时彩已开盘，准备开奖中。',
+                    type: 'success',
+                    duration:2500,
+                    position:'bottom-left',
+                  });
                   that.ssc.tips = "开盘中";
                 }
                 else
@@ -210,7 +227,7 @@
             }
             else
             {
-              that.ssc.tips ="第" + that.ssc.expect + "期";
+              that.ssc.tips = that.ssc.expect + "期  下注中";
             }
             that.ssc.end_time--;
             that.ssc.open_time--;
@@ -236,7 +253,16 @@
           this.pk10.timeId2 = setInterval(function(){
             if(that.pk10.end_time <= 0)
             {
-              that.pk10.tips = "已停止下注,正在开奖";
+              if(that.pk10.end_time == 0)
+              {
+                that.$notify({
+                  title: '北京赛车PK拾',
+                  message: '北京赛车PK拾已封盘，准备开奖中。',
+                  duration:2500,
+                  position:'bottom-left',
+                });
+              }
+              that.pk10.tips = "停止下注,正在开奖";
               if(that.pk10.open_time <= 0 )
               {
                 if(that.pk10.open_time < -100)
@@ -249,6 +275,14 @@
                   clearInterval(that.pk10.timeId2);
                   //重新获取时间
                   that.get_time_pk10();
+                    //开盘通知
+                  that.$notify({
+                    title: '北京赛车PK拾',
+                    message: '北京赛车PK拾已开盘，准备开奖中。',
+                    type: 'success',
+                    duration:2500,
+                    position:'bottom-left',
+                  });
                   that.pk10.tips = "开盘中";
                 }
                 else
@@ -260,7 +294,7 @@
             }
             else
             {
-              that.pk10.tips ="第" + that.pk10.expect + "期";
+              that.pk10.tips =that.pk10.expect + "期  下注中";
             }
             that.pk10.end_time--;
             that.pk10.open_time--;
@@ -286,7 +320,16 @@
           this.cake.timeId2 = setInterval(function(){
             if(that.cake.end_time <= 0)
             {
-              that.cake.tips = "已停止下注,正在开奖";
+              if(that.cake.end_time == 0)
+              {
+                that.$notify({
+                  title: '加拿大28',
+                  message: '加拿大28已封盘，准备开奖中。',
+                  duration:2500,
+                  position:'bottom-left',
+                });
+              }
+              that.cake.tips = "停止下注,正在开奖";
               if(that.cake.open_time <= 0 )
               {
                 if(that.cake.open_time < -100)
@@ -299,6 +342,13 @@
                   clearInterval(that.cake.timeId2);
                   //重新获取时间
                   that.get_time_cake();
+                  that.$notify({
+                    title: '加拿大28',
+                    message: '加拿大28已开盘，准备开奖中。',
+                    type: 'success',
+                    duration:2500,
+                    position:'bottom-left',
+                  });
                   that.cake.tips = "开盘中";
                 }
                 else
@@ -310,7 +360,7 @@
             }
             else
             {
-              that.cake.tips ="第" + that.cake.expect + "期";
+              that.cake.tips =that.cake.expect + "期  下注中";
             }
             that.cake.end_time--;
             that.cake.open_time--;
@@ -336,7 +386,16 @@
           this.egg.timeId2 = setInterval(function(){
             if(that.egg.end_time <= 0)
             {
-              that.egg.tips = "已停止下注,正在开奖";
+              if(that.egg.end_time == 0)
+              {
+                that.$notify({
+                  title: 'PC蛋蛋',
+                  message: 'PC蛋蛋已封盘，准备开奖中。',
+                  duration:2500,
+                  position:'bottom-left',
+                });
+              }
+              that.egg.tips = "停止下注,正在开奖";
               if(that.egg.open_time <= 0 )
               {
                 if(that.egg.open_time < -100)
@@ -349,6 +408,13 @@
                   clearInterval(that.egg.timeId2);
                   //重新获取时间
                   that.get_time_egg();
+                  that.$notify({
+                    title: 'PC蛋蛋',
+                    message: 'PC蛋蛋已开盘，准备开奖中。',
+                    type: 'success',
+                    duration:2500,
+                    position:'bottom-left',
+                  });
                   that.egg.tips = "开盘中";
                 }
                 else
@@ -360,7 +426,7 @@
             }
             else
             {
-              that.egg.tips ="第" + that.egg.expect + "期";
+              that.egg.tips =that.egg.expect + "期  下注中";
             }
             that.egg.end_time--;
             that.egg.open_time--;
@@ -413,7 +479,6 @@
 
     }
   }
-
 
 
 
