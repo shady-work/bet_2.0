@@ -771,7 +771,7 @@
                 },
                 get_codes_history:function()
                 {
-                    this.$http.get(`${this.global.config.API}egg/history/lottery?per_page=10&page=1`)
+                    this.$http.get(`${this.global.config.API}egg/history/lottery?range=today`)
                         .then(function(res)
                         {
                             if(res.data.status == 200)
