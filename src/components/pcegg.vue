@@ -87,30 +87,30 @@
                     </a>
                 </div>
 
-                <div class="bet-content-input">
-                    <!--<div class="pan">-->
-                    <!--<label>盘口</label>-->
-                    <!--<select v-model="which_handicap">-->
-                    <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-                    <!--</select>-->
+                <!--<div class="bet-content-input">-->
+                    <!--&lt;!&ndash;<div class="pan">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<label>盘口</label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<select v-model="which_handicap">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="fast-bet">-->
+                        <!--快速下注金额-->
+                        <!--<input type="text" class="fast-bet-input" v-model="fast_money">-->
                     <!--</div>-->
-                    <div class="fast-bet">
-                        快速下注金额
-                        <input type="text" class="fast-bet-input" v-model="fast_money">
-                    </div>
-                    <div class="bet-btns">
-                        <a @click="setBetMoney(10)">10</a>
-                        <a @click="setBetMoney(50)">50</a>
-                        <a @click="setBetMoney(100)">100</a>
-                        <a @click="setBetMoney(200)">200</a>
-                        <a @click="setBetMoney(500)">500</a>
-                        <a @click="setBetMoney(1000)">1000</a>
-                        <a @click="clear_bet()" class="pull-right chongtian">重填</a>
-                        <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-                        <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
-                    </div>
-                    <div class="clear"></div>
-                </div>
+                    <!--<div class="bet-btns">-->
+                        <!--<a @click="setBetMoney(10)">10</a>-->
+                        <!--<a @click="setBetMoney(50)">50</a>-->
+                        <!--<a @click="setBetMoney(100)">100</a>-->
+                        <!--<a @click="setBetMoney(200)">200</a>-->
+                        <!--<a @click="setBetMoney(500)">500</a>-->
+                        <!--<a @click="setBetMoney(1000)">1000</a>-->
+                        <!--<a @click="clear_bet()" class="pull-right chongtian">重填</a>-->
+                        <!--<a @click="comfire_bet" class="pull-right tijiao">提交</a>-->
+                        <!--&lt;!&ndash;<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
 
 
                 <!-- 第一球 -->
@@ -180,27 +180,61 @@
                 </div>
 
 
-                <div class="bet-content-input mt5">
-                    <!--<div class="pan">-->
-                    <!--<label style="color: #fff;">盘口</label>-->
-                    <!--<select v-model="which_handicap">-->
-                    <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-                    <!--</select>-->
+                <!--<div class="bet-content-input mt5">-->
+                    <!--&lt;!&ndash;<div class="pan">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<label style="color: #fff;">盘口</label>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<select v-model="which_handicap">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--<div class="fast-bet">-->
+                        <!--快速下注金额-->
+                        <!--<input type="text" class="fast-bet-input" v-model="fast_money">-->
                     <!--</div>-->
-                    <div class="fast-bet">
+                    <!--<div class="bet-btns">-->
+                        <!--<a @click="setBetMoney(10)">10</a>-->
+                        <!--<a @click="setBetMoney(50)">50</a>-->
+                        <!--<a @click="setBetMoney(100)">100</a>-->
+                        <!--<a @click="setBetMoney(200)">200</a>-->
+                        <!--<a @click="setBetMoney(500)">500</a>-->
+                        <!--<a @click="setBetMoney(1000)">1000</a>-->
+                        <!--<a @click="clear_bet()" class="pull-right chongtian">重填</a>-->
+                        <!--<a @click="comfire_bet" class="pull-right tijiao">提交</a>-->
+                        <!--&lt;!&ndash;<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--<div class="clear"></div>-->
+                <!--</div>-->
+                <!--快速下注-->
+                <div class="bet-content-input mrt-55">
+                    <div class="fast-bet" style="color:#606266;text-indent:8px;">
                         快速下注金额
-                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                        <el-input v-model="fast_money" placeholder="请输入内容" class="my-input-elm" style=""></el-input>
                     </div>
                     <div class="bet-btns">
-                        <a @click="setBetMoney(10)">10</a>
-                        <a @click="setBetMoney(50)">50</a>
-                        <a @click="setBetMoney(100)">100</a>
-                        <a @click="setBetMoney(200)">200</a>
-                        <a @click="setBetMoney(500)">500</a>
-                        <a @click="setBetMoney(1000)">1000</a>
-                        <a @click="clear_bet()" class="pull-right chongtian">重填</a>
-                        <a @click="comfire_bet" class="pull-right tijiao">提交</a>
-                        <!--<span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span>-->
+
+                        <el-button @click="setBetMoney(fast_bet_money[0])" class="btn-fast" >{{fast_bet_money[0]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[1])" class="btn-fast">{{fast_bet_money[1]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[2])" class="btn-fast">{{fast_bet_money[2]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[3])" class="btn-fast">{{fast_bet_money[3]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[4])" class="btn-fast">{{fast_bet_money[4]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[5])" class="btn-fast">{{fast_bet_money[5]}}</el-button>
+                        <!--设置快速下注金额-->
+                        <el-popover
+                                placement="top"
+                                width="50"
+                        >
+                            <el-input v-model="fast_bet_money[0]" placeholder="请输入内容" class="my-input-elm-set" ></el-input>
+                            <el-input v-model="fast_bet_money[1]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[2]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[3]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[4]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[5]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-button slot="reference" class="set-fast-money">设置快速下注金额</el-button>
+                        </el-popover>
+                        <!--/设置快速下注金额-->
+                        <el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>
+                        <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>
+                        <el-button v-if="!open_state"  class="btn-fast pull-right" disabled >提交</el-button>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -252,6 +286,8 @@
                     mins:'00',
                     seconds:'00',
                     fast_money: 10,//快速下注金额
+                    fast_bet_money:[10,50,100,200,500,1000],//快速下注的金额
+                    open_state:false,
                     odds: //赔率
                         {
                             mixture: [],
@@ -748,6 +784,7 @@
                             that.mins = '00';
                             that.seconds = that.open_time;
                             that.tips = "离开盘还有";
+                            that.open_state = false;
                             if(that.open_time <= 0 )
                             {
                                 if(that.open_time < -100)
@@ -765,6 +802,7 @@
                                     //获取未结算的订单
                                     that.get_ssc_unclear();
                                     that.tips = "距离本期封盘还有";
+                                    that.open_state = true;
                                 }
                                 else
                                 {
