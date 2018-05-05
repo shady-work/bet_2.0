@@ -121,28 +121,36 @@
                 </div>
 
                 <!--选择下注内容-->
-                <div class="bet-content-input">
-                    <!--<div class="pan">-->
-                    <!--<label>盘口</label>-->
-                    <!--<select v-model="which_handicap">-->
-                    <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                    <div class="fast-bet">
+                <div class="bet-content-input mt5">
+                    <div class="fast-bet" style="color:#606266;text-indent:8px;">
                         快速下注金额
-                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                        <el-input v-model="fast_money" placeholder="请输入内容" class="my-input-elm" style=""></el-input>
                     </div>
                     <div class="bet-btns">
-                        <a @click="setBetMoney(10)">10</a>
-                        <a @click="setBetMoney(50)">50</a>
-                        <a @click="setBetMoney(100)">100</a>
-                        <a @click="setBetMoney(200)">200</a>
-                        <a @click="setBetMoney(500)">500</a>
-                        <a @click="setBetMoney(1000)">1000</a>
-                        <a  class="pull-right chongtian" @click="clear_bet">重填</a>
-                        <a  v-if="open_state"  @click="comfire_content" :plain="true" class="pull-right tijiao" >提交</a>
-                        <a  v-if="!open_state" :plain="true" class="pull-right tijiao" style="cursor: not-allowed">已封盘</a>
 
+                        <el-button @click="setBetMoney(fast_bet_money[0])" class="btn-fast" >{{fast_bet_money[0]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[1])" class="btn-fast">{{fast_bet_money[1]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[2])" class="btn-fast">{{fast_bet_money[2]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[3])" class="btn-fast">{{fast_bet_money[3]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[4])" class="btn-fast">{{fast_bet_money[4]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[5])" class="btn-fast">{{fast_bet_money[5]}}</el-button>
+                        <!--设置快速下注金额-->
+                        <el-popover
+                                placement="top"
+                                width="50"
+                        >
+                            <el-input v-model="fast_bet_money[0]" placeholder="请输入内容" class="my-input-elm-set" ></el-input>
+                            <el-input v-model="fast_bet_money[1]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[2]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[3]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[4]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[5]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-button slot="reference" class="set-fast-money">设置快速下注金额</el-button>
+                        </el-popover>
+                        <!--/设置快速下注金额-->
+                        <el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>
+                        <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>
+                        <el-button v-if="!open_state"  class="btn-fast pull-right" disabled >提交</el-button>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -269,33 +277,35 @@
 
                 <!--选择下注内容-->
                 <div class="bet-content-input mt5">
-                    <!--<div class="pan">-->
-                    <!--<label>盘口</label>-->
-                    <!--<select v-model="which_handicap">-->
-                    <!--<option v-for="(v,k) in handicaps" v-bind:value="v.ratewin_name">{{return_upper(v.ratewin_name)}}盘 <span class="pull-right chongtian" >返水{{return_percent(fanshui)}}</span></option>-->
-                    <!--</select>-->
-                    <!--</div>-->
-                    <div class="fast-bet">
+                    <div class="fast-bet" style="color:#606266;text-indent:8px;">
                         快速下注金额
-                        <input type="text" class="fast-bet-input" v-model="fast_money">
+                        <el-input v-model="fast_money" placeholder="请输入内容" class="my-input-elm" style=""></el-input>
                     </div>
                     <div class="bet-btns">
 
-                        <el-button @click="setBetMoney(10)" class="btn-fast">10</el-button>
-                        <el-button @click="setBetMoney(50)" class="btn-fast">50</el-button>
-                        <el-button @click="setBetMoney(100)" class="btn-fast">100</el-button>
-                        <el-button @click="setBetMoney(200)" class="btn-fast">200</el-button>
-                        <el-button @click="setBetMoney(500)" class="btn-fast">500</el-button>
-                        <el-button @click="setBetMoney(1000)" class="btn-fast">1000</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[0])" class="btn-fast" >{{fast_bet_money[0]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[1])" class="btn-fast">{{fast_bet_money[1]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[2])" class="btn-fast">{{fast_bet_money[2]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[3])" class="btn-fast">{{fast_bet_money[3]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[4])" class="btn-fast">{{fast_bet_money[4]}}</el-button>
+                        <el-button @click="setBetMoney(fast_bet_money[5])" class="btn-fast">{{fast_bet_money[5]}}</el-button>
+                        <!--设置快速下注金额-->
                         <el-popover
                                 placement="top"
-                                width="160"
+                                width="50"
                         >
-                            <el-button slot="reference" style="height:30px;padding:5px 10px;margin-top: 5px;float:left;margin-left: 15px;">设置快速下注金额</el-button>
+                            <el-input v-model="fast_bet_money[0]" placeholder="请输入内容" class="my-input-elm-set" ></el-input>
+                            <el-input v-model="fast_bet_money[1]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[2]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[3]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[4]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-input v-model="fast_bet_money[5]" placeholder="请输入内容" class="my-input-elm-set"></el-input>
+                            <el-button slot="reference" class="set-fast-money">设置快速下注金额</el-button>
                         </el-popover>
+                        <!--/设置快速下注金额-->
                         <el-button class="btn-fast pull-right" @click="clear_bet">重填</el-button>
                         <el-button v-if="open_state"  class="btn-fast pull-right" @click="comfire_content">提交</el-button>
-                        <el-button v-if="!open_state"  class="btn-fast pull-right" >已封盘</el-button>
+                        <el-button v-if="!open_state"  class="btn-fast pull-right" disabled >提交</el-button>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -500,6 +510,7 @@
             },
 
           open_state:false,//是否开盘,true是开盘,false是封盘了
+          fast_bet_money:[10,50,100,200,500,1000],//快速下注的金额
 
         };
       return my_data;

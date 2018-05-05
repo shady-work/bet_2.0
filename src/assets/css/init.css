@@ -212,3 +212,36 @@ a:hover{
 {
     width: 50px;
 }
+.my-input-elm
+{
+    width: 60px;display: inline-block;height:28px;
+}
+.my-input-elm>input
+{
+    height: 28px;
+    text-align: left;
+    width: 60px;
+    padding:0 3px;
+}
+
+.set-fast-money
+{
+    height:30px;
+    padding:5px 10px;
+    margin-top: 5px;
+    float:left;
+    margin-left: 15px;
+}
+.my-input-elm-set > input
+{
+    height: 28px;
+    /*text-align: left;*/
+    /*width: 50px;*/
+    /*padding:0 3px;*/
+    margin-top: 15px;
+    text-align: center;
+}
+.el-popover
+{
+    min-width: 80px;
+}
