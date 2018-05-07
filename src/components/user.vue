@@ -1,8 +1,8 @@
 <template>
     <div id="user">
-        <p class="mt5 color-white text-left ml10" style="text-indent: 15px;">{{$store.state.nickname}}</p>
-        <div class="left">
 
+        <div class="left">
+            <p class="mt5 color-white text-left ml10" style="text-indent: 15px;">{{$store.state.nickname}}</p>
             <span class="fa fa-user-circle-o"></span>
         </div>
         <div class="right">
@@ -62,25 +62,35 @@ export default
     #user
     {
         width: 100%;
-        height: 85px;
+        height:118px;
         box-sizing: border-box;
 
     }
     .left
     {
         float: left;
-        width: 90px;
-        height: 100px;
+        width: 100%;
+        height: 30px;
+        padding-left:20px;
+        margin: 0 auto;
+        position: relative;
+        /*height: 100px;*/
+
 
     }
     .left>span
     {
         display:block;
-        width: 50px;
-        height:50px;
+        float:left;
+        width:30px;
+        height:30px;
+        font-size:28px;
+        line-height:30px;
         margin:0 auto;
-        margin-top: 18px;
-        font-size: 53px;
+        margin-top:5px;
+        margin-bottom: 5px;
+        /*font-size: 53px;*/
+        /*position: absolute;*/
         color:#e5e5e5;
 
     }
@@ -88,7 +98,12 @@ export default
     {
         font-size: 16px;
         color:#f3f3f3;
-        margin-top: 3px;
+        height: 30px;
+        line-height: 30px;
+        /*margin-top:3px;*/
+        margin-left:26px;
+        position: absolute;
+        /*top:10px;*/
     }
     .right
     {
@@ -99,6 +114,7 @@ export default
         color:#f3f3f3;
         box-sizing: border-box;
         font-size: 12px;
+        padding-left:15px;
     }
     .kuaicai
     {

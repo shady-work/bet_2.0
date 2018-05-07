@@ -6,15 +6,17 @@
       <div class="details">
         <img src="../assets/img/icon_bjpk.png" class="logo-tubiao" alt="">
           <div class="left">
-              <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期</p>
+              <!--<p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期</p>-->
+              <p class="color-white">第&nbsp;{{lastExpect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/179</p>
               <div class="balls">
                   <span v-for="(v,k) in open_codes" :class="'hao'+ (v/10*10)">{{v/10*10}}</span>
                   <div class="clear"></div>
               </div>
           </div>
           <div class="right">
+              <p>第&nbsp;{{lastExpect}}&nbsp;期</p>
               <div class="right-left">
-                  <p style="color:#209F16;">第{{thisExpect}}期</p>
+                  <!--<p style="color:#209F16;">第{{thisExpect}}期</p>-->
                   <p>{{tips}}</p>
               </div>
               <div class="right-right">

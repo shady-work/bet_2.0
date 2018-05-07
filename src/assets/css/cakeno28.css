@@ -9,6 +9,7 @@
   width: 100%;
   box-sizing: border-box;
   padding-left: 5px;
+  height:118px;
 }
 
 .head .details > .logo-tubiao
@@ -23,8 +24,8 @@
 {
   width: 1050px;
   float: left;
-  height: 86px;
-  margin-top:1px;
+  height:100px;
+  margin-top:9px;
   background: #ea4c4c;
   margin-left: 5px;
   box-sizing: border-box;
@@ -41,16 +42,26 @@
 .right
 {
     width:300px;
-    height:65px;
+    height:60px;
+  margin-top:25px;
+  margin-left:-50px;
     border: 1px solid #f2dcaf;
     background: #fffdf1;
     float: left;
+}
+.right>p:first-child{
+  margin-top:-27px;
+  text-align: left;
+  color: #fff;
 }
 .right-left
 {
     width:130px;
     float: left;
     height:100%;
+}
+.right-left>p:only-child{
+  margin-top:15px;
 }
 .right-right
 {
@@ -91,7 +102,7 @@
 .balls
 {
   float: left;
-    margin-top:5px;
+    margin-top:15px;
     margin-left:12px;
 }
 .balls>span
@@ -308,8 +319,8 @@
   box-sizing: border-box;
   margin-top: 5px;
   position: absolute;
-  right: 0px;
-  top:54px;
+  right:195px;
+  top:70px;
 }
 
 .history-header {

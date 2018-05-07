@@ -8,6 +8,7 @@
         width: 100%;
         box-sizing: border-box;
         padding-left: 5px;
+        height:118px;
     }
     .head>img
     {
@@ -27,8 +28,8 @@
     {
         width: 1050px;
         float: left;
-        height: 80px;
-        margin-top:1px;
+        height:100px;
+        margin-top:9px;
         /*background: rgba(0,0,0,0.5);*/
        background: #ea4c4c;
         margin-left: 5px;
@@ -46,16 +47,26 @@
  .right
  {
      width:300px;
-     height:65px;
+     height:60px;
+     margin-top:25px;
+     margin-left:-50px;
      border: 1px solid #f2dcaf;
      background: #fffdf1;
      float: left;
+ }
+ .right>p:first-child{
+     margin-top:-27px;
+     text-align: left;
+     color: #fff;
  }
  .right-left
  {
      width:130px;
      float: left;
      height:100%;
+ }
+ .right-left>p:only-child{
+     margin-top:15px;
  }
  .right-right
  {
@@ -97,13 +108,14 @@
     {
         float: left;
         margin-top:13px;
+
     }
     .balls>span
     {
         display:block;
         float: left;
-        height: 25px;
-        width: 25px;
+        height:25px;
+        width:25px;
         background-size: cover;
         text-align: center;
         line-height:25px;
@@ -323,10 +335,10 @@
         /* border: 1px solid #fff; */
          float: left;
          box-sizing: border-box;
-         margin-top: 5px;
+         /*margin-top: 5px;*/
          position: absolute;
-         right: 0;
-         top:50px;
+         right:165px;
+         top:70px;
      }
      .history-header
      {
