@@ -108,7 +108,7 @@ export default
     .right
     {
         float: left;
-        width: 140px;
+        width:180px;
         text-align:left;
         text-indent:5px;
         color:#f3f3f3;

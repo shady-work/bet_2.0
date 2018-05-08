@@ -1,18 +1,18 @@
 <template>
    <div class="center">
-       <div class="cqssc">
+       <div class="cqssc" v-show="isShow('cqssc')">
             <cqssc></cqssc>
         </div>
 
-        <div class="pk10">
+        <div class="pk10" v-show="isShow('bjpk10')">
             <pk10></pk10>
         </div>
 
-        <div class="egg">
+        <div class="egg" v-show="isShow('cakeno')">
             <egg></egg>
         </div>
 
-        <div class="cake">
+        <div class="cake" v-show="isShow('pcegg')">
             <cake></cake>
         </div>
    </div>
@@ -28,12 +28,24 @@
         data()
         {
             return{
-
+                vaild_lotteries:[],//  用户拥有哪些彩种
             };
         },
         methods:
         {
-
+            //是否显示彩种
+            isShow:function(str)
+            {
+                let numb = this.vaild_lotteries.indexOf(str);
+                if(numb == -1)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            },
         },
         created()
         {
@@ -55,6 +67,13 @@
             $('#bottom').width(browserWidth);
 
           });
+
+            //获取用户有哪些彩种
+            this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+            {
+                let  data = response.data.data.user;
+                this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+            });
 
         },
         components:

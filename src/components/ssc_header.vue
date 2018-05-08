@@ -219,6 +219,7 @@ export default {
 
         }
     },
+
     created()
     {
         // 1 获取重庆时时彩的时间和期数
