@@ -11,16 +11,16 @@
     <div class="xy-left">
 
       <div class="xy-list">
-        <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
+        <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')" v-show="isShow1('cqssc')">
           重庆时时彩
         </a>
-        <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
+        <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')" v-show="isShow1('bjpk10')">
           北京赛车pk10
         </a>
-        <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
+        <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')" v-show="isShow1('cakeno')">
           加拿大28
         </a>
-        <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
+        <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')" v-show="isShow1('pcegg')">
           pc蛋蛋
         </a>
       </div>
@@ -54,6 +54,7 @@
           sum:0,
           pageNum:0,
           isShow:false,
+            vaild_lotteries:[],
         };
       return data;
     },
@@ -147,6 +148,20 @@
 
         },
 
+          //是否显示彩种
+          isShow1:function(str)
+          {
+              let numb = this.vaild_lotteries.indexOf(str);
+              if(numb == -1)
+              {
+                  return false;
+              }
+              else
+              {
+                  return true;
+              }
+          },
+
 
       },
     created:function()
@@ -156,7 +171,14 @@
         this.$router.push('/open_history/ssc');
         this.$store.state.isShowSecond = true;
         this.get_codes();
-      }
+      };
+
+        //获取用户有哪些彩种
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+        {
+            let  data = response.data.data.user;
+            this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+        });
     },
     mounted()
     {

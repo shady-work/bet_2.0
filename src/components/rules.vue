@@ -12,10 +12,10 @@
 
                     <div class="xy-list">
                         <a @click="isShow=[1,0,0,0,0];" :class="isShow[0]?'active':''">用户须知</a>
-                        <a @click="isShow=[0,1,0,0,0];" :class="isShow[1]?'active':''">重庆时时彩</a>
-                        <a @click="isShow=[0,0,1,0,0];" :class="isShow[2]?'active':''">北京赛车pk10</a>
-                        <a @click="isShow=[0,0,0,1,0];" :class="isShow[3]?'active':''">加拿大28</a>
-                        <a @click="isShow=[0,0,0,0,1];" :class="isShow[4]?'active':''">pc蛋蛋</a>
+                        <a @click="isShow=[0,1,0,0,0];" :class="isShow[1]?'active':''" v-show="isShow1('cqssc')">重庆时时彩</a>
+                        <a @click="isShow=[0,0,1,0,0];" :class="isShow[2]?'active':''" v-show="isShow1('bjpk10')">北京赛车pk10</a>
+                        <a @click="isShow=[0,0,0,1,0];" :class="isShow[3]?'active':''" v-show="isShow1('cakeno')">加拿大28</a>
+                        <a @click="isShow=[0,0,0,0,1];" :class="isShow[4]?'active':''" v-show="isShow1('pcegg')">pc蛋蛋</a>
                     </div>
                 </div>
 
@@ -211,6 +211,7 @@ export default
        var data =
        {
            isShow:[1,0,0,0,0,0],
+           vaild_lotteries:[],
        };
        return data;
    },
@@ -227,11 +228,31 @@ export default
            var e = event || window.event;
            e.cancelBubble = true;
        },
+       //是否显示彩种
+       isShow1:function(str)
+       {
+           let numb = this.vaild_lotteries.indexOf(str);
+           if(numb == -1)
+           {
+               return false;
+           }
+           else
+           {
+               return true;
+           }
+       },
+
 
    },
    created()
    {
        this.$store.state.isShowSecond = true;
+       //获取用户有哪些彩种
+       this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+       {
+           let  data = response.data.data.user;
+           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+       });
    },
     watch:
         {

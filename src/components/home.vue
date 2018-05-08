@@ -8,11 +8,11 @@
             <pk10></pk10>
         </div>
 
-        <div class="egg" v-show="isShow('cakeno')">
+        <div class="egg" v-show="isShow('pcegg')">
             <egg></egg>
         </div>
 
-        <div class="cake" v-show="isShow('pcegg')">
+        <div class="cake" v-show="isShow('cakeno')">
             <cake></cake>
         </div>
    </div>

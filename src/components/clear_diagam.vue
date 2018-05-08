@@ -10,16 +10,16 @@
             <div class="xy-left">
 
               <div class="xy-list">
-                <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')">
+                <a :class="table_lotterys[0]?'active':''" @click="tab_lottery(0,'ssc')" v-show="isShow('cqssc')">
                   重庆时时彩
                 </a>
-                <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')">
+                <a :class="table_lotterys[1]?'active':''" @click="tab_lottery(1,'pk10')" v-show="isShow('bjpk10')">
                   北京赛车pk10
                 </a>
-                <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')">
+                <a :class="table_lotterys[2]?'active':''" @click="tab_lottery(2,'cake')" v-show="isShow('cakeno')">
                   加拿大28
                 </a>
-                <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')">
+                <a :class="table_lotterys[3]?'active':''" @click="tab_lottery(3,'egg')" v-show="isShow('pcegg')">
                   pc蛋蛋
                 </a>
               </div>
@@ -127,6 +127,7 @@ export default
            hasNext:false,
            hasPrev:false,
            data:[],
+           vaild_lotteries:[],
 
        };
        return data;
@@ -266,6 +267,20 @@ export default
          })
        },
 
+       //是否显示彩种
+       isShow:function(str)
+       {
+           let numb = this.vaild_lotteries.indexOf(str);
+           if(numb == -1)
+           {
+               return false;
+           }
+           else
+           {
+               return true;
+           }
+       },
+
    },//methods end
    created:function()
    {
@@ -273,7 +288,14 @@ export default
      {
        this.$store.state.isShowSecond = true;
        this.list = this.getOrder_2();
-     }
+     };
+
+       //获取用户有哪些彩种
+       this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
+       {
+           let  data = response.data.data.user;
+           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
+       });
 
    },
    watch:
