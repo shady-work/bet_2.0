@@ -1524,7 +1524,7 @@
     }
     .bet-content-input{
         position: fixed;
-        bottom: 40px;
+        bottom:30px;
         width: 1080px;
     }
 </style>

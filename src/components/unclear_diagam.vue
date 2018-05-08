@@ -237,19 +237,26 @@ export default
    },
    created:function(){
 
-     if(window.sessionStorage.isLogin == 'ok')
-     {
-       this.$store.state.isShowSecond = true;
-       this.list = this.getOrder_2();
-
-     }
-
        //获取用户有哪些彩种
        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
        {
            let  data = response.data.data.user;
            this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
        });
+
+
+     if(window.sessionStorage.isLogin == 'ok' )
+     {
+         this.$store.state.isShowSecond = true;
+
+         // this.type=this.vaild_lotteries[0];
+         // this.list = this.getOrder_2(`${this.global.config.API}${this.type}/history/clear/0`);
+         this.list = this.getOrder_2();
+     }
+
+
+
+
    },
     watch:
     {

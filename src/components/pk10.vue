@@ -189,7 +189,7 @@
 
         <!-- 单名1-10 -->
         <div class="bet-chooses" v-show="showArray_cqssc[1]">
-          <div class="bet-chooses-top">
+          <div class="bet-chooses-top" style="height:900px;">
             <div v-for="(v,k,index) in odds.single_ball"  :class="(index==0 || index==5)?'first-ball mt0':'first-ball'">
               <div v-for="(val,key,idx) in singleball_a" class="first-ball-details">
                 <span :class="'hao' + (key+1)">{{key+1}}</span>
