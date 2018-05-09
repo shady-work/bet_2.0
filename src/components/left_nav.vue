@@ -525,6 +525,7 @@
         background: #ea4c4c;
         float: left;
         border-top: 1px solid #fff;
+        box-sizing: border-box;
     }
     .lottery-list
     {

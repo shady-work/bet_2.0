@@ -1,7 +1,8 @@
 <style>
     body
     {
-        background: #ea4c4c;
+        /*background: #ea4c4c;*/
+      background-color: #f5f5f5;
     }
     #center
     {
@@ -11,6 +12,7 @@
         background: #f5f5f5;
         overflow-x: hidden;
         min-height: 1000px;
+        padding-bottom: 50px;
     }
     #scroll
     {
@@ -414,14 +416,27 @@
              that.$set(that.$store.state,'unclear',that.getOrder());
            },40000);*/
         }
-
+        /**
+         * 控制样式的jquery
+         */
         $(function()
         {
-          let browserHeight = $(window).height();
+
+          let browserHeight = $(document).height();
           let headerHeight  = 78;
           $("#left-nav").height(browserHeight - headerHeight);
-          //$("#center").height(browserHeight - headerHeight + 80);
-          $('.recent-content').height($("#left-nav").height() - 381);
+
+          //页面加载时，获取滚动条初始高度
+          $(document).scroll(function()
+          {
+            let browserHeight = $(document).height();
+            let headerHeight  = 78;
+            if($("#left-nav").height() != browserHeight - headerHeight -1)
+            {
+              $("#left-nav").height(browserHeight - headerHeight);
+            }
+          })
+
         });
 
       },

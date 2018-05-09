@@ -29,52 +29,62 @@
                 <!-- 右边的历史记录 -->
                 <div id="history">
                     <div class="history-table">
-                        <a @click="showTables(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-                        <a @click="showTables(2)" :class="history_tables[2]?'active':''"  style="margin-right:15px;">今日开奖</a>
-                    </div>
+                      <el-popover
+                        placement="bottom"
+                        title=""
+                        width="600"
+                        trigger="click"
+                        popper-class="my-click-class">
+                        <table class="history-tables-ssc text-center">
+                          <tr>
+                            <td >期号/时间</td>
+                            <td width="160"><p>开奖号码</p></td>
+                            <td colspan="3">总和</td>
+                            <td>龙虎</td>
+                            <td>前三</td>
+                            <td>中三</td>
+                            <td>后三</td>
+                          </tr>
+                          <tr v-for="(val,key) in history_list">
+                            <td>{{val.expect}}{{val.opentime|get_time2}}</td>
+                            <td>
+                              <span v-for="v in val.open_codes" class="code-ball" :class="'hhao' + v">{{v}}</span>
+                            </td>
+                            <td>{{get_sum(val.open_codes)}}</td>
+                            <td v-if="val.details.dragon_and_tiger[1] == '总和单'" style="color:red;">{{val.details.dragon_and_tiger[1]|delete_str}}</td>
+                            <td v-else >{{val.details.dragon_and_tiger[1]|delete_str}}</td>
+                            <td v-if="val.details.dragon_and_tiger[0] == '总和大'"  style="color: red;">{{val.details.dragon_and_tiger[0]|delete_str}}</td>
+                            <td v-else  >{{val.details.dragon_and_tiger[0]|delete_str}}</td>
+                            <td :class="val.details.dragon_and_tiger[2] == '龙'?'color-red':''">{{val.details.dragon_and_tiger[2]}}</td>
+                            <td>{{val.details.front_3[0]}}</td>
+                            <td>{{val.details.medium_3[0]}}</td>
+                            <td>{{val.details.end_3[0]}}</td>
+                          </tr>
+                        </table>
+                        <el-button slot="reference" style="float:left;background:none;border: none;color: white;" size="mini">今日开奖</el-button>
 
-                    <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
-                        <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;">
+                      </el-popover>
+
+                      <el-popover
+                        placement="bottom"
+                        title="长龙排行"
+                        width="280"
+                        center="true"
+                        trigger="click"
+                        popper-class="my-click-class">
+                          <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;">
                             <span>{{v.name}}</span>
                             <span class="pull-right mr10">{{v.num}}期</span>
-                        </p>
-                        <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
+                          </p>
+
+                        <el-button slot="reference" style="float:left;background:none;border: none;color: white;" size="mini">长龙排行</el-button>
+
+                      </el-popover>
+                      <div class="clear"></div>
                     </div>
 
-                    <div class="history-list" v-show="history_tables[2]">
-                        <table class="history-tables-ssc">
-                            <tr>
-                                <td >期号/时间</td>
-                                <td width="160"><p>开奖号码</p></td>
-                                <td colspan="3">总和</td>
-                                <td>龙虎</td>
-                                <td>前三</td>
-                                <td>中三</td>
-                                <td>后三</td>
-                            </tr>
-                            <tr v-for="(val,key) in history_list">
-                                <td>{{val.expect}}{{val.opentime|get_time2}}</td>
-                                <td>
-                                    <!--<span v-for="(va,k) val.open_codes" class="code-ball" :class="'hhao' + va">{{va}}</span>-->
-                                    <span v-for="v in val.open_codes" class="code-ball" :class="'hhao' + v">{{v}}</span>
-                                </td>
-                                <td>{{get_sum(val.open_codes)}}</td>
-                                <td v-if="val.details.dragon_and_tiger[1] == '总和单'" style="color:red;">{{val.details.dragon_and_tiger[1]|delete_str}}</td>
-                                <td v-else >{{val.details.dragon_and_tiger[1]|delete_str}}</td>
-                                <td v-if="val.details.dragon_and_tiger[0] == '总和大'"  style="color: red;">{{val.details.dragon_and_tiger[0]|delete_str}}</td>
-                                <td v-else  >{{val.details.dragon_and_tiger[0]|delete_str}}</td>
-                                <td :class="val.details.dragon_and_tiger[2] == '龙'?'color-red':''">{{val.details.dragon_and_tiger[2]}}</td>
-                                <td>{{val.details.front_3[0]}}</td>
-                                <td>{{val.details.medium_3[0]}}</td>
-                                <td>{{val.details.end_3[0]}}</td>
-                            </tr>
-                        </table>
-                        <!--<div v-for="(v,k) in history_expects" class="history-balls">
-                          <span>{{v}}</span>
-                          <span v-for="(val,key) in history_codes[k]" class="code-ball" :class="'hhao' + val">{{val}}</span>
-                        </div>-->
-                        <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
-                    </div>
+
+
 
                 </div >
                 <div class="clear"></div>

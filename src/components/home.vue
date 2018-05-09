@@ -49,24 +49,7 @@
         },
         created()
         {
-          $(function()
-          {
-            //浏览器的高度
-            let browserHeight = $(window).height();
-            //浏览器的宽度
-            let browserWidth = $(window).width();
 
-            //头部的高度
-            let headerHeight  = 78;
-            //左边的菜单的高度
-            $("#left-nav").height(browserHeight - headerHeight);
-
-            //设置中间区域的大小
-            $("#center").width(browserWidth - 240);
-
-            $('#bottom').width(browserWidth);
-
-          });
 
             //获取用户有哪些彩种
             this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id ).then(function (response)
