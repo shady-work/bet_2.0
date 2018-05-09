@@ -8,7 +8,7 @@
         width: 100%;
         box-sizing: border-box;
         padding-left: 5px;
-        height:118px;
+        height:100px;
     }
     .head>img
     {
@@ -28,10 +28,8 @@
     {
         width: 1050px;
         float: left;
-        height:100px;
-        margin-top:9px;
-        /*background: rgba(0,0,0,0.5);*/
-       background: #ea4c4c;
+        height:104px;
+        background: #ea4c4c;
         margin-left: 5px;
         box-sizing: border-box;
         padding-top: 10px;

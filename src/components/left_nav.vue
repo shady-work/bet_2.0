@@ -561,10 +561,18 @@
     }
     .active
     {
-        background: -webkit-linear-gradient(left,rgba(210,210,210,0.6),rgba(200,200,200,0.1)); /* Safari 5.1 - 6.0 */
-        background: -o-linear-gradient(right, rgba(210,210,210,0.6),rgba(200,200,200,0.1)); /* Opera 11.1 - 12.0 */
-        background: -moz-linear-gradient(right,rgba(210,210,210,0.6),rgba(200,200,200,0.1)); /* Firefox 3.6 - 15 */
-        background: linear-gradient(to right, rgba(210,210,210,0.6),rgba(200,200,200,0.1)); /* 标准的语法 */
+      /*  background: -webkit-linear-gradient(left,rgba(210,210,210,0.6),rgba(200,200,200,0.1)); !* Safari 5.1 - 6.0 *!
+        background: -o-linear-gradient(right, rgba(210,210,210,0.6),rgba(200,200,200,0.1)); !* Opera 11.1 - 12.0 *!
+        background: -moz-linear-gradient(right,rgba(210,210,210,0.6),rgba(200,200,200,0.1)); !* Firefox 3.6 - 15 *!
+        background: linear-gradient(to right, rgba(210,210,210,0.6),rgba(200,200,200,0.1)); !* 标准的语法 *!*/
+
+
+      background: -webkit-linear-gradient(left,rgba(210,210,210,0.6),rgba(200,200,200,0.1));
+      background: -o-linear-gradient(right, rgba(210,210,210,0.6),rgba(200,200,200,0.1));
+      background: -moz-linear-gradient(right,rgba(210,210,210,0.6),rgba(200,200,200,0.1));
+      background: linear-gradient(to right, rgba(210,210,210,0.6),rgba(200,200,200,0.1));
+
+      /*background: linear-gradient(90deg,hsla(0, 92.9%, 50.4%, 0.6),hsla(0,0%,78%,.1));*/
         border-left:5px solid #fff;
     }
 

@@ -3,6 +3,16 @@
     {
         /*background: #ea4c4c;*/
       background-color: #f5f5f5;
+
+    }
+    *{
+      moz-user-select: -moz-none;
+      -moz-user-select: none;
+      -o-user-select:none;
+      -khtml-user-select:none;
+      -webkit-user-select:none;
+      -ms-user-select:none;
+      user-select:none;
     }
     #center
     {
@@ -13,6 +23,7 @@
         overflow-x: hidden;
         min-height: 1000px;
         padding-bottom: 50px;
+        padding-top: 1px;
     }
     #scroll
     {
@@ -23,8 +34,15 @@
         height: 29px;
         box-sizing: border-box;
         text-indent: 0;
-        color: #000;
+        color: #fff;
         width: 85%;
+      background: #e83a36;
+
+    }
+    #scroll>marquee
+    {
+      height: 29px;
+      line-height: 29px;
     }
     #scroll span{
          float: left;
@@ -43,8 +61,8 @@
         right:0;
         top:0;
         padding-top: 78px;
-        /*background: #e83a36;*/
-        background: #e1e1e1;
+        background: #e83a36;
+
     }
     .notice
     {
@@ -128,10 +146,7 @@
      <div class="clear"></div>
     <!-- 底部的滚动条 -->
      <div id="scroll">
-        <!--<span >公告:</span>-->
-         <div>
-         <marquee behavior="" direction="">Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效。 Node.js 的包管理器 npm，是全球最大的开源库生态系统。</marquee>
-         </div>
+         <marquee behavior="" direction="">马大伟 was  good boy  but now .........</marquee>
      </div>
 
      <!--右侧消息通知-->

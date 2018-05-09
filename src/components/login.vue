@@ -143,17 +143,20 @@ export default
         left:0;
         top:0;
         background:url("../assets/img/login.jpg");
+        background-size: cover;
         z-index:4;
     }
 
     .login
     {
-        width: 313px;
+        width: 314px;
         height: 515px;
         background: rgba(0,0,0,0.5);
         position:absolute;
-        left:40%;
-        top: 20%;
+        left:50%;
+        top: 50%;
+        margin-left: -157px;
+        margin-top: -257.5px;
         box-shadow: 0 0 10px 15px rgba(0,0,0,0.4);
         box-sizing:border-box;
     }

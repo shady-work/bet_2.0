@@ -252,10 +252,9 @@ export default {
     {
         width: 1080px;
         float: left;
-        height: 80px;
+        height: 86px;
         margin-top:5px;
-        /*background: rgba(0,0,0,0.5);*/
-       background: #ea4c4c;
+        background: #ea4c4c;
         margin-left: 5px;
         box-sizing: border-box;
         padding-top: 10px;

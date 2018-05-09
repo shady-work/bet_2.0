@@ -9,7 +9,7 @@
   width: 100%;
   box-sizing: border-box;
   padding-left: 5px;
-  height:118px;
+  height:100px;
 }
 
 .head .details > .logo-tubiao
@@ -25,7 +25,6 @@
   width: 1050px;
   float: left;
   height:100px;
-  margin-top:9px;
   background: #ea4c4c;
   margin-left: 5px;
   box-sizing: border-box;
