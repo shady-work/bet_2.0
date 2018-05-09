@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <p>第&nbsp;{{last_expect}}&nbsp;期</p>
+                    <p>第&nbsp;{{this_expect}}&nbsp;期</p>
                     <div class="right-left">
                         <!--<p style="color:#209F16;">第{{this_expect}}期</p>-->
                         <p>{{tips}}</p>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="bet-content-table">
                     <a class="color-white active">
-                        加拿大28
+                        PC蛋蛋
                         <span></span>
                     </a>
                 </div>

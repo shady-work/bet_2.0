@@ -6,7 +6,8 @@
         <img src="../assets/img/icon_jnd28.png" class="logo-tubiao" alt="">
         <div class="left">
           <!--<p class="color-white"> 最新开奖：第{{last_expect}}期，今日剩余{{unsaleNum}}期</p>-->
-          <p class="color-white">第&nbsp;{{last_expect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/179</p>
+          <p class="color-white">第&nbsp;{{last_expect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/396</p>
+          <!--<p class="color-white">第&nbsp;{{last_expect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>-->
           <div class="balls">
             <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
             <span class="bg-none color-white">+</span>
@@ -19,7 +20,7 @@
           </div>
         </div>
         <div class="right">
-          <p>第&nbsp;{{last_expect}}&nbsp;期</p>
+          <p>第&nbsp;{{this_expect}}&nbsp;期</p>
           <div class="right-left">
             <!--<p style="color:#209F16;">第{{this_expect}}期</p>-->
             <p>{{tips}}</p>

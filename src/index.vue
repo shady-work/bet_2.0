@@ -146,7 +146,7 @@
      <div class="clear"></div>
     <!-- 底部的滚动条 -->
      <div id="scroll">
-         <marquee behavior="" direction="">马大伟 was  good boy  but now .........</marquee>
+         <marquee behavior="" direction="">欢迎您到本平台娱乐下注~~~</marquee>
      </div>
 
      <!--右侧消息通知-->
