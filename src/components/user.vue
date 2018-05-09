@@ -64,7 +64,7 @@ export default
         width: 100%;
         height:118px;
         box-sizing: border-box;
-
+        border-bottom: 1px solid #fff;
     }
     .left
     {

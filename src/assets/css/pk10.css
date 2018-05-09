@@ -202,8 +202,10 @@
          font-size: 14px;
          text-indent: 3px;
      }
+
      .fast-bet>input
      {
+         margin-top: 5px;
          border:1px solid white;
          width: 60px;
          border-radius:3px;

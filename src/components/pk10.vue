@@ -389,7 +389,7 @@
         <!--快速下注-->
         <div class="bet-content-input mrt-55">
               <div class="fast-bet" style="color:#606266;text-indent:8px;">
-                  快速下注金额
+                  <span>快速下注金额</span>
                   <el-input v-model="fast_money" placeholder="请输入内容" class="my-input-elm" style=""></el-input>
               </div>
               <div class="bet-btns">
