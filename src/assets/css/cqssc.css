@@ -53,9 +53,12 @@
     border: 1px solid #f2dcaf;
     background: #fffdf1;
     float: left;
+    position: relative;
+
 }
-.right>p:first-child{
-  margin-top:-27px;
+.right>.first-pppp{
+  position: absolute;
+  top:-26px;
   text-align: left;
   color: #fff;
 }
@@ -63,10 +66,13 @@
 {
     width:130px;
     float: left;
-    height:100%;
 }
-.right-left>p:only-child{
-  margin-top:15px;
+.right-left>p{
+
+  width:130px;
+  float: left;
+  height: 62px;
+  line-height: 62px;
 }
 .right-right
 {
@@ -77,7 +83,7 @@
 {
 
     float: left;
-    margin-top:5px;
+    /*margin-top:5px;*/
     height:50px;
     line-height:50px;
     margin-right:5px;
@@ -96,7 +102,7 @@
     font-size:28px;
     color: #fff;
     line-height:50px;
-    float: left;
+    /*float: left;*/
     margin-right:5px;
 }
 /*.right-right>.fen>span{*/
@@ -108,11 +114,11 @@
   /*!*margin-right:0px;*!*/
   /*font-size:15px;*/
 /*}*/
-.right-left>p
-{
-    height:32px;
-    line-height:32px;
-}
+/*.right-left>p*/
+/*{*/
+    /*height:32px;*/
+    /*line-height:32px;*/
+/*}*/
 .balls {
     float: left;
     box-sizing: border-box;
@@ -353,7 +359,7 @@
 }
 
 #history {
-  width: 280px;
+  /*width: 280px;*/
   float: left;
   box-sizing: border-box;
   /*margin-top: 5px;*/
@@ -564,7 +570,7 @@
 .hhao8
 {
   /*background: #ff0000;*/
-  background:#9300ffe8;
+  background:#9300ff;
 }
 .hhao9
 {

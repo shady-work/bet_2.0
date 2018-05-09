@@ -53,9 +53,12 @@
      border: 1px solid #f2dcaf;
      background: #fffdf1;
      float: left;
+     position: relative;
  }
  .right>p:first-child{
-     margin-top:-27px;
+     position: absolute;
+     top:-26px;
+     /*margin-top:-27px;*/
      text-align: left;
      color: #fff;
  }

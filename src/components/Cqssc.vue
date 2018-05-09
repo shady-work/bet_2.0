@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="right">
-                    <p>第&nbsp;{{lastExpect}}&nbsp;期</p>
+                    <p class="first-pppp">第&nbsp;{{lastExpect}}&nbsp;期</p>
                     <div class="right-left">
                         <!--<p style="color:#209F16;">第{{thisExpect}}期</p>-->
                         <p>{{tips}}</p>
