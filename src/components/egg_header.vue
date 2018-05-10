@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="left">
-                   <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_+8}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                        <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
                        <a class="my-a" @click="history_codes()">历史记录</a>
                        <a class="my-a" @click="turn()" >快速下注</a>

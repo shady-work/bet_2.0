@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="left">
-                    <p class="color-white" > 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+7}}期
+                    <p class="color-white" > 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+2}}期
                         <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
                         <a class="my-a" @click="history_codes()">历史记录</a>
                         <a class="my-a" @click="turn()" >快速下注</a>
