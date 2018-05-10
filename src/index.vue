@@ -30,17 +30,17 @@
         position: fixed;
         bottom: 0;
         left: 230px;
-        min-width: 1200px;
         height: 29px;
         box-sizing: border-box;
         text-indent: 0;
         color: #fff;
-        width: 85%;
+        width:100%;
       background: #e83a36;
 
     }
     #scroll>marquee
     {
+
       height: 29px;
       line-height: 29px;
     }
@@ -61,8 +61,8 @@
         right:0;
         top:0;
         padding-top: 78px;
-        background: #e83a36;
-
+        /*background: #e83a36;*/
+        background:#e1e1e1;
     }
     .notice
     {
@@ -75,6 +75,15 @@
         cursor: pointer;
         position: relative;
         margin-bottom: 15px;
+    }
+    .cover{
+        width: 30px;
+        height: 78px;
+       position: absolute;
+        right:0;
+        top:0;
+        background:#e83a36;
+        z-index: 999;
     }
     .recenter-bet
     {
@@ -149,8 +158,11 @@
          <marquee behavior="" direction="">欢迎您到本平台娱乐下注~~~</marquee>
      </div>
 
+
+       <div class="cover"></div>
      <!--右侧消息通知-->
      <div id="notice">
+
           <div class="notice" >
               <i class="fa fa-bell color-white"></i>
           </div>
@@ -453,6 +465,7 @@
           })*/
 
         });
+
 
       },
       destroyed()
