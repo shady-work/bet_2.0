@@ -1,8 +1,7 @@
 <template>
     <div>
-
         <div class="filter-header" style="height: auto;overflow:hidden;margin-bottom: 15px;margin-top: 15px;">
-            <div class="pull-left" style="width: 600px;">
+            <div class="pull-left" style="width: 500px;">
                 <div style-="height:30px;width:100%">
                     <el-form ref="form">
                         <el-form-item label="车号分布">
@@ -235,6 +234,22 @@
                   {
                       let data = res.data.data;
                       this.list = data.list;
+                    for(let i = 0; i<this.list.length;i++)
+                    {
+                      this.data.push(
+                        {
+                          codes1:{ num:this.list[i].open_codes[0],islight:false,no_:"1"},
+                          codes2:{ num:this.list[i].open_codes[1],islight:false,no_:"2"},
+                          codes3:{ num:this.list[i].open_codes[2],islight:false,no_:"3"},
+                          codes4:{ num:this.list[i].open_codes[3],islight:false,no_:"4"},
+                          codes5:{ num:this.list[i].open_codes[4],islight:false,no_:"5"},
+                          codes6:{ num:this.list[i].open_codes[5],islight:false,no_:"6"},
+                          codes7:{ num:this.list[i].open_codes[6],islight:false,no_:"7"},
+                          codes8:{ num:this.list[i].open_codes[7],islight:false,no_:"8"},
+                          codes9:{ num:this.list[i].open_codes[8],islight:false,no_:"9"},
+                          codes10:{ num:this.list[i].open_codes[9],islight:false,no_:"10"},
+                        })
+                    }
                       this.hasPrev = data.hasPrev;
                       this.hasNext = data.hasNext;
                       this.sum = data.sum;
@@ -357,7 +372,7 @@
     }
 
     table {
-        width: 1000px;
+        width: 900px;
         border: 1px solid #e5e5e5;
         color: #000;
         font-size: 14px;

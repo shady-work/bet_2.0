@@ -211,7 +211,7 @@
     margin-left:10px;
     padding-bottom:15px;
     background: #fff;
-    width: 1200px;
+    width: 1100px;
   }
 
   .xy-header {
@@ -270,6 +270,7 @@
   }
 
   .xy-right {
+    width: 900px;
     background: #fff;
     float: left;
   }

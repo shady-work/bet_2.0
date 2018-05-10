@@ -70,9 +70,6 @@
 .my-input-elm-set > input
 {
     height: 28px;
-    /*text-align: left;*/
-    /*width: 50px;*/
-    /*padding:0 3px;*/
     margin-top: 15px;
     text-align: center;
 }
@@ -95,4 +92,9 @@
 .my-click-class
 {
   float: left;
+}
+
+.el-checkbox+.el-checkbox
+{
+  margin-left:18px;
 }

@@ -1,9 +1,9 @@
 <template>
 
-    <div style="width: 1000px;margin-top: 15px;">
+    <div style="width: 900px;margin-top: 15px;">
            <!--筛选条件-->
            <div class="filter-header" style="height: auto;overflow:hidden;margin-bottom: 15px;">
-               <div class="pull-left" style="width: 600px;">
+               <div class="pull-left" style="width: 500px;">
                    <div style-="height:30px;width:100%">
                        <el-form ref="form"  >
                            <el-form-item label="号码分布" >
@@ -261,7 +261,7 @@ td
 }
 
 table {
-    width: 1000px;
+    width: 900px;
     border: 1px solid #e5e5e5;
     color: #000;
     font-size: 14px;
@@ -337,6 +337,6 @@ td > span {
     }
     .el-checkbox+.el-checkbox
     {
-        margin-left:25px;
+        margin-left:18px;
     }
 </style>

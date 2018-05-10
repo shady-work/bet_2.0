@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="filter-header" style="height: auto;overflow:hidden;margin-bottom: 15px;margin-top: 15px;">
-            <div class="pull-left" style="width: 600px;">
+            <div class="pull-left" style="width: 500px;">
                 <div style-="height:30px;width:100%">
                     <el-form ref="form">
                         <el-form-item label="号码分布">
@@ -128,7 +128,6 @@
           {
             if(res.data.status == 200)
             {
-              console.log(res.data);
               let data = res.data.data;
               this.list = data.list;
               for(let i = 0; i<this.list.length;i++)
@@ -237,6 +236,16 @@
             {
               let data = res.data.data;
               this.list = data.list;
+              for(let i = 0; i<this.list.length;i++)
+              {
+                this.data.push(
+                  {
+                    codes1:{ num:this.list[i].details.ball_0[0],islight:false,no_:"1"},
+                    codes2:{ num:this.list[i].details.ball_0[1],islight:false,no_:"2"},
+                    codes3:{ num:this.list[i].details.ball_0[2],islight:false,no_:"3"},
+
+                  })
+              }
               this.hasPrev = data.hasPrev;
               this.hasNext = data.hasNext;
               this.sum = data.sum;
@@ -416,6 +425,6 @@
         color: #fff;
     }
     table{
-        width:1000px;
+        width:900px;
     }
 </style>

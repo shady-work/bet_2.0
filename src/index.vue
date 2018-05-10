@@ -442,7 +442,7 @@
           $("#left-nav").height(browserHeight - headerHeight);
 
           //页面加载时，获取滚动条初始高度
-          $(document).scroll(function()
+         /* $(document).scroll(function()
           {
             let browserHeight = $(document).height();
             let headerHeight  = 78;
@@ -450,7 +450,7 @@
             {
               $("#left-nav").height(browserHeight - headerHeight);
             }
-          })
+          })*/
 
         });
 
