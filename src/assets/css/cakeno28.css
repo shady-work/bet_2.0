@@ -314,13 +314,13 @@
 
 
 #history {
-  width: 250px;
+  /*width: 250px;*/
   /*height: 500px;*/
   float: left;
   box-sizing: border-box;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
   position: absolute;
-  right:195px;
+  right:165px;
   top:70px;
 }
 
@@ -519,14 +519,26 @@
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
+/*.history-tables-ssc*/
+/*{*/
+    /*width: 100%;*/
+    /*font-size: 12px;*/
+/*}*/
+/*.history-tables-ssc td*/
+/*{*/
+    /*padding: 5px;*/
+    /*border: 1px solid #e5e5e5;*/
+/*}*/
 .history-tables-ssc
 {
-    width: 100%;
-    font-size: 12px;
+  width: 100%;
+  font-size: 12px;
+  z-index: 10;
+  background: #f5f5f5;
 }
 .history-tables-ssc td
 {
-    padding: 5px;
-    border: 1px solid #e5e5e5;
-}
+  padding: 3px;
+  border: 1px solid #e5e5e5;
 
+}

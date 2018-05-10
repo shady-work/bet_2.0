@@ -32,48 +32,106 @@
                     </div>
                 </div>
                 <!-- 右边的历史记录 -->
+
                 <div id="history">
                     <div class="history-table">
-                        <a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>
-                        <a @click="showType(2)" :class="history_tables[2]?'active':''">今日开奖</a>
-                    </div>
-                    <div class="history-list" v-show="history_tables[1]" style="width:280px;">
-                        <p v-for="(v,k) in long_dragon" class="text-left">
-                            <span>{{v.name}}</span>
-                            <span class="pull-right mr10">{{v.num}}期</span>
-                        </p>
-                        <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
-                    </div>
+                        <el-popover
+                                placement="bottom"
+                                title=""
+                                width="600"
+                                trigger="click"
+                                popper-class="my-click-class">
+                            <table class="history-tables-ssc text-center">
+                                <tr>
+                                    <td>期数/时间</td>
+                                    <td width="94">开奖号码</td>
+                                    <td colspan="5">总和</td>
+                                    <td>波色</td>
+                                </tr>
+                                <tr v-for="v in history_codes">
+                                    <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>
+                                    <td>
+                                        <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
+                                        <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
+                                        <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
+                                    </td>
+                                    <td width="38"><span :class="returnColor(v.details.ball_1[0])" class="code-ball" style="margin-left:10px;">{{v.details.ball_1[0]}}</span></td>
+                                    <td>{{v.details.ball_2[0]}}</td>
+                                    <td>{{v.details.ball_2[1]}}</td>
+                                    <td>{{v.details.ball_2[2]}}</td>
+                                    <td>{{v.details.ball_2[3]}}</td>
+                                    <td v-if="v.details.ball_3[0]=='红波'" class="color-red">{{v.details.ball_3[0]}}</td>
+                                    <td v-if="v.details.ball_3[0]=='蓝波'" style="color:blue">{{v.details.ball_3[0]}}</td>
+                                    <td v-if="v.details.ball_3[0]=='绿波'" style="color:green">{{v.details.ball_3[0]}}</td>
+                                    <td v-if="v.details.ball_3[0]=='白'" >{{v.details.ball_3[0]}}</td>
+                                </tr>
+                            </table>
+                            <el-button slot="reference" style="float:left;background:none;border: none;color: white;" size="mini">今日开奖</el-button>
 
-                    <div class="history-list" v-show="history_tables[2]">
-                        <table class="history-tables-ssc">
-                            <tr class="color-red">
-                                <td>期数/时间</td>
-                                <td width="94">开奖号码</td>
-                                <td colspan="5">总和</td>
-                                <td>波色</td>
-                            </tr>
-                            <tr v-for="v in history_codes">
-                                <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>
-                                <td>
-                                    <span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>
-                                    <span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>
-                                    <span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>
-                                </td>
-                                <td width="38"><span :class="returnColor(v.details.ball_1[0])" class="code-ball" style="margin-left:10px;">{{v.details.ball_1[0]}}</span></td>
-                                <td>{{v.details.ball_2[0]}}</td>
-                                <td>{{v.details.ball_2[1]}}</td>
-                                <td>{{v.details.ball_2[2]}}</td>
-                                <td>{{v.details.ball_2[3]}}</td>
-                                <td v-if="v.details.ball_3[0]=='红波'" class="color-red">{{v.details.ball_3[0]}}</td>
-                                <td v-if="v.details.ball_3[0]=='蓝波'" style="color:blue">{{v.details.ball_3[0]}}</td>
-                                <td v-if="v.details.ball_3[0]=='绿波'" style="color:green">{{v.details.ball_3[0]}}</td>
-                                <td v-if="v.details.ball_3[0]=='白'" >{{v.details.ball_3[0]}}</td>
-                            </tr>
-                        </table>
-                        <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
+                        </el-popover>
+
+                        <el-popover
+                                placement="bottom"
+                                title="长龙排行"
+                                width="280"
+                                center="true"
+                                trigger="click"
+                                popper-class="my-click-class">
+                            <p v-for="(v,k) in long_dragon" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;">
+                                <span>{{v.name}}</span>
+                                <span class="pull-right mr10">{{v.num}}期</span>
+                            </p>
+
+                            <el-button slot="reference" style="float:left;background:none;border: none;color: white;" size="mini">长龙排行</el-button>
+
+                        </el-popover>
+                        <div class="clear"></div>
                     </div>
-                </div>
+                </div >
+
+
+                <!--<div id="history">-->
+                    <!--<div class="history-table">-->
+                        <!--<a @click="showType(1)" :class="history_tables[1]?'active':''">长龙排行</a>-->
+                        <!--<a @click="showType(2)" :class="history_tables[2]?'active':''">今日开奖</a>-->
+                    <!--</div>-->
+                    <!--<div class="history-list" v-show="history_tables[1]" style="width:280px;">-->
+                        <!--<p v-for="(v,k) in long_dragon" class="text-left">-->
+                            <!--<span>{{v.name}}</span>-->
+                            <!--<span class="pull-right mr10">{{v.num}}期</span>-->
+                        <!--</p>-->
+                        <!--<div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>-->
+                    <!--</div>-->
+
+                    <!--<div class="history-list" v-show="history_tables[2]">-->
+                        <!--<table class="history-tables-ssc">-->
+                            <!--<tr class="color-red">-->
+                                <!--<td>期数/时间</td>-->
+                                <!--<td width="94">开奖号码</td>-->
+                                <!--<td colspan="5">总和</td>-->
+                                <!--<td>波色</td>-->
+                            <!--</tr>-->
+                            <!--<tr v-for="v in history_codes">-->
+                                <!--<td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>-->
+                                <!--<td>-->
+                                    <!--<span :class="returnColor(v.details.ball_0[0]) + ' code-ball'">{{v.details.ball_0[0]}}</span>-->
+                                    <!--<span :class="returnColor(v.details.ball_0[1]) + ' code-ball'">{{v.details.ball_0[1]}}</span>-->
+                                    <!--<span :class="returnColor(v.details.ball_0[2]) + ' code-ball'">{{v.details.ball_0[2]}}</span>-->
+                                <!--</td>-->
+                                <!--<td width="38"><span :class="returnColor(v.details.ball_1[0])" class="code-ball" style="margin-left:10px;">{{v.details.ball_1[0]}}</span></td>-->
+                                <!--<td>{{v.details.ball_2[0]}}</td>-->
+                                <!--<td>{{v.details.ball_2[1]}}</td>-->
+                                <!--<td>{{v.details.ball_2[2]}}</td>-->
+                                <!--<td>{{v.details.ball_2[3]}}</td>-->
+                                <!--<td v-if="v.details.ball_3[0]=='红波'" class="color-red">{{v.details.ball_3[0]}}</td>-->
+                                <!--<td v-if="v.details.ball_3[0]=='蓝波'" style="color:blue">{{v.details.ball_3[0]}}</td>-->
+                                <!--<td v-if="v.details.ball_3[0]=='绿波'" style="color:green">{{v.details.ball_3[0]}}</td>-->
+                                <!--<td v-if="v.details.ball_3[0]=='白'" >{{v.details.ball_3[0]}}</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                        <!--<div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>-->
+                    <!--</div>-->
+                <!--</div>-->
                 <div class="clear"></div>
             </div>
 

@@ -27,52 +27,106 @@
               </div>
           </div>
         <!-- 右边的历史记录 -->
-        <div id="history" >
-          <div class="history-table">
-            <a @click="showTables(1)" :class="history_tables[1]?'active':''" style="margin-right:10px;">长龙排行</a>
-            <a @click="showTables(2)" :class="history_tables[2]?'active':''">今日开奖</a>
-          </div>
-            <!--长龙出-->
-          <div class="history-list" v-show="history_tables[1]" style="width: 280px;">
-            <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black">
-              <span>{{v.name}}</span>
-              <span class="pull-right mr10">{{v.num}}期</span>
-            </p>
-            <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>
+          <div id="history">
+              <div class="history-table">
+                  <el-popover
+                          placement="bottom"
+                          title=""
+                          width="600"
+                          trigger="click"
+                          popper-class="my-click-class">
+                      <table class="history-tables-ssc text-center">
+                          <tr>
+                              <td >期号/时间</td>
+                              <td width="220"><p>号码</p></td>
+                              <td colspan="3">冠亚军和</td>
+                              <td colspan="5">1~5龙虎</td>
+                          </tr>
+                          <tr v-for="v in history_codes">
+                              <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>
+                              <td><span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span></td>
+                              <td>{{v.details.sum[0]}}</td>
+                              <td v-if="v.details.sum[2]=='大'" class="color-red">{{v.details.sum[2]}}</td>
+                              <td v-if="v.details.sum[2]=='小'">{{v.details.sum[2]}}</td>
+                              <td>{{v.details.sum[1]}}</td>
+                              <td :class="v.details.ball_1[3]=='龙'?'color-red':''">{{v.details.ball_1[3]}}</td>
+                              <td :class="v.details.ball_2[3]=='龙'?'color-red':''">{{v.details.ball_2[3]}}</td>
+                              <td :class="v.details.ball_3[3]=='龙'?'color-red':''">{{v.details.ball_3[3]}}</td>
+                              <td :class="v.details.ball_4[3]=='龙'?'color-red':''">{{v.details.ball_4[3]}}</td>
+                              <td :class="v.details.ball_5[3]=='龙'?'color-red':''">{{v.details.ball_5[3]}}</td>
+                          </tr>
+                      </table>
+                      <el-button slot="reference" style="float:left;background:none;border: none;color: white;" size="mini">今日开奖</el-button>
 
-          </div>
+                  </el-popover>
 
-          <div class="history-list" v-show="history_tables[2]">
-              <table class="history-tables-ssc">
-                  <tr>
-                      <td>期数/时间</td>
-                      <td width="220">号码</td>
-                      <td colspan="3">冠亚军和</td>
-                      <td colspan="5">1~5龙虎</td>
-                  </tr>
-                 <tr v-for="v in history_codes">
-                     <td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>
-                     <td><span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span></td>
-                     <td>{{v.details.sum[0]}}</td>
-                     <td v-if="v.details.sum[2]=='大'" class="color-red">{{v.details.sum[2]}}</td>
-                     <td v-if="v.details.sum[2]=='小'">{{v.details.sum[2]}}</td>
-                     <td>{{v.details.sum[1]}}</td>
-                     <td :class="v.details.ball_1[3]=='龙'?'color-red':''">{{v.details.ball_1[3]}}</td>
-                     <td :class="v.details.ball_2[3]=='龙'?'color-red':''">{{v.details.ball_2[3]}}</td>
-                     <td :class="v.details.ball_3[3]=='龙'?'color-red':''">{{v.details.ball_3[3]}}</td>
-                     <td :class="v.details.ball_4[3]=='龙'?'color-red':''">{{v.details.ball_4[3]}}</td>
-                     <td :class="v.details.ball_5[3]=='龙'?'color-red':''">{{v.details.ball_5[3]}}</td>
-                 </tr>
-              </table>
-            <!--<div class="history-balls" v-for="v in history_codes">
+                  <el-popover
+                          placement="bottom"
+                          title="长龙排行"
+                          width="280"
+                          center="true"
+                          trigger="click"
+                          popper-class="my-click-class">
+                      <p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed rgba(200, 200, 200, 0.8);line-height: 20px;height: 30px;">
+                          <span>{{v.name}}</span>
+                          <span class="pull-right mr10">{{v.num}}期</span>
+                      </p>
 
-              <p class="text-left">{{v.expect}}</p>
-              <span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>
-            </div>-->
-            <div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>
-          </div>
+                      <el-button slot="reference" style="float:left;background:none;border: none;color: white;" size="mini">长龙排行</el-button>
 
-        </div>
+                  </el-popover>
+                  <div class="clear"></div>
+              </div>
+          </div >
+
+
+
+        <!--<div id="history" >-->
+          <!--<div class="history-table">-->
+            <!--<a @click="showTables(1)" :class="history_tables[1]?'active':''" style="margin-right:10px;">长龙排行</a>-->
+            <!--<a @click="showTables(2)" :class="history_tables[2]?'active':''">今日开奖</a>-->
+          <!--</div>-->
+            <!--&lt;!&ndash;长龙出&ndash;&gt;-->
+          <!--<div class="history-list" v-show="history_tables[1]" style="width: 280px;">-->
+            <!--<p v-for="(v,k) in data" v-if="k<10" class="text-left" style="border-bottom:1px dashed gray;line-height: 20px;height: 30px;color: black">-->
+              <!--<span>{{v.name}}</span>-->
+              <!--<span class="pull-right mr10">{{v.num}}期</span>-->
+            <!--</p>-->
+            <!--<div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[1]=false;">关闭</el-button></div>-->
+
+          <!--</div>-->
+
+          <!--<div class="history-list" v-show="history_tables[2]">-->
+              <!--<table class="history-tables-ssc">-->
+                  <!--<tr>-->
+                      <!--<td>期数/时间</td>-->
+                      <!--<td width="220">号码</td>-->
+                      <!--<td colspan="3">冠亚军和</td>-->
+                      <!--<td colspan="5">1~5龙虎</td>-->
+                  <!--</tr>-->
+                 <!--<tr v-for="v in history_codes">-->
+                     <!--<td><p>{{v.expect}}&nbsp;<span style="color:gray">{{v.opentime|get_time2}}</span></p></td>-->
+                     <!--<td><span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span></td>-->
+                     <!--<td>{{v.details.sum[0]}}</td>-->
+                     <!--<td v-if="v.details.sum[2]=='大'" class="color-red">{{v.details.sum[2]}}</td>-->
+                     <!--<td v-if="v.details.sum[2]=='小'">{{v.details.sum[2]}}</td>-->
+                     <!--<td>{{v.details.sum[1]}}</td>-->
+                     <!--<td :class="v.details.ball_1[3]=='龙'?'color-red':''">{{v.details.ball_1[3]}}</td>-->
+                     <!--<td :class="v.details.ball_2[3]=='龙'?'color-red':''">{{v.details.ball_2[3]}}</td>-->
+                     <!--<td :class="v.details.ball_3[3]=='龙'?'color-red':''">{{v.details.ball_3[3]}}</td>-->
+                     <!--<td :class="v.details.ball_4[3]=='龙'?'color-red':''">{{v.details.ball_4[3]}}</td>-->
+                     <!--<td :class="v.details.ball_5[3]=='龙'?'color-red':''">{{v.details.ball_5[3]}}</td>-->
+                 <!--</tr>-->
+              <!--</table>-->
+            <!--&lt;!&ndash;<div class="history-balls" v-for="v in history_codes">-->
+
+              <!--<p class="text-left">{{v.expect}}</p>-->
+              <!--<span v-for="val in v.open_codes" :class="'code-ball hao' + (val/10*10)">{{val/10*10}}</span>-->
+            <!--</div>&ndash;&gt;-->
+            <!--<div class="mt5"> <el-button type="primary" plain  size="small" @click="history_tables[2]=false;">关闭</el-button></div>-->
+          <!--</div>-->
+
+        <!--</div>-->
         <div class="clear"></div>
       </div>
 
