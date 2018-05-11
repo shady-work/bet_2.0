@@ -32,7 +32,7 @@
         </a>
 
 
-        <a  @click="showOne(5,'/open_history/ssc')" class="nav-top" :class="showArray[5]?'active':''">
+        <a  @click="showOne(5,'open_history')" class="nav-top" :class="showArray[5]?'active':''">
           <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
         </a>
@@ -98,7 +98,7 @@
           this.showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
           this.showArray[idx] = 1;
 
-          this.$router.push(url);
+          this.$router.push('/' + url);
         },
         /**
          * 退出登录

@@ -6,15 +6,15 @@
                 <img src="../assets/img/icon_lhc.png" class="logo-tubiao" alt="">
                 <div class="left">
                     <!--<p class="color-white"> 最新开奖：第{{last_expect}}期，已售{{sales_}}期，今日剩余{{unsaleNum}}期</p>-->
-                    <p class="color-white">第&nbsp;{{last_expect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/179</p>
+                    <p class="color-white">第&nbsp;{{$store.state.egg.lastExpect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/179</p>
                     <div class="balls">
-                        <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.egg.open_codes[0])">{{$store.state.egg.open_codes[0]}}</span>
                         <span class="bg-none color-white">+</span>
-                        <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.egg.open_codes[1])">{{$store.state.egg.open_codes[1]}}</span>
                         <span class="bg-none color-white">+</span>
-                        <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+                        <span  class="color-white" :class="returnColor($store.state.egg.open_codes[2])">{{$store.state.egg.open_codes[2]}}</span>
                         <span class="bg-none color-white">=</span>
-                        <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.egg.open_codes[0] + $store.state.egg.open_codes[1] + $store.state.egg.open_codes[2])">{{$store.state.egg.open_codes[0] + $store.state.egg.open_codes[1] + $store.state.egg.open_codes[2]}}</span>
                         <div class="clear"></div>
                     </div>
                 </div>

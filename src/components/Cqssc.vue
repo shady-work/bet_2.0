@@ -6,9 +6,9 @@
                 <img src="../assets/img/icon_ssc.png" class="logo-tubiao" alt="" >
                 <div class="left">
                     <!--<p class="color-white"> 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+1}}期</p>-->
-                    <p class="color-white" >第&nbsp;{{lastExpect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/120</p>
+                    <p class="color-white" >第&nbsp;{{$store.state.cqssc.lastExpect}}&nbsp;期开奖结果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;今日期数 {{sales_}}/120</p>
                     <div class="balls">
-                        <span v-for="v in lastOpenCode" :class="'hhao'+v">{{v}}</span>
+                        <span v-for="v in $store.state.cqssc.open_codes" :class="'hhao'+v">{{v}}</span>
                         <div class="clear"></div>
                     </div>
                 </div>
