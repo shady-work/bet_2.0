@@ -35,8 +35,8 @@
         text-indent: 0;
         color: #fff;
         width:100%;
-      background: #e83a36;
-
+        background: #e83a36;
+        z-index: 10;
     }
     #scroll>marquee
     {
@@ -59,8 +59,8 @@
         box-sizing: border-box;
         position:fixed;
         right:0;
-        top:0;
-        padding-top: 78px;
+        top:78px;
+        /*padding-top: 78px;*/
         /*background: #e83a36;*/
         background:#e1e1e1;
     }
@@ -76,15 +76,15 @@
         position: relative;
         margin-bottom: 15px;
     }
-    .cover{
-        width: 30px;
-        height: 78px;
-       position: absolute;
-        right:0;
-        top:0;
-        background:#e83a36;
-        z-index: 999;
-    }
+    /*#cover1{*/
+        /*width: 30px;*/
+        /*height: 78px;*/
+        /*position: fixed;*/
+        /*right:0;*/
+        /*top:0;*/
+        /*background:#EA4C4C;*/
+        /*z-index: 5;*/
+    /*}*/
     .recenter-bet
     {
         width: 30px;
@@ -159,7 +159,7 @@
      </div>
 
 
-       <div class="cover"></div>
+       <div  id="cover1"></div>
      <!--右侧消息通知-->
      <div id="notice">
 

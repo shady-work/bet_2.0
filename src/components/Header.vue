@@ -141,11 +141,13 @@
     background: #ea4c4c;
     background-size: cover;
     min-width: 1400px;
+
   }
 
   #header > .a-waps {
     width: 100%;
     height: 100%;
+    z-index: 99;
   }
 
   #header a:hover {
