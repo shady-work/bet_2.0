@@ -175,13 +175,13 @@
   right: 0px;
   font-size: 12px;
   top:15px;
-  background:rgba(0,0,0,0.5);
   width: 1px;
   height: 12px;
 }
 #bet-content .bet-content-table .active
 {
-  background:rgba(0,0,0,0.5);
+  background:#ff6331;
+
 }
 .fast-bet
 {

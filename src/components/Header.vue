@@ -5,60 +5,60 @@
     <div class="a-waps">
       <div id="logo"><img src="" alt=""></div>
       <div id="list">
-        <a href="/#/home" class="nav-top">
+        <a  @click="showOne(0,'home')" class="nav-top" :class="showArray[0]?'active':''">
           <i class="fa  fa-th-list"></i>
           <p>开奖中心</p>
         </a>
 
-        <a href="/#/money_change" class="nav-top">
+        <a  @click="showOne(1,'money_change')" class="nav-top" :class="showArray[1]?'active':''">
           <i class="fa fa-credit-card"></i>
           <p>资金明细</p>
         </a>
 
 
-        <a href="/#/unclear_diagam" class="nav-top">
+        <a  @click="showOne(2,'unclear_diagam')" class="nav-top" :class="showArray[2]?'active':''">
           <i class="fa fa-line-chart"></i>
           <p>未结明细</p>
         </a>
 
-        <a href="/#/clear_diagam" class="nav-top">
+        <a   @click="showOne(3,'clear_diagam')" class="nav-top" :class="showArray[3]?'active':''">
           <i class="fa fa-bar-chart"></i>
           <p>已结历史</p>
         </a>
 
-        <a href="/#/sum_diagam" class="nav-top">
+        <a @click="showOne(4,'sum_diagam')" class="nav-top" :class="showArray[4]?'active':''">
           <i class="fa fa-pie-chart"></i>
           <p>结算报表</p>
         </a>
 
 
-        <a href="/#/open_history/ssc" class="nav-top">
+        <a  @click="showOne(5,'/open_history/ssc')" class="nav-top" :class="showArray[5]?'active':''">
           <i class="fa fa-clock-o"></i>
           <p>历史开奖</p>
         </a>
 
-        <a href="/#/bet_rules" class="nav-top">
+        <a @click="showOne(6,'bet_rules')" class="nav-top" :class="showArray[6]?'active':''">
           <i class="fa fa-navicon"></i>
           <p>玩法资讯</p>
         </a>
 
-        <a href="/#/rules" class="nav-top">
+        <a   @click="showOne(7,'rules')" class="nav-top" :class="showArray[7]?'active':''">
           <i class="fa fa-list-ol"></i>
           <p>玩法规则</p>
         </a>
 
-        <a href="#/recharge" class="nav-top">
+        <a   @click="showOne(8,'recharge')" class="nav-top" :class="showArray[8]?'active':''">
           <i class="fa fa-usd" aria-hidden="true"></i>
           <p>充值</p>
         </a>
 
 
-        <a href="#/withdraw" class="nav-top">
+        <a   @click="showOne(9,'withdraw')" class="nav-top" :class="showArray[9]?'active':''">
           <i class="fa fa-yen" aria-hidden="true"></i>
           <p>提现</p>
         </a>
 
-        <a class="nav-top" href="#/personal">
+        <a    @click="showOne(10,'personal')" class="nav-top" :class="showArray[10]?'active':''">
           <i class="fa fa-user-o font36"></i>
           <p>个人中心</p>
         </a>
@@ -73,30 +73,32 @@
     </div>
 
 
-    <edi-pwd v-show="showArray[1]"></edi-pwd>
+
   </div>
 
 
 </template>
 
 <script>
-  import editPwd from './edit_pwd';
+
 
   export default {
     name: "Header",
     data: () => {
       var my_data =
         {
-          showArray: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          showArray: [1, 0, 0, 0, 0, 0, 0, 0, 0],
         };
       return my_data;
     },
     methods:
       {
 
-        showOne: function (idx) {
-          this.showArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+        showOne: function (idx,url) {
+          this.showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
           this.showArray[idx] = 1;
+
+          this.$router.push(url);
         },
         /**
          * 退出登录
@@ -120,14 +122,13 @@
 
         },
 
+
+
       },
     created: () => {
       //当页面加载时触发的函数
     },
-    components:
-      {
-        'edi-pwd': editPwd,
-      }
+
   }
 
 </script>
@@ -150,7 +151,10 @@
   #header a:hover {
     background: #f07873;
   }
-
+  #header .active
+  {
+    background: #f07873;
+  }
   #logo {
     display: block;
     float: left;

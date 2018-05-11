@@ -92,21 +92,27 @@ router.beforeEach(function(to, from, next)
      switch(to.name)
      {
        case "Cqssc":
+         Vm.$children[0].$children[0].$children[0].showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
          Vm.$children[0].$children[0].$children[1].navArray = [1,0,0,0,0,0,0];
          break;
        case "pk10":
+         Vm.$children[0].$children[0].$children[0].showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
          Vm.$children[0].$children[0].$children[1].navArray = [0,1,0,0,0,0,0];
          break;
        case 'Cakeno28':
+         Vm.$children[0].$children[0].$children[0].showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,1,0,0,0,0];
          break;
        case "pcegg":
+         Vm.$children[0].$children[0].$children[0].showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,1,0,0,0];
          break;
        case "football":
+         Vm.$children[0].$children[0].$children[0].showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,1,0,0];
          break;
        case "man_online":
+         Vm.$children[0].$children[0].$children[0].showArray = [0, 0, 0, 0, 0, 0, 0, 0,0,0,0,0,0];
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,0,1,0];
          break;
        case "Index":
@@ -115,7 +121,6 @@ router.beforeEach(function(to, from, next)
          Vm.$children[0].$children[0].$children[1].navArray = [0,0,0,0,0,0,0];
          break;
      }
-
      next();
    }
 
