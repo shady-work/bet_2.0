@@ -731,11 +731,13 @@
 
 <style scoped>
   #left-nav {
+
     width: 230px;
     background: #ea4c4c;
     float: left;
     border-top: 1px solid #fff;
     box-sizing: border-box;
+    /*test*/
   }
 
   .lottery-list {
