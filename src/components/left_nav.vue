@@ -719,6 +719,11 @@
         this.get_time_egg();
         //初始化各个彩种的最新一期开奖号码和日期
         this.get_all_last_open_codes();
+  
+        clearInterval(this.ssc.timeId3);
+        clearInterval(this.pk10.timeId3);
+        clearInterval(this.egg.timeId3);
+        clearInterval(this.cake.timeId3);
       }
 
     },
