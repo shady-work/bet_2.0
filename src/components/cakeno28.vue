@@ -814,7 +814,7 @@
             if(that.end_time <= 0)
             {
               that.mins = '00';
-              that.seconds = that.open_time;
+              that.seconds = that.open_time<10?('0' + that.open_time.toString()):that.open_time;
               that.tips = "离开盘还有";
                 that.open_state = false;
               if(that.open_time <= 0 )

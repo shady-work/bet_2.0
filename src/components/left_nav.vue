@@ -195,7 +195,7 @@
                 that.$notify({
                   title: '重庆时时彩',
                   message: '重庆时时彩已封盘，准备开奖中。',
-                  duration: 2500,
+                  duration: 3000,
                   position: 'bottom-left',
                 });
               }
@@ -218,7 +218,7 @@
                       title: '重庆时时彩',
                       message: '重庆时时彩已开盘。',
                       type: 'success',
-                      duration: 2500,
+                      duration: 3000,
                       position: 'bottom-left',
                     });
                   }
@@ -298,7 +298,7 @@
                 that.$notify({
                   title: '北京赛车PK拾',
                   message: '北京赛车PK拾已封盘，准备开奖中。',
-                  duration: 2500,
+                  duration: 3000,
                   position: 'bottom-left',
                 });
               }
@@ -321,7 +321,7 @@
                       title: '北京赛车PK拾',
                       message: '北京赛车PK拾已开盘。',
                       type: 'success',
-                      duration: 2500,
+                      duration: 3000,
                       position: 'bottom-left',
                     });
                   }
@@ -401,7 +401,7 @@
                 that.$notify({
                   title: '加拿大28',
                   message: '加拿大28已封盘，准备开奖中。',
-                  duration: 2500,
+                  duration: 3000,
                   position: 'bottom-left',
                 });
               }
@@ -423,7 +423,7 @@
                       title: '加拿大28',
                       message: '加拿大28已开盘。',
                       type: 'success',
-                      duration: 2500,
+                      duration: 3000,
                       position: 'bottom-left',
                     });
                   }
@@ -503,7 +503,7 @@
                 that.$notify({
                   title: 'PC蛋蛋',
                   message: 'PC蛋蛋已封盘，准备开奖中。',
-                  duration: 2500,
+                  duration: 3000,
                   position: 'bottom-left',
                 });
               }
@@ -525,7 +525,7 @@
                       title: 'PC蛋蛋',
                       message: 'PC蛋蛋已开盘。',
                       type: 'success',
-                      duration: 2500,
+                      duration: 3000,
                       position: 'bottom-left',
                     });
                   }
