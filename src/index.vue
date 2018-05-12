@@ -409,7 +409,7 @@
                 this.$store.state.cash_money = data.money.cash_money;//现金额度
                 this.$store.state.credit_money = data.money.credit_money;//信用额度
                 this.$store.state.win_lost_today = data.yk;//信用额度
-                this.$store.state.return_present = data.fs;//信用额度
+                this.$store.state.return_present = data.fs;//返水
               });
               //跳转到cqssc
               this.$router.push('home');
@@ -463,6 +463,44 @@
               $("#left-nav").height(browserHeight - headerHeight);
             }
           })*/
+          let was_add = false;//是否添加了元素  true是添加了，false是没有添加
+
+
+          $(document).scroll(function()
+          {
+            let windowScrollTop = $(window).scrollTop();
+            if(windowScrollTop > 0 && windowScrollTop <= 78)
+            {
+              let addElement = document.querySelector('#add-element');
+              if(addElement)
+              {
+                addElement.style.top =   78 - windowScrollTop + "px";
+                addElement.style.height = windowScrollTop + "px";
+              }
+              else
+              {
+                let div = document.createElement('div');
+                div.id = 'add-element';
+                div.style.position = 'fixed';
+                div.style.backgroundColor = '#e1e1e1';
+                div.style.height = "0px";
+                div.style.width = '30px';
+                div.style.right = 0;
+                div.style.top =   "0px";
+                div.style.zIndex = 100;
+                document.querySelector('body').appendChild(div);
+              }
+            }
+            if(windowScrollTop < 1)
+            {
+              let addElement = document.querySelector('#add-element');
+              if(addElement)
+              {
+                document.querySelector('body').removeChild(addElement);
+              }
+            }
+
+          })
 
         });
 

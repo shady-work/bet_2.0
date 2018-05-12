@@ -216,7 +216,7 @@
                     //开盘通知
                     that.$notify({
                       title: '重庆时时彩',
-                      message: '重庆时时彩已开盘，准备开奖中。',
+                      message: '重庆时时彩已开盘。',
                       type: 'success',
                       duration: 2500,
                       position: 'bottom-left',
@@ -259,17 +259,17 @@
                   that.$store.state.cqssc.bingo_money = data.lucky_money;
                   if(that.$store.state.cqssc.bingo_money > 0 )
                   {
-                    that.$notify({
+                    that.$notify(
+                    {
                       title: `重庆时时彩`,
-                      message: `第<b style="color:blue"> ${data.expect}</b>中奖 <b style="color:red">${data.lucky_money}</b>￥。`,
+                      message: `第<b style="color:blue"> ${data.expect}</b>期中奖 ￥<b style="color:red">${data.lucky_money}</b>。`,
                       duration: 0,
                       position: 'bottom-right',
                       type:'success',
                       dangerouslyUseHTMLString:true,
                     });
-                    clearInterval(that.ssc.timeId3)
                   }
-
+                  clearInterval(that.ssc.timeId3)
                 }
 
               }
@@ -319,7 +319,7 @@
                     //开盘通知
                     that.$notify({
                       title: '北京赛车PK拾',
-                      message: '北京赛车PK拾已开盘，准备开奖中。',
+                      message: '北京赛车PK拾已开盘。',
                       type: 'success',
                       duration: 2500,
                       position: 'bottom-left',
@@ -365,16 +365,16 @@
                   {
                     that.$notify({
                       title: `北京赛车PK拾`,
-                      message: `第<b style="color:blue"> ${data.expect}</b>中奖 <b style="color:red">${data.lucky_money}</b>￥。`,
+                      message: `第<b style="color:blue"> ${data.expect}</b>期中奖 ￥<b style="color:red">${data.lucky_money}</b>。`,
                       duration: 0,
                       position: 'bottom-right',
                       type:'success',
                       dangerouslyUseHTMLString:true,
                     });
-                    clearInterval(that.pk10.timeId3)
                   }
-
+                  clearInterval(that.pk10.timeId3)
                 }
+
 
               }
             });
@@ -421,7 +421,7 @@
                   if (that.isAcceptNotice) {
                     that.$notify({
                       title: '加拿大28',
-                      message: '加拿大28已开盘，准备开奖中。',
+                      message: '加拿大28已开盘。',
                       type: 'success',
                       duration: 2500,
                       position: 'bottom-left',
@@ -466,14 +466,14 @@
                   {
                     that.$notify({
                       title: `加拿大28`,
-                      message: `第<b style="color:blue"> ${data.expect}</b>中奖 <b style="color:red">${data.lucky_money}</b>￥。`,
+                      message: `第<b style="color:blue"> ${data.expect}</b>期中奖   ￥<b style="color:red">${data.lucky_money}</b>。`,
                       duration: 0,
                       position: 'bottom-right',
                       type:'success',
                       dangerouslyUseHTMLString:true,
                     });
-                    clearInterval(that.cake.timeId3)
                   }
+                  clearInterval(that.cake.timeId3)
 
                 }
 
@@ -523,7 +523,7 @@
                   if (that.isAcceptNotice) {
                     that.$notify({
                       title: 'PC蛋蛋',
-                      message: 'PC蛋蛋已开盘，准备开奖中。',
+                      message: 'PC蛋蛋已开盘。',
                       type: 'success',
                       duration: 2500,
                       position: 'bottom-left',
@@ -568,15 +568,14 @@
                   {
                     that.$notify({
                       title: `加拿大28`,
-                      message: `第<b style="color:blue"> ${data.expect}</b>中奖 <b style="color:red">${data.lucky_money}</b>￥。`,
+                      message: `第<b style="color:blue"> ${data.expect}</b>期中奖  ￥<b style="color:red">${data.lucky_money}</b>。`,
                       duration: 0,
                       position: 'bottom-right',
                       type:'success',
                       dangerouslyUseHTMLString:true,
                     });
-                    clearInterval(that.egg.timeId3)
                   }
-
+                  clearInterval(that.egg.timeId3)
                 }
 
               }
@@ -681,26 +680,22 @@
         /****************************************我是华丽的分割线*************************************************************************/
         /****************************************我是华丽的分割线*************************************************************************/
         /****************************************我是华丽的分割线*************************************************************************/
-
-
-
-
-
-
-
       },
     created: function () {
       //获取全局的未结算清单
-      if (this.$store.state.isLogin) {
+      if (this.$store.state.isLogin)
+      {
         //默认是index ==>cqssc的彩种、
         window.sessionStorage.which_lty = 'cqssc';
 
-        if (window.sessionStorage.index) {
+        if (window.sessionStorage.index)
+        {
           this.navArray = [0, 0, 0, 0, 0, 0];
         }
 
         //获取用户有哪些彩种
-        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id).then(function (response) {
+        this.$http.get(this.global.config.API + "user/" + window.sessionStorage.user_id).then(function (response)
+        {
           let data = response.data.data.user;
           this.vaild_lotteries = data.valid_types;//用户拥有哪些彩种
         });
