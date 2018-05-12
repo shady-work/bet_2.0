@@ -5,7 +5,7 @@
                 <p class="vip-login">会员登录</p>
                 <p class="user-name">用户名</p>
                 <div class="user">
-                        <input type="text" placeholder="请输入账户名称" v-model="username">
+                        <input type="text" placeholder="请输入账户名称" v-model="username" autofocus='autofocus'>
                         <i></i>
                 </div>
                 <p class="user-name">密码</p>
