@@ -785,7 +785,7 @@ export default
     {
         display: block;
         width: 100%;
-        padding: 3px;
+        /*padding: 3px;*/
         text-align: left;
         text-indent:35px;
         height: 30px;
