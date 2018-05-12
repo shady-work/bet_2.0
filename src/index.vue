@@ -35,7 +35,7 @@
         text-indent: 0;
         color: #fff;
         width:100%;
-        background: #e83a36;
+        background: #EA4C4C;
         z-index: 10;
     }
     #scroll>marquee
@@ -455,7 +455,7 @@
           $("#left-nav").height(browserHeight - headerHeight);
 
           //页面加载时，获取滚动条初始高度
-         /* $(document).scroll(function()
+          $(document).scroll(function()
           {
             let browserHeight = $(document).height();
             let headerHeight  = 78;
@@ -463,7 +463,7 @@
             {
               $("#left-nav").height(browserHeight - headerHeight);
             }
-          })*/
+          })
           let was_add = false;//是否添加了元素  true是添加了，false是没有添加
 
 
