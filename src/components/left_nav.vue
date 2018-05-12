@@ -567,7 +567,7 @@
                   if(that.$store.state.egg.bingo_money > 0 )
                   {
                     that.$notify({
-                      title: `加拿大28`,
+                      title: `PC蛋蛋`,
                       message: `第<b style="color:blue"> ${data.expect}</b>期中奖  ￥<b style="color:red">${data.lucky_money}</b>。`,
                       duration: 0,
                       position: 'bottom-right',
