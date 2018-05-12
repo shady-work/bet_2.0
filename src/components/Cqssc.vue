@@ -20,7 +20,7 @@
                         <p>{{tips}}</p>
                     </div>
                     <div class="right-right">
-                        <span class="fen">{{mins}}</span>
+                        <span class="fen">{{mins}} </span>
                         <span>分</span>
                         <span class="fen">{{seconds}}</span>
                         <span >秒</span>

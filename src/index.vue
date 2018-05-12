@@ -29,12 +29,12 @@
     {
         position: fixed;
         bottom: 0;
-        left: 230px;
+        left: 240px;
         height: 29px;
         box-sizing: border-box;
         text-indent: 0;
         color: #fff;
-        width:100%;
+        width:1080px;
         background: #EA4C4C;
         z-index: 10;
     }
@@ -502,6 +502,47 @@
             }
 
           })
+
+
+          //底部样式
+          //   $(document).notice(function()
+          //   {
+          //       let windowScrollTop = $(window).scrollTop();
+          //       if(windowScrollTop > 0 && windowScrollTop <= 78)
+          //       {
+          //           let addElement = document.querySelector('#add-element');
+          //           if(addElement)
+          //           {
+          //               addElement.style.top =   78 - windowScrollTop + "px";
+          //               addElement.style.height = windowScrollTop + "px";
+          //           }
+          //           else
+          //           {
+          //               let div = document.createElement('div');
+          //               div.id = 'add-element';
+          //               div.style.position = 'fixed';
+          //               div.style.backgroundColor = '#e1e1e1';
+          //               div.style.height = "0px";
+          //               div.style.width = '30px';
+          //               div.style.right = 0;
+          //               div.style.top =   "0px";
+          //               div.style.zIndex = 100;
+          //               document.querySelector('body').appendChild(div);
+          //           }
+          //       }
+          //       if(windowScrollTop < 1)
+          //       {
+          //           let addElement = document.querySelector('#add-element');
+          //           if(addElement)
+          //           {
+          //               document.querySelector('body').removeChild(addElement);
+          //           }
+          //       }
+          //
+          //   })
+
+
+
 
         });
 
