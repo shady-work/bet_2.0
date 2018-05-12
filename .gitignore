@@ -7,8 +7,8 @@ yarn-error.log*
 /test/unit/coverage/
 /test/e2e/reports/
 selenium-debug.log
-/src/main.js
-/src/assets/js/common.js
+#/src/main.js
+#/src/assets/js/common.js
 # Editor directories and files
 .idea
 .vscode
