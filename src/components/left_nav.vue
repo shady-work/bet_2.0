@@ -702,10 +702,11 @@
     },
     destroyed()
     {
-      clearInterval(this.ssc.timeId3);
-      clearInterval(this.pk10.timeId3);
-      clearInterval(this.egg.timeId3);
-      clearInterval(this.cake.timeId3);
+      let that = this;
+      clearInterval(that.ssc.timeId3);
+      clearInterval(that.pk10.timeId3);
+      clearInterval(that.egg.timeId3);
+      clearInterval(that.cake.timeId3);
     }
 
   }

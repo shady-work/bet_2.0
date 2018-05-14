@@ -504,35 +504,25 @@
           })
 
 
-          //底部样式
-          //   $(document).notice(function()
+          // 底部样式
+          //   $(document).scroll(function()
           //   {
-          //       let windowScrollTop = $(window).scrollTop();
-          //       if(windowScrollTop > 0 && windowScrollTop <= 78)
+          //       let windowScrollLeft = $(window).scrollLeft();
+          //       console.log(windowScrollLeft);
+          //
+          //       if(windowScrollLeft > 0 && windowScrollLeft <= 240)
           //       {
-          //           let addElement = document.querySelector('#add-element');
+          //           var addElement=document.getElementById("scroll");
+          //           console.log(addElement);
           //           if(addElement)
           //           {
-          //               addElement.style.top =   78 - windowScrollTop + "px";
-          //               addElement.style.height = windowScrollTop + "px";
+          //               addElement.style.left =   240 - windowScrollLeft + "px";
+          //               // addElement.style.width = 1080- windowScrollLeft + "px";
           //           }
-          //           else
-          //           {
-          //               let div = document.createElement('div');
-          //               div.id = 'add-element';
-          //               div.style.position = 'fixed';
-          //               div.style.backgroundColor = '#e1e1e1';
-          //               div.style.height = "0px";
-          //               div.style.width = '30px';
-          //               div.style.right = 0;
-          //               div.style.top =   "0px";
-          //               div.style.zIndex = 100;
-          //               document.querySelector('body').appendChild(div);
-          //           }
+          //
           //       }
-          //       if(windowScrollTop < 1)
+          //       if(windowScrollLeft < 1)
           //       {
-          //           let addElement = document.querySelector('#add-element');
           //           if(addElement)
           //           {
           //               document.querySelector('body').removeChild(addElement);

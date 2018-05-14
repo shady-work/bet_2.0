@@ -48,7 +48,7 @@
                     <div class="context">
                         <!--银行卡充值-->
                         <div class="context-top " style="width:500px;" >
-                            <form action="" v-show="isActive[0]">
+                            <div action="" v-show="isActive[0]">
                                 <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路一[银行存款]<br></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">充值金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.money"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">付款银行:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.bank_name"></p>
@@ -56,17 +56,17 @@
                                 <p style="margin-bottom:30px;margin-left:80px;">开户姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"  v-model="bank_topup.store_name"></p>
                                 <button style="width:300px;height:40px;margin-left:165px;" @click="submit_bank()">我已完成打款,确认提交</button>
                                 <!--<p style="margin-bottom:30px;margin-left:80px;">打款时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text"></p>-->
-                            </form>
+                            </div>
                         </div>
                         <!--线下充值-->
                         <div class="context-top " style="width:500px;">
-                            <form action=""  v-show="isActive[1]">
+                            <div action=""  v-show="isActive[1]">
                                 <p style="margin-bottom:30px;margin-left:80px;">充值线路:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;充值线路二[线下]<br></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">账号姓名:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.offline_name" placeholder="微信昵称/支付宝户名"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">存款账号:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.store_number" placeholder="微信号/支付宝账号"></p>
                                 <p style="margin-bottom:30px;margin-left:80px;">存款金额:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" v-model="offline_topup.money" placeholder="请输入您此次汇款的金额"></p>
                                 <button style="width:300px;height:40px;margin-left:165px;" @click="submit_offline()">我已完成打款,确认提交</button>
-                            </form>
+                            </div>
                         </div>
                         <!--第三方-->
                         <div class="context-top " style="width:500px;">
