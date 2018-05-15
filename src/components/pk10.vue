@@ -1242,7 +1242,7 @@
                         <td>${this.dicrationaries_2[index]}</td>
                         <td class="color-red">${str}</td>
                         <td>${this.bet_content[i].money}</td>
-                        <td><button  class='${this.bet_content[i].content}' attr='my-btn-1'>删除</button></td>
+                        <td><button  class='${this.bet_content[i].content}' attr='my-btn-2'>删除</button></td>
                      </tr>`;
           sumMoney += parseInt(this.bet_content[i].money);
         }
@@ -1601,13 +1601,14 @@
   }
 </style>
 <style>
-  button[attr='my-btn-1']
+  button[attr='my-btn-2']
   {
 
-    margin-right:5px;
+    /*margin-right:23px;*/
     color:#fff;
     background:#f56c6c;
-    border: 1px solid #dcdfe6;padding:3px;
+    border: 1px solid #dcdfe6;
+        padding:3px;
   }
   .bet-table
   {

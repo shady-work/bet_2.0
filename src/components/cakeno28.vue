@@ -189,7 +189,7 @@
               </div>
               <div v-for="(v,k) in odds.color" class="long-bet-content" v-if="v !=  0.0000">
                 <span v-if="k==0" style="color: red;">{{odds.color_str[k]}}</span>
-                <span v-if="k==1" style="color: green;">{{odds.color_str[k]}}</span>
+                <span v-if="k==1" style="color: #2cd885;">{{odds.color_str[k]}}</span>
                 <span v-if="k==2" style="color: blue;">{{odds.color_str[k]}}</span>
                 <span class="he22 color-red f700" style="padding:1px;margin-left:-8px;margin-top:4px;">{{v}}</span>
                 <input type="text" v-model="bet_content.color[k]"
@@ -627,7 +627,7 @@
                         <td>${this.dicrationaries_2[index]}</td>
                         <td class="color-red">${str}</td>
                         <td>${this.bets[i].money}</td>
-                        <td><button  class='${this.bets[i].content}' attr='my-btn-1'>删除</button></td>
+                        <td><button  class='${this.bets[i].content}' attr='my-btn-3'>删除</button></td>
                      </tr>`;
             //算下注的总金额
             sumMoney += parseInt(this.bets[i].money);
@@ -1063,10 +1063,10 @@
   @import url('../assets/css/cakeno28.css');
 </style>
 <style>
-  button[attr='my-btn-1']
+  button[attr='my-btn-3']
   {
-    float:right;
-    margin-right:12px;
+    /*float:right;*/
+    /*margin-right:27px;*/
     color:#fff;
     background:#f56c6c;
     border: 1px solid #dcdfe6;padding:3px;
