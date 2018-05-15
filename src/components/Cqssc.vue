@@ -1486,7 +1486,7 @@
     }
     button[attr='my-btn-1']
     {
-        margin-right:27px;
+        /*margin-right:27px;*/
         color:#fff;
         background:#f56c6c;
         border: 1px solid #dcdfe6;padding:3px;
