@@ -19,13 +19,13 @@
                     </div>
                 </div>
                 <div class="left">
-                    <p class="color-white" > 最新开奖：第{{lastExpect}}期,每日120期，今日剩余{{120-sales_+2}}期
+                    <p class="color-white" > 最新开奖：第{{$store.state.cqssc.lastExpect}}期,每日120期，今日剩余{{120-sales_+2}}期
                         <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
                         <a class="my-a" @click="history_codes()">历史记录</a>
                         <a class="my-a" @click="turn()" >快速下注</a>
                     </p>
                     <div class="balls">
-                        <span v-for="v in lastOpenCode" :class="'hhao'+v">{{v}}</span>
+                        <span v-for="v in $store.state.cqssc.open_codes" :class="'hhao'+v">{{v}}</span>
                         <p class="color-white pull-right open-details">总和:{{parseInt(lastOpenCode[0])+parseInt(lastOpenCode[1])+parseInt(lastOpenCode[2])+parseInt(lastOpenCode[3])+parseInt(lastOpenCode[4])}},{{details.dragon_and_tiger[1]|number1}},{{details.dragon_and_tiger[0]|number1}}丨龙虎:{{details.dragon_and_tiger[2]}}丨前三:{{details.front_3[0]}}丨中三:{{details.medium_3[0]}}丨后三:{{details.end_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
@@ -230,7 +230,14 @@ export default {
         // 2 获取最新的开奖号码
         this.get_last_code();
 
-    }
+    },
+    watch:
+        {
+            "$store.state.cqssc.lastExpect":function()
+            {
+                this.get_last_code();
+            },
+        }
 }
 </script>
 

@@ -16,13 +16,13 @@
               </div>
           </div>
           <div class="left">
-              <p class="color-white"> 最新开奖：第{{lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <p class="color-white"> 最新开奖：第{{$store.state.pk10.lastExpect}}期,每日179期，今日剩余{{179-sales_+1}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                   <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
                   <a class="my-a" @click="history_codes()">历史记录</a>
                   <a class="my-a" @click="turn()" >快速下注</a>
               </p>
               <div class="balls">
-                  <span v-for="(v,k) in open_codes" :class="'hao'+ (v/10*10)">{{v/10*10}}</span>
+                  <span v-for="(v,k) in $store.state.pk10.open_codes" :class="'hao'+ (v/10*10)">{{v/10*10}}</span>
                    <p class="color-white pull-right open-details">冠亚军和:{{details.sum[0]}},{{details.sum[2]}},{{details.sum[1]}}丨1~5龙虎:{{details.ball_1[3]}},{{details.ball_2[3]}},{{details.ball_3[3]}},{{details.ball_4[3]}},{{details.ball_5[3]}}</p>
                   <div class="clear"></div>
               </div>
@@ -221,7 +221,14 @@ export default {
             // 2 上期开奖结果
             this.get_last();
             // 3 获取用户有哪些盘口
-        }//end created
+        },//end created
+    watch:
+        {
+            "$store.state.pk10.lastExpect":function()
+            {
+                this.get_last();
+            },
+        }
         
 }
 </script>

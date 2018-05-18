@@ -17,20 +17,19 @@
                     </div>
                 </div>
                 <div class="left">
-                    <p class="color-white"> 最新开奖：第{{last_expect}}期,每日396期，今日剩余{{396-sales_+8}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p class="color-white"> 最新开奖：第{{$store.state.cake.lastExpect}}期,每日396期，今日剩余{{396-sales_}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
                         <a class="my-a" @click="history_codes()">历史记录</a>
                         <a class="my-a" @click="turn()" >快速下注</a>
                     </p>
                     <div class="balls">
-                        <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.cake.open_codes[0])">{{$store.state.cake.open_codes[0]}}</span>
                         <span class="bg-none color-white">+</span>
-                        <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.cake.open_codes[1])">{{$store.state.cake.open_codes[1]}}</span>
                         <span class="bg-none color-white">+</span>
-                        <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+                        <span  class="color-white" :class="returnColor($store.state.cake.open_codes[2])">{{$store.state.cake.open_codes[2]}}</span>
                         <span class="bg-none color-white">=</span>
-                        <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
-
+                        <span class="color-white" :class="returnColor($store.state.cake.open_codes[0] + $store.state.cake.open_codes[1] + $store.state.cake.open_codes[2])">{{$store.state.cake.open_codes[0] + $store.state.cake.open_codes[1] + $store.state.cake.open_codes[2]}}</span>
                         <p class="color-white pull-right open-details">总和:{{details.ball_1[0]}},{{details.ball_2[0]}},{{details.ball_2[1]}},{{details.ball_2[2]}},{{details.ball_2[3]}}丨波色:{{details.ball_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
@@ -82,7 +81,6 @@ export default {
                 ],
                 "ball_5": []
             },
-
             money:'',
         }
     },//end data
@@ -94,12 +92,14 @@ export default {
           let url = `${this.global.config.API}cake/lastLty`;
           this.$http.get(url).then(function(response){
             let data = response.data;
+
               this.details = data.details;
               this.money = data.unclear_money;
             this.open_codes = data.details.ball_0;
             this.last_expect = data.expect;
           });
         },
+
         //获取下注时间
         get_time : function()
         {
@@ -167,6 +167,7 @@ export default {
           },1000);
           //开盘倒计时
         },
+
         //返回颜色
          returnColor:function(num)
         {
@@ -204,7 +205,15 @@ export default {
     {
          this.get_last_code();
          this.get_time();
-    }
+    },
+    watch:
+        {
+            "$store.state.cake.lastExpect":function()
+            {
+                this.get_last_code();
+            },
+        }
+
 }
 </script>
 

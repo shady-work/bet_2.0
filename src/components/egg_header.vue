@@ -17,19 +17,19 @@
                     </div>
                 </div>
                 <div class="left">
-                   <p class="color-white"> 最新开奖：第{{last_expect}}期,每日179期，今日剩余{{179-sales_}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                   <p class="color-white"> 最新开奖：第{{$store.state.egg.lastExpect}}期,每日179期，今日剩余{{179-sales_}}期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                        <span color="color-white;" style="float:right; width:127px;">未结金额:{{money}}</span>
                        <a class="my-a" @click="history_codes()">历史记录</a>
                        <a class="my-a" @click="turn()" >快速下注</a>
                     </p>
                     <div class="balls">
-                        <span class="color-white" :class="returnColor(open_codes[0])">{{open_codes[0]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.egg.open_codes[0])">{{$store.state.egg.open_codes[0]}}</span>
                         <span class="bg-none color-white">+</span>
-                        <span class="color-white" :class="returnColor(open_codes[1])">{{open_codes[1]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.egg.open_codes[1])">{{$store.state.egg.open_codes[1]}}</span>
                         <span class="bg-none color-white">+</span>
-                        <span  class="color-white" :class="returnColor(open_codes[2])">{{open_codes[2]}}</span>
+                        <span  class="color-white" :class="returnColor($store.state.egg.open_codes[2])">{{$store.state.egg.open_codes[2]}}</span>
                         <span class="bg-none color-white">=</span>
-                        <span class="color-white" :class="returnColor(open_codes[0] + open_codes[1] + open_codes[2])">{{open_codes[0] + open_codes[1] + open_codes[2]}}</span>
+                        <span class="color-white" :class="returnColor($store.state.egg.open_codes[0] + $store.state.egg.open_codes[1] + $store.state.egg.open_codes[2])">{{$store.state.egg.open_codes[0] + $store.state.egg.open_codes[1] + $store.state.egg.open_codes[2]}}</span>
                         <p class="color-white pull-right open-details">总和:{{details.ball_1[0]}},{{details.ball_2[0]}},{{details.ball_2[1]}},{{details.ball_2[2]}},{{details.ball_2[3]}}丨波色:{{details.ball_3[0]}}</p>
                         <div class="clear"></div>
                     </div>
@@ -204,7 +204,14 @@ export default {
     {
          this.get_last_code();
          this.get_time();
-    }
+    },
+    watch:
+        {
+            "$store.state.egg.lastExpect":function()
+            {
+                this.get_last_code();
+            },
+        }
 }
 </script>
 

@@ -1418,8 +1418,7 @@
             this.handicaps = [];
             if(res.data.status == 200)
             {
-
-              for(let i = 0 ; i <res.data.data.ratelist.length;i++)
+                for(let i = 0 ; i <res.data.data.ratelist.length;i++)
               {
                 this.handicaps.push(res.data.data.ratelist[i]);
                 this.which_handicap = res.data.data.ratelist[0].ratewin_name;
